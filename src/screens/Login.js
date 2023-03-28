@@ -17,7 +17,7 @@ const Login = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-        <View style={[styles.container,{marginHorizontal : pixelSizeHorizontal(20)}]}>
+        <View style={[styles.container,{marginHorizontal : pixelSizeHorizontal(24)}]}>
 
                 <ScrollView style={{flex : 1}}>
 
@@ -51,11 +51,11 @@ const Login = () => {
             </TouchableOpacity>
 
             <Text style={styles.descText}>
-                By creating an account,i accept the <Text style={{color : primary, fontFamily : SEMIBOLD}}> Terms & Conditions</Text>
+                By creating an account, i accept the <Text style={{color : primary, fontFamily : SEMIBOLD}}> Terms & Conditions</Text>
             </Text>
 
 
-            <TouchableOpacity style={styles.btnLogin}>
+            <TouchableOpacity onPress={() => navigate("OtpView",{isRegister:false})} style={styles.btnLogin}>
                 <Text style={styles.signInText}>Sign In</Text>
             </TouchableOpacity>
 

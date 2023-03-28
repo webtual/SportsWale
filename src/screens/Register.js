@@ -1,21 +1,26 @@
 
-import { View, Text, SafeAreaView, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native'
-import React from 'react'
+import { View, Text, SafeAreaView, StyleSheet, TextInput, TouchableOpacity, ScrollView, } from 'react-native'
+import React, { useState } from 'react'
 import { black, light_grey, primary, warmGrey, white } from '../constants/Color'
 
 import Translate from '../translation/Translate'
 import { BOLD, FontSize, MEDIUM, REGULAR, SEMIBOLD } from '../constants/Fonts'
 import { pixelSizeHorizontal, widthPixel } from '../commonComponents/ResponsiveScreen'
-import { goBack, navigate } from '../navigations/RootNavigation'
+import { goBack, navigate, resetScreen } from '../navigations/RootNavigation'
 import IconButton from '../commonComponents/IconButton'
 
 import Icon from 'react-native-vector-icons/Feather'
+import { HStack, Radio, Stack } from 'native-base'
 
 const Register = () => {
-
+    const [value, setValue] = useState("one");
 
     const btnLoginTap = () => {
         goBack()
+    }
+    const btnSignUp = () => {
+
+        navigate("OtpView", { isRegister: true })
     }
 
     return (
@@ -25,8 +30,8 @@ const Register = () => {
                 <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
 
 
-                    <IconButton 
-                        additionalStyle={{ marginLeft: pixelSizeHorizontal(-10), marginTop : pixelSizeHorizontal(20) }}
+                    <IconButton
+                        additionalStyle={{ marginLeft: pixelSizeHorizontal(-10), marginTop: pixelSizeHorizontal(20) }}
                         onPress={() => goBack()}>
                         <Icon name={"arrow-left"} size={24} color={black} />
                     </IconButton>
@@ -39,17 +44,18 @@ const Register = () => {
 
                     <View style={{ marginTop: pixelSizeHorizontal(30) }}>
                         <Text style={styles.titleText}>
-                        First Name
+                            First Name
                         </Text>
                         <TextInput
                             style={{ borderRadius: widthPixel(5), borderWidth: 2, borderColor: primary, padding: pixelSizeHorizontal(10), marginTop: pixelSizeHorizontal(10) }}
                             placeholder={"Enter first name"}
                         />
+                        
                     </View>
 
                     <View style={{ marginTop: pixelSizeHorizontal(15) }}>
                         <Text style={styles.titleText}>
-                        Last Name
+                            Last Name
                         </Text>
                         <TextInput
                             style={{ borderRadius: widthPixel(5), borderWidth: 2, borderColor: primary, padding: pixelSizeHorizontal(10), marginTop: pixelSizeHorizontal(10) }}
@@ -69,7 +75,7 @@ const Register = () => {
 
                     <View style={{ marginTop: pixelSizeHorizontal(15) }}>
                         <Text style={styles.titleText}>
-                        Email Id ( Optional )
+                            Email Id ( Optional )
                         </Text>
                         <TextInput
                             style={{ borderRadius: widthPixel(5), borderWidth: 2, borderColor: primary, padding: pixelSizeHorizontal(10), marginTop: pixelSizeHorizontal(10) }}
@@ -86,13 +92,36 @@ const Register = () => {
                             placeholder={"Enter Password"}
                         />
                     </View>
+                    <View style={{ marginTop: pixelSizeHorizontal(15) }}>
+                        <Text style={styles.titleText}>
+                            Gender
+                        </Text>
+                            <Radio.Group name="exampleGroup" defaultValue="1" accessibilityLabel="pick a size">
+                                <Stack direction={{
+                                    base: "row",
+                                    md: "row"
+                                }} alignItems={{
+                                    base: "flex-start",
+                                    md: "center"
+                                }} space={5} >
+                                    <Radio value="1" colorScheme="warning" size="sm" my={1}>
+                                        Male
+                                    </Radio>
+                                    <Radio value="2" colorScheme="warning" size="sm" my={1}>
+                                        Female
+                                    </Radio>
+                                   
+                                </Stack>
+                            </Radio.Group>
 
+                    </View>
                     <Text style={styles.descText}>
                         By creating an account,i accept the <Text style={{ color: primary, fontFamily: SEMIBOLD }}> Terms & Conditions</Text>
                     </Text>
 
 
-                    <TouchableOpacity style={styles.btnLogin}>
+                    <TouchableOpacity onPress={() => btnSignUp()}
+                        style={styles.btnLogin}>
                         <Text style={styles.signInText}>Sign Up</Text>
                     </TouchableOpacity>
 

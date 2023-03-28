@@ -4,14 +4,17 @@ import React from 'react';
 import store from './src/redux/store/store'
 import { Provider } from 'react-redux'
 import AppNavigator from './src/navigations/AppNavigator';
-
+import { NativeBaseProvider, Box } from "native-base";
 
 const App = () => {
 
   return (
-    <Provider store={store}>
-      <AppNavigator />
-    </Provider>
+    <NativeBaseProvider>
+      <Provider store={store}>
+        <AppNavigator />
+      </Provider>
+    </NativeBaseProvider>
+
   );
 }
 

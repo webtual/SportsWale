@@ -35,3 +35,5 @@ export const FontSize = {
     FS_45: fontPixel(45),
     FS_48: fontPixel(48),
 }
+
+
