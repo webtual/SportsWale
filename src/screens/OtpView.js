@@ -37,12 +37,12 @@ const OtpView = ({ route }) => {
 
 
     const btnSubmitTap = async () => {
-        if (isRegister) {
-            navigate("ChooseIntrest")
-        }
-        else {
+        // if (isRegister) {
+        //     navigate("ChooseIntrest")
+        // }
+        // else {
             resetScreen("Dashboard")
-        }
+        // }
     }
 
     // Action Methods

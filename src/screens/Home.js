@@ -174,3 +174,15 @@ const styles = StyleSheet.create({
 })
 
 export default Home
+
+
+
+
+
+// Task Update (28-03-2023) :
+
+// (SPORTSWALE) :
+//   1.  Otp screen design
+//   2.  choose Intrest screen design
+//   3.  home screen design
+//   4.  venue list screen design

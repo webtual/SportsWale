@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         marginLeft: pixelSizeHorizontal(-10),
     },
     mainView: {
-        flex: 1, backgroundColor: offWhite,
+        flex: 1, backgroundColor: white,
     }
 })
 

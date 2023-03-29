@@ -1,6 +1,6 @@
 
 import { View, Text, SafeAreaView, StyleSheet, TextInput, TouchableOpacity, ScrollView, FlatList } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { black, black05, grey, light_grey, primary, secondary, secondary_dark_grey, warmGrey, warning, white } from '../constants/Color'
 
 import Translate from '../translation/Translate'
@@ -14,9 +14,22 @@ import HeaderView from '../commonComponents/HeaderView'
 import { HomeBanner1 } from '../constants/Images'
 import { Input } from 'native-base'
 import FastImage from 'react-native-fast-image'
+import { color } from 'native-base/lib/typescript/theme/styled-system'
+import AddModel from '../commonComponents/AddModel'
+import BottomSheet from 'react-native-easy-bottomsheet'
 
 const Venue = () => {
 
+    const [isAddModal, setIsAddModal] = useState(false);
+
+    const AddModal = () => {
+
+        console.log('====================================');
+        console.log("isAddModal :: ",isAddModal);
+        console.log('====================================');
+
+        setIsAddModal(!isAddModal);
+    };
 
     const btnLoginTap = () => {
         goBack()
@@ -76,7 +89,11 @@ const Venue = () => {
     return (
         <>
             <HeaderView title="Venues" isBack={false} containerStyle={{ paddingHorizontal: pixelSizeHorizontal(0) }}
-                titleColor={white}  >
+                titleColor={white} rightComponent={(
+                    <TouchableOpacity onPress={() =>AddModal()}>
+                    <Icon name="plus-circle-outline" size={24} color={white} />
+                    </TouchableOpacity>
+                )}>
                 <View>
                     <View style={{ marginVertical: pixelSizeHorizontal(15), marginHorizontal: pixelSizeHorizontal(20) }} >
                         <Input backgroundColor={grey} size="md" h={"10"} _focus={{ borderColor: primary, borderWidth: 1.5 }}
@@ -135,8 +152,18 @@ const Venue = () => {
                         )}
                     />
                 </View>
+
+               
             </HeaderView>
 
+            <AddModel 
+                isAddVisible={isAddModal} 
+                toggleModel={() => AddModal()} 
+                onAddVenue={(data) =>{ console.log('====================================');
+                console.log("selected data : ",data);
+                console.log('====================================');}}/>
+            
+          
         </>
     )
 }
