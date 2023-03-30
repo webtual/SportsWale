@@ -211,6 +211,7 @@ const Register = () => {
                 </ScrollView>
             </View>
             <AddModel
+            title={"Select Sport"}
                 isAddVisible={isAddModal}
                 toggleModel={() => AddModal()}
                 selected_sport={selectedSportData}

@@ -15,6 +15,7 @@ import FastImage from 'react-native-fast-image'
 import { SCREEN_WIDTH } from '../constants/ConstantKey'
 import CarouselCard from '../commonComponents/Carousel/index'
 import HeaderView from '../commonComponents/HeaderView'
+import { updateLocale } from 'moment'
 
 
 const Home = () => {
@@ -179,10 +180,10 @@ export default Home
 
 
 
-// Task Update (28-03-2023) :
+// Task Update (29-03-2023) :
 
 // (SPORTSWALE) :
-//   1.  Otp screen design
-//   2.  choose Intrest screen design
-//   3.  home screen design
-//   4.  venue list screen design
+//   1.  Venue details design
+//   2.  Profile screen design
+//   3.  Select intrest pop-up 
+//   4.  Manage Authentication flow

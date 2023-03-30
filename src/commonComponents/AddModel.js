@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import IconButton from './IconButton'
 import BottomSheet from "react-native-easy-bottomsheet";
 
-const AddModel = ({ isAddVisible, toggleModel, onAddVenue, ...props }) => {
+const AddModel = ({ isAddVisible, title, toggleModel, onAddVenue, ...props }) => {
 
     const [selectedList, setSelectedList] = useState([])
 
@@ -108,7 +108,7 @@ const AddModel = ({ isAddVisible, toggleModel, onAddVenue, ...props }) => {
     return (
         <BottomSheet
             // onBackdropPress={true}
-            bottomSheetTitle={"Add venues"}
+            bottomSheetTitle={title}
             bottomSheetIconColor="#0A2463"
             bottomSheetStyle={{
                 backgroundColor: "white",

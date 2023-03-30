@@ -29,6 +29,7 @@ import FastImage from 'react-native-fast-image';
 import { FolderFillImg, FolderImg, HomeFillImg, HomeImg, SettingFillImg, SettingImg, UserFillImg, UserImg } from '../constants/Images';
 import ChooseIntrest from '../screens/chooseIntrest';
 import VenueDetail from '../screens/VenueDetail';
+import AddVenue from '../screens/AddVenue';
 
 // import { cart_data } from '../redux/reducers/cartReducer';
 // import { useSelector } from 'react-redux';
@@ -128,6 +129,7 @@ function AppStacks() {
 			<Stack.Screen name="Dashboard" component={HomeTabs} />
 			<Stack.Screen name="ChooseIntrest" component={ChooseIntrest} />
 			<Stack.Screen name="VenueDetail" component={VenueDetail} />
+			<Stack.Screen name="AddVenue" component={AddVenue} />
 		</Stack.Navigator>
 	)
 }
