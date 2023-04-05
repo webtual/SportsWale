@@ -11,6 +11,7 @@ import { FontSize, SEMIBOLD } from '../constants/Fonts';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Feather'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 // import Icon from 'react-native-vector-icons/Feather';
 
 
@@ -30,6 +31,8 @@ import { FolderFillImg, FolderImg, HomeFillImg, HomeImg, SettingFillImg, Setting
 import ChooseIntrest from '../screens/chooseIntrest';
 import VenueDetail from '../screens/VenueDetail';
 import AddVenue from '../screens/AddVenue';
+import Activity from '../screens/Activity';
+import CreateActivity from '../screens/CreateActivity';
 
 // import { cart_data } from '../redux/reducers/cartReducer';
 // import { useSelector } from 'react-redux';
@@ -61,6 +64,16 @@ function HomeTabs() {
 						tabBarLabel: "Home",
 						tabBarIcon: ({ color, size, focused }) => (
 							<Icon name={"home"} size={24} color={color} />
+						),
+					}}
+				/>
+				<Tab.Screen
+					name={"Activity"}
+					component={Activity}
+					options={{
+						tabBarLabel: "Activity",
+						tabBarIcon: ({ color, size, focused }) => (
+							<MaterialCommunityIcons name={"trophy-variant-outline"} size={24} color={color} />
 						),
 					}}
 				/>
@@ -130,6 +143,7 @@ function AppStacks() {
 			<Stack.Screen name="ChooseIntrest" component={ChooseIntrest} />
 			<Stack.Screen name="VenueDetail" component={VenueDetail} />
 			<Stack.Screen name="AddVenue" component={AddVenue} />
+			<Stack.Screen name="CreateActivity" component={CreateActivity} />
 		</Stack.Navigator>
 	)
 }

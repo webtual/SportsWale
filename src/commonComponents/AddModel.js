@@ -15,11 +15,13 @@ import BottomSheet from "react-native-easy-bottomsheet";
 const AddModel = ({ isAddVisible, title, toggleModel, onAddVenue, ...props }) => {
 
     const [selectedList, setSelectedList] = useState([])
+    const [Sport, setSport] = useState("")
 
 
     useEffect(() => {
         if (props?.selected_sport) {
             setSelectedList(props?.selected_sport)
+            setSport(props?.selected_sport)
         }
 
     }, [props?.selected_sport])
@@ -74,8 +76,41 @@ const AddModel = ({ isAddVisible, title, toggleModel, onAddVenue, ...props }) =>
 
 
     ]
-
+    const Facalities = [
+        {
+            id: 1,
+            SportName: 'Grass pitch',
+        },
+        {
+            id: 2,
+            SportName: 'Indoor/outdoor',
+        },
+        {
+            id: 3,
+            SportName: 'Capacity-50',
+        },
+        {
+            id: 4,
+            SportName: 'Drinking water',
+        },
+        {
+            id: 5,
+            SportName: 'Parking',
+        },
+        {
+            id: 6,
+            SportName: 'Cafe',
+        },
+    ]
     const SelectIntrest = (item) => {
+        console.log("props.isSingleSelect",item)
+        if(props.isSingleSelect){
+            setSport(item)
+            console.log('====================================');
+            console.log("sport name", Sport);
+            console.log('====================================');
+        }
+        else{
         var selectedData = [...selectedList]
 
         let filter = selectedData.filter(x => x.id === item.id)
@@ -90,10 +125,20 @@ const AddModel = ({ isAddVisible, title, toggleModel, onAddVenue, ...props }) =>
         console.log("selectedData", selectedData);
         console.log('====================================');
         setSelectedList(selectedData)
+    }
 
     }
 
     const checkExists = (item) => {
+        if(props.isSingleSelect){
+            if (Sport.id === item.id) {
+                return true
+            }
+            else {
+                return false
+            }
+        }
+        else {
         let filter = selectedList.filter(x => x.id === item.id)
         if (filter.length) {
             return true
@@ -101,7 +146,7 @@ const AddModel = ({ isAddVisible, title, toggleModel, onAddVenue, ...props }) =>
         else {
             return false
         }
-
+    }
     }
 
 
@@ -124,11 +169,11 @@ const AddModel = ({ isAddVisible, title, toggleModel, onAddVenue, ...props }) =>
             <ScrollView>
 
                 <View style={{ backgroundColor: white, margin: 5 }}>
-                    <View style={{ margin: pixelSizeHorizontal(10) }}>
+                    {/* <View style={{ margin: pixelSizeHorizontal(10) }}>
                         <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_18, color: black, }}>Avialable sports :</Text>
-                    </View>
+                    </View> */}
                     <FlatList
-                        data={IntrestData}
+                        data={props.isFacalities ? Facalities : IntrestData}
                         contentContainerStyle={{
                             flexDirection: 'row',
                             alignSelf: "flex-start",
@@ -144,23 +189,19 @@ const AddModel = ({ isAddVisible, title, toggleModel, onAddVenue, ...props }) =>
                                     alignItems: "center",
                                     borderRadius: 8,
                                 }}>
-                                <Icon name={item.SportImage} size={24} color={checkExists(item) == true ? white : black} />
-
+                                    {props?.isFacalities? 
+                                    <></>
+:                                <Icon name={item.SportImage} size={24} color={checkExists(item) == true ? white : black} />
+                                    }
                                 <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_14, color: checkExists(item) == true ? white : black, marginLeft: 5 }}>{item.SportName}</Text>
                             </TouchableOpacity>
                         )}
                     />
-                    {/* 
-                    <View style={{ margin: pixelSizeHorizontal(10) }}>
-                        <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_18, color: black, }}>Amenities/Facalities</Text>
-                    </View> */}
-
-
-
                 </View>
                 <TouchableOpacity
-                    onPress={() => {
-                        onAddVenue(selectedList)
+                    onPress={() => 
+                        {
+                        onAddVenue(props.isSingleSelect ?Sport: selectedList)
                         toggleModel()
                     }}
                     style={styles.btnLogin}>
