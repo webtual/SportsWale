@@ -53,7 +53,6 @@ const Intro = () => {
   const { currentPage: pageIndex } = sliderState;
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const _onViewableItemsChanged = useCallback(({ viewableItems, changed }) => {
-    console.log("viewableItems",viewableItems)
     // setIndex(viewableItems[0].index);
   }, []);
 

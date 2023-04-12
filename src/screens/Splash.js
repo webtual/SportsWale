@@ -12,7 +12,7 @@ import translate from '../translation/Translate';
 import ApiManager from '../commonComponents/ApiManager';
 import { name, version } from '../../package.json'
 import { VERSION_CHECK } from '../constants/ApiUrl';
-import { ImgLogo, SplashImg } from '../constants/Images';
+import { appLogoWhiteTrans, ImgLogo, SplashImg } from '../constants/Images';
 
 /** Redux Files */
 import { useSelector, useDispatch } from 'react-redux'
@@ -61,26 +61,15 @@ const Splash = (props) => {
 
 	return (
 		<View style={styles.container}>
-			<StatusBar barStyle={'dark-content'} backgroundColor={offWhite} />
-			<View style={{ flex: 1, backgroundColor: offWhite, alignItems: 'center', justifyContent: 'center' }}>
+			<StatusBar barStyle={'dark-content'} backgroundColor={primary} />
+			<View style={{ flex: 1, backgroundColor: primary, alignItems: 'center', justifyContent: 'center' }}>
 
-				{/* <FastImage
-					source={ImgLogo}
-					style={{ width: '100%', height: heightPixel(455), alignSelf: 'center' }}
+				<FastImage
+					source={appLogoWhiteTrans}
+					style={{ width: SCREEN_WIDTH - 60 , height: heightPixel(400), alignSelf: 'center' }}
 					resizeMode="cover"
-				/> */}
+				/>
 			</View>
-
-			<View style={styles.textView}>
-
-				<Text style={styles.textName}>
-					{Translate.t("app_name")}
-				</Text>
-
-				
-
-			</View>
-
 		</View>
 	);
 };
@@ -96,7 +85,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center', left: 0, right: 0
 	},
 	textName: {
-		fontFamily: BOLD, fontSize: FontSize.FS_22, color: black,
+		fontFamily: BOLD, fontSize: FontSize.FS_24, color: white,
 		marginHorizontal: pixelSizeHorizontal(20)
 	},
 	txtWebsite: {
