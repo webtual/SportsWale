@@ -11,7 +11,6 @@ import IconButton from '../commonComponents/IconButton'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import HeaderView from '../commonComponents/HeaderView'
-import { HomeBanner1 } from '../constants/Images'
 import { Input } from 'native-base'
 import FastImage from 'react-native-fast-image'
 import { SCREEN_WIDTH } from '../constants/ConstantKey'

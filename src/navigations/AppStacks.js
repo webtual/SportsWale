@@ -33,6 +33,7 @@ import VenueDetail from '../screens/VenueDetail';
 import AddVenue from '../screens/AddVenue';
 import Activity from '../screens/Activity';
 import CreateActivity from '../screens/CreateActivity';
+import ActivityDetails from '../screens/ActivityDetails';
 
 // import { cart_data } from '../redux/reducers/cartReducer';
 // import { useSelector } from 'react-redux';
@@ -144,6 +145,7 @@ function AppStacks() {
 			<Stack.Screen name="VenueDetail" component={VenueDetail} />
 			<Stack.Screen name="AddVenue" component={AddVenue} />
 			<Stack.Screen name="CreateActivity" component={CreateActivity} />
+			<Stack.Screen name="ActivityDetails" component={ActivityDetails} />
 		</Stack.Navigator>
 	)
 }

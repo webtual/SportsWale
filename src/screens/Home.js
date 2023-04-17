@@ -10,7 +10,7 @@ import { goBack, navigate, resetScreen } from '../navigations/RootNavigation'
 import IconButton from '../commonComponents/IconButton'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { FlatList, Input } from 'native-base'
-import { HomeBanner1, HomeBanner2, HomeBanner3 } from '../constants/Images'
+// import { HomeBanner1, HomeBanner2, HomeBanner3 } from '../constants/Images'
 import FastImage from 'react-native-fast-image'
 import { SCREEN_WIDTH } from '../constants/ConstantKey'
 import CarouselCard from '../commonComponents/Carousel/index'
@@ -28,13 +28,13 @@ const Home = () => {
 
     const HomeBanner = [
         {
-            image: HomeBanner1
+            image: "https://img.freepik.com/free-photo/sports-tools_53876-138077.jpg"
         },
         {
-            image: HomeBanner2
+            image: "https://img.freepik.com/free-photo/sports-tools_53876-138077.jpg"
         },
         {
-            image: HomeBanner3
+            image: "https://img.freepik.com/free-photo/sports-tools_53876-138077.jpg"
         },
     ]
     const PickSport = [
@@ -160,7 +160,7 @@ const Home = () => {
                     contentRender={item => <View style={{ borderRadius: widthPixel(10), }}>
                         <Image
                             style={{ borderRadius: widthPixel(8), width: "100%", height: "100%", borderRadius: widthPixel(10), }}
-                            source={item.image}
+                            source={{uri :"https://img.freepik.com/free-photo/sports-tools_53876-138077.jpg"}}
                         />
                     </View>}
                 />

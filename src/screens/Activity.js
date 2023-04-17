@@ -22,53 +22,31 @@ const Activity = () => {
 
     const VenuesData = [
         {
-            image: "https://content.jdmagicbox.com/comp/delhi/s4/011pxx11.xx11.151026131555.u2s4/catalogue/t-n-memorial-cricket-academy-nyay-khand-1-indirapuram-delhi-cricket-coaching-classes-g3hscbmrj5.jpg",
             venueName: "Ahemedabad cricket ground",
             venueAddress: "Ahemedabad",
-            rating: "5.0"
+            sportsName:"Cricket",
+            activityName:"Indian Premier League",
+            Date:"17/11/2023",
+            time:"11:00 PM"
         },
         {
-            image: "https://media.hudle.in/venues/e5438e14-eef5-4ef7-8d40-2893200604b0/photo/91577a635c28585de0603a74f2bd7cf2014f27c4",
-            venueName: "Vikramnagar Football Ground",
-            venueAddress: "Ranip",
-            rating: "5.0"
-        },
-        {
-            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROJF5wMaNyC_atpMCOVJhDT-BuOFLkQ_4qpA&usqp=CAU",
-            venueName: "ACC cricket ground",
-            venueAddress: "Thaltej",
-            rating: "5.0"
-        },
-        {
-            image: "https://media.istockphoto.com/id/1130905980/photo/universal-grass-stadium-illuminated-by-spotlights-and-empty-green-grass-playground.jpg?b=1&s=170667a&w=0&k=20&c=7t-jHN-NyuCMH2S9BwUGmQBjbMZaRCykeG86n1PYaD0=",
-            venueName: "Colosseum Ahmedabad",
-            venueAddress: "Prahald nagar",
-            rating: "5.0"
-        },
-        {
-            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR355I7R0GFo-MLsVRZ0NPICjpTVSRG1T8gyQ&usqp=CAU",
             venueName: "Ahemedabad cricket ground",
-            venueAddress: "Ghatlodia",
-            rating: "5.0"
+            venueAddress: "Ahemedabad",
+            sportsName:"Cricket",
+            activityName:"Indian Premier League",
+            Date:"17/11/2023",
+            time:"11:00 PM"
         },
         {
-            image: "https://i1.wp.com/cricketgraph.com/wp-content/uploads/2017/06/LOGO-2.jpg?fit=613%2C341&ssl=1",
-            venueName: "Kankaria Football Ground (Maninagar)",
-            venueAddress: "Nikol",
-            rating: "5.0"
-        },
-        {
-            image: "https://content.jdmagicbox.com/comp/delhi/s4/011pxx11.xx11.151026131555.u2s4/catalogue/t-n-memorial-cricket-academy-nyay-khand-1-indirapuram-delhi-cricket-coaching-classes-g3hscbmrj5.jpg",
             venueName: "Ahemedabad cricket ground",
-            venueAddress: "Naroda",
-            rating: "5.0"
+            venueAddress: "Ahemedabad",
+            sportsName:"Cricket",
+            activityName:"Indian Premier League",
+            Date:"17/11/2023",
+            time:"11:00 PM"
         },
-        {
-            image: "https://cdn3.mycity4kids.com/images/article-images/mobile-web/details/img-20160912-57d683c46cf11.jpg",
-            venueName: "Table Tennis Association of Ahmedabad",
-            venueAddress: "Bodakdev",
-            rating: "5.0"
-        },
+        
+       
     ]
 
     return (
@@ -103,15 +81,15 @@ const Activity = () => {
                                     <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center"}}>
                                     <View style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 8, marginVertical: 5, }}>
                                     <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_16, color: secondary_grey, }}>Date : </Text>
-                                    <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: secondary_dark_grey, marginTop: 4 }}>17/11/2023</Text>
+                                    <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: secondary_dark_grey, marginTop: 4 }}>{item.Date}</Text>
                                 </View>
                                 <View style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 8, marginVertical: 5, }}>
                                     <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_16, color: secondary_grey, }}>Time : </Text>
-                                    <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: secondary_dark_grey, marginTop: 4 }}>11:00 AM</Text>
+                                    <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: secondary_dark_grey, marginTop: 4 }}>{item.time}</Text>
                                 </View>
                                     </View>
                              
-                                <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_18, color: black, paddingHorizontal: 8 }}>Indian Premier League</Text>
+                                <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_18, color: black, paddingHorizontal: 8 }}>{item.activityName}</Text>
                                 <View style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 8, marginVertical: 5, }}>
                                     <Icon name={"cricket"} size={20} color={primary} />
                                     <Text style={{ fontFamily: BOLD, fontSize: FontSize.FS_15, color: primary, marginTop: 4, padding: 5, backgroundColor: secondary, borderRadius: 8, marginHorizontal: 10 }}>Cricket</Text>
@@ -119,12 +97,12 @@ const Activity = () => {
                                 <View style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 8, marginVertical: 5, }}>
                                 <Icon name={"map-marker-radius-outline"} size={20} color={primary} />
                                 <View>
-                                <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_16, color: warmGrey,marginHorizontal:10}}>Ahemedabad cricket ground</Text>
-                                <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_16, color: warmGrey,marginHorizontal:10}}>Thaltej</Text>
+                                <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_16, color: warmGrey,marginHorizontal:10}}>{item.venueName}</Text>
+                                <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_16, color: warmGrey,marginHorizontal:10}}>{item.venueAddress}</Text>
                                 </View>
                                
                               </View>
-                                <TouchableOpacity activeOpacity={0.6} onPress={() => {}}
+                                <TouchableOpacity activeOpacity={0.6} onPress={() => {navigate("ActivityDetails",{item:item})}}
                                  style={{
                                     alignItems: "center",
                                     justifyContent: "center",
