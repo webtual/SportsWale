@@ -45,6 +45,7 @@ export default class CarouselCard extends Component {
     }
 
     componentDidMount() {
+        console.log("")
         setTimeout(() => {
             if(this.mainScroll) {
                 this.mainScroll.scrollTo({x: this.x0 + this.moveDistance, animated: false});

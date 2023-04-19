@@ -1,6 +1,6 @@
 
 import { View, Text, SafeAreaView, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { black, black05, disableColor, grey, light_grey, primary, secondary, secondary_dark_grey, secondary_grey, warmGrey, warning, white } from '../constants/Color'
 
 import Translate from '../translation/Translate'
@@ -16,41 +16,52 @@ import CarouselCard from '../commonComponents/Carousel/index'
 import HeaderView from '../commonComponents/HeaderView'
 import { updateLocale } from 'moment'
 import { append } from 'domutils'
+import StarRating from 'react-native-star-rating';
+import PopUp from './Popup'
 
-const Activity = () => {
+const Request = () => {
+
+
+const [isModalVisible, setModalVisible] = useState(false)
+const [popUpType, setpopUpType] = useState("")
 
     const VenuesData = [
         {
             venueName: "Ahemedabad cricket ground",
             venueAddress: "Ahemedabad",
-            sportsName:"Cricket",
-            activityName:"Indian Premier League",
-            Date:"17/11/2023",
-            time:"11:00 PM"
+            sportsName: "Cricket",
+            activityName: "Indian Premier League",
+            Date: "17/11/2023",
+            time: "11:00 PM"
         },
         {
             venueName: "Ahemedabad cricket ground",
             venueAddress: "Ahemedabad",
-            sportsName:"Cricket",
-            activityName:"Indian Premier League",
-            Date:"17/11/2023",
-            time:"11:00 PM"
+            sportsName: "Cricket",
+            activityName: "Indian Premier League",
+            Date: "17/11/2023",
+            time: "11:00 PM"
         },
         {
             venueName: "Ahemedabad cricket ground",
             venueAddress: "Ahemedabad",
-            sportsName:"Cricket",
-            activityName:"Indian Premier League",
-            Date:"17/11/2023",
-            time:"11:00 PM"
+            sportsName: "Cricket",
+            activityName: "Indian Premier League",
+            Date: "17/11/2023",
+            time: "11:00 PM"
         },
-        
-       
+
+
     ]
+
+
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+    };
 
     return (
         <>
-            <HeaderView title="Activity" isBack={false} containerStyle={{ flex: 1, }}
+            <HeaderView title="Request" isBack={true} onPress={() => goBack()} containerStyle={{ flex: 1, }}
                 titleColor={white}
 
             >
@@ -62,7 +73,7 @@ const Activity = () => {
                     ItemSeparatorComponent={() => (<View style={{ width: widthPixel(10), height: heightPixel(20) }}></View>)}
                     renderItem={({ item }) => (
                         <>
-                            <View 
+                            <View
                                 activeOpacity={0.7}
                                 style={{
                                     backgroundColor: white,
@@ -77,42 +88,50 @@ const Activity = () => {
                                     shadowRadius: 8,
                                     elevation: 3
                                 }}>
-                                    <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center"}}>
-                                    <View style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 8, marginVertical: 5, }}>
-                                    <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_16, color: secondary_grey, }}>Date : </Text>
-                                    <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: secondary_dark_grey, marginTop: 4 }}>{item.Date}</Text>
-                                </View>
-                                <View style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 8, marginVertical: 5, }}>
-                                    <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_16, color: secondary_grey, }}>Time : </Text>
-                                    <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: secondary_dark_grey, marginTop: 4 }}>{item.time}</Text>
-                                </View>
-                                    </View>
-                             
+
+                                <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_18, color: black, paddingHorizontal: 8 }}>{"Event Name"}</Text>
                                 <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_18, color: black, paddingHorizontal: 8 }}>{item.activityName}</Text>
                                 <View style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 8, marginVertical: 5, }}>
-                                    <Icon name={"cricket"} size={20} color={primary} />
+                                    <Icon name={"cricket"} size={20} color={black} />
                                     <Text style={{ fontFamily: BOLD, fontSize: FontSize.FS_15, color: primary, marginTop: 4, padding: 5, backgroundColor: secondary, borderRadius: 8, marginHorizontal: 10 }}>Cricket</Text>
                                 </View>
                                 <View style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 8, marginVertical: 5, }}>
-                                <Icon name={"map-marker-radius-outline"} size={20} color={primary} />
-                                <View>
-                                <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_16, color: warmGrey,marginHorizontal:10}}>{item.venueName}</Text>
-                                <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_16, color: warmGrey,marginHorizontal:10}}>{item.venueAddress}</Text>
+                                    <Icon name={"account-circle-outline"} size={35} color={black} />
+                                    <View style={{ marginHorizontal: 10 }}>
+                                        <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_16, color: warmGrey, }}>{"Mike Smith"}</Text>
+                                        <StarRating
+                                            fullStarColor={warning}
+                                            disabled={false}
+                                            maxStars={5}
+                                            rating={4}
+                                            starSize={16}
+                                            containerStyle={{ width: 80 }}
+                                        // selectedStar={(rating) => this.onStarRatingPress(rating)}
+                                        />
+                                    </View>
                                 </View>
-                               
-                              </View>
-                                <TouchableOpacity activeOpacity={0.6} onPress={() => {navigate("ActivityDetails",{item:item})}}
-                                 style={{
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    backgroundColor: black,
-                                    padding: 5,
-                                    borderBottomLeftRadius: 8,
-                                    borderBottomRightRadius: 8,
-                                    marginTop: 5
-                                }}>
-                                    <Text style={{ fontFamily: BOLD, fontSize: FontSize.FS_16, color: white, }}>Join now</Text>
-                                </TouchableOpacity>
+                                <View 
+                                style={{
+                                    flexDirection:"row",
+                                    alignItems:"center",
+                                    justifyContent:"space-between",
+                                    margin:10,
+                                    }}>
+                                    <TouchableOpacity  onPress={() => {  
+                                        setpopUpType("decline")
+                                        toggleModal()
+                                    }}
+                                    style={{backgroundColor:warmGrey,borderRadius:6,paddingVertical:5,paddingHorizontal:40}}>
+                                        <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_16, color: white, }}>DECLINE</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity   onPress={() => {  
+                                         setpopUpType("sucess")
+                                         toggleModal()
+                                        }}
+                                    style={{backgroundColor:primary,borderRadius:6,paddingVertical:5,paddingHorizontal:40}}>
+                                        <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_16, color: white, }}>ACCEPT</Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
 
                         </>
@@ -121,16 +140,10 @@ const Activity = () => {
 
 
             </HeaderView>
-
-
-            <TouchableOpacity onPress={() => navigate("CreateActivity")}
-                style={{
-                    position: 'absolute', bottom: 20, right: 20,
-                    alignItems: 'center', justifyContent: 'center',
-                    backgroundColor: primary, width: 60, height: 60, borderRadius: 75
-                }}>
-                <Icon name={'plus'} size={35} color={white} />
-            </TouchableOpacity>
+            <PopUp popType={popUpType} 
+                isVisible={isModalVisible} toggleModel={() => {
+                    toggleModal()
+                }} />
         </>
     )
 }
@@ -145,4 +158,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default Activity
+export default Request
