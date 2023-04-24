@@ -21,7 +21,17 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'SportsWale' do
+#target 'SportsWale' do
+  abstract_target 'SportsWaleCommonPods' do
+    target 'SportsWaleDev' do
+     end
+
+     target 'SportsWaleProd' do
+     end
+
+     target 'SportsWale' do
+     end
+     
   config = use_native_modules!
 
 use_frameworks! :linkage => :static
@@ -44,6 +54,7 @@ use_frameworks! :linkage => :static
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
+
 
   target 'SportsWaleTests' do
     inherit! :complete

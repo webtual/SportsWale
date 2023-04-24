@@ -1,8 +1,15 @@
 #import "AppDelegate.h"
 
 #import <React/RCTBundleURLProvider.h>
+#import "RNCConfig.h"
 
 @implementation AppDelegate
+
+// then read individual keys like:
+NSString *apiUrl = [RNCConfig envFor:@"API_URL"];
+
+// or just fetch the whole config
+NSDictionary *config = [RNCConfig env];
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

@@ -8,10 +8,71 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* SportsWaleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SportsWaleTests.m */; };
+		09D11AE56B1E02A6D6F61388 /* Pods_SportsWaleCommonPods_SportsWaleProd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F59AD6CB49D96A22CB73218 /* Pods_SportsWaleCommonPods_SportsWaleProd.framework */; };
 		0E049BB548B74494B45A5ABA /* Outfit-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8379DD14F2D4543984AD5A2 /* Outfit-Medium.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		2E53B83E29F6863F00A1842C /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
+		2E53B83F29F6863F00A1842C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		2E53B84329F6863F00A1842C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		2E53B84429F6863F00A1842C /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91429D30D9400D4B2C3 /* EvilIcons.ttf */; };
+		2E53B84529F6863F00A1842C /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA92329D30D9400D4B2C3 /* Ionicons.ttf */; };
+		2E53B84629F6863F00A1842C /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91F29D30D9400D4B2C3 /* FontAwesome5_Solid.ttf */; };
+		2E53B84729F6863F00A1842C /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91329D30D9400D4B2C3 /* MaterialCommunityIcons.ttf */; };
+		2E53B84829F6863F00A1842C /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA92129D30D9400D4B2C3 /* FontAwesome5_Brands.ttf */; };
+		2E53B84929F6863F00A1842C /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91B29D30D9400D4B2C3 /* AntDesign.ttf */; };
+		2E53B84A29F6863F00A1842C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		2E53B84B29F6863F00A1842C /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA92029D30D9400D4B2C3 /* Fontisto.ttf */; };
+		2E53B84C29F6863F00A1842C /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA92229D30D9400D4B2C3 /* Inter-Regular.ttf */; };
+		2E53B84D29F6863F00A1842C /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91029D30D9400D4B2C3 /* Octicons.ttf */; };
+		2E53B84E29F6863F00A1842C /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91A29D30D9400D4B2C3 /* SimpleLineIcons.ttf */; };
+		2E53B84F29F6863F00A1842C /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91229D30D9400D4B2C3 /* Entypo.ttf */; };
+		2E53B85029F6863F00A1842C /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91C29D30D9400D4B2C3 /* Inter-Medium.ttf */; };
+		2E53B85129F6863F00A1842C /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA92429D30D9500D4B2C3 /* FontAwesome5_Regular.ttf */; };
+		2E53B85229F6863F00A1842C /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91829D30D9400D4B2C3 /* Feather.ttf */; };
+		2E53B85329F6863F00A1842C /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91729D30D9400D4B2C3 /* Inter-Bold.ttf */; };
+		2E53B85429F6863F00A1842C /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91629D30D9400D4B2C3 /* Inter-SemiBold.ttf */; };
+		2E53B85529F6863F00A1842C /* Outfit-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FCFFB997CD1F4709AEA205BE /* Outfit-Bold.ttf */; };
+		2E53B85629F6863F00A1842C /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91D29D30D9400D4B2C3 /* Zocial.ttf */; };
+		2E53B85729F6863F00A1842C /* Outfit-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FEFBC74CA0E433EA2A82108 /* Outfit-Light.ttf */; };
+		2E53B85829F6863F00A1842C /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91929D30D9400D4B2C3 /* MaterialIcons.ttf */; };
+		2E53B85929F6863F00A1842C /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91129D30D9400D4B2C3 /* FontAwesome.ttf */; };
+		2E53B85A29F6863F00A1842C /* Inter-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91E29D30D9400D4B2C3 /* Inter-Black.ttf */; };
+		2E53B85B29F6863F00A1842C /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91529D30D9400D4B2C3 /* Foundation.ttf */; };
+		2E53B85C29F6863F00A1842C /* Outfit-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8379DD14F2D4543984AD5A2 /* Outfit-Medium.ttf */; };
+		2E53B85D29F6863F00A1842C /* Outfit-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A53537E6BB3841969AE32264 /* Outfit-Regular.ttf */; };
+		2E53B85E29F6863F00A1842C /* Outfit-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1141AE1D7DC4AF4AFEC8E1C /* Outfit-SemiBold.ttf */; };
+		2E53B86B29F68C0A00A1842C /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
+		2E53B86C29F68C0A00A1842C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		2E53B87029F68C0A00A1842C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		2E53B87129F68C0A00A1842C /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91429D30D9400D4B2C3 /* EvilIcons.ttf */; };
+		2E53B87229F68C0A00A1842C /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA92329D30D9400D4B2C3 /* Ionicons.ttf */; };
+		2E53B87329F68C0A00A1842C /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91F29D30D9400D4B2C3 /* FontAwesome5_Solid.ttf */; };
+		2E53B87429F68C0A00A1842C /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91329D30D9400D4B2C3 /* MaterialCommunityIcons.ttf */; };
+		2E53B87529F68C0A00A1842C /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA92129D30D9400D4B2C3 /* FontAwesome5_Brands.ttf */; };
+		2E53B87629F68C0A00A1842C /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91B29D30D9400D4B2C3 /* AntDesign.ttf */; };
+		2E53B87729F68C0A00A1842C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		2E53B87829F68C0A00A1842C /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA92029D30D9400D4B2C3 /* Fontisto.ttf */; };
+		2E53B87929F68C0A00A1842C /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA92229D30D9400D4B2C3 /* Inter-Regular.ttf */; };
+		2E53B87A29F68C0A00A1842C /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91029D30D9400D4B2C3 /* Octicons.ttf */; };
+		2E53B87B29F68C0A00A1842C /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91A29D30D9400D4B2C3 /* SimpleLineIcons.ttf */; };
+		2E53B87C29F68C0A00A1842C /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91229D30D9400D4B2C3 /* Entypo.ttf */; };
+		2E53B87D29F68C0A00A1842C /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91C29D30D9400D4B2C3 /* Inter-Medium.ttf */; };
+		2E53B87E29F68C0A00A1842C /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA92429D30D9500D4B2C3 /* FontAwesome5_Regular.ttf */; };
+		2E53B87F29F68C0A00A1842C /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91829D30D9400D4B2C3 /* Feather.ttf */; };
+		2E53B88029F68C0A00A1842C /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91729D30D9400D4B2C3 /* Inter-Bold.ttf */; };
+		2E53B88129F68C0A00A1842C /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91629D30D9400D4B2C3 /* Inter-SemiBold.ttf */; };
+		2E53B88229F68C0A00A1842C /* Outfit-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FCFFB997CD1F4709AEA205BE /* Outfit-Bold.ttf */; };
+		2E53B88329F68C0A00A1842C /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91D29D30D9400D4B2C3 /* Zocial.ttf */; };
+		2E53B88429F68C0A00A1842C /* Outfit-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FEFBC74CA0E433EA2A82108 /* Outfit-Light.ttf */; };
+		2E53B88529F68C0A00A1842C /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91929D30D9400D4B2C3 /* MaterialIcons.ttf */; };
+		2E53B88629F68C0A00A1842C /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91129D30D9400D4B2C3 /* FontAwesome.ttf */; };
+		2E53B88729F68C0A00A1842C /* Inter-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91E29D30D9400D4B2C3 /* Inter-Black.ttf */; };
+		2E53B88829F68C0A00A1842C /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91529D30D9400D4B2C3 /* Foundation.ttf */; };
+		2E53B88929F68C0A00A1842C /* Outfit-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8379DD14F2D4543984AD5A2 /* Outfit-Medium.ttf */; };
+		2E53B88A29F68C0A00A1842C /* Outfit-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A53537E6BB3841969AE32264 /* Outfit-Regular.ttf */; };
+		2E53B88B29F68C0A00A1842C /* Outfit-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1141AE1D7DC4AF4AFEC8E1C /* Outfit-SemiBold.ttf */; };
 		2EEEA92529D30D9500D4B2C3 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91029D30D9400D4B2C3 /* Octicons.ttf */; };
 		2EEEA92629D30D9500D4B2C3 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91129D30D9400D4B2C3 /* FontAwesome.ttf */; };
 		2EEEA92729D30D9500D4B2C3 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA91229D30D9400D4B2C3 /* Entypo.ttf */; };
@@ -35,9 +96,11 @@
 		2EEEA93929D30D9500D4B2C3 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA92429D30D9500D4B2C3 /* FontAwesome5_Regular.ttf */; };
 		3094547468B94E61A0578B7F /* Outfit-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1141AE1D7DC4AF4AFEC8E1C /* Outfit-SemiBold.ttf */; };
 		312C402F0B59499682EED8E8 /* Outfit-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FEFBC74CA0E433EA2A82108 /* Outfit-Light.ttf */; };
-		5FEFDB463ED4772380049024 /* Pods_SportsWale_SportsWaleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4AE9756E4360D90545FF4D /* Pods_SportsWale_SportsWaleTests.framework */; };
-		6D7715DDDCD7B58FBC4DCB3D /* Pods_SportsWale.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D95C554131C9306E8566304 /* Pods_SportsWale.framework */; };
+		3BBAA9689624674A0DF681F6 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		748B3D2EA6E7641266A7657B /* Pods_SportsWaleCommonPods_SportsWaleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 157AB4D255922514175C0712 /* Pods_SportsWaleCommonPods_SportsWaleTests.framework */; };
+		7BFF86A61E381A11115E4643 /* Pods_SportsWaleCommonPods_SportsWale.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0F3EB8CC4A2D165C3EE6F05 /* Pods_SportsWaleCommonPods_SportsWale.framework */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		95CB5EB70287B0A395076F53 /* Pods_SportsWaleCommonPods_SportsWaleDev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C709A0AE1D7E10D561C5C7 /* Pods_SportsWaleCommonPods_SportsWaleDev.framework */; };
 		C3C433BD97564CAEB1A019F8 /* Outfit-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A53537E6BB3841969AE32264 /* Outfit-Regular.ttf */; };
 		CBEE702758F842B98247B38B /* Outfit-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FCFFB997CD1F4709AEA205BE /* Outfit-Bold.ttf */; };
 /* End PBXBuildFile section */
@@ -56,12 +119,20 @@
 		00E356EE1AD99517003FC87E /* SportsWaleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SportsWaleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* SportsWaleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SportsWaleTests.m; sourceTree = "<group>"; };
+		05A4285AADD1C93F58547AC3 /* Pods-SportsWaleCommonPods-SportsWaleProd.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWaleCommonPods-SportsWaleProd.debug.xcconfig"; path = "Target Support Files/Pods-SportsWaleCommonPods-SportsWaleProd/Pods-SportsWaleCommonPods-SportsWaleProd.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* SportsWale.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportsWale.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = SportsWale/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = SportsWale/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SportsWale/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SportsWale/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SportsWale/main.m; sourceTree = "<group>"; };
+		157AB4D255922514175C0712 /* Pods_SportsWaleCommonPods_SportsWaleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SportsWaleCommonPods_SportsWaleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		17B0DAC339353DE44B8D5342 /* Pods-SportsWaleCommonPods-SportsWaleProd.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWaleCommonPods-SportsWaleProd.release.xcconfig"; path = "Target Support Files/Pods-SportsWaleCommonPods-SportsWaleProd/Pods-SportsWaleCommonPods-SportsWaleProd.release.xcconfig"; sourceTree = "<group>"; };
+		2458B312AD2038DAF968E77E /* Pods-SportsWaleCommonPods-SportsWaleDev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWaleCommonPods-SportsWaleDev.release.xcconfig"; path = "Target Support Files/Pods-SportsWaleCommonPods-SportsWaleDev/Pods-SportsWaleCommonPods-SportsWaleDev.release.xcconfig"; sourceTree = "<group>"; };
+		2E53B86529F6863F00A1842C /* SportsWaleDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportsWaleDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E53B86629F6863F00A1842C /* SportsWale Dev-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SportsWale Dev-Info.plist"; path = "/Users/webtualhackintosh/Documents/GitHub_Projects/SportsWale/ios/SportsWale Dev-Info.plist"; sourceTree = "<absolute>"; };
+		2E53B89229F68C0A00A1842C /* SportsWaleProd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportsWaleProd.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E53B89329F68C0B00A1842C /* SportsWale Prod-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SportsWale Prod-Info.plist"; path = "/Users/webtualhackintosh/Documents/GitHub_Projects/SportsWale/ios/SportsWale Prod-Info.plist"; sourceTree = "<absolute>"; };
 		2EEEA91029D30D9400D4B2C3 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		2EEEA91129D30D9400D4B2C3 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
 		2EEEA91229D30D9400D4B2C3 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
@@ -83,19 +154,25 @@
 		2EEEA92229D30D9400D4B2C3 /* Inter-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular.ttf"; sourceTree = "<group>"; };
 		2EEEA92329D30D9400D4B2C3 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
 		2EEEA92429D30D9500D4B2C3 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Regular.ttf; sourceTree = "<group>"; };
+		2F59AD6CB49D96A22CB73218 /* Pods_SportsWaleCommonPods_SportsWaleProd.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SportsWaleCommonPods_SportsWaleProd.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-SportsWale.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWale.debug.xcconfig"; path = "Target Support Files/Pods-SportsWale/Pods-SportsWale.debug.xcconfig"; sourceTree = "<group>"; };
 		3FEFBC74CA0E433EA2A82108 /* Outfit-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Outfit-Light.ttf"; path = "../src/assets/fonts/Outfit-Light.ttf"; sourceTree = "<group>"; };
-		4D95C554131C9306E8566304 /* Pods_SportsWale.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SportsWale.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		50C709A0AE1D7E10D561C5C7 /* Pods_SportsWaleCommonPods_SportsWaleDev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SportsWaleCommonPods_SportsWaleDev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5709B34CF0A7D63546082F79 /* Pods-SportsWale.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWale.release.xcconfig"; path = "Target Support Files/Pods-SportsWale/Pods-SportsWale.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-SportsWale-SportsWaleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWale-SportsWaleTests.debug.xcconfig"; path = "Target Support Files/Pods-SportsWale-SportsWaleTests/Pods-SportsWale-SportsWaleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		68532B6305CE30F6D008EE96 /* Pods-SportsWaleCommonPods-SportsWaleDev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWaleCommonPods-SportsWaleDev.debug.xcconfig"; path = "Target Support Files/Pods-SportsWaleCommonPods-SportsWaleDev/Pods-SportsWaleCommonPods-SportsWaleDev.debug.xcconfig"; sourceTree = "<group>"; };
+		7BD46155DA8D81F2790298E7 /* Pods-SportsWaleCommonPods-SportsWale.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWaleCommonPods-SportsWale.debug.xcconfig"; path = "Target Support Files/Pods-SportsWaleCommonPods-SportsWale/Pods-SportsWaleCommonPods-SportsWale.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = SportsWale/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-SportsWale-SportsWaleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWale-SportsWaleTests.release.xcconfig"; path = "Target Support Files/Pods-SportsWale-SportsWaleTests/Pods-SportsWale-SportsWaleTests.release.xcconfig"; sourceTree = "<group>"; };
 		A53537E6BB3841969AE32264 /* Outfit-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Outfit-Regular.ttf"; path = "../src/assets/fonts/Outfit-Regular.ttf"; sourceTree = "<group>"; };
+		B0F3EB8CC4A2D165C3EE6F05 /* Pods_SportsWaleCommonPods_SportsWale.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SportsWaleCommonPods_SportsWale.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4F230D8B09B0A7EE250DAE2 /* Pods-SportsWaleCommonPods-SportsWaleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWaleCommonPods-SportsWaleTests.release.xcconfig"; path = "Target Support Files/Pods-SportsWaleCommonPods-SportsWaleTests/Pods-SportsWaleCommonPods-SportsWaleTests.release.xcconfig"; sourceTree = "<group>"; };
+		C4ABDA98B761C171410AC341 /* Pods-SportsWaleCommonPods-SportsWale.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWaleCommonPods-SportsWale.release.xcconfig"; path = "Target Support Files/Pods-SportsWaleCommonPods-SportsWale/Pods-SportsWaleCommonPods-SportsWale.release.xcconfig"; sourceTree = "<group>"; };
 		C8379DD14F2D4543984AD5A2 /* Outfit-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Outfit-Medium.ttf"; path = "../src/assets/fonts/Outfit-Medium.ttf"; sourceTree = "<group>"; };
-		CA4AE9756E4360D90545FF4D /* Pods_SportsWale_SportsWaleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SportsWale_SportsWaleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F1141AE1D7DC4AF4AFEC8E1C /* Outfit-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Outfit-SemiBold.ttf"; path = "../src/assets/fonts/Outfit-SemiBold.ttf"; sourceTree = "<group>"; };
 		FCFFB997CD1F4709AEA205BE /* Outfit-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Outfit-Bold.ttf"; path = "../src/assets/fonts/Outfit-Bold.ttf"; sourceTree = "<group>"; };
+		FD58DE9E424216EAC7A63C02 /* Pods-SportsWaleCommonPods-SportsWaleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWaleCommonPods-SportsWaleTests.debug.xcconfig"; path = "Target Support Files/Pods-SportsWaleCommonPods-SportsWaleTests/Pods-SportsWaleCommonPods-SportsWaleTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +180,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5FEFDB463ED4772380049024 /* Pods_SportsWale_SportsWaleTests.framework in Frameworks */,
+				748B3D2EA6E7641266A7657B /* Pods_SportsWaleCommonPods_SportsWaleTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,7 +188,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D7715DDDCD7B58FBC4DCB3D /* Pods_SportsWale.framework in Frameworks */,
+				3BBAA9689624674A0DF681F6 /* BuildFile in Frameworks */,
+				7BFF86A61E381A11115E4643 /* Pods_SportsWaleCommonPods_SportsWale.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E53B84029F6863F00A1842C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95CB5EB70287B0A395076F53 /* Pods_SportsWaleCommonPods_SportsWaleDev.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E53B86D29F68C0A00A1842C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09D11AE56B1E02A6D6F61388 /* Pods_SportsWaleCommonPods_SportsWaleProd.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,8 +247,10 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				4D95C554131C9306E8566304 /* Pods_SportsWale.framework */,
-				CA4AE9756E4360D90545FF4D /* Pods_SportsWale_SportsWaleTests.framework */,
+				50C709A0AE1D7E10D561C5C7 /* Pods_SportsWaleCommonPods_SportsWaleDev.framework */,
+				157AB4D255922514175C0712 /* Pods_SportsWaleCommonPods_SportsWaleTests.framework */,
+				2F59AD6CB49D96A22CB73218 /* Pods_SportsWaleCommonPods_SportsWaleProd.framework */,
+				B0F3EB8CC4A2D165C3EE6F05 /* Pods_SportsWaleCommonPods_SportsWale.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -217,6 +313,8 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
 				51D13AEDA93E436B99917474 /* Resources */,
+				2E53B86629F6863F00A1842C /* SportsWale Dev-Info.plist */,
+				2E53B89329F68C0B00A1842C /* SportsWale Prod-Info.plist */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -228,6 +326,8 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* SportsWale.app */,
 				00E356EE1AD99517003FC87E /* SportsWaleTests.xctest */,
+				2E53B86529F6863F00A1842C /* SportsWaleDev.app */,
+				2E53B89229F68C0A00A1842C /* SportsWaleProd.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -239,6 +339,14 @@
 				5709B34CF0A7D63546082F79 /* Pods-SportsWale.release.xcconfig */,
 				5B7EB9410499542E8C5724F5 /* Pods-SportsWale-SportsWaleTests.debug.xcconfig */,
 				89C6BE57DB24E9ADA2F236DE /* Pods-SportsWale-SportsWaleTests.release.xcconfig */,
+				7BD46155DA8D81F2790298E7 /* Pods-SportsWaleCommonPods-SportsWale.debug.xcconfig */,
+				C4ABDA98B761C171410AC341 /* Pods-SportsWaleCommonPods-SportsWale.release.xcconfig */,
+				68532B6305CE30F6D008EE96 /* Pods-SportsWaleCommonPods-SportsWaleDev.debug.xcconfig */,
+				2458B312AD2038DAF968E77E /* Pods-SportsWaleCommonPods-SportsWaleDev.release.xcconfig */,
+				FD58DE9E424216EAC7A63C02 /* Pods-SportsWaleCommonPods-SportsWaleTests.debug.xcconfig */,
+				B4F230D8B09B0A7EE250DAE2 /* Pods-SportsWaleCommonPods-SportsWaleTests.release.xcconfig */,
+				05A4285AADD1C93F58547AC3 /* Pods-SportsWaleCommonPods-SportsWaleProd.debug.xcconfig */,
+				17B0DAC339353DE44B8D5342 /* Pods-SportsWaleCommonPods-SportsWaleProd.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -289,6 +397,50 @@
 			productReference = 13B07F961A680F5B00A75B9A /* SportsWale.app */;
 			productType = "com.apple.product-type.application";
 		};
+		2E53B83A29F6863F00A1842C /* SportsWaleDev */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2E53B86229F6863F00A1842C /* Build configuration list for PBXNativeTarget "SportsWaleDev" */;
+			buildPhases = (
+				2E53B83B29F6863F00A1842C /* [CP] Check Pods Manifest.lock */,
+				2E53B83C29F6863F00A1842C /* Start Packager */,
+				2E53B83D29F6863F00A1842C /* Sources */,
+				2E53B84029F6863F00A1842C /* Frameworks */,
+				2E53B84229F6863F00A1842C /* Resources */,
+				2E53B85F29F6863F00A1842C /* Bundle React Native code and images */,
+				2E53B86029F6863F00A1842C /* [CP] Embed Pods Frameworks */,
+				2E53B86129F6863F00A1842C /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SportsWaleDev;
+			productName = SportsWale;
+			productReference = 2E53B86529F6863F00A1842C /* SportsWaleDev.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2E53B86729F68C0A00A1842C /* SportsWaleProd */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2E53B88F29F68C0A00A1842C /* Build configuration list for PBXNativeTarget "SportsWaleProd" */;
+			buildPhases = (
+				2E53B86829F68C0A00A1842C /* [CP] Check Pods Manifest.lock */,
+				2E53B86929F68C0A00A1842C /* Start Packager */,
+				2E53B86A29F68C0A00A1842C /* Sources */,
+				2E53B86D29F68C0A00A1842C /* Frameworks */,
+				2E53B86F29F68C0A00A1842C /* Resources */,
+				2E53B88C29F68C0A00A1842C /* Bundle React Native code and images */,
+				2E53B88D29F68C0A00A1842C /* [CP] Embed Pods Frameworks */,
+				2E53B88E29F68C0A00A1842C /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SportsWaleProd;
+			productName = SportsWale;
+			productReference = 2E53B89229F68C0A00A1842C /* SportsWaleProd.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -321,6 +473,8 @@
 			targets = (
 				13B07F861A680F5B00A75B9A /* SportsWale */,
 				00E356ED1AD99517003FC87E /* SportsWaleTests */,
+				2E53B83A29F6863F00A1842C /* SportsWaleDev */,
+				2E53B86729F68C0A00A1842C /* SportsWaleProd */,
 			);
 		};
 /* End PBXProject section */
@@ -368,6 +522,76 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2E53B84229F6863F00A1842C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E53B84329F6863F00A1842C /* LaunchScreen.storyboard in Resources */,
+				2E53B84429F6863F00A1842C /* EvilIcons.ttf in Resources */,
+				2E53B84529F6863F00A1842C /* Ionicons.ttf in Resources */,
+				2E53B84629F6863F00A1842C /* FontAwesome5_Solid.ttf in Resources */,
+				2E53B84729F6863F00A1842C /* MaterialCommunityIcons.ttf in Resources */,
+				2E53B84829F6863F00A1842C /* FontAwesome5_Brands.ttf in Resources */,
+				2E53B84929F6863F00A1842C /* AntDesign.ttf in Resources */,
+				2E53B84A29F6863F00A1842C /* Images.xcassets in Resources */,
+				2E53B84B29F6863F00A1842C /* Fontisto.ttf in Resources */,
+				2E53B84C29F6863F00A1842C /* Inter-Regular.ttf in Resources */,
+				2E53B84D29F6863F00A1842C /* Octicons.ttf in Resources */,
+				2E53B84E29F6863F00A1842C /* SimpleLineIcons.ttf in Resources */,
+				2E53B84F29F6863F00A1842C /* Entypo.ttf in Resources */,
+				2E53B85029F6863F00A1842C /* Inter-Medium.ttf in Resources */,
+				2E53B85129F6863F00A1842C /* FontAwesome5_Regular.ttf in Resources */,
+				2E53B85229F6863F00A1842C /* Feather.ttf in Resources */,
+				2E53B85329F6863F00A1842C /* Inter-Bold.ttf in Resources */,
+				2E53B85429F6863F00A1842C /* Inter-SemiBold.ttf in Resources */,
+				2E53B85529F6863F00A1842C /* Outfit-Bold.ttf in Resources */,
+				2E53B85629F6863F00A1842C /* Zocial.ttf in Resources */,
+				2E53B85729F6863F00A1842C /* Outfit-Light.ttf in Resources */,
+				2E53B85829F6863F00A1842C /* MaterialIcons.ttf in Resources */,
+				2E53B85929F6863F00A1842C /* FontAwesome.ttf in Resources */,
+				2E53B85A29F6863F00A1842C /* Inter-Black.ttf in Resources */,
+				2E53B85B29F6863F00A1842C /* Foundation.ttf in Resources */,
+				2E53B85C29F6863F00A1842C /* Outfit-Medium.ttf in Resources */,
+				2E53B85D29F6863F00A1842C /* Outfit-Regular.ttf in Resources */,
+				2E53B85E29F6863F00A1842C /* Outfit-SemiBold.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E53B86F29F68C0A00A1842C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E53B87029F68C0A00A1842C /* LaunchScreen.storyboard in Resources */,
+				2E53B87129F68C0A00A1842C /* EvilIcons.ttf in Resources */,
+				2E53B87229F68C0A00A1842C /* Ionicons.ttf in Resources */,
+				2E53B87329F68C0A00A1842C /* FontAwesome5_Solid.ttf in Resources */,
+				2E53B87429F68C0A00A1842C /* MaterialCommunityIcons.ttf in Resources */,
+				2E53B87529F68C0A00A1842C /* FontAwesome5_Brands.ttf in Resources */,
+				2E53B87629F68C0A00A1842C /* AntDesign.ttf in Resources */,
+				2E53B87729F68C0A00A1842C /* Images.xcassets in Resources */,
+				2E53B87829F68C0A00A1842C /* Fontisto.ttf in Resources */,
+				2E53B87929F68C0A00A1842C /* Inter-Regular.ttf in Resources */,
+				2E53B87A29F68C0A00A1842C /* Octicons.ttf in Resources */,
+				2E53B87B29F68C0A00A1842C /* SimpleLineIcons.ttf in Resources */,
+				2E53B87C29F68C0A00A1842C /* Entypo.ttf in Resources */,
+				2E53B87D29F68C0A00A1842C /* Inter-Medium.ttf in Resources */,
+				2E53B87E29F68C0A00A1842C /* FontAwesome5_Regular.ttf in Resources */,
+				2E53B87F29F68C0A00A1842C /* Feather.ttf in Resources */,
+				2E53B88029F68C0A00A1842C /* Inter-Bold.ttf in Resources */,
+				2E53B88129F68C0A00A1842C /* Inter-SemiBold.ttf in Resources */,
+				2E53B88229F68C0A00A1842C /* Outfit-Bold.ttf in Resources */,
+				2E53B88329F68C0A00A1842C /* Zocial.ttf in Resources */,
+				2E53B88429F68C0A00A1842C /* Outfit-Light.ttf in Resources */,
+				2E53B88529F68C0A00A1842C /* MaterialIcons.ttf in Resources */,
+				2E53B88629F68C0A00A1842C /* FontAwesome.ttf in Resources */,
+				2E53B88729F68C0A00A1842C /* Inter-Black.ttf in Resources */,
+				2E53B88829F68C0A00A1842C /* Foundation.ttf in Resources */,
+				2E53B88929F68C0A00A1842C /* Outfit-Medium.ttf in Resources */,
+				2E53B88A29F68C0A00A1842C /* Outfit-Regular.ttf in Resources */,
+				2E53B88B29F68C0A00A1842C /* Outfit-SemiBold.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -393,15 +617,197 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWale/Pods-SportsWale-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWale/Pods-SportsWaleCommonPods-SportsWale-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWale/Pods-SportsWale-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWale/Pods-SportsWaleCommonPods-SportsWale-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWale/Pods-SportsWale-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWale/Pods-SportsWaleCommonPods-SportsWale-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2E53B83B29F6863F00A1842C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SportsWaleCommonPods-SportsWaleDev-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2E53B83C29F6863F00A1842C /* Start Packager */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Start Packager";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		2E53B85F29F6863F00A1842C /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/.xcode.env.local",
+				"$(SRCROOT)/.xcode.env",
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
+		};
+		2E53B86029F6863F00A1842C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleDev/Pods-SportsWaleCommonPods-SportsWaleDev-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleDev/Pods-SportsWaleCommonPods-SportsWaleDev-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleDev/Pods-SportsWaleCommonPods-SportsWaleDev-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2E53B86129F6863F00A1842C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleDev/Pods-SportsWaleCommonPods-SportsWaleDev-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleDev/Pods-SportsWaleCommonPods-SportsWaleDev-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleDev/Pods-SportsWaleCommonPods-SportsWaleDev-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2E53B86829F68C0A00A1842C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SportsWaleCommonPods-SportsWaleProd-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2E53B86929F68C0A00A1842C /* Start Packager */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Start Packager";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		2E53B88C29F68C0A00A1842C /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/.xcode.env.local",
+				"$(SRCROOT)/.xcode.env",
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
+		};
+		2E53B88D29F68C0A00A1842C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleProd/Pods-SportsWaleCommonPods-SportsWaleProd-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleProd/Pods-SportsWaleCommonPods-SportsWaleProd-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleProd/Pods-SportsWaleCommonPods-SportsWaleProd-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2E53B88E29F68C0A00A1842C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleProd/Pods-SportsWaleCommonPods-SportsWaleProd-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleProd/Pods-SportsWaleCommonPods-SportsWaleProd-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleProd/Pods-SportsWaleCommonPods-SportsWaleProd-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
@@ -419,7 +825,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SportsWale-SportsWaleTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-SportsWaleCommonPods-SportsWaleTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -441,7 +847,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SportsWale-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-SportsWaleCommonPods-SportsWale-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -454,15 +860,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWale-SportsWaleTests/Pods-SportsWale-SportsWaleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleTests/Pods-SportsWaleCommonPods-SportsWaleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWale-SportsWaleTests/Pods-SportsWale-SportsWaleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleTests/Pods-SportsWaleCommonPods-SportsWaleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWale-SportsWaleTests/Pods-SportsWale-SportsWaleTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleTests/Pods-SportsWaleCommonPods-SportsWaleTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
@@ -471,15 +877,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWale/Pods-SportsWale-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWale/Pods-SportsWaleCommonPods-SportsWale-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWale/Pods-SportsWale-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWale/Pods-SportsWaleCommonPods-SportsWale-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWale/Pods-SportsWale-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWale/Pods-SportsWaleCommonPods-SportsWale-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
@@ -488,15 +894,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWale-SportsWaleTests/Pods-SportsWale-SportsWaleTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleTests/Pods-SportsWaleCommonPods-SportsWaleTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWale-SportsWaleTests/Pods-SportsWale-SportsWaleTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleTests/Pods-SportsWaleCommonPods-SportsWaleTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWale-SportsWaleTests/Pods-SportsWale-SportsWaleTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleTests/Pods-SportsWaleCommonPods-SportsWaleTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -538,6 +944,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2E53B83D29F6863F00A1842C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E53B83E29F6863F00A1842C /* AppDelegate.mm in Sources */,
+				2E53B83F29F6863F00A1842C /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E53B86A29F68C0A00A1842C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E53B86B29F68C0A00A1842C /* AppDelegate.mm in Sources */,
+				2E53B86C29F68C0A00A1842C /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -551,7 +975,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-SportsWale-SportsWaleTests.debug.xcconfig */;
+			baseConfigurationReference = FD58DE9E424216EAC7A63C02 /* Pods-SportsWaleCommonPods-SportsWaleTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -578,7 +1002,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-SportsWale-SportsWaleTests.release.xcconfig */;
+			baseConfigurationReference = B4F230D8B09B0A7EE250DAE2 /* Pods-SportsWaleCommonPods-SportsWaleTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -602,11 +1026,12 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-SportsWale.debug.xcconfig */;
+			baseConfigurationReference = 7BD46155DA8D81F2790298E7 /* Pods-SportsWaleCommonPods-SportsWale.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MSD97L88TJ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SportsWale/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -629,11 +1054,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-SportsWale.release.xcconfig */;
+			baseConfigurationReference = C4ABDA98B761C171410AC341 /* Pods-SportsWaleCommonPods-SportsWale.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MSD97L88TJ;
 				INFOPLIST_FILE = SportsWale/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -647,6 +1073,118 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SportsWale;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		2E53B86329F6863F00A1842C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 68532B6305CE30F6D008EE96 /* Pods-SportsWaleCommonPods-SportsWaleDev.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MSD97L88TJ;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = "SportsWale Dev-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "SportWale Dev";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		2E53B86429F6863F00A1842C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2458B312AD2038DAF968E77E /* Pods-SportsWaleCommonPods-SportsWaleDev.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MSD97L88TJ;
+				INFOPLIST_FILE = "SportsWale Dev-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "SportWale Dev";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		2E53B89029F68C0A00A1842C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 05A4285AADD1C93F58547AC3 /* Pods-SportsWaleCommonPods-SportsWaleProd.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MSD97L88TJ;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = "SportsWale Prod-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "SportWale Prod";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		2E53B89129F68C0A00A1842C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17B0DAC339353DE44B8D5342 /* Pods-SportsWaleCommonPods-SportsWaleProd.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MSD97L88TJ;
+				INFOPLIST_FILE = "SportsWale Prod-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "SportWale Prod";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -806,6 +1344,24 @@
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2E53B86229F6863F00A1842C /* Build configuration list for PBXNativeTarget "SportsWaleDev" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E53B86329F6863F00A1842C /* Debug */,
+				2E53B86429F6863F00A1842C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2E53B88F29F68C0A00A1842C /* Build configuration list for PBXNativeTarget "SportsWaleProd" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E53B89029F68C0A00A1842C /* Debug */,
+				2E53B89129F68C0A00A1842C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

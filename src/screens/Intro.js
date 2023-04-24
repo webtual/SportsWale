@@ -9,6 +9,7 @@ import { SCREEN_WIDTH } from '../constants/ConstantKey';
 import Translate from '../translation/Translate';
 import { ExpandingDot } from 'react-native-animated-pagination-dots';
 import { navigate, resetScreen } from '../navigations/RootNavigation';
+import Config from "react-native-config";
 
 const Intro = () => {
 
@@ -77,6 +78,8 @@ const Intro = () => {
         <View style={styles.paginationWrapper}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <View style={{ flex: 1, flexDirection: 'row', }}>
+             { console.log("Config",Config)}
+              <Text style={{fontSize:25,color:"red",fontFamily:BOLD}}>{"API"+Config.API_URL}</Text>
               {SliderData.map((item, inx) => (
                 <View
                   key={inx}
