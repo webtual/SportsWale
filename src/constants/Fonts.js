@@ -1,10 +1,10 @@
 import { fontPixel } from "../commonComponents/ResponsiveScreen"
 
-export const REGULAR = 'Outfit-Regular'
-export const LIGHT = 'Outfit-Light'
-export const MEDIUM = 'Outfit-Medium'
-export const SEMIBOLD = 'Outfit-SemiBold'
-export const BOLD = 'Outfit-Bold'
+export const REGULAR = 'Manrope-Regular'
+export const LIGHT = 'Manrope-Light'
+export const MEDIUM = 'Manrope-Medium'
+export const SEMIBOLD = 'Manrope-SemiBold'
+export const BOLD = 'Manrope-Bold'
 // export const EXTRABOLD = 'Montserrat-Black'
 
 export const FontSize = {

@@ -11,7 +11,7 @@ export const primary = "#f7701e"
 export const lightPrimary = "#ff8a43"
 export const blackTitle = "#252525"
 
-export const secondary = "#feefe6"
+
 export const secondary_grey = "#a6b1c2"
 export const secondary_dark_grey = "#707070"
 
@@ -31,3 +31,9 @@ export const offWhite = "rgb(248,255,248)"
 export const iceBlue = "rgb(227,246,255)"
 export const yellow = "#DF8600"
 export const light_grey = "#e5e7ebe6"
+
+
+
+
+export const dim_grey ="#626262"
+export const secondary = "#FD3667"

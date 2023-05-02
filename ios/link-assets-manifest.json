@@ -2,6 +2,34 @@
   "migIndex": 1,
   "data": [
     {
+      "path": "src/assets/fonts/Manrope-Bold.ttf",
+      "sha1": "a5b00f0773b1831401a4d37b41aac0a2512d07f1"
+    },
+    {
+      "path": "src/assets/fonts/Manrope-ExtraBold.ttf",
+      "sha1": "f06d16bab722897a43a5c36b0cd37496c854bc2d"
+    },
+    {
+      "path": "src/assets/fonts/Manrope-ExtraLight.ttf",
+      "sha1": "9d2458a6db358904687568c7d9080c7101aa53ef"
+    },
+    {
+      "path": "src/assets/fonts/Manrope-Light.ttf",
+      "sha1": "4a60d9186889ddc418702bd684b0fb2ead80add4"
+    },
+    {
+      "path": "src/assets/fonts/Manrope-Medium.ttf",
+      "sha1": "2bffa53c60132b74530decdd7970517c4bf322f5"
+    },
+    {
+      "path": "src/assets/fonts/Manrope-Regular.ttf",
+      "sha1": "0669ed1c39a25de04fde0e878fc3d89930493d74"
+    },
+    {
+      "path": "src/assets/fonts/Manrope-SemiBold.ttf",
+      "sha1": "0f9143f0b5eaa62cafbc0146f9712fbf43ddba28"
+    },
+    {
       "path": "src/assets/fonts/Outfit-Bold.ttf",
       "sha1": "58eee7ef179b895fee6c276a722901daf364da9e"
     },

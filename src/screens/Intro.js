@@ -1,15 +1,14 @@
-import { View, Text, SafeAreaView, StyleSheet, FlatList, Image, Pressable, Animated, Dimensions, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet, FlatList, Image, Pressable, Animated } from 'react-native'
 import React, { useCallback, useRef, useState } from 'react'
-import { black, disableColor, greenPrimary, offWhite, primary, secondary, secondary_dark_grey, secondary_grey, white, yellow } from '../constants/Color';
-import { BOLD, FontSize, MEDIUM, REGULAR, SEMIBOLD } from '../constants/Fonts';
+import { black, dim_grey, disableColor, greenPrimary, offWhite, white } from '../constants/Color';
+import { FontSize, REGULAR, SEMIBOLD } from '../constants/Fonts';
 import { pixelSizeHorizontal, widthPixel } from '../commonComponents/ResponsiveScreen';
 import FastImage from 'react-native-fast-image';
-import { Intro1, Intro2, Intro3 } from '../constants/Images';
+import { Intro1, Intro2, Intro3, NewIntro } from '../constants/Images';
 import { SCREEN_WIDTH } from '../constants/ConstantKey';
 import Translate from '../translation/Translate';
 import { ExpandingDot } from 'react-native-animated-pagination-dots';
-import { navigate, resetScreen } from '../navigations/RootNavigation';
-import Config from "react-native-config";
+import { resetScreen } from '../navigations/RootNavigation';
 
 const Intro = () => {
 
@@ -19,42 +18,25 @@ const Intro = () => {
 
   const SliderData = [
     {
-      title: 'PLAY',
-      desc: 'Discover amazing playgrounds near by your location and join the matches',
+      title: 'Top ',
+      hash: '#1 ',
+      appName: 'Sport App',
+      subTitle: 'Lorem Ipsum is simply dummy the printing and typesetting industry',
       image: Intro1
     },
     {
-      title: 'CREATE',
-      desc: 'Create activity to get players nearby location!!!',
+      title: 'Top ',
+      hash: '#1 ',
+      appName: 'Sport App',
+      subTitle: 'Lorem Ipsum is simply dummy the printing and typesetting industry',
       image: Intro2
-
-    },
-    {
-      title: 'BOOK',
-      desc: 'Connect to the turf game you love!!!',
-      image: Intro3
     },
   ]
 
-  const [sliderState, setSliderState] = useState({ currentPage: 0 });
-  const { width, height } = Dimensions.get('window');
 
-  const setSliderPage = (event) => {
-    const { currentPage } = sliderState;
-    const { x } = event.nativeEvent.contentOffset;
-    const indexOfNextScreen = Math.floor(x / width);
-    if (indexOfNextScreen !== currentPage) {
-      setSliderState({
-        ...sliderState,
-        currentPage: indexOfNextScreen,
-      });
-    }
-  };
-
-  const { currentPage: pageIndex } = sliderState;
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const _onViewableItemsChanged = useCallback(({ viewableItems, changed }) => {
-    // setIndex(viewableItems[0].index);
+    setIndex(viewableItems[0].index);
   }, []);
 
   const _viewabilityConfig = {
@@ -74,28 +56,10 @@ const Intro = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+
       <View style={styles.container}>
-        <View style={styles.paginationWrapper}>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <View style={{ flex: 1, flexDirection: 'row', }}>
-             { console.log("Config",Config)}
-              <Text style={{fontSize:25,color:"red",fontFamily:BOLD}}>{"API"+Config.API_URL}</Text>
-              {SliderData.map((item, inx) => (
-                <View
-                  key={inx}
-                  style={[
-                    styles.dotView,
-                    { backgroundColor: secondary },
-                    { borderColor: inx == index ? primary : secondary_grey },
-                  ]}></View>
-              ))}
-            </View>
-            <TouchableOpacity onPress={() => navigate("Dashboard")}
-              style={{ marginHorizontal: 24 }}><Text style={{ fontSize: 16, fontFamily: MEDIUM, color: primary }}>Skip</Text></TouchableOpacity>
-          </View>
-        </View>
+
         <FlatList
-          style={{ top: 70 }}
           ref={scrollRef}
           data={SliderData}
           horizontal
@@ -115,12 +79,34 @@ const Intro = () => {
           renderItem={({ item }) => (
             <View style={styles.itemView}>
 
-              <FastImage source={item.image} style={styles.imageStyle} resizeMode='contain' />
-              <Text style={styles.header}>{item.title}</Text>
-              <Text style={styles.paragraph}>{item.desc}</Text>
+              <FastImage source={item.image} style={styles.imgStyle} resizeMode='contain' />
+              <Text style={styles.textStyle}>{item.title}<Text style={styles.hashTextStyle}>{item.hash}</Text><Text style={styles.textStyle}>{item.appName}</Text></Text>
+              <Text style={styles.subTextStyle}>{item.subTitle}</Text>
             </View>
           )}
         />
+
+
+        {/* <View style={{}}>
+          <ExpandingDot
+            data={SliderData}
+            expandingDotWidth={widthPixel(30)}
+            scrollX={scrollX}
+            // inActiveDotOpacity={0.3}
+            inActiveDotColor={disableColor}
+            activeDotColor={greenPrimary}
+            dotStyle={{
+              width: 10,
+              height: 10,
+              borderRadius: 5,
+              marginHorizontal: 5
+            }}
+            containerStyle={{
+            }}
+          />
+        </View> */}
+
+
         <Pressable
           onPress={() => btnNextTap()}
           style={styles.btnStyle}>
@@ -143,63 +129,45 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  textStyle: {
+    fontFamily: SEMIBOLD,
+    color: black,
+    fontSize: FontSize.FS_24,
+    marginHorizontal: pixelSizeHorizontal(20),
+    marginTop: pixelSizeHorizontal(50)
+  },
+  hashTextStyle: {
+    fontFamily: SEMIBOLD,
+    color: black,
+    fontSize: FontSize.FS_24,
+  },
+  subTextStyle: {
+    fontFamily: REGULAR,
+    color: dim_grey,
+    fontSize: FontSize.FS_18,
+    textAlign:"center",
+    marginHorizontal: pixelSizeHorizontal(40),
+    marginTop: pixelSizeHorizontal(20)
+  },
+  imgStyle: {
+    width: SCREEN_WIDTH - 70,
+    height: SCREEN_WIDTH - 70,
+  },
   btnStyle: {
-    backgroundColor: primary,
+    backgroundColor: black,
     padding: pixelSizeHorizontal(10),
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: widthPixel(8),
+    borderRadius: 40,
     marginHorizontal: pixelSizeHorizontal(40),
-    marginVertical: pixelSizeHorizontal(70),
+    marginBottom: pixelSizeHorizontal(70),
+    marginTop: pixelSizeHorizontal(30),
   },
   btnText: {
     fontFamily: SEMIBOLD,
     color: white,
     fontSize: FontSize.FS_22,
-    textTransform: 'uppercase',
-  },
-  imageStyle: {
-    height: SCREEN_WIDTH - 80,
-    width: SCREEN_WIDTH - 80,
-    marginTop: 25
-  },
-  wrapper: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: 30,
-  },
-  header: {
-    fontSize: 30,
-    fontFamily: BOLD,
-    marginBottom: 20,
-    color: black
-  },
-  paragraph: {
-    textAlign: "center",
-    fontSize: 17,
-    fontFamily: REGULAR,
-    marginBottom: 20,
-    color: primary,
-    marginHorizontal: 24
-  },
-  paginationWrapper: {
-    position: 'absolute',
-    top: 10,
-    left: 14,
-    right: 0,
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    flexDirection: 'row',
-  },
-  dotView: {
-    width: 16,
-    height: 16,
-    borderRadius: 20,
-    backgroundColor: primary,
-    borderWidth: 2,
-    marginLeft: 10,
-  },
-
+  }
 });
 
 
