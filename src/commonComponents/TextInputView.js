@@ -4,11 +4,11 @@ import FastImage from 'react-native-fast-image'
 import { PhoneImg } from '../constants/Images'
 import { pixelSizeHorizontal, widthPixel } from './ResponsiveScreen'
 import { FontSize, MEDIUM } from '../constants/Fonts'
-import { black, dim_grey, greenPrimary, primary, seprator, warmGrey, white } from '../constants/Color'
+import { black, dim_grey, greenPrimary, light_grey, offWhite, primary, seprator, warmGrey, white } from '../constants/Color'
 
-const TextInputView = ({ value = "", imageSource, onChangeText, placeholder = "", editable = true, focuse = false, containerStyle = {}, ...props }) => {
+const TextInputView = ({ value = "", imageSource, onChangeText, placeholder = "", editable = true, containerStyle = {}, ...props }) => {
 
-    const [isFocused, setIsFocused] = useState(focuse)
+    const [isFocused, setIsFocused] = useState(false)
 
     return (
         <View style={[{
@@ -17,9 +17,8 @@ const TextInputView = ({ value = "", imageSource, onChangeText, placeholder = ""
             backgroundColor: white,
             borderRadius: 8,
             paddingHorizontal: 14,
-            
-            borderWidth: 1,
-            // borderColor:isFocused ? primary:dim_grey
+            borderWidth: 1.5,
+            borderColor:isFocused ? primary:offWhite
         }, { ...containerStyle }]}>
 
             {imageSource &&

@@ -30,12 +30,13 @@ export const paleGreen = "rgb(213,253,213)"
 
 export const iceBlue = "rgb(227,246,255)"
 export const yellow = "#DF8600"
-export const light_grey = "#e5e7ebe6"
+
 
 
 
 
 export const dim_grey ="#626262"
+export const light_grey = "#e5e7ebe6"
 export const secondary = "#FD3667"
 export const primary = "#3D6FE3"
 export const offWhite = "#F5F5F5"

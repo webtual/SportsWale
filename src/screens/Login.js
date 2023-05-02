@@ -27,7 +27,7 @@ const Login = () => {
 
             <ScrollView>
             <View style={{marginTop:20}}>
-                <TextInputView imageSource={ic_user} focuse={true}/>
+                <TextInputView imageSource={ic_user} />
                 </View>
                 
             </ScrollView>
