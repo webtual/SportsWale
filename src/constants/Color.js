@@ -7,7 +7,7 @@ export const transparent = "transparent"
 
 export const seprator = "rgb(230,230,230)"
 
-export const primary = "#f7701e"
+
 export const lightPrimary = "#ff8a43"
 export const blackTitle = "#252525"
 
@@ -27,7 +27,7 @@ export const warmGrey = 'rgb(113,113,113)'
 
 export const paleGreen = "rgb(213,253,213)"
 
-export const offWhite = "rgb(248,255,248)"
+
 export const iceBlue = "rgb(227,246,255)"
 export const yellow = "#DF8600"
 export const light_grey = "#e5e7ebe6"
@@ -37,3 +37,5 @@ export const light_grey = "#e5e7ebe6"
 
 export const dim_grey ="#626262"
 export const secondary = "#FD3667"
+export const primary = "#3D6FE3"
+export const offWhite = "#F5F5F5"

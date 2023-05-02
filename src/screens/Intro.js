@@ -1,7 +1,7 @@
 import { View, Text, SafeAreaView, StyleSheet, FlatList, Image, Pressable, Animated } from 'react-native'
 import React, { useCallback, useRef, useState } from 'react'
-import { black, dim_grey, disableColor, greenPrimary, offWhite, white } from '../constants/Color';
-import { FontSize, REGULAR, SEMIBOLD } from '../constants/Fonts';
+import { black, dim_grey, disableColor, greenPrimary, offWhite, secondary, white } from '../constants/Color';
+import { BOLD, FontSize, REGULAR, SEMIBOLD } from '../constants/Fonts';
 import { pixelSizeHorizontal, widthPixel } from '../commonComponents/ResponsiveScreen';
 import FastImage from 'react-native-fast-image';
 import { Intro1, Intro2, Intro3, NewIntro } from '../constants/Images';
@@ -130,15 +130,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   textStyle: {
-    fontFamily: SEMIBOLD,
+    fontFamily: BOLD,
     color: black,
     fontSize: FontSize.FS_24,
     marginHorizontal: pixelSizeHorizontal(20),
     marginTop: pixelSizeHorizontal(50)
   },
   hashTextStyle: {
-    fontFamily: SEMIBOLD,
-    color: black,
+    fontFamily: BOLD,
+    color: secondary,
     fontSize: FontSize.FS_24,
   },
   subTextStyle: {

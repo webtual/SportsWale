@@ -74,4 +74,11 @@ export default {
 	already_used:"This QR Code already used",
 	date:"Date : ",
 	referralcode:"Referral Code",
+
+
+
+
+
+
+	enter_name:"Enter Your Name"
 }
