@@ -58,19 +58,9 @@ const OtpView = ({ route }) => {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={[styles.container, { marginHorizontal: pixelSizeHorizontal(20) }]}>
+             <HeaderView title={Translate.t("enter_otp")} isBack={true} onPress={() => goBack()} containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20),}}>
 
-                <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-                    <View style={{ flexDirection: "row", alignItems: "center", marginTop: pixelSizeHorizontal(20) }}>
-                        <IconButton
-                            additionalStyle={{ marginLeft: pixelSizeHorizontal(-10), }}
-                            onPress={() => goBack()}>
-                            <Icon name={"arrow-left"} size={24} color={black} />
-                        </IconButton>
-                        <Text style={{ fontFamily: BOLD, fontSize: FontSize.FS_22, color: black }}>Enter OTP  <Text style={{ color: primary }}>{Translate.t("app_name")}</Text></Text>
-                    </View>
-
+                <ScrollView  showsVerticalScrollIndicator={false}>
                     <View style={styles.otpView}>
                         <OTPInputView
                             style={{ flex: 1, height: heightPixel(55) }}
@@ -88,16 +78,16 @@ const OtpView = ({ route }) => {
                         />
                     </View>
 
-
+{/* 
                     <Pressable
                         onPress={() => btnSubmitTap()}
                         style={styles.btnStyle}>
                         <Text style={styles.btnText}>{Translate.t("submit")}</Text>
 
-                    </Pressable>
+                    </Pressable> */}
 
 
-                    <View style={{ alignSelf: 'center', marginTop: pixelSizeHorizontal(25) }}>
+                    {/* <View style={{ alignSelf: 'center', marginTop: pixelSizeHorizontal(25) }}>
                         <Text style={styles.textDesc}>
                             {Translate.t("otp_desc")}
                         </Text>
@@ -114,20 +104,17 @@ const OtpView = ({ route }) => {
                             <Text style={[styles.textResend, { color: warmGrey, marginTop: pixelSizeHorizontal(10) }]}>
                                 Resend OTP in 00:{count}
                             </Text>}
-                    </View>
+                    </View> */}
 
                 </ScrollView>
-            </View>
-        </SafeAreaView>
+            </HeaderView>
     )
 }
 
 
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1, backgroundColor: white
-    },
+  
     btnStyle: {
         backgroundColor: primary,
         padding: pixelSizeHorizontal(10),

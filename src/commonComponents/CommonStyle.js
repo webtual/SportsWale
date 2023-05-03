@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native"
-import { black, white } from "../constants/Color"
-import { FontSize, SEMIBOLD } from "../constants/Fonts"
+import { black, secondary, white } from "../constants/Color"
+import { FontSize, REGULAR, SEMIBOLD } from "../constants/Fonts"
 import { pixelSizeHorizontal, widthPixel } from "./ResponsiveScreen"
 
 
@@ -21,5 +21,11 @@ import { pixelSizeHorizontal, widthPixel } from "./ResponsiveScreen"
         color: white,
         fontSize: FontSize.FS_22,
         textTransform: 'capitalize',
+    },
+    errorText: {
+        fontFamily: REGULAR,
+        fontSize: FontSize.FS_13,
+        color: secondary,
+        marginLeft: pixelSizeHorizontal(30)
     },
 })

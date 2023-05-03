@@ -16,7 +16,7 @@ export default {
 	city : 'City',
 	area : 'Area',
 	pincode : 'Pincode',
-	enter_otp : "Enter OTP",
+
 	resend_otp : "Resend OTP",
 	otp_desc : "OTP send on your register mobile no",
 	submit : 'Submit',
@@ -80,5 +80,8 @@ export default {
 
 
 
-	enter_name:"Enter Your Name"
+	enter_name:"Enter Your Name",
+	dont_have_account:"Don’t have account? ",
+	register:"Register Now",
+	enter_otp : "Enter OTP",
 }

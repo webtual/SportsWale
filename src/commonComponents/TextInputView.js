@@ -5,12 +5,14 @@ import { PhoneImg } from '../constants/Images'
 import { pixelSizeHorizontal, widthPixel } from './ResponsiveScreen'
 import { FontSize, MEDIUM } from '../constants/Fonts'
 import { black, dim_grey, greenPrimary, light_grey, offWhite, primary, seprator, warmGrey, white } from '../constants/Color'
+import CommonStyle from './CommonStyle'
 
 const TextInputView = ({ value = "", imageSource, onChangeText, placeholder = "", editable = true, containerStyle = {}, ...props }) => {
 
     const [isFocused, setIsFocused] = useState(false)
 
     return (
+        <>
         <View style={[{
             flexDirection: 'row',
             alignItems: 'center',
@@ -43,6 +45,8 @@ const TextInputView = ({ value = "", imageSource, onChangeText, placeholder = ""
             />
 
         </View>
+        <Text style={CommonStyle.errorText}>{props.error}</Text>
+        </>
 
     )
 }
