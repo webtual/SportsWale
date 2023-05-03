@@ -11,6 +11,18 @@ const TextInputView = ({ value = "", imageSource, onChangeText, placeholder = ""
 
     const [isFocused, setIsFocused] = useState(false)
 
+
+    const onFocus = () => {
+        setIsFocused(true)
+        props?.onFocusEffect && props?.onFocusEffect()
+    }
+
+    const onBlur = () => {
+        setIsFocused(false)
+        props?.onBlurEffect && props?.onBlurEffect()
+    }
+
+
     return (
         <>
         <View style={[{
@@ -35,8 +47,8 @@ const TextInputView = ({ value = "", imageSource, onChangeText, placeholder = ""
                 onChangeText={onChangeText}
                 placeholder={placeholder}
                 editable={editable}
-                onFocus={() => setIsFocused(true)}
-                onBlur={() => setIsFocused(false)}
+                onFocus={onFocus}
+                onBlur={onBlur}
                 style={{
                     flex: 1, marginLeft: pixelSizeHorizontal(15), fontFamily: MEDIUM, fontSize: FontSize.FS_16, color: editable ? black : warmGrey,
                     paddingVertical: pixelSizeHorizontal(7),
