@@ -1,17 +1,17 @@
 
 import { View, Text, SafeAreaView, StyleSheet, TextInput, TouchableOpacity, ScrollView, FlatList, } from 'react-native'
 import React, { useState } from 'react'
-import { black, light_grey, primary, secondary, warmGrey, white } from '../constants/Color'
+import { black, light_grey, primary, secondary, warmGrey, white } from '../../constants/Color'
 
-import Translate from '../translation/Translate'
-import { BOLD, FontSize, MEDIUM, REGULAR, SEMIBOLD } from '../constants/Fonts'
-import { pixelSizeHorizontal, widthPixel } from '../commonComponents/ResponsiveScreen'
-import { goBack, navigate, resetScreen } from '../navigations/RootNavigation'
-import IconButton from '../commonComponents/IconButton'
+import Translate from '../../translation/Translate'
+import { BOLD, FontSize, MEDIUM, REGULAR, SEMIBOLD } from '../../constants/Fonts'
+import { pixelSizeHorizontal, widthPixel } from '../../commonComponents/ResponsiveScreen'
+import { goBack, navigate, resetScreen } from '../../navigations/RootNavigation'
+import IconButton from '../../commonComponents/IconButton'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { HStack, Radio, Stack } from 'native-base'
-import AddModel from '../commonComponents/AddModel'
+import AddModel from '../../commonComponents/AddModel'
 
 const Register = () => {
     const [value, setValue] = useState("one");

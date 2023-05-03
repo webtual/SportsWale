@@ -17,24 +17,24 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 
 /* Screens */
-import Splash from '../screens/Splash';
-import Intro from '../screens/Intro';
-import Login from '../screens/Login';
-import OtpView from '../screens/OtpView';
-import Register from '../screens/Register';
-import Home from '../screens/Home';
-import Venue from '../screens/Venue';
-import Profile from '../screens/Profile';
-import Settings from '../screens/Settings';
+import Splash from '../screens/AuthScreen/Splash';
+import Intro from '../screens/AuthScreen/Intro';
+import Login from '../screens/AuthScreen/Login';
+import OtpView from '../screens/AuthScreen/OtpView';
+import Register from '../screens/AuthScreen/Register';
+import Home from '../screens/DashBoardScreen/Home';
+import Venue from '../screens/DashBoardScreen/Venue';
+import Profile from '../screens/DashBoardScreen/Profile';
+import Settings from '../screens/OtherScreen/Settings';
 import FastImage from 'react-native-fast-image';
 import { FolderFillImg, FolderImg, HomeFillImg, HomeImg, SettingFillImg, SettingImg, UserFillImg, UserImg } from '../constants/Images';
-import ChooseIntrest from '../screens/chooseIntrest';
-import VenueDetail from '../screens/VenueDetail';
-import AddVenue from '../screens/AddVenue';
-import Activity from '../screens/Activity';
-import CreateActivity from '../screens/CreateActivity';
-import ActivityDetails from '../screens/ActivityDetails';
-import Request from '../screens/Request';
+import ChooseIntrest from '../screens/OtherScreen/chooseIntrest';
+import VenueDetail from '../screens/OtherScreen/VenueDetail';
+import AddVenue from '../screens/OtherScreen/AddVenue';
+import Activity from '../screens/DashBoardScreen/Activity';
+import CreateActivity from '../screens/OtherScreen/CreateActivity';
+import ActivityDetails from '../screens/OtherScreen/ActivityDetails';
+import Request from '../screens/OtherScreen/Request';
 
 // import { cart_data } from '../redux/reducers/cartReducer';
 // import { useSelector } from 'react-redux';

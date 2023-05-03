@@ -3,23 +3,23 @@ import React, { Component, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, ImageBackground, StatusBar, Platform, Alert, Linking } from 'react-native';
 
 // Constants
-import { black, dodgerBlue, greenPrimary, offWhite, primary, white } from '../constants/Color'
-import { navigate, resetScreen } from '../navigations/RootNavigation'
-import { BOLD, FontSize, MEDIUM, SEMIBOLD } from '../constants/Fonts';
-import { getData, storeData } from '../commonComponents/AsyncManager';
-import { SCREEN_HEIGHT, SCREEN_WIDTH, USER_DATA } from '../constants/ConstantKey';
-import translate from '../translation/Translate';
-import ApiManager from '../commonComponents/ApiManager';
-import { name, version } from '../../package.json'
-import { VERSION_CHECK } from '../constants/ApiUrl';
-import { appLogoWhiteTrans, ImgLogo, SplashImg } from '../constants/Images';
+import { black, dodgerBlue, greenPrimary, offWhite, primary, white } from '../../constants/Color'
+import { navigate, resetScreen } from '../../navigations/RootNavigation'
+import { BOLD, FontSize, MEDIUM, SEMIBOLD } from '../../constants/Fonts';
+import { getData, storeData } from '../../commonComponents/AsyncManager';
+import { SCREEN_HEIGHT, SCREEN_WIDTH, USER_DATA } from '../../constants/ConstantKey';
+import translate from '../../translation/Translate';
+import ApiManager from '../../commonComponents/ApiManager';
+import { name, version } from '../../../package.json'
+import { VERSION_CHECK } from '../../constants/ApiUrl';
+import { appLogoWhiteTrans, ImgLogo, SplashImg } from '../../constants/Images';
 
 /** Redux Files */
 import { useSelector, useDispatch } from 'react-redux'
-import { storeUserData, user_data } from '../redux/reducers/userReducer'
+import { storeUserData, user_data } from '../../redux/reducers/userReducer'
 import FastImage from 'react-native-fast-image';
-import { heightPixel, pixelSizeHorizontal, pixelSizeVertical } from '../commonComponents/ResponsiveScreen';
-import Translate from '../translation/Translate';
+import { heightPixel, pixelSizeHorizontal, pixelSizeVertical } from '../../commonComponents/ResponsiveScreen';
+import Translate from '../../translation/Translate';
 
 
 // create a component

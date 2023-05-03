@@ -1,14 +1,14 @@
 import { View, Text, SafeAreaView, StyleSheet, FlatList, Image, Pressable, Animated } from 'react-native'
 import React, { useCallback, useRef, useState } from 'react'
-import { black, dim_grey, disableColor, greenPrimary, offWhite, secondary, white } from '../constants/Color';
-import { BOLD, FontSize, REGULAR, SEMIBOLD } from '../constants/Fonts';
-import { pixelSizeHorizontal, widthPixel } from '../commonComponents/ResponsiveScreen';
+import { black, dim_grey, disableColor, greenPrimary, offWhite, secondary, white } from '../../constants/Color';
+import { BOLD, FontSize, REGULAR, SEMIBOLD } from '../../constants/Fonts';
+import { pixelSizeHorizontal, widthPixel } from '../../commonComponents/ResponsiveScreen';
 import FastImage from 'react-native-fast-image';
-import { Intro1, Intro2, Intro3, NewIntro } from '../constants/Images';
-import { SCREEN_WIDTH } from '../constants/ConstantKey';
-import Translate from '../translation/Translate';
+import { Intro1, Intro2, Intro3, NewIntro } from '../../constants/Images';
+import { SCREEN_WIDTH } from '../../constants/ConstantKey';
+import Translate from '../../translation/Translate';
 import { ExpandingDot } from 'react-native-animated-pagination-dots';
-import { resetScreen } from '../navigations/RootNavigation';
+import { resetScreen } from '../../navigations/RootNavigation';
 
 const Intro = () => {
 

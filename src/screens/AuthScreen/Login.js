@@ -1,17 +1,17 @@
 
 import { View, Text, SafeAreaView, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useState } from 'react'
-import { black, light_grey, primary, warmGrey, white } from '../constants/Color'
+import { black, light_grey, primary, warmGrey, white } from '../../constants/Color'
 
-import Translate from '../translation/Translate'
-import { BOLD, FontSize, MEDIUM, REGULAR, SEMIBOLD } from '../constants/Fonts'
-import { pixelSizeHorizontal, widthPixel } from '../commonComponents/ResponsiveScreen'
-import { navigate } from '../navigations/RootNavigation'
-import HeaderView from '../commonComponents/HeaderView'
-import LoadingView from '../commonComponents/LoadingView'
+import Translate from '../../translation/Translate'
+import { BOLD, FontSize, MEDIUM, REGULAR, SEMIBOLD } from '../../constants/Fonts'
+import { pixelSizeHorizontal, widthPixel } from '../../commonComponents/ResponsiveScreen'
+import { navigate } from '../../navigations/RootNavigation'
+import HeaderView from '../../commonComponents/HeaderView'
+import LoadingView from '../../commonComponents/LoadingView'
 import FastImage from 'react-native-fast-image'
-import TextInputView from '../commonComponents/TextInputView'
-import { ic_user } from '../constants/Images'
+import TextInputView from '../../commonComponents/TextInputView'
+import { ic_user } from '../../constants/Images'
 
 const Login = () => {
 
