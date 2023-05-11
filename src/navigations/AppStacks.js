@@ -35,6 +35,13 @@ import Activity from '../screens/DashBoardScreen/Activity';
 import CreateActivity from '../screens/OtherScreen/CreateActivity';
 import ActivityDetails from '../screens/OtherScreen/ActivityDetails';
 import Request from '../screens/OtherScreen/Request';
+import RegisterName from '../screens/AuthScreen/RegisterName';
+import RegisterMobile from '../screens/AuthScreen/RegisterMobile';
+import RegisterUserDetails from '../screens/AuthScreen/RegisterUserDetail';
+import RegisterSelectSport from '../screens/AuthScreen/RegisterSelectSport';
+import RegisterWhatLearn from '../screens/AuthScreen/RegisterWhatLearn';
+import RegisterFinal from '../screens/AuthScreen/RegisterFinal';
+import RegisterWhatYouGain from '../screens/AuthScreen/RegisterWhatYouGain';
 
 // import { cart_data } from '../redux/reducers/cartReducer';
 // import { useSelector } from 'react-redux';
@@ -141,6 +148,16 @@ function AppStacks() {
 			<Stack.Screen name="Login" component={Login} />
 			<Stack.Screen name="OtpView" component={OtpView} />
 			<Stack.Screen name="Register" component={Register} />
+
+			<Stack.Screen name="RegisterName" component={RegisterName} />
+			<Stack.Screen name="RegisterMobile" component={RegisterMobile} />
+			<Stack.Screen name="RegisterUserDetails" component={RegisterUserDetails} />
+			<Stack.Screen name="RegisterSelectSport" component={RegisterSelectSport} />
+
+			<Stack.Screen name="RegisterWhatLearn" component={RegisterWhatLearn} />
+			<Stack.Screen name="RegisterWhatYouGain" component={RegisterWhatYouGain} />
+			<Stack.Screen name="RegisterFinal" component={RegisterFinal} />
+
 			<Stack.Screen name="Dashboard" component={HomeTabs} />
 			<Stack.Screen name="ChooseIntrest" component={ChooseIntrest} />
 			<Stack.Screen name="VenueDetail" component={VenueDetail} />

@@ -17,10 +17,15 @@ const HeaderView = ({ title = "", isBack = true, children, titleColor = white, o
             <SafeAreaView style={{ flex: 1 }}>
                 <StatusBar barStyle={'light-content'} backgroundColor={primary} />
                 <ScrollView style={styles.container} contentContainerStyle={{}} bounces={false} keyboardShouldPersistTaps='handled'>
-                    <ImageBackground
+                    <View style={[styles.headerImgContainer,{ height: props.HeaderSmall ?SCREEN_WIDTH / 4 :SCREEN_WIDTH / 1.8,}]}>
+                    <Image
                         source={headerBackground}
-                        style={styles.headerImgContainer}>
-                        {title &&
+                        // resizeMode='cover'
+                        style={{flex:1, borderBottomLeftRadius: 20,
+                            borderBottomRightRadius: 20,}}>
+                        
+                    </Image>
+                    {title &&
                             <View style={styles.headerRowContainer}>
                                 {isBack &&
                                     <IconButton additionalStyle={styles.btnBack}
@@ -32,7 +37,8 @@ const HeaderView = ({ title = "", isBack = true, children, titleColor = white, o
                                 {rightComponent && rightComponent}
                             </View>
                         }
-                    </ImageBackground>
+                    </View>
+                   
                     <View style={[styles.mainView, { ...containerStyle }]}>
                         {children}
                     </View>
@@ -54,14 +60,15 @@ const styles = StyleSheet.create({
     },
     headerImgContainer: {
         width: SCREEN_WIDTH,
-        height: SCREEN_WIDTH / 1.8,
+       
         backgroundColor: primary,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
+        flex:1
     },
     container: {
         flex: 1,
-        backgroundColor: offWhite
+        backgroundColor: offWhite,
     },
     textTitle: {
         fontSize: FontSize.FS_25,
@@ -71,7 +78,7 @@ const styles = StyleSheet.create({
     btnBack: {
     },
     mainView: {
-        width: "100%", height: SCREEN_HEIGHT, backgroundColor: offWhite,
+        width: "100%",  backgroundColor: offWhite,
     }
 })
 

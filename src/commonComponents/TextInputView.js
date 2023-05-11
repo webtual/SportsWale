@@ -43,15 +43,17 @@ const TextInputView = ({ value = "", imageSource, onChangeText, placeholder = ""
                 />}
 
             <TextInput
+            returnKeyType='none'
                 value={value}
                 onChangeText={onChangeText}
                 placeholder={placeholder}
+                placeholderTextColor={black}
                 editable={editable}
                 onFocus={onFocus}
                 onBlur={onBlur}
                 style={{
-                    flex: 1, marginLeft: pixelSizeHorizontal(15), fontFamily: MEDIUM, fontSize: FontSize.FS_16, color: editable ? black : warmGrey,
-                    paddingVertical: pixelSizeHorizontal(7),
+                    flex: 1, marginLeft: pixelSizeHorizontal(15), fontFamily: MEDIUM, fontSize: FontSize.FS_16, color:  black,
+                    paddingVertical: pixelSizeHorizontal(10),
                 }}
                 {...props}
             />

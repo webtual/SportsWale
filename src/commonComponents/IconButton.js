@@ -17,7 +17,7 @@ const IconButton = ({children, additionalStyle={}, backgroundColor = white, onPr
 // define your styles
 const styles = StyleSheet.create({
 	container: {
-		padding: pixelSizeHorizontal(10),
+		// padding: pixelSizeHorizontal(10),
 		borderRadius: widthPixel(10),
 	},
 });

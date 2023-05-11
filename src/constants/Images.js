@@ -12,5 +12,7 @@ export const headerBackground = require('../assets/images/header_bg.png')
 //icons
 export const ic_user = require('../assets/images/ic_user.png')
 export const ic_mobile = require('../assets/images/ic_phone.png')
+export const ic_location = require('../assets/images/ic_location.png')
+export const ic_calender = require('../assets/images/ic_calender.png')
 
 

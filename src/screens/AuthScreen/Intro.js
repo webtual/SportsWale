@@ -1,14 +1,13 @@
-import { View, Text, SafeAreaView, StyleSheet, FlatList, Image, Pressable, Animated } from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet, FlatList, Pressable, Animated } from 'react-native';
 import React, { useCallback, useRef, useState } from 'react'
-import { black, dim_grey, disableColor, greenPrimary, offWhite, secondary, white } from '../../constants/Color';
+import { black, dim_grey, offWhite, secondary, white } from '../../constants/Color';
 import { BOLD, FontSize, REGULAR, SEMIBOLD } from '../../constants/Fonts';
-import { pixelSizeHorizontal, widthPixel } from '../../commonComponents/ResponsiveScreen';
+import { pixelSizeHorizontal } from '../../commonComponents/ResponsiveScreen';
 import FastImage from 'react-native-fast-image';
-import { Intro1, Intro2, Intro3, NewIntro } from '../../constants/Images';
+import { Intro1, Intro2 } from '../../constants/Images';
 import { SCREEN_WIDTH } from '../../constants/ConstantKey';
 import Translate from '../../translation/Translate';
-import { ExpandingDot } from 'react-native-animated-pagination-dots';
-import { resetScreen } from '../../navigations/RootNavigation';
+import { navigate, resetScreen } from '../../navigations/RootNavigation';
 
 const Intro = () => {
 
@@ -80,33 +79,11 @@ const Intro = () => {
             <View style={styles.itemView}>
 
               <FastImage source={item.image} style={styles.imgStyle} resizeMode='contain' />
-              <Text style={styles.textStyle}>{item.title}<Text style={styles.hashTextStyle}>{item.hash}</Text><Text style={styles.textStyle}>{item.appName}</Text></Text>
+              <Text style={styles.textStyle}>{item.title}<Text onPress={() =>{  navigate("RegisterSelectSport")}} style={styles.hashTextStyle}>{item.hash}</Text><Text style={styles.textStyle}>{item.appName}</Text></Text>
               <Text style={styles.subTextStyle}>{item.subTitle}</Text>
             </View>
           )}
         />
-
-
-        {/* <View style={{}}>
-          <ExpandingDot
-            data={SliderData}
-            expandingDotWidth={widthPixel(30)}
-            scrollX={scrollX}
-            // inActiveDotOpacity={0.3}
-            inActiveDotColor={disableColor}
-            activeDotColor={greenPrimary}
-            dotStyle={{
-              width: 10,
-              height: 10,
-              borderRadius: 5,
-              marginHorizontal: 5
-            }}
-            containerStyle={{
-            }}
-          />
-        </View> */}
-
-
         <Pressable
           onPress={() => btnNextTap()}
           style={styles.btnStyle}>

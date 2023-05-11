@@ -1,13 +1,12 @@
 export default {
 
-	app_name : "SportsWale",
+
 
 	next : 'Next',
 	done : "Done",
-	login : 'Login',
+
 	new_to_krifix : "New to Krifix? ",
-	sign_up : 'Sign Up',
-	mobile : 'Mobile',
+	
 	sign_up : "Sign up",
 	already_Registered : "Already Registered? ",
 	full_name : 'Full name',
@@ -17,9 +16,7 @@ export default {
 	area : 'Area',
 	pincode : 'Pincode',
 
-	resend_otp : "Resend OTP",
-	otp_desc : "OTP send on your register mobile no",
-	submit : 'Submit',
+
 	settings : 'Settings',
 
 	notifications : "Notifications",
@@ -37,7 +34,7 @@ export default {
 	profile : "Profile",
 	edit_profile : "Edit Profile",
 
-	name : "Name",
+
 	bank_details : "Bank Details",
 	address : "Address",
 	bank_name : "Bank name",
@@ -79,9 +76,26 @@ export default {
 
 
 
-
+	app_name : "SportsWale",
 	enter_name:"Enter Your Name",
 	dont_have_account:"Don’t have account? ",
 	register:"Register Now",
 	enter_otp : "Enter OTP",
+	name : "Name",
+	phone_number : "Phone number",
+	submit : 'Submit',
+	login : 'Login',
+	mobile : 'Mobile',
+	resend_otp : "Resend OTP",
+	otp_desc : "OTP send on your register mobile no",
+	location:"Location",
+	enter_location:"Enter Location",
+	date_of_birth:"Date of Birth",
+	gender:"Gender",
+	select:"Select",
+	participate:"Participate in ",
+	select_sport:"Select Sport",
+	what_you_learn:"I would like to learn ?",
+	i_hope_to_gain:"Who i am and what i hope to gain",
+	sport_elaboration:"Sport elaboration"
 }
