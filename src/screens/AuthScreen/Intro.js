@@ -79,7 +79,7 @@ const Intro = () => {
             <View style={styles.itemView}>
 
               <FastImage source={item.image} style={styles.imgStyle} resizeMode='contain' />
-              <Text style={styles.textStyle}>{item.title}<Text onPress={() =>{  navigate("RegisterSelectSport")}} style={styles.hashTextStyle}>{item.hash}</Text><Text style={styles.textStyle}>{item.appName}</Text></Text>
+              <Text style={styles.textStyle}>{item.title}<Text onPress={() =>{  navigate("RegisterFinal")}} style={styles.hashTextStyle}>{item.hash}</Text><Text style={styles.textStyle}>{item.appName}</Text></Text>
               <Text style={styles.subTextStyle}>{item.subTitle}</Text>
             </View>
           )}

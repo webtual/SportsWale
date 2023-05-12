@@ -79,7 +79,7 @@ const RegisterName = ({}) => {
                                 value={values.name}
                                 placeholder={Translate.t("name")}
                                 maxLength={10}
-                                // error={(errors.name && touched.name) && errors.name}
+                                error={(errors.name && touched.name) && errors.name}
                             />
                             <TouchableOpacity activeOpacity={0.7}   
                                 onPress={handleSubmit}

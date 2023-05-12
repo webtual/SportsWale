@@ -77,7 +77,7 @@ const RegisterMobile = ({}) => {
                             <TextInputView
                                 imageSource={ic_mobile}
                                 onChangeText={handleChange('mobile')}
-                                onBlurEffect={handleBlur('mobile')}
+                                // onBlurEffect={handleBlur('mobile')}
                                 value={values.mobile}
                                 placeholder={Translate.t("mobile")}
                                 maxLength={10}

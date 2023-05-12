@@ -19,7 +19,7 @@ import { useFocusEffect } from '@react-navigation/native'
 import CommonStyle from '../../commonComponents/CommonStyle'
 
 
-const RegisterWhatYouGain = ({}) => {
+const RegisterWhatYouGain = ({ }) => {
 
     const [isLoading, setIsLoading] = useState(false)
     const [isFocus, setIsFocus] = useState(false)
@@ -31,40 +31,40 @@ const RegisterWhatYouGain = ({}) => {
         }, [])
     );
 
-  
 
-   
 
-    const OnPressNext = () =>{
+
+
+    const OnPressNext = () => {
         navigate('RegisterFinal')
     }
     return (
         <>
             <HeaderView HeaderSmall={true}
-             title={Translate.t("participate")} isBack={true} onPress={() => goBack()} containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20),}}>
-            <View style={{marginTop:20}}>
-            <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_20, color: black, margin: 5 }}>{Translate.t("i_hope_to_gain")}</Text>
-            <TextInput
-            returnKeyType='none'
-            multiline={true}
-                value={Txt}
-                onChangeText={(text) =>setTxt(text)}
-                placeholder={"Write Something Here...."}
-                placeholderTextColor={grey}
-                editable={true}
-                onFocus={()=>setIsFocus(true)}
-                onBlur={()=>setIsFocus(false)}
-                style={{
-                     fontFamily: MEDIUM, fontSize: FontSize.FS_16, color:  black,height:120,padding:10,marginVertical:10,
-                    paddingVertical: pixelSizeHorizontal(10),borderColor:isFocus? primary:transparent,borderWidth:1,backgroundColor:white,borderRadius:10
-                }}
-            />
-            <TouchableOpacity activeOpacity={0.7}
-								onPress={() =>{OnPressNext()}}
-								style={CommonStyle.mainBtnStyle}>
-								<Text style={CommonStyle.mainBtnText}>{Translate.t("next")}</Text>
+                title={Translate.t("participate")} isBack={true} onPress={() => goBack()} containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20), }}>
+                <View style={{ marginTop: 20 }}>
+                    <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_20, color: black, margin: 5 }}>{Translate.t("i_hope_to_gain")}</Text>
+                    <TextInput
+                        returnKeyType='none'
+                        multiline={true}
+                        value={Txt}
+                        onChangeText={(text) => setTxt(text)}
+                        placeholder={"Write Something Here...."}
+                        placeholderTextColor={grey}
+                        editable={true}
+                        onFocus={() => setIsFocus(true)}
+                        onBlur={() => setIsFocus(false)}
+                        style={{
+                            fontFamily: MEDIUM, fontSize: FontSize.FS_16, color: black, height: 120, padding: 10, marginVertical: 10,
+                            paddingVertical: pixelSizeHorizontal(10), borderColor: isFocus ? primary : transparent, borderWidth: 1, backgroundColor: white, borderRadius: 10
+                        }}
+                    />
+                    <TouchableOpacity activeOpacity={0.7}
+                        onPress={() => { OnPressNext() }}
+                        style={CommonStyle.mainBtnStyle}>
+                        <Text style={CommonStyle.mainBtnText}>{Translate.t("next")}</Text>
 
-							</TouchableOpacity>
+                    </TouchableOpacity>
                 </View>
             </HeaderView>
             {isLoading && <LoadingView />}
@@ -74,7 +74,7 @@ const RegisterWhatYouGain = ({}) => {
 
 const styles = StyleSheet.create({
 
-  
+
 })
 
 export default RegisterWhatYouGain

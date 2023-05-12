@@ -139,7 +139,7 @@ const Home = () => {
     ]
     return (
 
-        <HeaderView title="Welcome to Sport Wale" isBack={false} containerStyle={{ paddingHorizontal: pixelSizeHorizontal(0) }}
+        <HeaderView HeaderSmall={true} title="Welcome to Sport Wale" isBack={false} containerStyle={{ paddingHorizontal: pixelSizeHorizontal(0) }}
             titleColor={white}
             rightComponent={(<View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Icon name={"map-marker-radius-outline"} size={26} color={light_grey} />

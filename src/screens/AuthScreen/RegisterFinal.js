@@ -1,12 +1,12 @@
 
 import { View, Text, SafeAreaView, StyleSheet, TextInput, TouchableOpacity, ScrollView, Platform } from 'react-native'
 import React, { useCallback, useState } from 'react'
-import { black, light_grey, primary, secondary, warmGrey, white } from '../../constants/Color'
+import { black, grey, light_grey, primary, secondary, transparent, warmGrey, white } from '../../constants/Color'
 
 import Translate from '../../translation/Translate'
 import { BOLD, FontSize, MEDIUM, REGULAR, SEMIBOLD } from '../../constants/Fonts'
 import { pixelSizeHorizontal, widthPixel } from '../../commonComponents/ResponsiveScreen'
-import { goBack, navigate } from '../../navigations/RootNavigation'
+import { goBack, navigate, resetScreen } from '../../navigations/RootNavigation'
 import HeaderView from '../../commonComponents/HeaderView'
 import LoadingView from '../../commonComponents/LoadingView'
 import FastImage from 'react-native-fast-image'
@@ -22,7 +22,8 @@ import CommonStyle from '../../commonComponents/CommonStyle'
 const RegisterFinal = ({}) => {
 
     const [isLoading, setIsLoading] = useState(false)
-
+    const [isFocus, setIsFocus] = useState(false)
+    const [Txt, setTxt] = useState("")
 
     useFocusEffect(
         useCallback(() => {
@@ -42,12 +43,27 @@ const RegisterFinal = ({}) => {
             title={Translate.t("participate")} isBack={true} onPress={() => goBack()} containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20),}}>
             <View style={{marginTop:20}}>
             <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_20, color: black, margin: 5 }}>{Translate.t("sport_elaboration")}</Text>
-            <TouchableOpacity activeOpacity={0.7}
-								onPress={() =>{OnPressNext()}}
-								style={CommonStyle.mainBtnStyle}>
-								<Text style={CommonStyle.mainBtnText}>{Translate.t("next")}</Text>
+            <TextInput
+                        returnKeyType='none'
+                        multiline={true}
+                        value={Txt}
+                        onChangeText={(text) => setTxt(text)}
+                        placeholder={"Write Something Here...."}
+                        placeholderTextColor={grey}
+                        editable={true}
+                        onFocus={() => setIsFocus(true)}
+                        onBlur={() => setIsFocus(false)}
+                        style={{
+                            fontFamily: MEDIUM, fontSize: FontSize.FS_16, color: black, height: 80, padding: 10, marginVertical: 10,
+                            paddingVertical: pixelSizeHorizontal(10), borderColor: isFocus ? primary : transparent, borderWidth: 1, backgroundColor: white, borderRadius: 10
+                        }}
+                    />
+                    <TouchableOpacity activeOpacity={0.7}
+                        onPress={() => { OnPressNext() }}
+                        style={CommonStyle.mainBtnStyle}>
+                        <Text style={CommonStyle.mainBtnText}>{Translate.t("next")}</Text>
 
-							</TouchableOpacity>
+                    </TouchableOpacity>
                 </View>
             </HeaderView>
             {isLoading && <LoadingView />}

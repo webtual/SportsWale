@@ -101,8 +101,8 @@ const styles = StyleSheet.create({
 	borderStyleBase: {
 		borderWidth: 2,	
 		borderColor: seprator,
-		height: heightPixel(50),
-		width: heightPixel(50),
+		height: heightPixel(70),
+		width: heightPixel(70),
 		fontSize: FontSize.FS_22,
 		fontFamily: REGULAR,
 		borderRadius: 50,
@@ -115,8 +115,8 @@ const styles = StyleSheet.create({
 	borderStyleHighLighted: {
 		borderColor: primary,
 		fontSize: FontSize.FS_22,
-		height: heightPixel(44),
-		width: heightPixel(44),
+		height: heightPixel(70),
+		width: heightPixel(70),
 		fontFamily: REGULAR,
 		color: black,
 		alignItems: 'center',
