@@ -1,5 +1,5 @@
 
-import { View, Text, SafeAreaView, StyleSheet, TextInput, TouchableOpacity, ScrollView, Platform, FlatList } from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet, TextInput, TouchableOpacity, ScrollView, Platform, FlatList, Image, Alert } from 'react-native'
 import React, { useCallback, useState } from 'react'
 import { black, light_grey, primary, primary_light, secondary, warmGrey, white } from '../../constants/Color'
 
@@ -18,92 +18,60 @@ import { Log } from '../../commonComponents/Log'
 import { useFocusEffect } from '@react-navigation/native'
 import CommonStyle from '../../commonComponents/CommonStyle'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { ADD_GAME_TO_PROFILE, GET_GAMES, GET_GAME_TO_PROFILE, IMAGE_URL, REMOVE_GAME_TO_PROFILE } from '../../constants/ApiUrl'
+import ApiManager from '../../commonComponents/ApiManager'
+import { Toast } from 'native-base'
+import { getData } from '../../commonComponents/AsyncManager'
+import { USER_DATA } from '../../constants/ConstantKey'
 
 const RegisterSelectSport = ({ }) => {
 
     const [isLoading, setIsLoading] = useState(false)
     const [selectedList, setSelectedList] = useState([])
+    const [gameList, setGameList] = useState([])
+    const [userData, setUserData] = useState(null)
 
     useFocusEffect(
         useCallback(() => {
+            Api_Get_Games(true)
+            getUserData()
         }, [])
     );
 
-
-    const IntrestData = [
-        {
-            id: 1,
-            SportName: 'Cricket',
-            SportImage: 'cricket'
-        },
-        {
-            id: 2,
-            SportName: 'Football',
-            SportImage: 'soccer'
-        },
-        {
-            id: 3,
-            SportName: 'Cycling',
-            SportImage: 'bike'
-        },
-        {
-            id: 4,
-            SportName: 'Baseball',
-            SportImage: 'baseball'
-        },
-        {
-            id: 5,
-            SportName: 'Swimming',
-            SportImage: 'swim'
-        },
-        {
-            id: 6,
-            SportName: 'Tennis',
-            SportImage: 'tennis'
-        },
-        {
-            id: 7,
-            SportName: 'Volley ball',
-            SportImage: 'volleyball'
-        },
-
-        {
-            id: 8,
-            SportName: 'Basketball',
-            SportImage: 'basketball'
-        },
-        {
-            id: 9,
-            SportName: 'Water polo',
-            SportImage: 'water-polo'
-        },
-
-
-    ]
-
-    const SelectIntrest = (item) => {
-        console.log("ITEM :", item)
-        var selectedData = [...selectedList]
-
-        let filter = selectedData.filter(x => x.id === item.id)
-        console.log("filter", filter)
-        if (filter.length) {
-            console.log("if")
-            let filter = selectedData.filter(x => x.id != item.id)
-            selectedData = filter
-        } else {
-            console.log("else")
-            selectedData.push(item)
-        }
-        console.log('====================================');
-        console.log("selectedData", selectedData.length);
-        console.log('====================================');
-        setSelectedList(selectedData)
-
+    const Api_Get_Games = (isLoad) => {
+        setIsLoading(isLoad)
+        ApiManager.post(GET_GAMES, {
+            apikey: '123',
+        }).then((response) => {
+            setIsLoading(false)
+            var data = response.data;
+            // Log("GET GAMES RESPONSE :", data)
+            if (data.Status == 1) {
+                var games_data = JSON.parse(data.Data)
+                // Log("GET GAMES RESPONSE :", games_data)
+                setGameList(games_data)
+            } else {
+                Toast.show({
+                    description: data?.Msg
+                })
+            }
+        }).catch((err) => {
+            setIsLoading(false)
+            console.error("Api_Get_Games Error ", err);
+        })
     }
 
+    const SelectIntrest = (item) => {
+        var selectedData = [...selectedList]
+        let filter = selectedData.filter(x => x.games_id === item.games_id)
+        if (filter.length) {
+            Api_Remove_game_to_profile(filter[0])
+        } else {
+            Api_Add_game_to_profile(item)
+        }
+    }
     const checkExists = (item) => {
-        let filter = selectedList.filter(x => x.id === item.id)
+        let filter = selectedList.filter(x => x.games_id === item.games_id)
         if (filter.length) {
             return true
         }
@@ -111,27 +79,112 @@ const RegisterSelectSport = ({ }) => {
             return false
         }
     }
+    const getUserData = () => {
+        getData(USER_DATA, (data) => {
+            // Log("USER_DATA: " + JSON.stringify(data))
+            setUserData(data)
+            Api_Get_game_to_profile(data)
+        })
+    }
+
+    const Api_Add_game_to_profile = (data) => {
+        ApiManager.post(ADD_GAME_TO_PROFILE, {
+            apikey: '123',
+            users_id: userData.users_id,
+            games_id: data?.games_id,
+            isTrainer: false,
+            skill: "Advanced",
+        }).then((response) => {
+            var data = response.data;
+            Log("ADD GAME RESPONSE :", data)
+            if (data.Status == 1) {
+                Api_Get_game_to_profile(userData)
+                Toast.show({
+                    description: data?.Msg
+                })
+            } else {
+                Toast.show({
+                    description: data?.Msg
+                })
+            }
+
+        }).catch((err) => {
+            console.error("Api_Add_game_to_profile Error ", err);
+        })
+    }
+
+    const Api_Remove_game_to_profile = (data) => {
+
+        ApiManager.post(REMOVE_GAME_TO_PROFILE, {
+            apikey: '123',
+            users_games_id: data?.users_games_id,
+        }).then((response) => {
+            var data = response.data;
+            Log("REMOVE GAME RESPONSE :", data)
+            if (data.Status == 1) {
+                Api_Get_game_to_profile(userData)
+                Toast.show({
+                    description: data?.Msg
+                })
+            } else {
+                Toast.show({
+                    description: data?.Msg
+                })
+            }
+
+        }).catch((err) => {
+            console.error("Api_Remove_game_to_profile Error ", err);
+        })
+    }
+    const Api_Get_game_to_profile = (data) => {
+        ApiManager.post(GET_GAME_TO_PROFILE, {
+            apikey: '123',
+            users_id: data.users_id,
+        }).then((response) => {
+            var data = response.data;
+            Log("GET USERS GAME RESPONSE :", data)
+            if (data.Status == 1) {
+                var selected_game_data = JSON.parse(data.Data)
+                setSelectedList(selected_game_data)
+            } else {
+                Toast.show({
+                    description: data?.Msg
+                })
+            }
+
+        }).catch((err) => {
+            console.error("Api_Remove_game_to_profile Error ", err);
+        })
+    }
+
     const OnPressNext = () => {
-        navigate('RegisterWhatLearn',{SportData:selectedList})
+        console.log("selectedList", selectedList.length)
+        if (selectedList.length <= 2) {
+            alert("Select atleast two games")
+        }
+        else {
+            navigate('RegisterWhatLearn')
+        }
+
+
     }
     return (
         <>
             <HeaderView HeaderSmall={true}
-            title={Translate.t("participate")} isBack={true} onPress={() => goBack()} containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20), }}>
+                title={Translate.t("participate")} isBack={true} onPress={() => goBack()} containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20), }}>
                 <View style={{ marginTop: 20 }}>
-                <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_20, color: black, margin: 5 }}>{Translate.t("select_sport")}</Text>
+                    <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_20, color: black, margin: 5 }}>{Translate.t("select_sport")}</Text>
 
                     <FlatList
-                        data={IntrestData}
+                        numColumns={3}
+                        data={gameList}
                         contentContainerStyle={{
-                            flexDirection: 'row',
-                            flexWrap: 'wrap',
-                            // justifyContent:"center",
+
                         }}
                         renderItem={({ item }) => (
                             <View style={{
                                 alignItems: "center", marginVertical: 14,
-                                justifyContent: "center",
+                                justifyContent: "center", flex: 1
                             }}>
                                 <TouchableOpacity onPress={() => SelectIntrest(item)}
                                     style={{
@@ -145,18 +198,25 @@ const RegisterSelectSport = ({ }) => {
                                         justifyContent: "center",
                                         borderRadius: 50,
                                     }}>
-                                    <Icon name={item.SportImage} size={42} color={checkExists(item) == true ? white : primary} />
+                                    <Image
+                                        source={{ uri: IMAGE_URL + item.gameicon }}
+                                        style={{
+                                            width: 42, height: 42,
+                                            borderRadius: 25, tintColor: checkExists(item) == true ? white : primary
+                                        }}>
+
+                                    </Image>
                                 </TouchableOpacity>
-                                <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_14, color: black, marginVertical: 5 }}>{item.SportName}</Text>
+                                <Text numberOfLines={2} style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_14, color: black, marginVertical: 5, flex: 1 }}>{item.name}</Text>
                             </View>
                         )}
                     />
                     <TouchableOpacity activeOpacity={0.7}
-								onPress={() =>{OnPressNext()}}
-								style={CommonStyle.mainBtnStyle}>
-								<Text style={CommonStyle.mainBtnText}>{Translate.t("next")}</Text>
+                        onPress={() => { OnPressNext() }}
+                        style={[CommonStyle.mainBtnStyle, { marginBottom: 30 }]}>
+                        <Text style={CommonStyle.mainBtnText}>{Translate.t("next")}</Text>
 
-							</TouchableOpacity>
+                    </TouchableOpacity>
                 </View>
 
             </HeaderView>

@@ -21,7 +21,7 @@ export const warning = "#ffba2f"
 
 export const greenPrimary = "rgb(77,184,72)"
 export const disableColor = 'rgb(212,212,212)'
-export const grey = '#D4D4D4'
+
 export const midGreen = 'rgb(64,155,59)'
 export const warmGrey = 'rgb(113,113,113)'
 
@@ -41,3 +41,6 @@ export const secondary = "#FD3667"
 export const primary = "#3D6FE3"
 export const primary_light = "#DBE6FF"
 export const offWhite = "#F5F5F5"
+export const grey = '#D4D4D4'
+export const light_grey_02= '#A6A6A6'
+

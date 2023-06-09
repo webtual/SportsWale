@@ -21,7 +21,8 @@ const Profile = () => {
     }
 
     return (
-        <HeaderView title="Profile" isBack={false} containerStyle={{ paddingHorizontal: pixelSizeHorizontal(0) }}
+        <HeaderView  HeaderSmall={true} StackScreen={true}
+         title="Profile" isBack={false} containerStyle={{ paddingHorizontal: pixelSizeHorizontal(0) }}
             titleColor={white}  >
             <View style={{ marginVertical: pixelSizeHorizontal(10) }}>
                 {/* <View style={{ marginHorizontal: pixelSizeHorizontal(20), flexDirection: "row", alignItems: "center", flex: 1, backgroundColor: "black" }}>

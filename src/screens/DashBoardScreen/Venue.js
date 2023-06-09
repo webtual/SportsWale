@@ -82,7 +82,8 @@ const Venue = () => {
 
     return (
         <>
-            <HeaderView title="Venues" isBack={false} containerStyle={{ paddingHorizontal: pixelSizeHorizontal(0) }}
+            <HeaderView  HeaderSmall={true} StackScreen={true}
+             title="Venues" isBack={false} containerStyle={{ paddingHorizontal: pixelSizeHorizontal(0) }}
                 titleColor={white} rightComponent={(
                     <TouchableOpacity onPress={() => navigate('AddVenue')}>
                         <Icon name="plus-circle-outline" size={24} color={white} />

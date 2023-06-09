@@ -17,42 +17,35 @@ import * as Yup from 'yup';
 import { Log } from '../../commonComponents/Log'
 import { useFocusEffect } from '@react-navigation/native'
 import CommonStyle from '../../commonComponents/CommonStyle'
+import { setProfileData } from '../../redux/reducers/userReducer'
+import { useDispatch } from 'react-redux'
 
 
-const RegisterName = ({}) => {
-
+const RegisterName = ({route}) => {
     const [isLoading, setIsLoading] = useState(false)
-    const [txtName, setTxtName] = useState("")
-
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+const dispatch = useDispatch()
 
     useFocusEffect(
         useCallback(() => {
-         
-            // if (Platform.OS === "android") {
-            //     getFCMToken()
-            // }
-            // else {
-            //     requestUserPermission()
-            // }
         }, [])
     );
 
     const NameSchema = Yup.object().shape({
-        name: Yup.string()
-            // .min(10, '* Please enter your name')
-            .required("* Please enter your name"),
+        firstname: Yup.string()
+            .required("* Please enter your first name"),
+            lastname: Yup.string()
+            .required("* Please enter your last name"),
     });
 
     const loginData = (value) => {
-        Log("NAME :", value)
-        setTxtName(value.name)
-        navigate('RegisterMobile',{isRegister: true})
-        // Api_Check_mobile(true, value)
+        setFirstName(value.firstname)
+        setLastName(value.lastname)
+        dispatch(setProfileData(value))
+        navigate('RegisterUserDetails')
     }
-
-    const btnRegisterTap = () =>{
-        navigate('Register')
-    }
+   
     return (
         <>
             <HeaderView title={Translate.t("enter_name")} isBack={true} onPress={() => goBack()} containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20),}}>
@@ -60,7 +53,8 @@ const RegisterName = ({}) => {
             <Formik
                     enableReinitialize
                     initialValues={{
-                        name : txtName
+                        firstname : firstName,
+                        lastname:lastName
                     }}
                     // initialValues={{
                     //     name: name,
@@ -70,17 +64,27 @@ const RegisterName = ({}) => {
                     }
                 >
                     {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
-                        <View style={{ marginTop: pixelSizeHorizontal(60) }}>
+                        <View style={{ marginTop: pixelSizeHorizontal(30) }}>
 
                             <TextInputView
                                 imageSource={ic_user}
-                                onChangeText={handleChange('name')}
+                                onChangeText={handleChange('firstname')}
                                 // onBlurEffect={handleBlur('name')}
-                                value={values.name}
-                                placeholder={Translate.t("name")}
-                                maxLength={10}
-                                error={(errors.name && touched.name) && errors.name}
+                                value={values.firstname}
+                                placeholder={Translate.t("fname")}
+                                error={(errors.firstname && touched.firstname) && errors.firstname}
                             />
+                            <View style={{ marginTop: pixelSizeHorizontal(15) }}>
+                            <TextInputView
+                                imageSource={ic_user}
+                                onChangeText={handleChange('lastname')}
+                                // onBlurEffect={handleBlur('name')}
+                                value={values.lastname}
+                                placeholder={Translate.t("lname")}
+                                error={(errors.lastname && touched.lastname) && errors.lastname}
+                            />
+                            </View>
+                             
                             <TouchableOpacity activeOpacity={0.7}   
                                 onPress={handleSubmit}
                                 style={CommonStyle.mainBtnStyle}>

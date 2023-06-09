@@ -7,7 +7,7 @@ import { black, dodgerBlue, greenPrimary, offWhite, primary, white } from '../..
 import { navigate, resetScreen } from '../../navigations/RootNavigation'
 import { BOLD, FontSize, MEDIUM, SEMIBOLD } from '../../constants/Fonts';
 import { getData, storeData } from '../../commonComponents/AsyncManager';
-import { SCREEN_HEIGHT, SCREEN_WIDTH, USER_DATA } from '../../constants/ConstantKey';
+import { IS_PROFILE_CREATED, IS_REGISTER, SCREEN_HEIGHT, SCREEN_WIDTH, USER_DATA } from '../../constants/ConstantKey';
 import translate from '../../translation/Translate';
 import ApiManager from '../../commonComponents/ApiManager';
 import { name, version } from '../../../package.json'
@@ -20,6 +20,7 @@ import { storeUserData, user_data } from '../../redux/reducers/userReducer'
 import FastImage from 'react-native-fast-image';
 import { heightPixel, pixelSizeHorizontal, pixelSizeVertical } from '../../commonComponents/ResponsiveScreen';
 import Translate from '../../translation/Translate';
+import { Log } from '../../commonComponents/Log';
 
 
 // create a component
@@ -41,18 +42,38 @@ const Splash = (props) => {
 	/* Get User Data from Async Storage */
 	const GetUserData = () => {
 
-		getData(USER_DATA, (data) => {
-			// console.log("USER_DATA Splash: " + JSON.stringify(data))
-			if (data == null) {
-				console.log("go to login")
-				resetScreen('Intro')
+		// getData(USER_DATA, (data) => {
+		// 	// console.log("USER_DATA Splash: " + JSON.stringify(data))
+		// 	if (data == null) {
+		// 		console.log("go to login")
+		// 		resetScreen('Intro')
+		// 	} else {
+		// 		storeData(USER_DATA, data, () => {
+
+		// 			dispatch(storeUserData(data))
+
+		// 			resetScreen("Dashboard")
+
+		// 		})
+		// 	}
+		// })
+
+
+		getData(IS_PROFILE_CREATED, (data) => {
+			if (data == true) {
+				Log("GO TO DASHBOARD")
+				resetScreen("Dashboard")
 			} else {
-				storeData(USER_DATA, data, () => {
-
-					dispatch(storeUserData(data))
-
-					resetScreen("Dashboard")
-
+				getData(IS_REGISTER,(data) =>{
+					if(data== true){
+						Log("GO TO CREATE PROFILE")
+						navigate("RegisterName")
+					}
+					else{
+						Log("GO TO LOGIN")
+						navigate("Login")
+					}
+						
 				})
 			}
 		})

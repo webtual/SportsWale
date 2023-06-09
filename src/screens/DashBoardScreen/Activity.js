@@ -14,8 +14,9 @@ import FastImage from 'react-native-fast-image'
 import { SCREEN_WIDTH } from '../../constants/ConstantKey'
 import CarouselCard from '../../commonComponents/Carousel/index'
 import HeaderView from '../../commonComponents/HeaderView'
-import { updateLocale } from 'moment'
+import moment, { updateLocale } from 'moment'
 import { append } from 'domutils'
+import { ic_calender, ic_clock } from '../../constants/Images'
 
 const Activity = () => {
 
@@ -23,34 +24,35 @@ const Activity = () => {
         {
             venueName: "Ahemedabad cricket ground",
             venueAddress: "Ahemedabad",
-            sportsName:"Cricket",
-            activityName:"Indian Premier League",
-            Date:"17/11/2023",
-            time:"11:00 PM"
+            sportsName: "Cricket",
+            activityName: "Indian Premier League",
+            Date: "17/11/2023",
+            time: "11:00 PM"
         },
         {
             venueName: "Ahemedabad cricket ground",
             venueAddress: "Ahemedabad",
-            sportsName:"Cricket",
-            activityName:"Indian Premier League",
-            Date:"17/11/2023",
-            time:"11:00 PM"
+            sportsName: "Cricket",
+            activityName: "Indian Premier League",
+            Date: "17/11/2023",
+            time: "11:00 PM"
         },
         {
             venueName: "Ahemedabad cricket ground",
             venueAddress: "Ahemedabad",
-            sportsName:"Cricket",
-            activityName:"Indian Premier League",
-            Date:"17/11/2023",
-            time:"11:00 PM"
+            sportsName: "Cricket",
+            activityName: "Indian Premier League",
+            Date: "17/11/2023",
+            time: "11:00 PM"
         },
-        
-       
+
+
     ]
 
     return (
         <>
-            <HeaderView title="Activity" isBack={false} containerStyle={{ flex: 1, }}
+            <HeaderView HeaderSmall={true} StackScreen={true}
+                title="Activity" isBack={false} containerStyle={{ flex: 1, }}
                 titleColor={white}
 
             >
@@ -62,12 +64,13 @@ const Activity = () => {
                     ItemSeparatorComponent={() => (<View style={{ width: widthPixel(10), height: heightPixel(20) }}></View>)}
                     renderItem={({ item }) => (
                         <>
-                            <View 
+                            <View
                                 activeOpacity={0.7}
                                 style={{
                                     backgroundColor: white,
                                     width: "100%",
                                     borderRadius: 8,
+                                    padding: 12,
                                     shadowColor: black05,
                                     shadowOffset: {
                                         width: 0,
@@ -77,42 +80,45 @@ const Activity = () => {
                                     shadowRadius: 8,
                                     elevation: 3
                                 }}>
-                                    <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center"}}>
-                                    <View style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 8, marginVertical: 5, }}>
-                                    <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_16, color: secondary_grey, }}>Date : </Text>
-                                    <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: secondary_dark_grey, marginTop: 4 }}>{item.Date}</Text>
-                                </View>
-                                <View style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 8, marginVertical: 5, }}>
-                                    <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_16, color: secondary_grey, }}>Time : </Text>
-                                    <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: secondary_dark_grey, marginTop: 4 }}>{item.time}</Text>
-                                </View>
+                                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                                    <View style={{ flexDirection: "row", alignItems: "center", }}>
+                                        <FastImage
+                                            style={{ width: 15, height: 15 }}
+                                            source={ic_calender}
+                                        />
+                                        <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: secondary_dark_grey, marginLeft: 5 }}>{moment(new Date()).format("DD MMM YYYY ")}</Text>
                                     </View>
-                             
-                                <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_18, color: black, paddingHorizontal: 8 }}>{item.activityName}</Text>
-                                <View style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 8, marginVertical: 5, }}>
-                                    <Icon name={"cricket"} size={20} color={primary} />
-                                    <Text style={{ fontFamily: BOLD, fontSize: FontSize.FS_15, color: primary, marginTop: 4, padding: 5, backgroundColor: secondary, borderRadius: 8, marginHorizontal: 10 }}>Cricket</Text>
+                                    <View style={{ flexDirection: "row", alignItems: "center", marginVertical: 5, }}>
+                                        <FastImage
+                                            style={{ width: 15, height: 15 }}
+                                            source={ic_clock}
+                                        />
+                                        <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: secondary_dark_grey, marginLeft: 5 }}>{moment(new Date()).format("hh:mm A")}</Text>
+                                    </View>
                                 </View>
-                                <View style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 8, marginVertical: 5, }}>
-                                <Icon name={"map-marker-radius-outline"} size={20} color={primary} />
-                                <View>
-                                <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_16, color: warmGrey,marginHorizontal:10}}>{item.venueName}</Text>
-                                <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_16, color: warmGrey,marginHorizontal:10}}>{item.venueAddress}</Text>
+                                <View style={{ flexDirection: "row", alignItems: "center", marginVertical: 5, }}>
+                                    <View style={{ width: 32, height: 32, borderRadius: 20, backgroundColor: primary, alignItems: "center", justifyContent: "center" }}>
+                                        <Icon name={"soccer"} size={26} color={white} />
+                                    </View>
+                                    <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_16, color: black, paddingHorizontal: 8 }}>{item.activityName}</Text>
                                 </View>
-                               
-                              </View>
-                                <TouchableOpacity activeOpacity={0.6} onPress={() => {navigate("ActivityDetails",{item:item})}}
-                                 style={{
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    backgroundColor: black,
-                                    padding: 5,
-                                    borderBottomLeftRadius: 8,
-                                    borderBottomRightRadius: 8,
-                                    marginTop: 5
-                                }}>
-                                    <Text style={{ fontFamily: BOLD, fontSize: FontSize.FS_16, color: white, }}>Join now</Text>
-                                </TouchableOpacity>
+                                    <View style={{ flexDirection: "row", alignItems: "center",justifyContent:"space-between",}}>
+                                        <View style={{ flexDirection: "row", alignItems: "center", flex:1 }}>
+                                            <Icon name={"map-marker-radius-outline"} size={20} color={secondary} />
+                                            <Text numberOfLines={2} style={{ fontFamily: MEDIUM, fontSize: FontSize.FS_14, color: warmGrey, marginHorizontal: 5 }}>{item.venueName}</Text>
+                                        </View>
+                                        <TouchableOpacity activeOpacity={0.6} onPress={() => { navigate("ActivityDetails", { item: item }) }}
+                                            style={{
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                backgroundColor: secondary,
+                                                paddingHorizontal: 10,
+                                                paddingVertical: 5,
+                                                borderRadius: 6,
+                                            }}>
+                                            <Text style={{ fontFamily: BOLD, fontSize: FontSize.FS_16, color: white, }}>Join now</Text>
+                                        </TouchableOpacity>
+                                    </View>
                             </View>
 
                         </>
@@ -123,14 +129,14 @@ const Activity = () => {
             </HeaderView>
 
 
-            <TouchableOpacity onPress={() => navigate("CreateActivity")}
+            {/* <TouchableOpacity onPress={() => navigate("CreateActivity")}
                 style={{
                     position: 'absolute', bottom: 20, right: 20,
                     alignItems: 'center', justifyContent: 'center',
                     backgroundColor: primary, width: 60, height: 60, borderRadius: 75
                 }}>
                 <Icon name={'plus'} size={35} color={white} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </>
     )
 }

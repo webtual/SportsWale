@@ -1,271 +1,248 @@
-
-import { View, Text, SafeAreaView, StyleSheet, TextInput, TouchableOpacity, ScrollView, FlatList, } from 'react-native'
-import React, { useState } from 'react'
-import { black, light_grey, primary, secondary, warmGrey, white } from '../../constants/Color'
-
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { useCallback, useState } from 'react';
+import { black, secondary } from '../../constants/Color';
 import Translate from '../../translation/Translate'
-import { BOLD, FontSize, MEDIUM, REGULAR, SEMIBOLD } from '../../constants/Fonts'
-import { pixelSizeHorizontal, widthPixel } from '../../commonComponents/ResponsiveScreen'
-import { goBack, navigate, resetScreen } from '../../navigations/RootNavigation'
-import IconButton from '../../commonComponents/IconButton'
+import { FontSize, MEDIUM, SEMIBOLD } from '../../constants/Fonts';
+import { pixelSizeHorizontal } from '../../commonComponents/ResponsiveScreen';
+import { navigate } from '../../navigations/RootNavigation'
+import HeaderView from '../../commonComponents/HeaderView'
+import LoadingView from '../../commonComponents/LoadingView'
+import TextInputView from '../../commonComponents/TextInputView'
+import { ic_email, ic_mobile, ic_password } from '../../constants/Images';
+import { Formik } from 'formik'
+import * as Yup from 'yup';
+import { Log } from '../../commonComponents/Log'
+import { useFocusEffect } from '@react-navigation/native'
+import CommonStyle from '../../commonComponents/CommonStyle'
+import Geolocation from '@react-native-community/geolocation';
+import { REGISTER } from '../../constants/ApiUrl';
+import ApiManager from '../../commonComponents/ApiManager';
+import { storeData } from '../../commonComponents/AsyncManager';
+import { IS_REGISTER, USER_DATA } from '../../constants/ConstantKey';
+import { storeUserData } from '../../redux/reducers/userReducer';
+import { Toast, useToast } from 'native-base';
+import { useDispatch } from 'react-redux';
 
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { HStack, Radio, Stack } from 'native-base'
-import AddModel from '../../commonComponents/AddModel'
+const Register = ({ }) => {
 
-const Register = () => {
-    const [value, setValue] = useState("one");
-    const [isAddModal, setIsAddModal] = useState(false);
-    const [selectedSportData, setSelectedSportData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false)
+    const [txtMobile, setTxtMobile] = useState("")
+    const [txtEmail, setTextEmail] = useState("")
+    const [txtPassword, setTxtPassword] = useState("")
+    const [Longitude, setLongitude] = useState('');
+    const [Latitude, setLatitude] = useState('');
+const dispatch = useDispatch()
+    useFocusEffect(
+        useCallback(() => {
+            getOneTimeLocation()
+        }, [])
+    );
 
-    const AddModal = () => {
-        setIsAddModal(!isAddModal);
+
+
+    const loginData = (value) => {
+        setTxtMobile(value.mobile)
+        setTextEmail(value.email)
+        setTxtPassword(value.password)
+        Api_Register(true, value)
+    }
+    const Api_Register = (isLoad, data) => {
+        setIsLoading(isLoad)
+        ApiManager.post(REGISTER, {
+            apikey: '123',
+            email: data?.email,
+            mobile: data?.mobile,
+            password: data?.password,
+            latitude: Latitude ? Latitude : 0,
+            longitude: Longitude ? Longitude : 0,
+        }).then((response) => {
+            setIsLoading(false)
+            var data = response.data;
+            Log("REGISTER RESPONSE :", data)
+            if (data.Status == 1) {
+
+                var user_data = data.Data[0] //JSON.parse(data.Data)[0]
+                storeData(USER_DATA, user_data, () => {
+                    dispatch(storeUserData(user_data))
+                })
+                navigate("RegisterName")
+                storeData(IS_REGISTER, true)
+                Toast.show({
+                    description: data?.Msg
+                })
+            } else {
+                Toast.show({
+                    description: data?.Msg
+                })
+            }
+
+        }).catch((err) => {
+            setIsLoading(false)
+            console.error("Api_login Error ", err);
+        })
+    }
+    const Api_Get_profile_check = (isLoad,) => {
+        setIsLoading(isLoad)
+        ApiManager.post(REGISTER, {
+            apikey: '123',
+            users_id: "",
+        }).then((response) => {
+            setIsLoading(false)
+            var data = response.data;
+            Log("GET PROFILE RESPONSE :", data)
+            if (data.Status == 1) {
+                navigate("RegisterName", { isRegister: true })
+                Toast.show({
+                    description: data?.Msg
+                })
+
+
+            } else {
+                Toast.show({
+                    description: data?.Msg
+                })
+            }
+
+        }).catch((err) => {
+            setIsLoading(false)
+            console.error("Api_Get_profile_check Error ", err);
+        })
+    }
+    const MobileSchema = Yup.object().shape({
+        mobile: Yup.string()
+            .min(10, '* Please enter 10 digit mobile number')
+            .required("* Please enter mobile number"),
+        email: Yup.string()
+            .required("* Please enter email address"),
+        password: Yup.string()
+            .required("* Please enter your password"),
+    });
+
+    const getOneTimeLocation = () => {
+        Geolocation.getCurrentPosition(
+            (position) => {
+                Log("Current Position is : " + JSON.stringify(position.coords))
+                const currentLatitude = JSON.stringify(position.coords.latitude);
+                const currentLongitude = JSON.stringify(position.coords.longitude);
+                setLatitude(currentLatitude);
+                setLongitude(currentLongitude);
+            },
+            (error) => {
+                Log("Location get Error : " + error.message)
+                Alert.alert(
+                    "Location Alert",
+                    error.message,
+                    [
+                        { text: 'Cancel', onPress: () => Log('Cancel Pressed'), style: 'destructive' },
+                        {
+                            text: 'Retry',
+                            onPress: () => {
+                                getOneTimeLocation()
+                            }
+                        },
+                    ],
+                    { cancelable: true }
+                );
+            },
+            {
+                enableHighAccuracy: false,
+                timeout: 100000,
+                maximumAge: 10000
+            },
+        );
     };
 
-    const deleteItem = (item) => {
-        var newlist = [...selectedSportData]
-        console.log("newlist", newlist)
-
-        let filterData = newlist.filter(s => s.id !== item.id)
-        console.log("filterData", filterData)
-        setSelectedSportData(filterData)
+    const btnRegisterTap = () => {
+        navigate('Login')
     }
-
-    const btnLoginTap = () => {
-        goBack()
-    }
-    const btnSignUp = () => {
-
-        navigate("OtpView", { isRegister: true })
-    }
-
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={[styles.container, { marginHorizontal: pixelSizeHorizontal(20) }]}>
-
-                <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-
-
-                    <IconButton
-                        additionalStyle={{ marginLeft: pixelSizeHorizontal(-10), marginTop: pixelSizeHorizontal(20) }}
-                        onPress={() => goBack()}>
-                        <Icon name={"arrow-left"} size={24} color={black} />
-                    </IconButton>
-
-
-                    <Text style={styles.headerText}>
-                        Create an account in <Text style={{ color: primary }}>{Translate.t("app_name")}</Text>
-                    </Text>
-
-
-                    <View style={{ marginTop: pixelSizeHorizontal(30) }}>
-                        <Text style={styles.titleText}>
-                            First Name
-                        </Text>
-                        <TextInput
-                            style={{ borderRadius: widthPixel(5), borderWidth: 2, borderColor: primary, padding: pixelSizeHorizontal(10), marginTop: pixelSizeHorizontal(10) }}
-                            placeholder={"Enter first name"}
-                        />
-
-                    </View>
-
-                    <View style={{ marginTop: pixelSizeHorizontal(15) }}>
-                        <Text style={styles.titleText}>
-                            Last Name
-                        </Text>
-                        <TextInput
-                            style={{ borderRadius: widthPixel(5), borderWidth: 2, borderColor: primary, padding: pixelSizeHorizontal(10), marginTop: pixelSizeHorizontal(10) }}
-                            placeholder={"Enter last name"}
-                        />
-                    </View>
-
-                    <View style={{ marginTop: pixelSizeHorizontal(15) }}>
-                        <Text style={styles.titleText}>
-                            Phone number
-                        </Text>
-                        <TextInput
-                            style={{ borderRadius: widthPixel(5), borderWidth: 2, borderColor: primary, padding: pixelSizeHorizontal(10), marginTop: pixelSizeHorizontal(10) }}
-                            placeholder={"Enter phone number"}
-                        />
-                    </View>
-
-                    <View style={{ marginTop: pixelSizeHorizontal(15) }}>
-                        <Text style={styles.titleText}>
-                            Email Id ( Optional )
-                        </Text>
-                        <TextInput
-                            style={{ borderRadius: widthPixel(5), borderWidth: 2, borderColor: primary, padding: pixelSizeHorizontal(10), marginTop: pixelSizeHorizontal(10) }}
-                            placeholder={"Enter email id"}
-                        />
-                    </View>
-
-                    <View style={{ marginTop: pixelSizeHorizontal(15) }}>
-                        <Text style={styles.titleText}>
-                            Password
-                        </Text>
-                        <TextInput
-                            style={{ borderRadius: widthPixel(5), borderWidth: 2, borderColor: primary, padding: pixelSizeHorizontal(10), marginTop: pixelSizeHorizontal(10) }}
-                            placeholder={"Enter Password"}
-                        />
-                    </View>
-                    <View style={{ marginTop: pixelSizeHorizontal(15) }}>
-                        <Text style={[styles.titleText, { marginBottom: 5 }]}>
-                            Gender
-                        </Text>
-                        <Radio.Group name="exampleGroup" defaultValue="1" accessibilityLabel="pick a size">
-                            <Stack direction={{
-                                base: "row",
-                                md: "row"
-                            }} alignItems={{
-                                base: "flex-start",
-                                md: "center"
-                            }} space={5} >
-                                <Radio value="1" colorScheme="warning" size="sm" my={1}>
-                                    Male
-                                </Radio>
-                                <Radio value="2" colorScheme="warning" size="sm" my={1}>
-                                    Female
-                                </Radio>
-
-                            </Stack>
-                        </Radio.Group>
-
-                    </View>
-
-                    <Text style={[styles.titleText, { marginTop: 15, marginBottom: 10 }]}>
-                        Select your intrested sport
-                    </Text>
-
-                    {selectedSportData && <FlatList style={{  }}
-                        data={selectedSportData}
-                        contentContainerStyle={{
-                            flexDirection: 'row',
-                            alignSelf: "flex-start",
-                            flexWrap: 'wrap'
+        <ScrollView>
+            <HeaderView title={Translate.t("registerTxt")} isBack={false} containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20), }}>
+                <View style={{ marginTop: 20 }}>
+                    <Formik
+                        enableReinitialize
+                        initialValues={{
+                            mobile: txtMobile,
+                            email: txtEmail,
+                            password: txtPassword
                         }}
-                        renderItem={({ item }) => (
-                            <View 
-                                style={{
-                                    borderWidth:1,
-                                    borderColor:primary,
-                                    paddingHorizontal: 6,
-                                    paddingVertical: 10,
-                                    backgroundColor: secondary,
-                                    padding: 10,
-                                    marginHorizontal: 10,
-                                    marginVertical:10,
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    borderRadius: 8,
-                                }}>
-                               
-                                <Icon name={item.SportImage} size={24} color={primary} />
+                        validationSchema={MobileSchema}
+                        onSubmit={values => { loginData(values) }
+                        }
+                    >
+                        {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+                            <View style={{ marginTop: pixelSizeHorizontal(30) }}>
 
-                                <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_14, color: black, marginLeft: 5 }}>{item.SportName}</Text>
-                                <TouchableOpacity onPress={() => { deleteItem(item) }}
-                             style={{
-                                 marginTop:2,
-                                 marginHorizontal:10
-                             }}>
-                                 <Icon name={"close"} size={16} color={black} />
+                                <TextInputView
+                                    imageSource={ic_mobile}
+                                    onChangeText={handleChange('mobile')}
+                                    // onBlurEffect={handleBlur('mobile')}
+                                    value={values.mobile}
+                                    placeholder={Translate.t("mobile")}
+                                    maxLength={10}
+                                    keyboardType={'number-pad'}
+                                    error={(errors.mobile && touched.mobile) && errors.mobile}
+                                />
+                                <View style={{ marginTop: pixelSizeHorizontal(10) }}>
+                                    <TextInputView
+                                        imageSource={ic_email}
+                                        onChangeText={handleChange('email')}
+                                        // onBlurEffect={handleBlur('mobile')}
+                                        value={values.email}
+                                        placeholder={Translate.t("email")}
+                                        keyboardType={'email-address'}
+                                        error={(errors.email && touched.email) && errors.email}
+                                    />
+                                </View>
+                                <View style={{ marginTop: pixelSizeHorizontal(10) }}>
+                                    <TextInputView
+                                        imageSource={ic_password}
+                                        onChangeText={handleChange('password')}
+                                        // onBlurEffect={handleBlur('mobile')}
+                                        value={values.password}
+                                        placeholder={Translate.t("password")}
+                                        maxLength={10}
+                                        keyboardType={'default'}
+                                        error={(errors.password && touched.password) && errors.password}
+                                    />
+                                </View>
+                                <TouchableOpacity activeOpacity={0.7}
+                                    onPress={handleSubmit}
+                                    style={CommonStyle.mainBtnStyle}>
+                                    <Text style={CommonStyle.mainBtnText}>{Translate.t("registerTxt")}</Text>
 
-                             </TouchableOpacity>
+                                </TouchableOpacity>
+
+                                <View style={{ alignSelf: 'center', flexDirection: 'row', marginTop: pixelSizeHorizontal(20) }}>
+                                    <Text style={styles.text}>
+                                        {Translate.t("already_Registered")}
+                                    </Text>
+                                    <TouchableOpacity onPress={() => btnRegisterTap()}>
+                                        <Text style={styles.textSignUp}>
+                                            {Translate.t("login")}
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+
+
                             </View>
-                          
                         )}
-                    />}
-
-
-                    <TouchableOpacity onPress={() => AddModal()}
-                        style={{
-                            borderColor: primary,
-                            borderWidth: 1,
-                            borderRadius: widthPixel(5),
-                            padding: pixelSizeHorizontal(10),
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        }}>
-                        <Text style={{
-                            fontSize: FontSize.FS_16,
-                            color: primary,
-                            fontFamily: MEDIUM,
-                        }}>Add intrest</Text>
-                    </TouchableOpacity>
-
-
-                    <Text style={styles.descText}>
-                        By creating an account,i accept the <Text style={{ color: primary, fontFamily: SEMIBOLD }}> Terms & Conditions</Text>
-                    </Text>
-
-
-                    <TouchableOpacity onPress={() => btnSignUp()}
-                        style={styles.btnLogin}>
-                        <Text style={styles.signInText}>Sign Up</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={{ alignSelf: 'center', marginVertical: pixelSizeHorizontal(10) }}
-                        onPress={() => btnLoginTap()}>
-                        <Text style={[styles.textForgotPassword]}>Already have an account? Sign In</Text>
-                    </TouchableOpacity>
-
-                </ScrollView>
-            </View>
-            <AddModel
-            title={"Select Sport"}
-                isAddVisible={isAddModal}
-                toggleModel={() => AddModal()}
-                selected_sport={selectedSportData}
-                onAddVenue={(data) => {
-                    console.log("selected data : ", data)
-                    setSelectedSportData(data)
-                }} />
-        </SafeAreaView>
+                    </Formik>
+                </View>
+            </HeaderView>
+            {isLoading && <LoadingView />}
+        </ScrollView>
     )
 }
 
-
 const styles = StyleSheet.create({
 
-    container: {
-        flex: 1, backgroundColor: white
+    textSignUp: {
+        color: secondary, fontFamily: SEMIBOLD, fontSize: FontSize.FS_16
     },
-    headerText: {
-        fontSize: FontSize.FS_22,
-        color: black,
-        fontFamily: SEMIBOLD,
-        marginTop: pixelSizeHorizontal(20)
+    text: {
+        color: black, fontFamily: MEDIUM, fontSize: FontSize.FS_16
     },
-    titleText: {
-        fontSize: FontSize.FS_16,
-        color: black,
-        fontFamily: REGULAR,
-    },
-    textForgotPassword: {
-        fontSize: FontSize.FS_14,
-        color: primary,
-        fontFamily: MEDIUM,
-    },
-    descText: {
-        marginTop: pixelSizeHorizontal(30),
-        fontSize: FontSize.FS_16,
-        color: warmGrey,
-        fontFamily: REGULAR,
-
-    },
-    btnLogin: {
-        backgroundColor: primary,
-        borderRadius: widthPixel(5),
-        padding: pixelSizeHorizontal(10),
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: pixelSizeHorizontal(30)
-    },
-    signInText: {
-        fontSize: FontSize.FS_16,
-        color: white,
-        fontFamily: MEDIUM,
-    }
-
 })
 
 export default Register

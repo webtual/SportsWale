@@ -1,9 +1,11 @@
-export const BASE_URL = 'https://dev.thewebtual.com/krifixrewards/api/'
-export const IMAGE_URL = "https://dev.thewebtual.com/krifixrewards/"
+
+export const BASE_URL = 'https://sporton.mywindowsapp.in/api.asmx/'
+
+
+export const IMAGE_URL = "https://sporton.mywindowsapp.in/"
 export const LOGIN = "auth/login"
 export const CHECK_MOBILE = "auth/check-mobile"
-export const REGISTER = "auth/register"
-export const GET_PROFILE = "get-profile"
+// export const GET_PROFILE = "get-profile"
 export const UPDATE_PROFILE = "update-profile"
 export const GET_HOME_BANNER = "get-homebanner"
 export const GET_FAQS = "get-faqs"
@@ -18,3 +20,17 @@ export const READ_NOTIFICATIONS = "notification-read"
 export const GET_OTP = "auth/sent-otp"
 
 
+
+
+
+export const REGISTER = "register"
+export const GET_PROFILE = "getprofile"
+export const GET_GAMES = "getGames"
+
+export const ADD_GAME_TO_PROFILE = "addGameToProfile"
+export const REMOVE_GAME_TO_PROFILE = "removeGameFromProfile"
+export const GET_GAME_TO_PROFILE = "getUserGames"
+
+export const ADD_GAME_LEARN_TO_PROFILE = "addGameLearnToProfile"
+export const REMOVE_GAME_LEARN_TO_PROFILE = "removeGameLearnFromProfile"
+export const GET_GAME_LEARN_TO_PROFILE = "getUserLearnGames"

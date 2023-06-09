@@ -8,7 +8,7 @@ export default {
 	new_to_krifix : "New to Krifix? ",
 	
 	sign_up : "Sign up",
-	already_Registered : "Already Registered? ",
+	
 	full_name : 'Full name',
 	first_name:"First name",
 	last_name:"Last name",
@@ -36,7 +36,6 @@ export default {
 
 
 	bank_details : "Bank Details",
-	address : "Address",
 	bank_name : "Bank name",
 	branch_location : "Branch name",
 	account_number : "Account number",
@@ -80,8 +79,11 @@ export default {
 	enter_name:"Enter Your Name",
 	dont_have_account:"Don’t have account? ",
 	register:"Register Now",
+	registerTxt:"Register",
 	enter_otp : "Enter OTP",
 	name : "Name",
+	fname : "First Name",
+	lname : "Last Name",
 	phone_number : "Phone number",
 	submit : 'Submit',
 	login : 'Login',
@@ -97,5 +99,41 @@ export default {
 	select_sport:"Select Sport",
 	what_you_learn:"I would like to learn ?",
 	i_hope_to_gain:"Who i am and what i hope to gain",
-	sport_elaboration:"Sport elaboration"
+	sport_elaboration:"Sport elaboration",
+	upcoming_events:"Upcoming events",
+	see_all:"See all",
+	recommended_venue:"Recommended Venue ",
+	create_activity:"Create Activity",
+	enter_activity_name:"Enter Activity Name",
+	description:"Description",
+	event_type:"Event Type",
+	paid_event:"Paid Event?",
+	enter_amount:"Enter Amount",
+	looking_venue:"Are you looking for venue?",
+	select_venue:"Select Venue",
+	select_slot:"Select Your Slot",
+	morning:"Morning",
+	afternoon:"Afternoon",
+	evening:"Evening",
+	night:"Night",
+	available_slot:"Available Slot",
+	enter_venue_name:"Enter Venue Name",
+	select_date_time:"Select Date & Time",
+	select_time:"Select Time",
+	select_date:"Select Date",
+	invite_people:"Invite People",
+	invite:"Invite",
+	invited:"Invited",
+	confirm:"Confirm",
+	continue:"Continue",
+	email:"Email",
+	password:"Password",
+	already_Registered : "Already Registered? ",
+	address : "Address",
+	ente_address : "Enter Address",
+
+
+
+
+
 }

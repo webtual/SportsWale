@@ -1,7 +1,7 @@
 
 import { View, Text, SafeAreaView, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image } from 'react-native'
-import React from 'react'
-import { black, black05, disableColor, grey, light_grey, primary, secondary, secondary_dark_grey, warmGrey, warning, white } from '../../constants/Color'
+import React, { useState } from 'react'
+import { black, black05, disableColor, grey, light_grey, primary, primary_light, secondary, secondary_dark_grey, warmGrey, warning, white } from '../../constants/Color'
 
 import Translate from '../../translation/Translate'
 import { BOLD, FontSize, MEDIUM, REGULAR, SEMIBOLD } from '../../constants/Fonts'
@@ -15,16 +15,15 @@ import FastImage from 'react-native-fast-image'
 import { SCREEN_WIDTH } from '../../constants/ConstantKey'
 import CarouselCard from '../../commonComponents/Carousel/index'
 import HeaderView from '../../commonComponents/HeaderView'
-import { updateLocale } from 'moment'
+import moment, { updateLocale } from 'moment'
 import { append } from 'domutils'
+import { ic_calender, ic_clock } from '../../constants/Images'
 
 
 const Home = () => {
 
+    const [Sport, setSport] = useState("")
 
-    const btnLoginTap = () => {
-        goBack()
-    }
 
     const HomeBanner = [
         {
@@ -137,12 +136,28 @@ const Home = () => {
             rating: "5.0"
         },
     ]
+
+    const SelectIntrest = (item) => {
+        setSport(item)
+    }
+
+    const checkExists = (item) => {
+        if (Sport.id === item.id) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+
+
     return (
 
-        <HeaderView HeaderSmall={true} title="Welcome to Sport Wale" isBack={false} containerStyle={{ paddingHorizontal: pixelSizeHorizontal(0) }}
+        <HeaderView HeaderSmall={true} StackScreen={true}
+            title="Welcome to Sport Wale" isBack={false} containerStyle={{ paddingHorizontal: pixelSizeHorizontal(0) }}
             titleColor={white}
             rightComponent={(<View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Icon name={"map-marker-radius-outline"} size={26} color={light_grey} />
+                <Icon name={"map-marker-radius-outline"} size={26} color={white} />
                 <View style={{ justifyContent: "center", alignSelf: "center", alignItems: "center" }}>
                     <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_12, color: light_grey, alignSelf: "center" }}>Gujarat</Text>
 
@@ -151,7 +166,7 @@ const Home = () => {
 
             </View>)}
         >
-            <View style={{ marginVertical: pixelSizeHorizontal(20) }}>
+            {/* <View style={{ marginVertical: pixelSizeHorizontal(20) }}>
                 <CarouselCard
                     height={180}
                     interval={4000}
@@ -164,104 +179,187 @@ const Home = () => {
                         />
                     </View>}
                 />
-            </View>
+            </View> */}
 
-            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginVertical: 10, paddingHorizontal: pixelSizeHorizontal(20) }}>
-                <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: black }}>Pick a sport</Text>
-                <TouchableOpacity>
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginVertical: 15, paddingHorizontal: pixelSizeHorizontal(20) }}>
+                <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: black }}>{Translate.t("select_sport")}</Text>
+                {/* <TouchableOpacity>
                     <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: black }}>See more</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
 
-            <FlatList style={{ marginHorizontal: pixelSizeHorizontal(20) }}
+            <FlatList
+                contentContainerStyle={{
+                    paddingHorizontal: 20
+                }}
                 data={PickSport}
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                ItemSeparatorComponent={() => (<View style={{ width: widthPixel(10) }}></View>)}
+                ItemSeparatorComponent={() => (<View style={{ width: widthPixel(15) }}></View>)}
                 renderItem={({ item }) => (
-                    <TouchableOpacity
-                        style={{
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }} onPress={() => console.log(item)}>
-                        <View
+                    <View style={{
+                        alignItems: "center",
+                        justifyContent: "center",
+                    }}>
+                        <TouchableOpacity onPress={() => SelectIntrest(item)}
                             style={{
-                                padding: 10,
-                                width: 55,
-                                backgroundColor: secondary,
-                                padding: 10,
-                                margin: 5,
+                                backgroundColor: checkExists(item) == true ? primary : primary_light,
+                                width: 60,
+                                height: 60,
                                 flexDirection: "row",
                                 alignItems: "center",
+                                alignSelf: "center",
                                 justifyContent: "center",
-                                borderRadius: 6,
+                                borderRadius: 50,
                             }}>
-                            <Icon name={item.SportImage} size={24} color={primary} />
-
-                        </View>
-                        <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_12, color: black, flex: 1, }}>{item.SportName}</Text>
-                    </TouchableOpacity>
+                            <Icon name={item.SportImage} size={42} color={checkExists(item) == true ? white : primary} />
+                        </TouchableOpacity>
+                        <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_14, color: black, marginVertical: 5 }}>{item.SportName}</Text>
+                    </View>
                 )}
             />
 
             <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: 20, marginBottom: 10, paddingHorizontal: pixelSizeHorizontal(20) }}>
-                <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: black }}>Recommended venues</Text>
-                <TouchableOpacity onPress={() => {navigate("Venue")}}>
-                    <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: black }}>See all</Text>
+                <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: black }}>{Translate.t("upcoming_events")}</Text>
+                <TouchableOpacity onPress={() => { navigate("Venue") }}>
+                    <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: black }}>{Translate.t("see_all")}</Text>
                 </TouchableOpacity>
             </View>
             <FlatList contentContainerStyle={{ paddingBottom: 20, paddingHorizontal: pixelSizeHorizontal(20) }}
-            horizontal
-                        data={VenuesData}
-                        showsHorizontalScrollIndicator={false}
-                        ItemSeparatorComponent={() => (<View style={{ width: widthPixel(20), height: heightPixel(20) }}></View>)}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity onPress={() => navigate("VenueDetail", { item: item })}
-                                activeOpacity={0.7}
-                                style={{
-                                    backgroundColor: white,
-                                    width:SCREEN_WIDTH-80,
-                                    // height: 160,
-                                    borderRadius: 8,
-                                    shadowColor: black05,
-                                    shadowOffset: {
-                                        width: 0,
-                                        height: 3,
-                                    },
-                                    shadowOpacity: 0.17,
-                                    shadowRadius: 8,
-                                    elevation: 3
-                                }}>
+                horizontal
+                data={VenuesData}
+                showsHorizontalScrollIndicator={false}
+                ItemSeparatorComponent={() => (<View style={{ width: widthPixel(20), height: heightPixel(20) }}></View>)}
+                renderItem={({ item }) => (
+                    <TouchableOpacity onPress={() => navigate("VenueDetail", { item: item })}
+                        activeOpacity={0.7}
+                        style={{
+                            backgroundColor: "white",
+                            width: SCREEN_WIDTH / 1.9,
+                            minHeight:180,
+                            // height: 160,
+                            borderRadius: 10,
+                            shadowColor: black05,
+                            shadowOffset: {
+                                width: 0,
+                                height: 3,
+                            },
+                            shadowOpacity: 0.17,
+                            shadowRadius: 8,
+                            elevation: 3,
+                            alignSelf: "center"
+                        }}>
 
+                        <FastImage
+                            style={{ width: "100%", height: 100, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}
+                            source={{ uri: item.image }}
+                            resizeMode="cover"
+                        />
+                        <View style={{
+                            marginVertical: pixelSizeHorizontal(5),
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+
+                        }}>
+                            <View style={{ marginHorizontal: 8, flex: 1 }}>
+                                <Text numberOfLines={2} style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_12, color: black, }}>{item.venueName}</Text>
+                                {/* <View style={{ flexDirection: "row", alignItems: "center", marginHorizontal: -5, marginTop: 3 }}> */}
+                                {/* <Icon name={"map-marker-radius-outline"} size={20} color={primary} /> */}
+                                {/* <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_14, color: secondary_dark_grey, }}>{item.venueAddress}</Text> */}
+                                {/* </View> */}
+                            </View>
+                            <View style={{ flexDirection: "row", alignItems: "center", marginRight: 10 }}>
+                                <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_10, color: secondary_dark_grey, }}>{item.venueAddress}</Text>
+
+                                {/*  <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_14, color: secondary_dark_grey, marginHorizontal: 5 }}>{item.rating}</Text>
+                                <Icon name={"star"} size={20} color={warning} /> */}
+                            </View>
+
+                        </View>
+                        <View style={{
+                            marginVertical: pixelSizeHorizontal(5),
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+
+                        }}>
+                            <View style={{ marginHorizontal: 8, flex: 1, flexDirection: "row", alignItems: "center" }}>
                                 <FastImage
-                                    style={{ width: "100%", height: 120, borderTopLeftRadius: 8, borderTopRightRadius: 8 }}
-                                    source={{ uri: item.image }}
-                                    resizeMode="cover"
+                                    style={{ width: 15, height: 15 }}
+                                    source={ic_calender}
                                 />
-                                <View style={{
-                                    marginVertical: pixelSizeHorizontal(5),
-                                    flexDirection: "row",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-
-                                }}>
-                                    <View style={{marginHorizontal:20,flex:1}}>
-                                        <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_16, color: black, }}>{item.venueName}</Text>
-                                        <View style={{ flexDirection: "row", alignItems: "center", marginHorizontal: -5, marginTop: 3 }}>
-                                            <Icon name={"map-marker-radius-outline"} size={20} color={primary} />
-                                            <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_14, color: secondary_dark_grey, }}>{item.venueAddress}</Text>
-                                        </View>
-                                    </View>
-                                    <View style={{ flexDirection: "row", alignItems: "center",marginRight:10 }}>
-                                        <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_14, color: secondary_dark_grey, marginHorizontal: 5 }}>{item.rating}</Text>
-                                        <Icon name={"star"} size={20} color={warning} />
-                                    </View>
-                                </View>
+                                <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_11, color: secondary_dark_grey, marginLeft: 5 }}>{moment(new Date()).format("ddd, DD MMM YYYY ")}</Text>
+                            </View>
+                            <View style={{ flexDirection: "row", alignItems: "center", marginRight: 10 }}>
+                            <FastImage
+                                    style={{ width: 15, height: 15 }}
+                                    source={ic_clock}
+                                />
+                                <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_10, color: secondary_dark_grey,marginLeft: 5 }}>{moment(new Date()).format("hh:mm A")}</Text>
+                            </View>
+                        </View>
 
 
-                            </TouchableOpacity>
-                        )}
-                    />
+                    </TouchableOpacity>
+                )}
+            />
+
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 10, paddingHorizontal: pixelSizeHorizontal(20) }}>
+                <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: black }}>{Translate.t("recommended_venue")}</Text>
+                <TouchableOpacity onPress={() => { navigate("Venue") }}>
+                    <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: black }}>{Translate.t("see_all")}</Text>
+                </TouchableOpacity>
+            </View>
+            <FlatList contentContainerStyle={{ paddingBottom: 20, paddingHorizontal: pixelSizeHorizontal(20) }}
+                horizontal
+                data={VenuesData}
+                showsHorizontalScrollIndicator={false}
+                ItemSeparatorComponent={() => (<View style={{ width: widthPixel(20), height: heightPixel(20) }}></View>)}
+                renderItem={({ item }) => (
+                    <TouchableOpacity onPress={() => navigate("VenueDetail", { item: item })}
+                        activeOpacity={0.7}
+                        style={{
+                            backgroundColor: "white",
+                            width: SCREEN_WIDTH / 1.9,
+                            borderRadius: 10,
+                            minHeight:150,
+                            shadowColor: black05,
+                            shadowOffset: {
+                                width: 0,
+                                height: 3,
+                            },
+                            shadowOpacity: 0.17,
+                            shadowRadius: 8,
+                            elevation: 3,
+                            alignSelf: "center",
+                        }}>
+
+                        <FastImage
+                            style={{ width: "100%", height: 100, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}
+                            source={{ uri: item.image }}
+                            resizeMode="cover"
+                        />
+                        <View style={{
+                            marginVertical: pixelSizeHorizontal(10),
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+
+                        }}>
+                            <View style={{ marginHorizontal: 8, flex: 1 }}>
+                                <Text numberOfLines={2} style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_12, color: black, }}>{item.venueName}</Text>
+                            </View>
+                            <View style={{ flexDirection: "row", alignItems: "center", marginRight: 10 }}>
+                                <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_10, color: secondary_dark_grey, }}>{item.venueAddress}</Text>
+                            </View>
+                        </View>
+
+
+                    </TouchableOpacity>
+                )}
+            />
+
         </HeaderView>
 
     )

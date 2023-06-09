@@ -32,7 +32,7 @@ const HeaderView = ({ title = "", isBack = true, children, titleColor = white, o
                                         onPress={onPress}>
                                         <Icon name={"chevron-left"} size={32} color={titleColor} />
                                     </IconButton>}
-                                <Text numberOfLines={1} style={[styles.textTitle, { color: titleColor, marginHorizontal: !isBack ? pixelSizeHorizontal(20) : pixelSizeHorizontal(5) }]}>{title}</Text>
+                                <Text numberOfLines={1} style={[styles.textTitle, { color: titleColor, marginHorizontal: !isBack ? pixelSizeHorizontal(20) : pixelSizeHorizontal(5), fontSize: props.StackScreen?FontSize.FS_20: FontSize.FS_25, }]}>{title}</Text>
 
                                 {rightComponent && rightComponent}
                             </View>
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         backgroundColor: offWhite,
     },
     textTitle: {
-        fontSize: FontSize.FS_25,
+       
         fontFamily: SEMIBOLD,
         color: white,
     },

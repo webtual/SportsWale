@@ -4,7 +4,7 @@ import Translate from '../../translation/Translate'
 import { heightPixel, pixelSizeHorizontal, widthPixel } from '../../commonComponents/ResponsiveScreen';
 import HeaderView from '../../commonComponents/HeaderView'
 import { goBack, navigate, resetScreen } from '../../navigations/RootNavigation';
-import { black, offWhite, primary, secondary, seprator, warmGrey, white } from '../../constants/Color';
+import { black, light_grey_02, offWhite, primary, secondary, seprator, warmGrey, white } from '../../constants/Color';
 import { FontSize, MEDIUM, REGULAR, SEMIBOLD } from '../../constants/Fonts';
 import OTPInputView from '@twotalltotems/react-native-otp-input'
 import CommonStyle from '../../commonComponents/CommonStyle'
@@ -17,19 +17,26 @@ import moment from 'moment';
 import TextInputView from '../../commonComponents/TextInputView';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { setProfileData } from '../../redux/reducers/userReducer';
 
 const RegisterUserDetails = ({ route }) => {
-
-	const [count, setCount] = useState(60)
+	const dispatch = useDispatch()
 	const [showModal, setShowModal] = useState(false);
 	const [value, setValue] = useState("");
-	const [BirthDate, setBirthDate] = useState(null);
+	const [BirthDate, setBirthDate] = useState("");
 	const [Location, setLocation] = useState("");
-	const [BirthDateErr, setBirthDateErr] = useState("Please enter Date of Birth");
+	const [BirthDateErr, setBirthDateErr] = useState(""); 
+	const [GenderErr, setGenderErr] = useState("");
 	const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
-	useEffect(() => {
 
+	const profileData = useSelector((state) => state.userRedux.profile_data)
+
+
+
+	useEffect(() => {
+		Log("USER DETAILS SCREEN PROFILEDATA :", profileData)
 	}, [])
 
 	const showDatePicker = () => {
@@ -43,18 +50,35 @@ const RegisterUserDetails = ({ route }) => {
 	const handleConfirm = (date) => {
 		console.warn("A date has been picked: ", typeof date);
 		setBirthDate(date)
+		setBirthDateErr("")
 		hideDatePicker();
 	};
 	const UserDeailsSchema = Yup.object().shape({
 		location: Yup.string()
-			// .min(10, '* Please enter your name')
-			.required("* Please enter your location"),
+			.required("* Please enter your address"),
 	});
 
 
 	const userData = (data) => {
-		setLocation(data)
-		navigate("RegisterSelectSport")
+		setLocation(data?.location)
+		if(BirthDate == "") {
+			setBirthDateErr("* Please select Date of Birth(DOB).")
+		}
+		else if(value == "") {
+			setGenderErr("* Please select gender.")
+		}
+		else{
+			setGenderErr("")
+			setBirthDateErr("]")
+
+			var item = {...profileData}
+			item.gender = value ? value : ""
+			item.dob = BirthDate ? BirthDate : ""
+			item.address = Location ? Location : ""
+			item.country = "India"
+			dispatch(setProfileData(value))
+			navigate("RegisterSelectSport")
+		}
 	}
 
 
@@ -62,28 +86,6 @@ const RegisterUserDetails = ({ route }) => {
 		<HeaderView title={Translate.t("location")} isBack={true} onPress={() => goBack()} containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20), }}>
 
 			<ScrollView showsVerticalScrollIndicator={false}>
-				{/* <View style={{
-					marginTop: pixelSizeHorizontal(15),
-					height: widthPixel(48),
-					flexDirection: 'row',
-					alignItems: 'center',
-					backgroundColor: white,
-					borderRadius: 8,
-					paddingHorizontal: 14,
-				}}>
-					<FastImage
-						source={ic_location}
-						style={{ width: widthPixel(15), height: widthPixel(15) }}
-						resizeMode={'contain'}
-					/>
-					<View
-						style={{
-							flex: 1, marginLeft: pixelSizeHorizontal(15),
-							paddingVertical: pixelSizeHorizontal(12),
-						}}>
-						<Text style={{ fontFamily: MEDIUM, fontSize: FontSize.FS_16, color: black, }}>{Translate.t("enter_location")}</Text>
-					</View>
-				</View> */}
 				<Formik
 					enableReinitialize
 					initialValues={{
@@ -95,7 +97,7 @@ const RegisterUserDetails = ({ route }) => {
 				>
 					{({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
 						<View style={{ marginTop: pixelSizeHorizontal(20) }}>
-							<Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_18, color: black, marginBottom: pixelSizeHorizontal(15) }}>{Translate.t("location")}</Text>
+							<Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_18, color: black, marginBottom: pixelSizeHorizontal(10) }}>{Translate.t("address")}</Text>
 
 							<TextInputView
 								editable={true}
@@ -103,14 +105,13 @@ const RegisterUserDetails = ({ route }) => {
 								onChangeText={handleChange('location')}
 								// onBlurEffect={handleBlur('location')}
 								value={values.location}
-								placeholder={Translate.t("enter_location")}
+								placeholder={Translate.t("ente_address")}
 								keyboardType={'default'}
 								error={(errors.location && touched.location) && errors.location}
 							/>
-							<Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_18, color: black, }}>{Translate.t("date_of_birth")}</Text>
+							<Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_18, color: black,marginVertical: pixelSizeHorizontal(10), }}>{Translate.t("date_of_birth")}</Text>
 							<TouchableOpacity onPress={() => { showDatePicker() }}
 								style={{
-									marginTop: pixelSizeHorizontal(15),
 									height: widthPixel(48),
 									flexDirection: 'row',
 									alignItems: 'center',
@@ -128,12 +129,19 @@ const RegisterUserDetails = ({ route }) => {
 										flex: 1, marginLeft: pixelSizeHorizontal(15),
 										paddingVertical: pixelSizeHorizontal(12),
 									}}>
-									<Text style={{ fontFamily: MEDIUM, fontSize: FontSize.FS_16, color: black, }}>{!BirthDate ? Translate.t("select") : moment(BirthDate).format("DD-MM-YY")}</Text>
+									<Text style={{ fontFamily: MEDIUM, fontSize: FontSize.FS_16, color: !BirthDate ?light_grey_02 : black, }}>{!BirthDate ? Translate.t("select") : moment(BirthDate).format("DD-MM-YY")}</Text>
 								</View>
+								
+
 							</TouchableOpacity>
-							<Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_18, color: black, marginTop: pixelSizeHorizontal(20) }}>{Translate.t("gender")}</Text>
+							<Text style={{
+									fontFamily: REGULAR,
+									fontSize: FontSize.FS_13,
+									color: secondary,
+									marginLeft: pixelSizeHorizontal(30)
+								}}>{BirthDateErr ? BirthDateErr : ""}</Text>
+							<Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_18, color: black, marginVertical: pixelSizeHorizontal(10) }}>{Translate.t("gender")}</Text>
 							<View style={{
-								marginTop: pixelSizeHorizontal(15),
 								height: widthPixel(48),
 								flexDirection: 'row',
 								alignItems: 'center',
@@ -151,9 +159,16 @@ const RegisterUserDetails = ({ route }) => {
 										flex: 1, marginLeft: pixelSizeHorizontal(15),
 										paddingVertical: pixelSizeHorizontal(12),
 									}}>
-									<Text style={{ fontFamily: MEDIUM, fontSize: FontSize.FS_16, color: black, }}>{value !== "" ? value : Translate.t("select")}</Text>
+									<Text style={{ fontFamily: MEDIUM, fontSize: FontSize.FS_16, color: value !== "" ? black : light_grey_02, }}>{value !== "" ? value : Translate.t("select")}</Text>
 								</TouchableOpacity>
 							</View>
+
+								<Text style={{
+									fontFamily: REGULAR,
+									fontSize: FontSize.FS_13,
+									color: secondary,
+									marginLeft: pixelSizeHorizontal(30)
+								}}>{GenderErr}</Text>
 							<TouchableOpacity activeOpacity={0.7}
 								onPress={handleSubmit}
 								style={CommonStyle.mainBtnStyle}>
@@ -176,6 +191,7 @@ const RegisterUserDetails = ({ route }) => {
 							onChange={nextValue => {
 								setShowModal(false);
 								setValue(nextValue);
+								setGenderErr("")
 							}}
 							name="exampleGroup" defaultValue="male" accessibilityLabel="pick a size">
 							<Stack direction={{

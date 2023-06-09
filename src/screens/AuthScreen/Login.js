@@ -47,7 +47,7 @@ const Login = ({}) => {
     }
 
     const btnRegisterTap = () =>{
-        navigate('RegisterName')
+        navigate('Register')
     }
     return (
         <>

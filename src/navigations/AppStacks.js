@@ -21,7 +21,7 @@ import Splash from '../screens/AuthScreen/Splash';
 import Intro from '../screens/AuthScreen/Intro';
 import Login from '../screens/AuthScreen/Login';
 import OtpView from '../screens/AuthScreen/OtpView';
-import Register from '../screens/AuthScreen/Register';
+// import Register from '../screens/AuthScreen/Register1';
 import Home from '../screens/DashBoardScreen/Home';
 import Venue from '../screens/DashBoardScreen/Venue';
 import Profile from '../screens/DashBoardScreen/Profile';
@@ -42,6 +42,17 @@ import RegisterSelectSport from '../screens/AuthScreen/RegisterSelectSport';
 import RegisterWhatLearn from '../screens/AuthScreen/RegisterWhatLearn';
 import RegisterFinal from '../screens/AuthScreen/RegisterFinal';
 import RegisterWhatYouGain from '../screens/AuthScreen/RegisterWhatYouGain';
+import { Select, View } from 'native-base';
+import PopUp from '../commonComponents/Popup';
+import { navigate } from './RootNavigation';
+import EnterActivityName from '../screens/OtherScreen/EnterActivityName';
+import EventType from '../screens/OtherScreen/EventType';
+import SelectVenue from '../screens/OtherScreen/SelectVenue';
+import SelectSlot from '../screens/OtherScreen/SelectSlot';
+import EnterVenueName from '../screens/OtherScreen/EnterVenueName';
+import SelectDateTime from '../screens/OtherScreen/SelectDateTime';
+import InvitePeople from '../screens/OtherScreen/InvitePeople';
+import Register from '../screens/AuthScreen/Register';
 
 // import { cart_data } from '../redux/reducers/cartReducer';
 // import { useSelector } from 'react-redux';
@@ -59,30 +70,67 @@ function HomeTabs() {
 					headerShown: false,
 					tabBarShowLabel: false,
 					tabBarActiveTintColor: primary,
-					tabBarInactiveTintColor: secondary_dark_grey,
-					tabBarStyle: { backgroundColor: white, borderTopColor: offWhite, },
-					tabBarLabelStyle: { fontFamily: SEMIBOLD, fontSize: FontSize.FS_12, marginBottom: 5 },
+					tabBarInactiveTintColor: "#A6A6A6",
+					tabBarStyle: { backgroundColor: white, height:50,borderRadius:20,elevation:0 },
+					tabBarLabelStyle: { fontFamily: SEMIBOLD, fontSize: FontSize.FS_12, marginBottom: 5, },
 					tabBarHideOnKeyboard: true,
-					tabBarShowLabel: true
 				}}
 			>
 				<Tab.Screen
-					name={"Home"}
+					name={"Home"}	
 					component={Home}
 					options={{
 						tabBarLabel: "Home",
 						tabBarIcon: ({ color, size, focused }) => (
-							<Icon name={"home"} size={24} color={color} />
+							<MaterialCommunityIcons name={"view-dashboard-outline"} size={24} color={color} />
 						),
 					}}
 				/>
+
+
+
 				<Tab.Screen
-					name={"Activity"}
+					name={"Activitys"}
 					component={Activity}
 					options={{
 						tabBarLabel: "Activity",
 						tabBarIcon: ({ color, size, focused }) => (
-							<MaterialCommunityIcons name={"trophy-variant-outline"} size={24} color={color} />
+							<MaterialCommunityIcons name={"text-box-outline"} size={24} color={color} />
+						),
+					}}
+				/>
+
+
+
+
+				<Tab.Screen
+					name={"Activity"}
+					children={() => <View/>}
+					listeners={({navgation}) =>({
+						tabPress: (event) => {
+							event.preventDefault();
+							console.log("ADD ICON")
+							navigate("CreateActivity")
+							// PopUp.current.open()
+						}
+					})}
+					// component={Activity}
+					options={{
+						tabBarLabel: "Activity",
+						tabBarIcon: ({ color, size, focused }) => (
+							<View style={{
+								position:"absolute",
+								bottom:20,
+								height:60,
+								width:60,
+								backgroundColor:primary,
+								justifyContent:"center",
+								alignItems:"center",
+								borderRadius:50
+							}}>
+							<MaterialCommunityIcons name={"plus"} size={35} color={white} style={{alignSelf:"center"}}/>
+						
+							</View>
 						),
 					}}
 				/>
@@ -103,7 +151,6 @@ function HomeTabs() {
 					name={"Profile"}
 					component={Profile}
 					options={{
-						tabBarShowLabel: true,
 						tabBarLabel: "Profile",
 						tabBarIcon: ({ color, size, focused }) => (
 							<Icon name={"user"} size={24} color={color} />
@@ -157,6 +204,13 @@ function AppStacks() {
 			<Stack.Screen name="RegisterWhatLearn" component={RegisterWhatLearn} />
 			<Stack.Screen name="RegisterWhatYouGain" component={RegisterWhatYouGain} />
 			<Stack.Screen name="RegisterFinal" component={RegisterFinal} />
+			<Stack.Screen name="EnterActivityName" component={EnterActivityName} />
+			<Stack.Screen name="EventType" component={EventType} />
+			<Stack.Screen name="SelectVenue" component={SelectVenue} />
+			<Stack.Screen name="SelectSlot" component={SelectSlot} />
+			<Stack.Screen name="EnterVenueName" component={EnterVenueName} />
+			<Stack.Screen name="SelectDateTime" component={SelectDateTime} />
+			<Stack.Screen name="InvitePeople" component={InvitePeople} />
 
 			<Stack.Screen name="Dashboard" component={HomeTabs} />
 			<Stack.Screen name="ChooseIntrest" component={ChooseIntrest} />
