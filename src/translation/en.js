@@ -36,6 +36,7 @@ export default {
 
 
 	bank_details : "Bank Details",
+	address : "Address",
 	bank_name : "Bank name",
 	branch_location : "Branch name",
 	account_number : "Account number",
@@ -82,8 +83,6 @@ export default {
 	registerTxt:"Register",
 	enter_otp : "Enter OTP",
 	name : "Name",
-	fname : "First Name",
-	lname : "Last Name",
 	phone_number : "Phone number",
 	submit : 'Submit',
 	login : 'Login',
@@ -129,8 +128,6 @@ export default {
 	email:"Email",
 	password:"Password",
 	already_Registered : "Already Registered? ",
-	address : "Address",
-	ente_address : "Enter Address",
 
 
 

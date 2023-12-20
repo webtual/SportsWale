@@ -4,7 +4,7 @@ import FastImage from 'react-native-fast-image'
 import { PhoneImg } from '../constants/Images'
 import { pixelSizeHorizontal, widthPixel } from './ResponsiveScreen'
 import { FontSize, MEDIUM } from '../constants/Fonts'
-import { black, dim_grey, greenPrimary, light_grey, light_grey_02, offWhite, primary, seprator, warmGrey, white } from '../constants/Color'
+import { black, dim_grey, greenPrimary, light_grey, offWhite, primary, seprator, warmGrey, white } from '../constants/Color'
 import CommonStyle from './CommonStyle'
 
 const TextInputView = ({ value = "", imageSource, onChangeText, placeholder = "", editable = true, containerStyle = {}, ...props }) => {
@@ -47,7 +47,7 @@ const TextInputView = ({ value = "", imageSource, onChangeText, placeholder = ""
                     value={value}
                     onChangeText={onChangeText}
                     placeholder={placeholder}
-                    placeholderTextColor={light_grey_02}
+                    placeholderTextColor={black}
                     editable={editable}
                     onFocus={onFocus}
                     onBlur={onBlur}

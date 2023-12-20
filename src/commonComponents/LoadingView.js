@@ -11,7 +11,7 @@ const LoadingView = (props) => {
 		<View style={styles.container}>
 			<View style={styles.indicatorView}>
 
-				<ActivityIndicator size={'large'} color={primary} />
+				<ActivityIndicator size={'large'} color={greenPrimary} />
 				{props.text !== '' && props.text !== undefined ?
 					<Text style={styles.text} numberOfLines={2}>
 						{props.text}

@@ -281,8 +281,6 @@ PODS:
     - react-native-config/App (= 1.5.0)
   - react-native-config/App (1.5.0):
     - React-Core
-  - react-native-geolocation (3.0.6):
-    - React-Core
   - react-native-render-html (6.3.4):
     - React-Core
   - react-native-safe-area-context (4.5.2):
@@ -433,7 +431,6 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-config (from `../node_modules/react-native-config`)
-  - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - react-native-render-html (from `../node_modules/react-native-render-html`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -512,8 +509,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-config:
     :path: "../node_modules/react-native-config"
-  react-native-geolocation:
-    :path: "../node_modules/@react-native-community/geolocation"
   react-native-render-html:
     :path: "../node_modules/react-native-render-html"
   react-native-safe-area-context:
@@ -587,7 +582,6 @@ SPEC CHECKSUMS:
   React-jsinspector: 1f51e775819199d3fe9410e69ee8d4c4161c7b06
   React-logger: 0d58569ec51d30d1792c5e86a8e3b78d24b582c6
   react-native-config: 5330c8258265c1e5fdb8c009d2cabd6badd96727
-  react-native-geolocation: 0f7fe8a4c2de477e278b0365cce27d089a8c5903
   react-native-render-html: 984dfe2294163d04bf5fe25d7c9f122e60e05ebe
   react-native-safe-area-context: 1d596539b05a78f2b346e954e7c577f6f9be7544
   React-perflogger: 0bb0522a12e058f6eb69d888bc16f40c16c4b907
@@ -617,4 +611,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: c65735a4256e6681176a40ef60575534b83df5a6
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.12.0

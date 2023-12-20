@@ -97,7 +97,7 @@
 		2EEEA93929D30D9500D4B2C3 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA92429D30D9500D4B2C3 /* FontAwesome5_Regular.ttf */; };
 		3094547468B94E61A0578B7F /* Outfit-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1141AE1D7DC4AF4AFEC8E1C /* Outfit-SemiBold.ttf */; };
 		312C402F0B59499682EED8E8 /* Outfit-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FEFBC74CA0E433EA2A82108 /* Outfit-Light.ttf */; };
-		3BBAA9689624674A0DF681F6 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		3BBAA9689624674A0DF681F6 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		4883E2437CB5423CBD12B363 /* Manrope-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E125C7398BC46E4A27BB482 /* Manrope-Bold.ttf */; };
 		671ACCB35C6348B5B30965B9 /* Manrope-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86AD8F9FBEBB4A70ADF3F8A2 /* Manrope-ExtraLight.ttf */; };
 		731BC5B14D60430DB5272FFF /* Manrope-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A983496623DC4660B1F5CC60 /* Manrope-Regular.ttf */; };
@@ -127,7 +127,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* SportsWaleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SportsWaleTests.m; sourceTree = "<group>"; };
 		05A4285AADD1C93F58547AC3 /* Pods-SportsWaleCommonPods-SportsWaleProd.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWaleCommonPods-SportsWaleProd.debug.xcconfig"; path = "Target Support Files/Pods-SportsWaleCommonPods-SportsWaleProd/Pods-SportsWaleCommonPods-SportsWaleProd.debug.xcconfig"; sourceTree = "<group>"; };
-		0E125C7398BC46E4A27BB482 /* Manrope-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-Bold.ttf"; path = "../src/assets/fonts/Manrope-Bold.ttf"; sourceTree = "<group>"; };
+		0E125C7398BC46E4A27BB482 /* Manrope-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-Bold.ttf"; path = "../src/assets/fonts/Manrope-Bold.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* SportsWale.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportsWale.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = SportsWale/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = SportsWale/AppDelegate.mm; sourceTree = "<group>"; };
@@ -137,7 +137,7 @@
 		157AB4D255922514175C0712 /* Pods_SportsWaleCommonPods_SportsWaleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SportsWaleCommonPods_SportsWaleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		17B0DAC339353DE44B8D5342 /* Pods-SportsWaleCommonPods-SportsWaleProd.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWaleCommonPods-SportsWaleProd.release.xcconfig"; path = "Target Support Files/Pods-SportsWaleCommonPods-SportsWaleProd/Pods-SportsWaleCommonPods-SportsWaleProd.release.xcconfig"; sourceTree = "<group>"; };
 		2458B312AD2038DAF968E77E /* Pods-SportsWaleCommonPods-SportsWaleDev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWaleCommonPods-SportsWaleDev.release.xcconfig"; path = "Target Support Files/Pods-SportsWaleCommonPods-SportsWaleDev/Pods-SportsWaleCommonPods-SportsWaleDev.release.xcconfig"; sourceTree = "<group>"; };
-		2D806EC9B2DE46CAA7C92034 /* Manrope-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-ExtraBold.ttf"; path = "../src/assets/fonts/Manrope-ExtraBold.ttf"; sourceTree = "<group>"; };
+		2D806EC9B2DE46CAA7C92034 /* Manrope-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-ExtraBold.ttf"; path = "../src/assets/fonts/Manrope-ExtraBold.ttf"; sourceTree = "<group>"; };
 		2E53B86529F6863F00A1842C /* SportsWaleDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportsWaleDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E53B86629F6863F00A1842C /* SportsWale Dev-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SportsWale Dev-Info.plist"; path = "/Users/webtualhackintosh/Documents/GitHub_Projects/SportsWale/ios/SportsWale Dev-Info.plist"; sourceTree = "<absolute>"; };
 		2E53B89229F68C0A00A1842C /* SportsWaleProd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportsWaleProd.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -172,16 +172,16 @@
 		68532B6305CE30F6D008EE96 /* Pods-SportsWaleCommonPods-SportsWaleDev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWaleCommonPods-SportsWaleDev.debug.xcconfig"; path = "Target Support Files/Pods-SportsWaleCommonPods-SportsWaleDev/Pods-SportsWaleCommonPods-SportsWaleDev.debug.xcconfig"; sourceTree = "<group>"; };
 		7BD46155DA8D81F2790298E7 /* Pods-SportsWaleCommonPods-SportsWale.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWaleCommonPods-SportsWale.debug.xcconfig"; path = "Target Support Files/Pods-SportsWaleCommonPods-SportsWale/Pods-SportsWaleCommonPods-SportsWale.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = SportsWale/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		86AD8F9FBEBB4A70ADF3F8A2 /* Manrope-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-ExtraLight.ttf"; path = "../src/assets/fonts/Manrope-ExtraLight.ttf"; sourceTree = "<group>"; };
+		86AD8F9FBEBB4A70ADF3F8A2 /* Manrope-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-ExtraLight.ttf"; path = "../src/assets/fonts/Manrope-ExtraLight.ttf"; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-SportsWale-SportsWaleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWale-SportsWaleTests.release.xcconfig"; path = "Target Support Files/Pods-SportsWale-SportsWaleTests/Pods-SportsWale-SportsWaleTests.release.xcconfig"; sourceTree = "<group>"; };
-		9B7C642204BF422DA6B2F515 /* Manrope-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-Medium.ttf"; path = "../src/assets/fonts/Manrope-Medium.ttf"; sourceTree = "<group>"; };
+		9B7C642204BF422DA6B2F515 /* Manrope-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-Medium.ttf"; path = "../src/assets/fonts/Manrope-Medium.ttf"; sourceTree = "<group>"; };
 		A53537E6BB3841969AE32264 /* Outfit-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Outfit-Regular.ttf"; path = "../src/assets/fonts/Outfit-Regular.ttf"; sourceTree = "<group>"; };
-		A54B399DA5604E7F84859830 /* Manrope-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-Light.ttf"; path = "../src/assets/fonts/Manrope-Light.ttf"; sourceTree = "<group>"; };
-		A983496623DC4660B1F5CC60 /* Manrope-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-Regular.ttf"; path = "../src/assets/fonts/Manrope-Regular.ttf"; sourceTree = "<group>"; };
+		A54B399DA5604E7F84859830 /* Manrope-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-Light.ttf"; path = "../src/assets/fonts/Manrope-Light.ttf"; sourceTree = "<group>"; };
+		A983496623DC4660B1F5CC60 /* Manrope-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-Regular.ttf"; path = "../src/assets/fonts/Manrope-Regular.ttf"; sourceTree = "<group>"; };
 		B0F3EB8CC4A2D165C3EE6F05 /* Pods_SportsWaleCommonPods_SportsWale.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SportsWaleCommonPods_SportsWale.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4F230D8B09B0A7EE250DAE2 /* Pods-SportsWaleCommonPods-SportsWaleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWaleCommonPods-SportsWaleTests.release.xcconfig"; path = "Target Support Files/Pods-SportsWaleCommonPods-SportsWaleTests/Pods-SportsWaleCommonPods-SportsWaleTests.release.xcconfig"; sourceTree = "<group>"; };
 		C4ABDA98B761C171410AC341 /* Pods-SportsWaleCommonPods-SportsWale.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWaleCommonPods-SportsWale.release.xcconfig"; path = "Target Support Files/Pods-SportsWaleCommonPods-SportsWale/Pods-SportsWaleCommonPods-SportsWale.release.xcconfig"; sourceTree = "<group>"; };
-		C7A578A7FCDF4A4086BC6DE3 /* Manrope-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-SemiBold.ttf"; path = "../src/assets/fonts/Manrope-SemiBold.ttf"; sourceTree = "<group>"; };
+		C7A578A7FCDF4A4086BC6DE3 /* Manrope-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-SemiBold.ttf"; path = "../src/assets/fonts/Manrope-SemiBold.ttf"; sourceTree = "<group>"; };
 		C8379DD14F2D4543984AD5A2 /* Outfit-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Outfit-Medium.ttf"; path = "../src/assets/fonts/Outfit-Medium.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F1141AE1D7DC4AF4AFEC8E1C /* Outfit-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Outfit-SemiBold.ttf"; path = "../src/assets/fonts/Outfit-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -202,7 +202,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BBAA9689624674A0DF681F6 /* BuildFile in Frameworks */,
+				3BBAA9689624674A0DF681F6 /* (null) in Frameworks */,
 				7BFF86A61E381A11115E4643 /* Pods_SportsWaleCommonPods_SportsWale.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1058,6 +1058,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MSD97L88TJ;
 				ENABLE_BITCODE = NO;
@@ -1074,6 +1076,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SportsWale;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1086,6 +1089,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MSD97L88TJ;
 				INFOPLIST_FILE = SportsWale/Info.plist;
@@ -1101,6 +1106,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SportsWale;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
