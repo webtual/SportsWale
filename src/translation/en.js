@@ -130,7 +130,10 @@ export default {
 	already_Registered : "Already Registered? ",
 
 
+	// updated UI
 
+	join_nearby_games:"Join Nearby Games",
+	book_nearby_venue:"Book Nearby Venues",
 
 
 }

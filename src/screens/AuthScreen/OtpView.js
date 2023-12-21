@@ -11,8 +11,9 @@ import CommonStyle from '../../commonComponents/CommonStyle'
 import { Log } from '../../commonComponents/Log';
 
 const OtpView = ({ route }) => {
-
+	
 	const [isRegister, setIsRegister] = useState(route?.params?.isRegister)
+	console.log("🚀 ~ file: OtpView.js:16 ~ OtpView ~ route?.params?.isRegister:", route?.params?.isRegister)
 	const [optcode, setOptcode] = useState("")
 	const [count, setCount] = useState(60)
 	const [isResendCode, setIsResendCode] = useState(true)

@@ -87,22 +87,22 @@ const Register = ({ }) => {
                                   <View style={{ marginTop: pixelSizeHorizontal(10) }}>
                                  <TextInputView
                                     imageSource={ic_email}
-                                    onChangeText={handleChange('mobile')}
+                                    onChangeText={handleChange('email')}
                                     // onBlurEffect={handleBlur('mobile')}
                                     value={values.email}
                                     placeholder={Translate.t("email")}
-                                    maxLength={10}
-                                    keyboardType={'number-pad'}
+                                    // maxLength={10}
+                                    keyboardType={'default'}
                                     error={(errors.email && touched.email) && errors.email}
                                 />
                                 </View>
                                  <TextInputView
                                     imageSource={ic_password}
-                                    onChangeText={handleChange('mobile')}
+                                    onChangeText={handleChange('password')}
                                     // onBlurEffect={handleBlur('mobile')}
                                     value={values.password}
                                     placeholder={Translate.t("password")}
-                                    maxLength={10}
+                                    // maxLength={10}
                                     keyboardType={'default'}
                                     error={(errors.password && touched.password) && errors.password}
                                 />
