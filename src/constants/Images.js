@@ -24,4 +24,6 @@ export const ic_navigation=require('../assets/images/ic_navigation.png')
 export const ic_group = require('../assets/images/ic_group.png')
 export const ic_team=require('../assets/images/ic_team.png')
 export const ic_gift=require('../assets/images/ic_gift-box.png')
+export const ic_chat = require('../assets/images/ic_chat.png')
+export const ic_history=require('../assets/images/ic_history.png')
 

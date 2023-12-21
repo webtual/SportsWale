@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-
+import { Colors } from '../constants/CustomeColor';
 
 const Divider = ({ style, type = 'solid' }) => {
 	const dividerStyles = [
@@ -14,7 +14,7 @@ const Divider = ({ style, type = 'solid' }) => {
 
 const styles = StyleSheet.create({
 	divider: {
-		borderBottomColor: 'gray'
+		borderBottomColor: Colors.grey
 	}
 });
 
