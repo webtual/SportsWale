@@ -9,7 +9,7 @@ import {
   FlatList,
   Image,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   BOLD,
   FontSize,
@@ -39,6 +39,9 @@ import CarouselCard from "../../commonComponents/Carousel/lib/Card";
 import { HomeBanner } from "../../DummyData/Data";
 import BasicCard from "../../commonComponents/BasicCard";
 import FastImage from "react-native-fast-image";
+import { SheetManager } from "react-native-actions-sheet";
+import RBSheet from "react-native-raw-bottom-sheet";
+import FilterSheet from "../../commonComponents/sheets/Filter-sheet";
 
 const Venue = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -50,6 +53,18 @@ const Venue = () => {
       venue.venueName.toLowerCase().includes(text.toLowerCase())
     );
     setFilteredData(filtered);
+  };
+
+  const bottomSheetRef = useRef(null);
+  const [selectedFilter, setSelectedFilter] = useState(null);
+
+  const handleFilter = () => {
+    bottomSheetRef.current.open();
+  };
+
+  const handleFilterSelection = (filter) => {
+    setSelectedFilter(filter);
+    bottomSheetRef.current.close();
   };
 
   return (
@@ -120,9 +135,8 @@ const Venue = () => {
           <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
             <BasicCard
               style={{
-                paddingVertical:8,
+                paddingVertical: 8,
                 borderWidth: 0,
-                marginBottom: 10,
                 elevation: 1,
                 shadowColor: Colors.black05,
                 shadowOffset: {
@@ -194,6 +208,126 @@ const Venue = () => {
                 </View>
               </View>
             </BasicCard>
+          </View>
+
+          <View
+            style={{
+              paddingHorizontal: pixelSizeHorizontal(20),
+              marginVertical: pixelSizeVertical(15),
+              flexDirection: "row",
+            }}
+          >
+            <TouchableOpacity
+              style={{
+                width: 32,
+                height: 32,
+                borderWidth: 1,
+                justifyContent: "center",
+                borderRadius: 5,
+                borderColor: Colors.dimGrey,
+                marginRight: 15,
+                alignItems: "center",
+                
+              }}
+              onPress={() => {
+                handleFilter();
+              }}
+            >
+              <Icon name="tune-variant" size={24} color={Colors.dimGrey} />
+            </TouchableOpacity>
+
+            <RBSheet
+              ref={bottomSheetRef}
+              height={150}
+              customStyles={{
+                wrapper: {
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
+                },
+                container: {
+                  borderTopLeftRadius: 30,
+                  borderTopRightRadius: 30,
+                },
+              }}
+            >
+              <FilterSheet
+                selectedFilter={selectedFilter}
+                handleFilterSelection={handleFilterSelection}
+              />
+            </RBSheet>
+            <View
+              style={{
+                width: 83,
+                height: 32,
+                borderWidth: 1,
+                justifyContent: "center",
+                borderRadius: 5,
+                borderColor: Colors.dimGrey,
+                marginRight: 15,
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: SEMIBOLD,
+                    fontSize: FontSize.FS_13,
+                    color: Colors.black05,
+                  }}
+                >
+                  Sports
+                </Text>
+                <Icon name="chevron-down" size={24} color={Colors.dimGrey} />
+              </View>
+            </View>
+            <View
+              style={{
+                width: 83,
+                height: 32,
+                borderWidth: 1,
+                justifyContent: "center",
+                borderRadius: 5,
+                borderColor: Colors.dimGrey,
+                marginRight: 15,
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: SEMIBOLD,
+                  fontSize: FontSize.FS_13,
+                  color: Colors.black05,
+                  textAlign: "center",
+                }}
+              >
+                Favourites
+              </Text>
+            </View>
+            <View
+              style={{
+                width: 83,
+                height: 32,
+                borderWidth: 1,
+                borderRadius: 5,
+                borderColor: Colors.dimGrey,
+                marginRight: 15,
+                justifyContent: "center",
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: SEMIBOLD,
+                  fontSize: FontSize.FS_13,
+                  color: Colors.black05,
+                  textAlign: "center",
+                }}
+              >
+                Offer
+              </Text>
+            </View>
           </View>
 
           <FlatList

@@ -7,8 +7,10 @@ import { pixelSizeHorizontal, pixelSizeVertical } from "./ResponsiveScreen";
 import { SCREEN_WIDTH } from "../constants/ConstantKey";
 import { BOLD, FontSize, SEMIBOLD, MEDIUM } from "../constants/Fonts";
 import Divider from "./Divider";
+import { navigate } from "../navigations/RootNavigation";
 
 export default function VenuesCard({ item , styles }) {
+  console.log('navigate', navigate);
   return (
     <TouchableOpacity
       onPress={() => navigate("VenueDetail", { item: item })}

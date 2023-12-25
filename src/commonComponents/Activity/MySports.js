@@ -20,6 +20,7 @@ import { widthPixel, heightPixel , pixelSizeHorizontal} from "../ResponsiveScree
 import { VenuesData } from "../../DummyData/Data";
 import GamesCard from "../GamesCard";
 import { SCREEN_WIDTH } from "../../constants/ConstantKey";
+import SportItem from "../SportItem";
 
 export default function MySports() {
   const [selectedItem, setSelectedItem] = useState(1);
@@ -28,32 +29,13 @@ export default function MySports() {
     const isSelected = selectedItem === index;
 
     return (
-      <TouchableOpacity
-        style={{
-          paddingHorizontal: 10,
-          height: 30,
-          borderWidth: 0.5,
-          marginRight: 15,
-          borderRadius: 5,
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-evenly",
-          backgroundColor: isSelected ? Colors.secondary : null,
-          marginVertical: 10,
-        }}
-        onPress={() => setSelectedItem(index)}
-      >
-        <Icon
-          name={"basketball"}
-          size={16}
-          color={isSelected ? Colors.white : Colors.black}
-        />
-        <Text
-          style={[styles.menuItemText, isSelected && styles.selectedItemText]}
-        >
-          {item.SportName}
-        </Text>
-      </TouchableOpacity>
+      <SportItem
+        item={item}
+        index={index}
+        isSelected={isSelected}
+        onPressItem={(index) => setSelectedItem(index)}
+        isDisabled={false}
+      />
     );
   };
 
@@ -83,16 +65,5 @@ export default function MySports() {
 }
 
 const styles = StyleSheet.create({
-  menuItemText: {
-    color: Colors.black,
-    paddingVertical: 5,
-    fontFamily: MEDIUM,
-    fontSize: FontSize.FS_14,
-    marginLeft: 5,
-  },
-  selectedItemText: {
-    color: Colors.white,
-    fontFamily: MEDIUM,
-    fontSize: FontSize.FS_14,
-  },
+  
 });
