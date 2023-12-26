@@ -1,0 +1,36 @@
+diff --git a/node_modules/toggle-switch-react-native/ToggleSwitch.js b/node_modules/toggle-switch-react-native/ToggleSwitch.js
+index 9e51915..f009100 100644
+--- a/node_modules/toggle-switch-react-native/ToggleSwitch.js
++++ b/node_modules/toggle-switch-react-native/ToggleSwitch.js
+@@ -17,6 +17,7 @@ import {
+   Platform,
+   I18nManager,
+ } from "react-native";
++import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; 
+ 
+ import PropTypes from "prop-types";
+ 
+@@ -169,7 +170,10 @@ export default class ToggleSwitch extends React.Component {
+     return (
+       <View style={styles.container} {...this.props}>
+         {label && labelPosition === 'left' ? (
+-          <Text style={[styles.labelStyle, labelStyle]}>{label}</Text>
++          <View>
++            <Text style={[styles.labelStyle, labelStyle]}>{label}</Text>
++            {/* {icon ? <Icon name={iconName} size={iconSize} color={iconColor} /> : null} */}
++          </View>
+         ) : null}
+         <TouchableOpacity
+           style={this.createToggleSwitchStyle()}
+@@ -193,8 +197,10 @@ const styles = StyleSheet.create({
+   container: {
+     flexDirection: "row",
+     alignItems: "center",
++    justifyContent: "space-between",
++    marginVertical:10
+   },
+   labelStyle: {
+-    marginHorizontal: 10,
++    marginHorizontal: 0,
+   },
+ });

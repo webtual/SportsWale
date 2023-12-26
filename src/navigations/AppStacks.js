@@ -53,6 +53,7 @@ import EnterVenueName from '../screens/OtherScreen/EnterVenueName';
 import SelectDateTime from '../screens/OtherScreen/SelectDateTime';
 import InvitePeople from '../screens/OtherScreen/InvitePeople';
 import Register from '../screens/AuthScreen/Register';
+import Payment from '../screens/OtherScreen/Payment';
 
 // import { cart_data } from '../redux/reducers/cartReducer';
 // import { useSelector } from 'react-redux';
@@ -219,6 +220,7 @@ function AppStacks() {
 			<Stack.Screen name="CreateActivity" component={CreateActivity} />
 			<Stack.Screen name="ActivityDetails" component={ActivityDetails} />
 			<Stack.Screen name="Request" component={Request} />
+			<Stack.Screen name="Payment" component={Payment} />
 		</Stack.Navigator>
 	)
 }

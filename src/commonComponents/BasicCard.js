@@ -16,7 +16,6 @@ const BasicCard= ({ children, style, onPress }) => {
 
 const styles = StyleSheet.create({
 	card: {
-		borderWidth: 0.6,
 		borderColor: 'grey',
 		paddingHorizontal: 12,
 		borderRadius: 10,

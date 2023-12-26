@@ -11,20 +11,6 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import {
-  black,
-  black05,
-  grey,
-  light_grey,
-  primary,
-  secondary,
-  secondary_dark_grey,
-  warmGrey,
-  warning,
-  white,
-} from "../../constants/Color";
-
-import Translate from "../../translation/Translate";
-import {
   BOLD,
   FontSize,
   MEDIUM,
@@ -42,15 +28,13 @@ import {
   navigate,
   resetScreen,
 } from "../../navigations/RootNavigation";
-import IconButton from "../../commonComponents/IconButton";
-
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import HeaderView from "../../commonComponents/HeaderView";
-import { Divider, Input } from "native-base";
+import Divider from "../../commonComponents/Divider";
 import FastImage from "react-native-fast-image";
 import { SCREEN_WIDTH } from "../../constants/ConstantKey";
 import StarRating from "react-native-star-rating";
-import { VenuesData, PickSport } from "../../DummyData/Data";
+import { VenuesData, PickSport , AmenitiesData } from "../../DummyData/Data";
 import SportItem from "../../commonComponents/SportItem";
 import { Colors } from "../../constants/CustomeColor";
 import { clock, ic_navigation } from "../../constants/Images";
@@ -59,40 +43,6 @@ const VenueDetail = ({ route }) => {
   const [venueData, setVenueData] = useState(route?.params?.item);
   console.log("route: " + JSON.stringify(route.params.item));
 
-  const AmenitiesData = [
-    {
-      id: 1,
-      name: "Flood lights",
-    },
-    {
-      id: 2,
-      name: "Cafe",
-    },
-    {
-      id: 3,
-      name: "Washroom",
-    },
-    {
-      id: 4,
-      name: "Parking",
-    },
-    {
-      id: 5,
-      name: "Drinking water",
-    },
-    {
-      id: 6,
-      name: "Grass pitch",
-    },
-    {
-      id: 7,
-      name: "Indoor/Outdoor",
-    },
-    {
-      id: 8,
-      name: "Capacity-50",
-    },
-  ];
   return (
     <>
       <HeaderView
@@ -100,14 +50,14 @@ const VenueDetail = ({ route }) => {
         onPress={() => goBack()}
         isBack={true}
         containerStyle={{ paddingHorizontal: pixelSizeHorizontal(0) }}
-        titleColor={white}
+        titleColor={Colors.white}
         rightComponent={
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <TouchableOpacity onPress={() => {}}>
               <Icon
                 name={"heart-outline"}
                 size={26}
-                color={light_grey}
+                color={Colors.lightGrey}
                 style={{ marginHorizontal: 5 }}
               />
             </TouchableOpacity>
@@ -115,7 +65,7 @@ const VenueDetail = ({ route }) => {
               <Icon
                 name={"share-variant-outline"}
                 size={26}
-                color={light_grey}
+                color={Colors.lightGrey}
               />
             </TouchableOpacity>
           </View>
@@ -136,14 +86,13 @@ const VenueDetail = ({ route }) => {
           style={{
             marginHorizontal: pixelSizeHorizontal(20),
             marginVertical: pixelSizeVertical(10),
-            // paddingBottom: pixelSizeHorizontal(5),
           }}
         >
           <Text
             style={{
               fontFamily: SEMIBOLD,
               fontSize: FontSize.FS_16,
-              color: black,
+              color: Colors.black,
             }}
           >
             {venueData.venueName}
@@ -152,17 +101,7 @@ const VenueDetail = ({ route }) => {
 
         <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
           <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              borderWidth: 0.5,
-              width: 180,
-              height: 30,
-              justifyContent: "space-evenly",
-              paddingVertical: 5,
-              borderColor: Colors.primary,
-              borderRadius: 5,
-            }}
+            style={styles.infoContainer}
           >
             <FastImage
               style={{
@@ -220,17 +159,7 @@ const VenueDetail = ({ route }) => {
               "https://www.google.com/maps/place/Ahmedabad,+Gujarat/@23.0204978,72.4396539,11z/data=!3m1!4b1!4m6!3m5!1s0x395e848aba5bd449:0x4fcedd11614f6516!8m2!3d23.022505!4d72.5713621!16zL20vMDFkODhj"
             )
           }
-          style={{
-            paddingVertical: 5,
-            marginVertical: pixelSizeVertical(10),
-            width: 120,
-            marginHorizontal: pixelSizeHorizontal(20),
-            borderRadius: widthPixel(6),
-            alignItems: "center",
-            flexDirection: "row",
-            borderWidth: 1,
-            justifyContent: "space-evenly",
-          }}
+          style={styles.locationContainer}
         >
           <Icon
             name={"map-marker-radius-outline"}
@@ -267,7 +196,7 @@ const VenueDetail = ({ route }) => {
             }}
           >
             <StarRating
-              fullStarColor={warning}
+              fullStarColor={Colors.warning}
               disabled={false}
               maxStars={5}
               rating={4}
@@ -279,7 +208,7 @@ const VenueDetail = ({ route }) => {
               style={{
                 fontFamily: SEMIBOLD,
                 fontSize: FontSize.FS_15,
-                color: secondary_dark_grey,
+                color: Colors.secondaryDarkGrey,
                 marginLeft: 5,
               }}
             >
@@ -289,7 +218,7 @@ const VenueDetail = ({ route }) => {
               style={{
                 fontFamily: SEMIBOLD,
                 fontSize: FontSize.FS_10,
-                color: secondary_dark_grey,
+                color: Colors.secondaryDarkGrey,
                 marginLeft: 2,
               }}
             >
@@ -371,7 +300,7 @@ const VenueDetail = ({ route }) => {
             style={{
               fontFamily: SEMIBOLD,
               fontSize: FontSize.FS_18,
-              color: black,
+              color: Colors.black,
             }}
           >
             Avialable Sports
@@ -400,7 +329,7 @@ const VenueDetail = ({ route }) => {
             style={{
               fontFamily: SEMIBOLD,
               fontSize: FontSize.FS_18,
-              color: black,
+              color: Colors.black,
             }}
           >
             Amenities
@@ -468,7 +397,7 @@ const VenueDetail = ({ route }) => {
             style={{
               fontFamily: SEMIBOLD,
               fontSize: FontSize.FS_18,
-              color: black,
+              color: Colors.black,
             }}
           >
             About Venues
@@ -479,7 +408,7 @@ const VenueDetail = ({ route }) => {
             style={{
               fontFamily: REGULAR,
               fontSize: FontSize.FS_13,
-              color: black,
+              color: Colors.black,
               marginBottom: 8,
             }}
           >
@@ -503,7 +432,7 @@ const VenueDetail = ({ route }) => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => resetScreen("Dashboard")}
+          onPress={() => navigate('SelectSlot')}
           style={styles.btnLogin}
         >
           <Text style={styles.signInText}>BOOK NOW</Text>
@@ -516,8 +445,30 @@ const VenueDetail = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: white,
+    backgroundColor: Colors.white,
     justifyContent: "center",
+  },
+  infoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 0.5,
+    width: 180,
+    height: 30,
+    justifyContent: 'space-evenly',
+    paddingVertical: 5,
+    borderColor: Colors.primary,
+    borderRadius: 5,
+  },
+  locationContainer: {
+    paddingVertical: 5,
+    marginVertical: pixelSizeVertical(10),
+    width: 120,
+    marginHorizontal: pixelSizeHorizontal(20),
+    borderRadius: widthPixel(6),
+    alignItems: "center",
+    flexDirection: "row",
+    borderWidth: 1,
+    justifyContent: "space-evenly",
   },
   btnLogin: {
     flex: 1,
@@ -532,7 +483,7 @@ const styles = StyleSheet.create({
   },
   signInText: {
     fontSize: FontSize.FS_16,
-    color: white,
+    color: Colors.white,
     fontFamily: MEDIUM,
   },
   btn: {

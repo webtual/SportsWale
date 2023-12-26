@@ -125,3 +125,39 @@ export const HomeBanner = [
     },
   ];
 
+// Amenities Data
+
+export const AmenitiesData = [
+    {
+      id: 1,
+      name: "Flood lights",
+    },
+    {
+      id: 2,
+      name: "Cafe",
+    },
+    {
+      id: 3,
+      name: "Washroom",
+    },
+    {
+      id: 4,
+      name: "Parking",
+    },
+    {
+      id: 5,
+      name: "Drinking water",
+    },
+    {
+      id: 6,
+      name: "Grass pitch",
+    },
+    {
+      id: 7,
+      name: "Indoor/Outdoor",
+    },
+    {
+      id: 8,
+      name: "Capacity-50",
+    },
+  ];

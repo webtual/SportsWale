@@ -9,6 +9,10 @@ export const money=require('../assets/images/money.png')
 export const siren=require('../assets/images/siren.png')
 export const venue = require('../assets/images/Venue.png')
 export const clock = require('../assets/images/clock.png')
+export const ic_cricket = require('../assets/images/ic_cricket.png')
+export const ic_football = require('../assets/images/ic_football.png')
+export const ic_note = require('../assets/images/ic_note.png')
+export const ic_secure_shield = require('../assets/images/ic_secure-shield.png')
 
 
 

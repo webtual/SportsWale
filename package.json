@@ -8,6 +8,7 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
+    "postinstall": "patch-package",
     "android:staging": "react-native run-android --variant=stagingdebug",
     "android:staging-release": "react-native run-android --variant=stagingrelease",
     "android:dev": "react-native run-android --variant=developmentdebug",
@@ -33,6 +34,7 @@
     "i18n-js": "^4.2.2",
     "moment": "^2.29.4",
     "native-base": "^3.4.28",
+    "patch-package": "^8.0.0",
     "react": "18.2.0",
     "react-native": "0.71.4",
     "react-native-actions-sheet": "^0.9.0-alpha.24",
@@ -56,6 +58,7 @@
     "react-native-vector-icons": "^9.2.0",
     "react-redux": "^8.0.5",
     "redux": "^4.2.1",
+    "toggle-switch-react-native": "^3.3.0",
     "yup": "^1.0.2"
   },
   "devDependencies": {
