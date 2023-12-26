@@ -9,7 +9,7 @@ import {
   FlatList,
   Linking,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   BOLD,
   FontSize,
@@ -34,14 +34,40 @@ import Divider from "../../commonComponents/Divider";
 import FastImage from "react-native-fast-image";
 import { SCREEN_WIDTH } from "../../constants/ConstantKey";
 import StarRating from "react-native-star-rating";
-import { VenuesData, PickSport , AmenitiesData } from "../../DummyData/Data";
+import { VenuesData, PickSport, AmenitiesData } from "../../DummyData/Data";
 import SportItem from "../../commonComponents/SportItem";
 import { Colors } from "../../constants/CustomeColor";
 import { clock, ic_navigation } from "../../constants/Images";
+import RBSheet from "react-native-raw-bottom-sheet";
+import RatingSheet from "../../commonComponents/sheets/Rating-sheet";
 
 const VenueDetail = ({ route }) => {
+  const refRBSheet = React.createRef();
+
   const [venueData, setVenueData] = useState(route?.params?.item);
   console.log("route: " + JSON.stringify(route.params.item));
+
+  const [rating, setRating] = useState(0);
+  const [review, setReview] = useState("");
+
+  const openRatingSheet = () => {
+    refRBSheet.current.open();
+  };
+
+  const onPressRate = () => {
+    refRBSheet.current.close();
+    setRating(0);
+    setReview("");
+    console.log("rating", rating, review);
+  };
+
+  const onRatingChange = (newRating) => {
+    setRating(newRating);
+  };
+
+  const onReviewChange = (newReview) => {
+    setReview(newReview);
+  };
 
   return (
     <>
@@ -93,6 +119,7 @@ const VenueDetail = ({ route }) => {
               fontFamily: SEMIBOLD,
               fontSize: FontSize.FS_16,
               color: Colors.black,
+               marginVertical: pixelSizeVertical(10),
             }}
           >
             {venueData.venueName}
@@ -100,9 +127,7 @@ const VenueDetail = ({ route }) => {
         </View>
 
         <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
-          <View
-            style={styles.infoContainer}
-          >
+          <View style={styles.infoContainer}>
             <FastImage
               style={{
                 width: 22,
@@ -129,6 +154,7 @@ const VenueDetail = ({ route }) => {
               alignItems: "center",
               flexDirection: "row",
               justifyContent: "center",
+              marginVertical: pixelSizeVertical(10),
             }}
           >
             <FastImage
@@ -233,6 +259,7 @@ const VenueDetail = ({ route }) => {
                   backgroundColor: Colors.secondary,
                 },
               ]}
+              onPress={openRatingSheet}
             >
               <Text
                 style={{
@@ -244,6 +271,25 @@ const VenueDetail = ({ route }) => {
             </TouchableOpacity>
           </View>
         </View>
+
+        <RBSheet
+          ref={refRBSheet}
+          height={300}
+          closeOnDragDown={true}
+          customStyles={{
+            container: {
+              borderTopLeftRadius: widthPixel(30),
+              borderTopRightRadius: widthPixel(30),
+            },
+          }}
+        >
+          <RatingSheet
+            onRatingChange={onRatingChange}
+            onReviewChange={onReviewChange}
+            onPressRate={onPressRate}
+            rating={rating}
+          />
+        </RBSheet>
 
         <View
           style={{
@@ -278,7 +324,7 @@ const VenueDetail = ({ route }) => {
                   color: Colors.white,
                 }}
               >
-                Rates
+                Upcoming
               </Text>
             </TouchableOpacity>
           </View>
@@ -364,7 +410,7 @@ const VenueDetail = ({ route }) => {
             style={{
               backgroundColor: Colors.secondary,
               borderWidth: 0,
-              marginRight: 15,
+              marginRight: pixelSizeHorizontal(15),
               borderRadius: widthPixel(30),
               flexDirection: "row",
               justifyContent: "center",
@@ -426,13 +472,13 @@ const VenueDetail = ({ route }) => {
       >
         <TouchableOpacity
           onPress={() => handleBulkCorporate()}
-          style={styles.btnLogin}
+          style={[styles.btnLogin, { marginRight: pixelSizeHorizontal(30) }]}
         >
           <Text style={styles.signInText}>Bulk/Corporate</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => navigate('SelectSlot')}
+          onPress={() => navigate("SelectSlot")}
           style={styles.btnLogin}
         >
           <Text style={styles.signInText}>BOOK NOW</Text>
@@ -449,12 +495,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   infoContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     borderWidth: 0.5,
     width: 180,
     height: 30,
-    justifyContent: 'space-evenly',
+    justifyContent: "space-evenly",
     paddingVertical: 5,
     borderColor: Colors.primary,
     borderRadius: 5,
@@ -472,7 +518,6 @@ const styles = StyleSheet.create({
   },
   btnLogin: {
     flex: 1,
-    marginRight: 20,
     borderRadius: widthPixel(25),
     flexDirection: "row",
     justifyContent: "center",
@@ -495,7 +540,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: 10,
+    marginVertical: pixelSizeVertical(10),
   },
 });
 

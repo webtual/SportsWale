@@ -13,6 +13,12 @@ export const ic_cricket = require('../assets/images/ic_cricket.png')
 export const ic_football = require('../assets/images/ic_football.png')
 export const ic_note = require('../assets/images/ic_note.png')
 export const ic_secure_shield = require('../assets/images/ic_secure-shield.png')
+export const booking = require('../assets/images/booking.png')
+export const athlete = require('../assets/images/athlete.png')
+export const wallet = require('../assets/images/wallet.png')
+export const control = require('../assets/images/control.png')
+export const goodFeedback = require('../assets/images/good-feedback.png')
+export const help = require('../assets/images/help.png')
 
 
 

@@ -32,11 +32,7 @@ import FastImage from "react-native-fast-image";
 import { SCREEN_WIDTH } from "../../constants/ConstantKey";
 import CarouselCard from "../../commonComponents/Carousel/index";
 import HeaderView from "../../commonComponents/HeaderView";
-import {
-  ic_gift,
-  ic_group,
-  ic_team,
-} from "../../constants/Images";
+import { ic_gift, ic_group, ic_team } from "../../constants/Images";
 import BasicCard from "../../commonComponents/BasicCard";
 import { VenuesData, HomeBanner } from "../../DummyData/Data";
 import { Colors } from "../../constants/CustomeColor";
@@ -128,23 +124,8 @@ const Home = () => {
           />
         </View>
 
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginTop: 20,
-            marginBottom: 10,
-            paddingHorizontal: pixelSizeHorizontal(20),
-          }}
-        >
-          <Text
-            style={{
-              fontFamily: SEMIBOLD,
-              fontSize: FontSize.FS_15,
-              color: black,
-            }}
-          >
+        <View style={styles.nearByContainer}>
+          <Text style={styles.nearByText}>
             {Translate.t("join_nearby_games")}
           </Text>
           <TouchableOpacity
@@ -176,22 +157,8 @@ const Home = () => {
           )}
         />
 
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: 10,
-            paddingHorizontal: pixelSizeHorizontal(20),
-          }}
-        >
-          <Text
-            style={{
-              fontFamily: SEMIBOLD,
-              fontSize: FontSize.FS_15,
-              color: black,
-            }}
-          >
+        <View style={[styles.nearByContainer, { marginTop: 0 }]}>
+          <Text style={styles.nearByText}>
             {Translate.t("book_nearby_venue")}
           </Text>
           <TouchableOpacity
@@ -249,29 +216,14 @@ const Home = () => {
                 }}
               >
                 <FastImage
-                  style={{
-                    width: 28,
-                    height: 28,
-                  }}
+                  style={styles.subIcon}
                   source={ic_group}
                   resizeMode="cover"
                 />
                 <View style={{ marginLeft: pixelSizeHorizontal(15) }}>
+                  <Text style={styles.semiText}>Groups</Text>
                   <Text
-                    style={{
-                      fontFamily: BOLD,
-                      fontSize: FontSize.FS_14,
-                      color: black,
-                    }}
-                  >
-                    Groups
-                  </Text>
-                  <Text
-                    style={{
-                      fontFamily: SEMIBOLD,
-                      fontSize: FontSize.FS_12,
-                      color: secondary_dark_grey,
-                    }}
+                    style={styles.semiSubText}
                   >
                     Let's connect and Play
                   </Text>
@@ -294,29 +246,14 @@ const Home = () => {
                 }}
               >
                 <FastImage
-                  style={{
-                    width: 28,
-                    height: 28,
-                  }}
+                  style={styles.subIcon}
                   source={ic_team}
                   resizeMode="cover"
                 />
                 <View style={{ marginLeft: pixelSizeHorizontal(15) }}>
+                  <Text style={styles.semiText}>Manage Player</Text>
                   <Text
-                    style={{
-                      fontFamily: BOLD,
-                      fontSize: FontSize.FS_14,
-                      color: black,
-                    }}
-                  >
-                    Manage Player
-                  </Text>
-                  <Text
-                    style={{
-                      fontFamily: SEMIBOLD,
-                      fontSize: FontSize.FS_12,
-                      color: secondary_dark_grey,
-                    }}
+                    style={styles.semiSubText}
                   >
                     Manage your Players
                   </Text>
@@ -349,29 +286,14 @@ const Home = () => {
               }}
             >
               <FastImage
-                style={{
-                  width: 28,
-                  height: 28,
-                }}
+                style={styles.subIcon}
                 source={ic_gift}
                 resizeMode="cover"
               />
               <View style={{ marginLeft: 15 }}>
+                <Text style={styles.semiText}>Refer a Sport Lover</Text>
                 <Text
-                  style={{
-                    fontFamily: BOLD,
-                    fontSize: FontSize.FS_14,
-                    color: black,
-                  }}
-                >
-                  Refer a Sport Lover
-                </Text>
-                <Text
-                  style={{
-                    fontFamily: SEMIBOLD,
-                    fontSize: FontSize.FS_12,
-                    color: secondary_dark_grey,
-                  }}
+                  style={styles.semiSubText}
                 >
                   Refer & Earn a Coupon
                 </Text>
@@ -390,14 +312,33 @@ const styles = StyleSheet.create({
     backgroundColor: white,
     justifyContent: "center",
   },
+  nearByContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginTop: 20,
+    marginBottom: 10,
+    paddingHorizontal: pixelSizeHorizontal(20),
+  },
+  nearByText: {
+    fontFamily: SEMIBOLD,
+    fontSize: FontSize.FS_15,
+    color: black,
+  },
+  subIcon: {
+    width: 28,
+    height: 28,
+  },
+  semiText: {
+    fontFamily: BOLD,
+    fontSize: FontSize.FS_14,
+    color: black,
+  },
+  semiSubText: {
+    fontFamily: SEMIBOLD,
+    fontSize: FontSize.FS_12,
+    color: secondary_dark_grey,
+  },
 });
 
 export default Home;
-
-//  Task Update(05 - 04 - 2023) :
-
-// (SPORTSWALE) :
-// 1.  Add venue screen design
-// 2.  Activity screen design
-// 3.  Create activity screen design
-// 4.  Add location model

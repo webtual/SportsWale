@@ -20,26 +20,7 @@ export default function ScheduleDetails({ Activity }) {
       <TouchableOpacity
         onPress={() => navigate("VenueDetail", { item: item })}
         activeOpacity={0.7}
-        style={[
-          {
-            backgroundColor: Colors.white,
-            minHeight: 200,
-            borderRadius: 10,
-            shadowColor: Colors.black05,
-            shadowOffset: {
-              width: 0,
-              height: 3,
-            },
-            shadowOpacity: 0.17,
-            shadowRadius: 8,
-            elevation: 3,
-            paddingLeft: pixelSizeHorizontal(10),
-            paddingTop: pixelSizeVertical(15),
-            paddingBottom: pixelSizeVertical(10),
-            marginVertical: pixelSizeVertical(10),
-          },
-          styles,
-        ]}
+        style={[styles.container, styles]}
       >
         <View style={{ flexDirection: "row" }}>
           <FastImage
@@ -98,17 +79,7 @@ export default function ScheduleDetails({ Activity }) {
             alignItems: "center",
           }}
         >
-          <View
-            style={{
-              borderWidth: 0.5,
-              paddingHorizontal: pixelSizeHorizontal(10),
-              paddingVertical: 3,
-              borderRadius: 5,
-              marginTop: pixelSizeVertical(10),
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+          <View style={styles.timeInfo}>
             <Text
               style={{
                 fontFamily: SEMIBOLD,
@@ -133,17 +104,7 @@ export default function ScheduleDetails({ Activity }) {
             )}
           </View>
           {Activity == "Past" && (
-            <View
-              style={{
-                paddingVertical: 4,
-                marginVertical: pixelSizeVertical(10),
-                backgroundColor: Colors.secondary,
-                width: 70,
-                borderRadius: 6,
-                alignItems: "center",
-                marginRight: pixelSizeHorizontal(10),
-              }}
-            >
+            <View style={styles.bookedBadge}>
               <Text
                 style={{
                   fontFamily: SEMIBOLD,
@@ -222,23 +183,11 @@ export default function ScheduleDetails({ Activity }) {
             }}
           >
             <FastImage
-              style={{
-                width: 28,
-                height: 28,
-              }}
+              style={styles.subIcon}
               source={ic_chat}
               resizeMode="cover"
             />
-            <Text
-              style={{
-                fontFamily: SEMIBOLD,
-                fontSize: FontSize.FS_14,
-                color: Colors.black,
-                marginLeft: pixelSizeHorizontal(10),
-              }}
-            >
-              Chat
-            </Text>
+            <Text style={styles.subText}>Chat</Text>
           </View>
         ) : (
           <View
@@ -251,23 +200,11 @@ export default function ScheduleDetails({ Activity }) {
           >
             <View style={{ alignItems: "center", flexDirection: "row" }}>
               <FastImage
-                style={{
-                  width: 28,
-                  height: 28,
-                }}
+                style={styles.subIcon}
                 source={ic_chat}
                 resizeMode="cover"
               />
-              <Text
-                style={{
-                  fontFamily: SEMIBOLD,
-                  fontSize: FontSize.FS_14,
-                  color: Colors.black,
-                  marginLeft: pixelSizeHorizontal(10),
-                }}
-              >
-                Chat
-              </Text>
+              <Text style={styles.subText}>Chat</Text>
             </View>
             <View
               style={{
@@ -277,23 +214,11 @@ export default function ScheduleDetails({ Activity }) {
               }}
             >
               <FastImage
-                style={{
-                  width: 28,
-                  height: 28,
-                }}
+                style={styles.subIcon}
                 source={ic_history}
                 resizeMode="cover"
               />
-              <Text
-                style={{
-                  fontFamily: SEMIBOLD,
-                  fontSize: FontSize.FS_14,
-                  color: Colors.black,
-                  marginLeft: pixelSizeHorizontal(10),
-                }}
-              >
-                Re-Host
-              </Text>
+              <Text style={styles.subText}>Re-Host</Text>
             </View>
           </View>
         )}
@@ -302,4 +227,50 @@ export default function ScheduleDetails({ Activity }) {
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.white,
+    minHeight: 200,
+    borderRadius: 10,
+    shadowColor: Colors.black05,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.17,
+    shadowRadius: 8,
+    elevation: 3,
+    paddingLeft: pixelSizeHorizontal(10),
+    paddingTop: pixelSizeVertical(15),
+    paddingBottom: pixelSizeVertical(10),
+    marginVertical: pixelSizeVertical(10),
+  },
+  timeInfo: {
+    borderWidth: 0.5,
+    paddingHorizontal: pixelSizeHorizontal(10),
+    paddingVertical: 3,
+    borderRadius: 5,
+    marginTop: pixelSizeVertical(10),
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  bookedBadge: {
+    paddingVertical: 4,
+    marginVertical: pixelSizeVertical(10),
+    backgroundColor: Colors.secondary,
+    width: 70,
+    borderRadius: 6,
+    alignItems: "center",
+    marginRight: pixelSizeHorizontal(10),
+  },
+  subIcon: {
+    width: 28,
+    height: 28,
+  },
+  subText: {
+    fontFamily: SEMIBOLD,
+    fontSize: FontSize.FS_14,
+    color: Colors.black,
+    marginLeft: pixelSizeHorizontal(10),
+  },
+});

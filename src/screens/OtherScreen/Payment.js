@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import HeaderView from "../../commonComponents/HeaderView";
 import { goBack, navigate } from "../../navigations/RootNavigation";
 import { Colors } from "../../constants/CustomeColor";
@@ -30,6 +30,10 @@ import CustomPrice from "../../commonComponents/CustomPrice";
 import ToggleSwitch from "toggle-switch-react-native";
 
 export default function Payment() {
+
+  const [redeemToggle , setredeemToggle]=useState(false);
+  const[amountToggle , setamountToggle]=useState(false);
+
   return (
     <>
       <HeaderView
@@ -74,7 +78,7 @@ export default function Payment() {
               color: Colors.black,
             }}
           >
-            Mon 12 Dec,2024 |{" "}
+            Mon 12 Dec,2024 |
           </Text>
           <Text
             style={{
@@ -83,7 +87,7 @@ export default function Payment() {
               color: Colors.black,
             }}
           >
-            07:30AM - 09:00 AM{" "}
+            07:30AM - 09:00 AM
           </Text>
         </View>
 
@@ -110,7 +114,7 @@ export default function Payment() {
         />
 
         <ToggleSwitch
-          isOn={false}
+          isOn={redeemToggle}
           onColor="green"
           offColor="red"
           label="Reedem Point"
@@ -118,15 +122,63 @@ export default function Payment() {
             fontFamily: BOLD,
             fontSize: FontSize.FS_15,
             color: Colors.black,
-            marginRight: 5,
           }}
           size="medium"
-          onToggle={(isOn) => console.log("changed to : ", isOn)}
+          onToggle={(isOn) => setredeemToggle(!redeemToggle)}
         />
+
+        <BasicCard>
+          <TouchableOpacity
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: SEMIBOLD,
+                fontSize: FontSize.FS_16,
+                color: Colors.black,
+              }}
+            >
+              Apply Coupon
+            </Text>
+            <Icon name={"chevron-right"} size={28} color={Colors.black} />
+          </TouchableOpacity>
+        </BasicCard>
+
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginVertical: 10,
+            marginTop:15
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: BOLD,
+              fontSize: FontSize.FS_16,
+              color: Colors.black,
+            }}
+          >
+            Total Amount
+          </Text>
+          <Text
+            style={{
+              fontFamily: SEMIBOLD,
+              fontSize: FontSize.FS_15,
+              color: Colors.secondary,
+            }}
+          >
+            INR 25000
+          </Text>
+        </View>
 
         <BasicCard style={{ marginVertical: 10 }}>
           <ToggleSwitch
-            isOn={false}
+            isOn={amountToggle}
             onColor="green"
             offColor="red"
             label="Pay Full Amount"
@@ -136,29 +188,44 @@ export default function Payment() {
               color: Colors.black,
             }}
             size="medium"
-            onToggle={(isOn) => console.log("changed to : ", isOn)}
+            onToggle={(isOn) => setamountToggle(!amountToggle)}
           />
 
           <CustomPrice label="Advance Payable" amount={1000} />
 
           <CustomPrice label="To be paid at Venue" amount={1000} />
         </BasicCard>
+
+        <View>
+          <Text
+            style={{
+              fontFamily: SEMIBOLD,
+              fontSize: FontSize.FS_16,
+              color: Colors.black,
+              marginVertical: 10,
+            }}
+          >
+            Booking Policy's
+          </Text>
+          <Text
+            style={{
+              fontFamily: SEMIBOLD,
+              fontSize: FontSize.FS_12,
+              color: Colors.black05,
+            }}
+          >
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries, but also the leap into electronic typesetting,
+            remaining essentially unchanged.
+          </Text>
+        </View>
       </HeaderView>
 
       <View style={{ paddingHorizontal: pixelSizeHorizontal(40) }}>
-        <TouchableOpacity
-          style={{
-            backgroundColor: Colors.secondary,
-            borderWidth: 0,
-            marginRight: 15,
-            borderRadius: widthPixel(30),
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            marginVertical: 10,
-            padding: pixelSizeHorizontal(15),
-          }}
-        >
+        <TouchableOpacity style={styles.btn}>
           <Text
             style={{
               fontFamily: BOLD,
@@ -166,12 +233,37 @@ export default function Payment() {
               color: Colors.white,
             }}
           >
-            Create Game
+            INR 1500
           </Text>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Text
+              style={{
+                fontFamily: BOLD,
+                fontSize: FontSize.FS_14,
+                color: Colors.white,
+              }}
+            >
+              Proceed to Pay
+            </Text>
+            <Icon name={"chevron-right"} size={28} color={Colors.white} />
+          </View>
         </TouchableOpacity>
       </View>
     </>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  btn: {
+    backgroundColor: Colors.secondary,
+    borderWidth: 0,
+    marginHorizontal: pixelSizeHorizontal(10),
+    borderRadius: widthPixel(35),
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginVertical: 10,
+    padding: pixelSizeHorizontal(10),
+    paddingHorizontal: pixelSizeHorizontal(15),
+  },
+});
