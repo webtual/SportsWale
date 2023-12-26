@@ -53,6 +53,7 @@ import StarRating from "react-native-star-rating";
 import { VenuesData, PickSport } from "../../DummyData/Data";
 import SportItem from "../../commonComponents/SportItem";
 import { Colors } from "../../constants/CustomeColor";
+import { clock, ic_navigation } from "../../constants/Images";
 
 const VenueDetail = ({ route }) => {
   const [venueData, setVenueData] = useState(route?.params?.item);
@@ -134,10 +135,8 @@ const VenueDetail = ({ route }) => {
         <View
           style={{
             marginHorizontal: pixelSizeHorizontal(20),
-            marginVertical: 10,
-            borderBottomWidth: 2,
-            paddingBottom: pixelSizeHorizontal(10),
-            borderBottomColor: secondary,
+            marginVertical: pixelSizeVertical(10),
+            // paddingBottom: pixelSizeHorizontal(5),
           }}
         >
           <Text
@@ -151,24 +150,69 @@ const VenueDetail = ({ route }) => {
           </Text>
         </View>
 
-        <View
-          style={{
-            marginHorizontal: pixelSizeHorizontal(20),
-            flexDirection: "row",
-            alignItems: "center",
-            marginVertical: pixelSizeHorizontal(5),
-          }}
-        >
-          <Icon name={"map-marker-radius-outline"} size={22} color={primary} />
-          <Text
+        <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
+          <View
             style={{
-              fontFamily: REGULAR,
-              fontSize: FontSize.FS_15,
-              color: secondary_dark_grey,
+              flexDirection: "row",
+              alignItems: "center",
+              borderWidth: 0.5,
+              width: 180,
+              height: 30,
+              justifyContent: "space-evenly",
+              paddingVertical: 5,
+              borderColor: Colors.primary,
+              borderRadius: 5,
             }}
           >
-            Kankaria Football Ground (Maninagar)
-          </Text>
+            <FastImage
+              style={{
+                width: 22,
+                height: 22,
+              }}
+              source={clock}
+              resizeMode="cover"
+            />
+
+            <Text
+              style={{
+                fontFamily: SEMIBOLD,
+                fontSize: FontSize.FS_14,
+                color: Colors.black,
+              }}
+            >
+              7:30Am to 9:00am
+            </Text>
+          </View>
+
+          <View
+            style={{
+              paddingVertical: 5,
+              alignItems: "center",
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
+            <FastImage
+              style={{
+                width: 22,
+                height: 22,
+              }}
+              source={ic_navigation}
+              resizeMode="cover"
+            />
+            <Text
+              style={{
+                fontFamily: SEMIBOLD,
+                fontSize: FontSize.FS_13,
+                color: Colors.black05,
+                marginLeft: 5,
+                flex: 1,
+              }}
+            >
+              Lorem ipsum dolor sit amet, consectetur , Lorem ipsum dolor sit
+              amet, consectetur
+            </Text>
+          </View>
         </View>
         <TouchableOpacity
           onPress={() =>
@@ -178,95 +222,35 @@ const VenueDetail = ({ route }) => {
           }
           style={{
             paddingVertical: 5,
-            marginVertical: 10,
-            backgroundColor: primary,
-            width: 100,
+            marginVertical: pixelSizeVertical(10),
+            width: 120,
             marginHorizontal: pixelSizeHorizontal(20),
-            borderRadius: 6,
+            borderRadius: widthPixel(6),
             alignItems: "center",
+            flexDirection: "row",
+            borderWidth: 1,
+            justifyContent: "space-evenly",
           }}
         >
+          <Icon
+            name={"map-marker-radius-outline"}
+            size={22}
+            color={Colors.black}
+          />
           <Text
             style={{
               fontFamily: REGULAR,
               fontSize: FontSize.FS_14,
-              color: white,
+              color: Colors.black05,
             }}
           >
-            Show in map
+            Show in Map
           </Text>
         </TouchableOpacity>
 
         <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
           <Divider style={{ marginVertical: pixelSizeVertical(10) }} />
         </View>
-
-        {/* <View
-          style={{
-            paddingHorizontal: pixelSizeHorizontal(20),
-            flexDirection: "row",
-          }}
-        >
-          <View>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <StarRating
-                fullStarColor={warning}
-                disabled={false}
-                maxStars={5}
-                rating={4}
-                starSize={16}
-                containerStyle={{ width: 100 }}
-                // selectedStar={(rating) => this.onStarRatingPress(rating)}
-              />
-              <Text
-                style={{
-                  fontFamily: SEMIBOLD,
-                  fontSize: FontSize.FS_15,
-                  color: secondary_dark_grey,
-                  marginLeft: 5,
-                }}
-              >
-                4.0
-              </Text>
-            </View>
-            <Text>Hello</Text>
-          </View>
-          <View>
-            <TouchableOpacity
-              style={[
-                styles.btn,
-                {
-                  backgroundColor: Colors.secondary,
-                },
-              ]}
-            >
-              <Text
-                style={{
-                  color: Colors.white,
-                }}
-              >
-                Rates
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[
-                styles.btn,
-                {
-                  backgroundColor: Colors.secondary,
-                },
-              ]}
-            >
-              <Text
-                style={{
-                  color: Colors.white,
-                }}
-              >
-                Upcoming
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View> */}
 
         <View
           style={{
@@ -300,6 +284,16 @@ const VenueDetail = ({ route }) => {
               }}
             >
               4.0
+            </Text>
+            <Text
+              style={{
+                fontFamily: SEMIBOLD,
+                fontSize: FontSize.FS_10,
+                color: secondary_dark_grey,
+                marginLeft: 2,
+              }}
+            >
+              (10k)
             </Text>
           </View>
           <View style={{ flex: 1 }}>
@@ -335,7 +329,7 @@ const VenueDetail = ({ route }) => {
               style={{
                 fontFamily: SEMIBOLD,
                 fontSize: FontSize.FS_15,
-                color: secondary_dark_grey,
+                color: Colors.black,
               }}
             >
               200 Total games
@@ -384,7 +378,7 @@ const VenueDetail = ({ route }) => {
           </Text>
         </View>
         <FlatList
-          style={{ marginHorizontal: pixelSizeHorizontal(14) }}
+          style={{ marginHorizontal: pixelSizeHorizontal(20) }}
           horizontal
           showsHorizontalScrollIndicator={false}
           data={PickSport}
@@ -409,32 +403,58 @@ const VenueDetail = ({ route }) => {
               color: black,
             }}
           >
-            Amenities/Facalities
+            Amenities
           </Text>
         </View>
         <FlatList
           style={{ marginHorizontal: pixelSizeHorizontal(14) }}
           data={AmenitiesData}
-          contentContainerStyle={{
-            flexDirection: "row",
-            alignSelf: "flex-start",
-            flexWrap: "wrap",
-          }}
+          numColumns={3}
           renderItem={({ item }) => (
-            <View style={{ padding: 6 }}>
+            <TouchableOpacity
+              style={[
+                styles.btn,
+                { backgroundColor: Colors.primaryLight, borderWidth: 0 },
+              ]}
+            >
               <Text
                 style={{
-                  fontFamily: REGULAR,
-                  fontSize: FontSize.FS_14,
-                  color: black,
-                  marginLeft: 5,
+                  fontFamily: MEDIUM,
+                  fontSize: FontSize.FS_13,
+                  color: Colors.primary,
                 }}
               >
-                • {item.name}
+                {item.name}
               </Text>
-            </View>
+            </TouchableOpacity>
           )}
         />
+
+        <View style={{ paddingHorizontal: pixelSizeHorizontal(40) }}>
+          <TouchableOpacity
+            style={{
+              backgroundColor: Colors.secondary,
+              borderWidth: 0,
+              marginRight: 15,
+              borderRadius: widthPixel(30),
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              marginVertical: 10,
+              padding: pixelSizeHorizontal(15),
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: BOLD,
+                fontSize: FontSize.FS_15,
+                color: Colors.white,
+              }}
+            >
+              Create Game
+            </Text>
+          </TouchableOpacity>
+        </View>
 
         <View
           style={{
@@ -451,14 +471,14 @@ const VenueDetail = ({ route }) => {
               color: black,
             }}
           >
-            About the vanues :
+            About Venues
           </Text>
         </View>
         <View style={{ marginHorizontal: pixelSizeHorizontal(20) }}>
           <Text
             style={{
               fontFamily: REGULAR,
-              fontSize: FontSize.FS_14,
+              fontSize: FontSize.FS_13,
               color: black,
               marginBottom: 8,
             }}
@@ -468,6 +488,19 @@ const VenueDetail = ({ route }) => {
             within this: some are almost perfect circles, some elongated{" "}
           </Text>
         </View>
+      </HeaderView>
+      <View
+        style={{
+          flexDirection: "row",
+          paddingHorizontal: pixelSizeHorizontal(20),
+        }}
+      >
+        <TouchableOpacity
+          onPress={() => handleBulkCorporate()}
+          style={styles.btnLogin}
+        >
+          <Text style={styles.signInText}>Bulk/Corporate</Text>
+        </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => resetScreen("Dashboard")}
@@ -475,7 +508,7 @@ const VenueDetail = ({ route }) => {
         >
           <Text style={styles.signInText}>BOOK NOW</Text>
         </TouchableOpacity>
-      </HeaderView>
+      </View>
     </>
   );
 };
@@ -487,13 +520,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   btnLogin: {
-    backgroundColor: primary,
-    borderRadius: widthPixel(5),
-    padding: pixelSizeHorizontal(10),
-    alignItems: "center",
+    flex: 1,
+    marginRight: 20,
+    borderRadius: widthPixel(25),
+    flexDirection: "row",
     justifyContent: "center",
-    marginVertical: pixelSizeHorizontal(20),
-    marginHorizontal: pixelSizeHorizontal(20),
+    alignItems: "center",
+    marginVertical: 10,
+    backgroundColor: Colors.black,
+    padding: 10,
   },
   signInText: {
     fontSize: FontSize.FS_16,
@@ -505,7 +540,7 @@ const styles = StyleSheet.create({
     height: 30,
     borderWidth: 0.5,
     marginRight: 15,
-    borderRadius: 5,
+    borderRadius: widthPixel(5),
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",

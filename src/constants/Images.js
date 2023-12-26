@@ -8,6 +8,7 @@ export const headerBackground = require('../assets/images/header_bg.png')
 export const money=require('../assets/images/money.png')
 export const siren=require('../assets/images/siren.png')
 export const venue = require('../assets/images/Venue.png')
+export const clock = require('../assets/images/clock.png')
 
 
 
