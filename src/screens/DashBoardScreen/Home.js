@@ -64,10 +64,10 @@ const Home = () => {
         title="Welcome to Sport Wale"
         isBack={false}
         containerStyle={{ paddingHorizontal: pixelSizeHorizontal(0) }}
-        titleColor={white}
+        titleColor={Colors.white}
         rightComponent={
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Icon name={"map-marker-radius-outline"} size={26} color={white} />
+            <Icon name={"map-marker-radius-outline"} size={26} color={Colors.white} />
             <View
               style={{
                 justifyContent: "center",
@@ -79,7 +79,7 @@ const Home = () => {
                 style={{
                   fontFamily: REGULAR,
                   fontSize: FontSize.FS_12,
-                  color: light_grey,
+                  color: Colors.lightGrey,
                   alignSelf: "center",
                 }}
               >
@@ -90,7 +90,7 @@ const Home = () => {
                 style={{
                   fontFamily: REGULAR,
                   fontSize: FontSize.FS_12,
-                  color: white,
+                  color: Colors.white,
                   alignSelf: "center",
                 }}
               >
@@ -133,7 +133,7 @@ const Home = () => {
               navigate("Venue");
             }}
           >
-            <Icon name={"chevron-right"} size={28} color={black} />
+            <Icon name={"chevron-right"} size={28} color={Colors.black} />
           </TouchableOpacity>
         </View>
         <FlatList
@@ -151,7 +151,7 @@ const Home = () => {
           )}
           renderItem={({ item }) => (
             <GamesCard
-              styles={{ width: SCREEN_WIDTH / 1.4 }}
+              cardStyles={{ width: SCREEN_WIDTH / 1.3 }}
               bookMark={false}
             />
           )}
@@ -166,7 +166,7 @@ const Home = () => {
               navigate("Venue");
             }}
           >
-            <Icon name={"chevron-right"} size={28} color={black} />
+            <Icon name={"chevron-right"} size={28} color={Colors.black} />
           </TouchableOpacity>
         </View>
         <FlatList
@@ -188,20 +188,7 @@ const Home = () => {
         />
 
         <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
-          <BasicCard
-            style={{
-              borderWidth: 0,
-              marginBottom: 10,
-              elevation: 1,
-              shadowColor: black05,
-              shadowOffset: {
-                width: 0,
-                height: 3,
-              },
-              shadowOpacity: 0.17,
-              shadowRadius: 8,
-            }}
-          >
+          <BasicCard style={styles.cardContainer}>
             <View
               style={{
                 flexDirection: "row",
@@ -222,14 +209,10 @@ const Home = () => {
                 />
                 <View style={{ marginLeft: pixelSizeHorizontal(15) }}>
                   <Text style={styles.semiText}>Groups</Text>
-                  <Text
-                    style={styles.semiSubText}
-                  >
-                    Let's connect and Play
-                  </Text>
+                  <Text style={styles.semiSubText}>Let's connect and Play</Text>
                 </View>
               </View>
-              <Icon name={"chevron-right"} size={28} color={black} />
+              <Icon name={"chevron-right"} size={28} color={Colors.black} />
             </View>
             <Divider style={{ marginVertical: pixelSizeVertical(10) }} />
             <View
@@ -252,33 +235,16 @@ const Home = () => {
                 />
                 <View style={{ marginLeft: pixelSizeHorizontal(15) }}>
                   <Text style={styles.semiText}>Manage Player</Text>
-                  <Text
-                    style={styles.semiSubText}
-                  >
-                    Manage your Players
-                  </Text>
+                  <Text style={styles.semiSubText}>Manage your Players</Text>
                 </View>
               </View>
-              <Icon name={"chevron-right"} size={28} color={black} />
+              <Icon name={"chevron-right"} size={28} color={Colors.black} />
             </View>
           </BasicCard>
         </View>
 
         <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
-          <BasicCard
-            style={{
-              borderWidth: 0,
-              marginBottom: 10,
-              elevation: 1,
-              shadowColor: black05,
-              shadowOffset: {
-                width: 0,
-                height: 3,
-              },
-              shadowOpacity: 0.17,
-              shadowRadius: 8,
-            }}
-          >
+          <BasicCard style={styles.cardContainer}>
             <View
               style={{
                 flexDirection: "row",
@@ -292,11 +258,7 @@ const Home = () => {
               />
               <View style={{ marginLeft: 15 }}>
                 <Text style={styles.semiText}>Refer a Sport Lover</Text>
-                <Text
-                  style={styles.semiSubText}
-                >
-                  Refer & Earn a Coupon
-                </Text>
+                <Text style={styles.semiSubText}>Refer & Earn a Coupon</Text>
               </View>
             </View>
           </BasicCard>
@@ -309,7 +271,7 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: white,
+    backgroundColor: Colors.white,
     justifyContent: "center",
   },
   nearByContainer: {
@@ -323,7 +285,7 @@ const styles = StyleSheet.create({
   nearByText: {
     fontFamily: SEMIBOLD,
     fontSize: FontSize.FS_15,
-    color: black,
+    color: Colors.black,
   },
   subIcon: {
     width: 28,
@@ -332,12 +294,24 @@ const styles = StyleSheet.create({
   semiText: {
     fontFamily: BOLD,
     fontSize: FontSize.FS_14,
-    color: black,
+    color: Colors.black,
   },
   semiSubText: {
     fontFamily: SEMIBOLD,
     fontSize: FontSize.FS_12,
-    color: secondary_dark_grey,
+    color: Colors.secondaryDarkGrey,
+  },
+  cardContainer: {
+    borderWidth: 0,
+    marginBottom: 10,
+    elevation: 1,
+    shadowColor: Colors.black05,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.17,
+    shadowRadius: 8,
   },
 });
 

@@ -225,7 +225,7 @@ export default function Payment() {
       </HeaderView>
 
       <View style={{ paddingHorizontal: pixelSizeHorizontal(40) }}>
-        <TouchableOpacity style={styles.btn}>
+        <TouchableOpacity style={styles.btn} activeOpacity={0.7}>
           <Text
             style={{
               fontFamily: BOLD,

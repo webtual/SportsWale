@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text , StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; 
 import { Colors } from '../constants/CustomeColor';
 import { SEMIBOLD , FontSize } from '../constants/Fonts';
@@ -7,12 +7,7 @@ import { SEMIBOLD , FontSize } from '../constants/Fonts';
 const CustomPrice = ({ label, iconName, iconSize = 19, iconColor = Colors.black , amount }) => {
   return (
     <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginVertical:8
-          }}
+          style={styles.priceContainer}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Text
@@ -39,5 +34,14 @@ const CustomPrice = ({ label, iconName, iconSize = 19, iconColor = Colors.black 
         </View>
   );
 };
+
+const styles = StyleSheet.create({
+  priceContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginVertical:8
+  },
+});
 
 export default CustomPrice;

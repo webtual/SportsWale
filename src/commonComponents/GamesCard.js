@@ -15,7 +15,7 @@ import {
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import FastImage from "react-native-fast-image";
 
-export default function GamesCard({ styles, bookMark }) {
+export default function GamesCard({ cardStyles, bookMark }) {
   return (
     <TouchableOpacity
       onPress={() => navigate("VenueDetail", { item: item })}
@@ -38,7 +38,7 @@ export default function GamesCard({ styles, bookMark }) {
           paddingLeft: 10,
           paddingVertical: 5,
         },
-        styles,
+        cardStyles,
       ]}
     >
       {bookMark ? (
@@ -146,20 +146,7 @@ export default function GamesCard({ styles, bookMark }) {
             resizeMode="cover"
           />
         </View>
-        <View
-          style={{
-            paddingVertical: 5,
-            marginVertical: 10,
-            backgroundColor: Colors.primaryLight,
-            width: 75,
-            borderTopLeftRadius: 6,
-            borderBottomLeftRadius: 6,
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-evenly",
-            flex: 0.5,
-          }}
-        >
+        <View style={styles.moneyContainer}>
           <FastImage
             style={{
               width: 25,
@@ -169,55 +156,25 @@ export default function GamesCard({ styles, bookMark }) {
             resizeMode="cover"
           />
 
-          <Text
-            style={{
-              fontFamily: SEMIBOLD,
-              fontSize: FontSize.FS_14,
-              color: Colors.black,
-            }}
-          >
-            INR 499
-          </Text>
+          <Text style={[styles.text, { color: Colors.black }]}>INR 499</Text>
         </View>
       </View>
 
       <View style={{ flexDirection: "row" }}>
         <View
-          style={{
-            paddingVertical: 5,
-            marginVertical: 10,
-            backgroundColor: Colors.primary,
-            width: 120,
-            borderRadius: 6,
-            alignItems: "center",
-            flexDirection: "row",
-            justifyContent: "space-evenly",
-            marginRight: pixelSizeHorizontal(10),
-          }}
+          style={[styles.itemContainer, { backgroundColor: Colors.primary }]}
         >
           <Icon name={"soccer"} size={20} color={Colors.white} />
-          <Text
-            style={{
-              fontFamily: REGULAR,
-              fontSize: FontSize.FS_14,
-              color: Colors.white,
-            }}
-          >
+          <Text style={[styles.text, { color: Colors.white }]}>
             Intermediate
           </Text>
         </View>
 
         <View
-          style={{
-            paddingVertical: 5,
-            marginVertical: 10,
-            backgroundColor: Colors.primaryLight,
-            width: 130,
-            borderRadius: 6,
-            alignItems: "center",
-            flexDirection: "row",
-            justifyContent: "space-evenly",
-          }}
+          style={[
+            styles.itemContainer,
+            { backgroundColor: Colors.primaryLight },
+          ]}
         >
           <FastImage
             style={{
@@ -227,13 +184,7 @@ export default function GamesCard({ styles, bookMark }) {
             source={siren}
             resizeMode="cover"
           />
-          <Text
-            style={{
-              fontFamily: SEMIBOLD,
-              fontSize: FontSize.FS_14,
-              color: Colors.black,
-            }}
-          >
+          <Text style={[styles.text, { color: Colors.black }]}>
             Only 5 Slot left
           </Text>
         </View>
@@ -261,42 +212,52 @@ export default function GamesCard({ styles, bookMark }) {
             source={ic_navigation}
             resizeMode="cover"
           />
-          <Text
-            style={{
-              fontFamily: SEMIBOLD,
-              fontSize: FontSize.FS_14,
-              color: Colors.black,
-              marginLeft: 5,
-            }}
-          >
+          <Text style={[styles.text, { color: Colors.black, marginLeft: 5 }]}>
             Vistara Venue
           </Text>
         </View>
 
-        <View
-          style={{
-            paddingVertical: 5,
-            marginVertical: pixelSizeVertical(10),
-            backgroundColor: Colors.secondary,
-            width: 70,
-            borderRadius: 6,
-            alignItems: "center",
-            marginRight: pixelSizeHorizontal(10),
-          }}
-        >
-          <Text
-            style={{
-              fontFamily: SEMIBOLD,
-              fontSize: FontSize.FS_14,
-              color: Colors.white,
-            }}
-          >
-            Booked
-          </Text>
+        <View style={styles.bookContainer}>
+          <Text style={[styles.text, { color: Colors.white }]}>Booked</Text>
         </View>
       </View>
     </TouchableOpacity>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  moneyContainer: {
+    paddingVertical: 5,
+    marginVertical: 10,
+    backgroundColor: Colors.primaryLight,
+    borderTopLeftRadius: 6,
+    borderBottomLeftRadius: 6,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    flex: 0.5,
+  },
+  itemContainer: {
+    padding: 5,
+    marginVertical: 10,
+    borderRadius: 6,
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    marginRight: pixelSizeHorizontal(10),
+  },
+
+  bookContainer: {
+    paddingVertical: 5,
+    marginVertical: pixelSizeVertical(10),
+    backgroundColor: Colors.secondary,
+    paddingHorizontal: pixelSizeHorizontal(15),
+    borderRadius: 6,
+    alignItems: "center",
+    marginRight: pixelSizeHorizontal(10),
+  },
+  text: {
+    fontFamily: SEMIBOLD,
+    fontSize: FontSize.FS_14,
+  },
+});

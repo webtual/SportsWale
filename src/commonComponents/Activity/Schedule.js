@@ -15,7 +15,6 @@ export default function Schedule() {
             {
               backgroundColor:
                 selectedItem === "Upcoming" ? Colors.secondary : null,
-
             },
           ]}
           onPress={() => setSelectedItem("Upcoming")}
@@ -23,7 +22,6 @@ export default function Schedule() {
           <Text
             style={{
               color: selectedItem === "Upcoming" ? Colors.white : Colors.black,
-             
             }}
           >
             Upcoming
@@ -50,22 +48,21 @@ export default function Schedule() {
         </TouchableOpacity>
       </View>
 
-      <ScheduleDetails Activity={selectedItem}/>
-      
+      <ScheduleDetails Activity={selectedItem} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   btn: {
-    width:100,
+    width: 100,
     height: 30,
     borderWidth: 0.5,
     marginRight: 15,
     borderRadius: 5,
     flexDirection: "row",
     justifyContent: "center",
-    alignItems:'center',
+    alignItems: "center",
     marginVertical: 10,
   },
 });

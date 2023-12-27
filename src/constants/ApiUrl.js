@@ -1,5 +1,5 @@
 
-export const BASE_URL = 'https://sporton.mywindowsapp.in/api.asmx/'
+export const BASE_URL = 'https://dev.thewebtual.com:8000/api/'
 export const IMAGE_URL = "https://dev.thewebtual.com/krifixrewards/"
 export const LOGIN = "auth/login"
 export const CHECK_MOBILE = "auth/check-mobile"

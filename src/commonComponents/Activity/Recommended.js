@@ -43,7 +43,7 @@ export default function Recommended() {
           ></View>
         )}
         renderItem={({ item }) => (
-          <GamesCard styles={{ width: SCREEN_WIDTH / 1.1 }} bookMark={true} />
+          <GamesCard cardStyles={{ width: SCREEN_WIDTH / 1.1 }} bookMark={true} />
         )}
       />
     </View>

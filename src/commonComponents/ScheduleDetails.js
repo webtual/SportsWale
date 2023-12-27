@@ -127,14 +127,15 @@ export default function ScheduleDetails({ Activity }) {
           <View
             style={{
               flexDirection: "row",
-              flex: 1,
               justifyContent: "flex-start",
+              flexWrap: "wrap",
+              flex:1
             }}
           >
-            {["Public", "Tournament"].map((label, index) => (
+            {["Public", "Tournament", "Public", "Tournament"].map((label, index) => (
               <View
                 key={index}
-                style={{ flexDirection: "row", alignItems: "center" }}
+                style={{ flexDirection: "row", alignItems: "center" , marginVertical: 5,}}
               >
                 <Text
                   style={{

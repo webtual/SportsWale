@@ -107,7 +107,7 @@ const Profile = () => {
               <Text
                 style={{
                   fontFamily: REGULAR,
-                  fontSize: FontSize.FS_14,
+                  fontSize: FontSize.FS_13,
                   color: warmGrey,
                 }}
               >
