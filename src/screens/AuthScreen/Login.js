@@ -15,7 +15,8 @@ import { Log } from "../../commonComponents/Log";
 import { useFocusEffect } from "@react-navigation/native";
 import CommonStyle from "../../commonComponents/CommonStyle";
 import ApiManager from "../../commonComponents/ApiManager";
-import { LOGIN } from "../../constants/ApiUrl";
+import { CHECK_MOBILE, LOGIN } from "../../constants/ApiUrl";
+import CallSVG from "../../assets/images/CallSVG";
 
 const Login = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -33,8 +34,8 @@ const Login = ({}) => {
   );
 
   const MobileSchema = Yup.object().shape({
-    mobile: Yup.string()
-      .min(10, "* Please enter 10 digit mobile number")
+    mobile_number: Yup.string()
+      .min(10, "* Please enter valid mobile number")
       .required("* Please enter mobile number"),
   });
 
@@ -47,7 +48,7 @@ const Login = ({}) => {
   };
 
   const btnRegisterTap = () => {
-    navigate("RegisterName");
+    navigate("Register");
   };
 
   // const loginData = (value) => {
@@ -59,33 +60,10 @@ const Login = ({}) => {
   const Api_Check_mobile = (isLoad, data) => {
     setIsLoading(isLoad);
 
-    const loginData = {
-      username: "test112@yopmail.com",
-      password: "123456",
-      latitude: 72.0,
-      longitude: 27.0,
-      token: "abc",
-      devicetype: "android",
-      apikey: "123456",
-    };
-
     const formData = new FormData();
-    formData.append("username", loginData.username);
-    formData.append("password", loginData.password);
-    formData.append("latitude", loginData.latitude.toString());
-    formData.append("longitude", loginData.longitude.toString());
-    formData.append("token", loginData.token);
-    formData.append("devicetype", loginData.devicetype);
-    formData.append("apikey", loginData.apikey);
+    formData.append("mobile_number", data.mobile);
 
-    console.log("API",LOGIN,formData);
-    ApiManager.post(LOGIN, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
-
-    ApiManager.post(LOGIN, formData, {
+    ApiManager.post(CHECK_MOBILE, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -102,7 +80,7 @@ const Login = ({}) => {
           if (response.data.is_active === 0) {
             Alert.alert("Otp_Check_mobile");
           } else {
-            navigate("Register", { mobile: data.mobile });
+            navigate("Register", { mobile_number: data.mobile });
           }
         }
       })
@@ -122,7 +100,7 @@ const Login = ({}) => {
           <Formik
             enableReinitialize
             initialValues={{
-              mobile: txtMobile,
+              mobile_number: txtMobile,
             }}
             validationSchema={MobileSchema}
             onSubmit={(values) => {
@@ -139,19 +117,21 @@ const Login = ({}) => {
             }) => (
               <View style={{ marginTop: pixelSizeHorizontal(60) }}>
                 <TextInputView
-                  imageSource={ic_mobile}
-                  onChangeText={handleChange("mobile")}
-                  // onBlurEffect={handleBlur('mobile')}
-                  value={values.mobile}
-                  placeholder={Translate.t("mobile")}
+                  svgIcon={<CallSVG />}
+                  onChangeText={handleChange("mobile_number")}
+                  value={values.mobile_number}
+                  placeholder={Translate.t("enter_phone_number")}
                   maxLength={10}
                   keyboardType={"number-pad"}
-                  error={errors.mobile && touched.mobile && errors.mobile}
+                  error={errors.mobile_number && touched.mobile_number && errors.mobile_number}
                 />
                 <TouchableOpacity
                   activeOpacity={0.7}
                   onPress={handleSubmit}
-                  style={CommonStyle.mainBtnStyle}
+                  style={[
+                    CommonStyle.mainBtnStyle,
+                    { marginTop: pixelSizeHorizontal(50) },
+                  ]}
                 >
                   <Text style={CommonStyle.mainBtnText}>
                     {Translate.t("login")}
@@ -188,12 +168,12 @@ const styles = StyleSheet.create({
   textSignUp: {
     color: secondary,
     fontFamily: SEMIBOLD,
-    fontSize: FontSize.FS_16,
+    fontSize: FontSize.FS_14,
   },
   text: {
     color: black,
     fontFamily: MEDIUM,
-    fontSize: FontSize.FS_16,
+    fontSize: FontSize.FS_14,
   },
 });
 

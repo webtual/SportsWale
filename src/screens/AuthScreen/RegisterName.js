@@ -83,7 +83,7 @@ const RegisterName = ({}) => {
                             />
                             <TouchableOpacity activeOpacity={0.7}   
                                 onPress={handleSubmit}
-                                style={CommonStyle.mainBtnStyle}>
+                                style={[CommonStyle.mainBtnStyle,{marginTop : pixelSizeHorizontal(50)}]}>
                                 <Text style={CommonStyle.mainBtnText}>{Translate.t("next")}</Text>
 
                             </TouchableOpacity>

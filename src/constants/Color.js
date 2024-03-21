@@ -6,7 +6,7 @@ export const black05 = "rgba(1,1,1,0.5)"
 export const transparent = "transparent"
 
 export const seprator = "rgb(230,230,230)"
-
+export const placeholderGrey = "#C7C7CD"
 
 export const lightPrimary = "#ff8a43"
 export const blackTitle = "#252525"

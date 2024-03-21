@@ -5,7 +5,7 @@ export const LIGHT = 'Manrope-Light'
 export const MEDIUM = 'Manrope-Medium'
 export const SEMIBOLD = 'Manrope-SemiBold'
 export const BOLD = 'Manrope-Bold'
-// export const EXTRABOLD = 'Montserrat-Black'
+export const EXTRABOLD = 'Manrope-ExtraBold'
 
 export const FontSize = {
 

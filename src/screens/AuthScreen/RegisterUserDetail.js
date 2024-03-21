@@ -61,7 +61,7 @@ const RegisterUserDetails = ({ route }) => {
 	return (
 		<HeaderView title={Translate.t("location")} isBack={true} onPress={() => goBack()} containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20), }}>
 
-			<ScrollView showsVerticalScrollIndicator={false}>
+			<ScrollView bounces={false} showsVerticalScrollIndicator={false}>
 				{/* <View style={{
 					marginTop: pixelSizeHorizontal(15),
 					height: widthPixel(48),

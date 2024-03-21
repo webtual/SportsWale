@@ -1,8 +1,8 @@
 
-export const BASE_URL = 'https://dev.thewebtual.com:8000/api/'
-export const IMAGE_URL = "https://dev.thewebtual.com/krifixrewards/"
+export const BASE_URL = 'https://project.thewebtual.com:4000/api/v1/'
+export const IMAGE_URL = ""
 export const LOGIN = "auth/login"
-export const CHECK_MOBILE = "auth/check-mobile"
+export const CHECK_MOBILE = "auth/check-mobile-number"
 export const REGISTER = "auth/register"
 export const GET_PROFILE = "get-profile"
 export const UPDATE_PROFILE = "update-profile"
