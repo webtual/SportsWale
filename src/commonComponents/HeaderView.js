@@ -50,7 +50,7 @@ const HeaderView = ({
         style={{ flex: 0, backgroundColor: primary }}
       ></SafeAreaView>
       <SafeAreaView style={{ flex: 1 }}>
-        <StatusBar barStyle={"light-content"} backgroundColor={primary} />
+        <StatusBar barStyle={"dark-content"} backgroundColor={primary} />
         <ScrollView
           style={styles.container}
           contentContainerStyle={{}}
