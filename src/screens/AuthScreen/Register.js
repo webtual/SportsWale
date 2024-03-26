@@ -7,7 +7,7 @@ import {
   FlatList,
   Alert,
 } from "react-native";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   black,
   placeholderGrey,
@@ -45,7 +45,9 @@ import { SCREEN_WIDTH } from "../../constants/ConstantKey";
 import IconButton from "../../commonComponents/IconButton";
 import ImagePicker from "react-native-image-crop-picker";
 
-const Register = ({}) => {
+const Register = (props) => {
+
+  const {data} = props?.route?.params ?? {}
   const [isLoading, setIsLoading] = useState(false);
 
   const ArrGender = [
@@ -81,6 +83,13 @@ const Register = ({}) => {
     }, [])
   );
 
+  useEffect(() => {
+    console.log("data : ",data)
+    if(data?.mobile_number){
+      setTxtMobileNo(data?.mobile_number)
+    }
+  },[])
+
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -106,7 +115,6 @@ const Register = ({}) => {
               // console.log("Selected Image  " + JSON.stringify(images))
 
               setFieldValue("profile_image", images);
-
               setIsLoading(false);
             })
             .catch((error) => {
@@ -165,13 +173,6 @@ const Register = ({}) => {
       "* Please accept terms & conditions and privacy policies"
     ),
   });
-
-  const loginData = (value) => {
-    Log("MOBILE NUMBER :", value);
-    setTxtMobile(value.mobile);
-    navigate("OtpView", { isRegister: false });
-    // Api_Check_mobile(true, value)
-  };
 
   const btnRegisterTap = () => {
     navigate("Login");

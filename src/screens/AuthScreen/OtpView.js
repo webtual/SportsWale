@@ -30,33 +30,127 @@ import { FontSize, MEDIUM, REGULAR, SEMIBOLD } from "../../constants/Fonts";
 import OTPInputView from "@twotalltotems/react-native-otp-input";
 import CommonStyle from "../../commonComponents/CommonStyle";
 import { Log } from "../../commonComponents/Log";
+import ApiManager from "../../commonComponents/ApiManager";
+import { LOGIN, SEND_OTP } from "../../constants/ApiUrl";
+import { useToast } from "native-base";
+import LoadingView from "../../commonComponents/LoadingView";
+import { storeData } from "../../commonComponents/AsyncManager";
+import { BEARER_TOKEN, USER_DATA } from "../../constants/ConstantKey";
+import { storeUserData } from "../../redux/reducers/userReducer";
+import { useDispatch } from "react-redux";
 
-const OtpView = ({ route }) => {
-  const [isRegister, setIsRegister] = useState(route?.params?.isRegister);
-  console.log(
-    "🚀 ~ file: OtpView.js:16 ~ OtpView ~ route?.params?.isRegister:",
-    route?.params?.isRegister
-  );
+const OtpView = (props) => {
+
+  const dispatch = useDispatch()
+  const toast = useToast();
+  const {data} = props?.route?.params
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [isRegister, setIsRegister] = useState(props.route?.params?.isRegister);
+ 
   const [optcode, setOptcode] = useState("");
   const [count, setCount] = useState(60);
   const [isResendCode, setIsResendCode] = useState(true);
+  const [otpResponse, setOtpResponse] = useState(null)
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+
+    console.log("data : ",data)
+    if(data?.mobile_number){
+      Api_Send_Otp(true, data?.mobile_number)
+    }
+
+  }, []);
+
+
+  const Api_Send_Otp = (isLoad, mobile_number) => {
+    setIsLoading(isLoad);
+
+    const formData = new FormData();
+    formData.append("mobile_number", mobile_number);
+
+    ApiManager.post(SEND_OTP, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        console.log("Api_Send_Otp : ", JSON.stringify(response));
+        setIsLoading(false);
+
+        if (response.data.status === true) {
+          setOtpResponse(response.data.data)
+        } else {
+          toast.show({
+            description : response.data.message
+          })
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.error("Api_Send_Otp Error ", err);
+      });
+  };
+
+
+  const Api_Login = (isLoad, mobile_number) => {
+    setIsLoading(isLoad);
+
+    const formData = new FormData();
+    formData.append("mobile_number", mobile_number);
+
+    ApiManager.post(LOGIN, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        console.log("Api_Login : ", JSON.stringify(response));
+        setIsLoading(false);
+
+        if (response.data.status === true) {
+          let data = response.data.data
+          storeData(BEARER_TOKEN,data?.auth_token)
+          storeData(USER_DATA,response.data.data,() => {
+            dispatch(storeUserData(response.data.data))
+            resetScreen("Dashboard")
+          })
+        } else {
+          toast.show({
+            description : response.data.message
+          })
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.error("Api_Login Error ", err);
+      });
+  };
 
   const btnSubmitTap = async () => {
-    Log("IS FROM REGISTER :", isRegister);
-    if (isRegister) {
-      navigate("RegisterUserDetails");
-    } else {
-      resetScreen("Dashboard");
+    if(optcode == otpResponse?.otp){
+      if (data?.isFrom == "Login") {
+        Api_Login(true,data?.mobile_number )
+      } else {
+       navigate("RegisterSelectSport")
+      }
+    }else{
+      toast.show({
+        description: optcode == "" ? "Please enter OTP" : "Please enter valid OTP"
+      })
     }
+    
   };
 
   const btnResendTap = () => {
-	
+    if(data?.mobile_number){
+      Api_Send_Otp(true, data?.mobile_number)
+    }
   }
 
   return (
+    <>
     <HeaderView
       title={Translate.t("enter_otp")}
       isBack={true}
@@ -87,7 +181,7 @@ const OtpView = ({ route }) => {
           style={[CommonStyle.mainBtnStyle, {marginTop: pixelSizeHorizontal(50)}]}
         >
           <Text style={CommonStyle.mainBtnText}>
-            {!isRegister ? Translate.t("login") : Translate.t("submit")}
+            {data?.isFrom == "Login" ? Translate.t("login") : Translate.t("next")}
           </Text>
         </Pressable>
 
@@ -117,6 +211,8 @@ const OtpView = ({ route }) => {
         </View>
       </ScrollView>
     </HeaderView>
+    {isLoading && <LoadingView />}
+    </>
   );
 };
 

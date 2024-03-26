@@ -38,8 +38,6 @@ ApiManager.interceptors.request.use(async config => {
 
 /** Handle Response error from axios  */
 ApiManager.interceptors.response.use(response => {
-
-	
 	return response
 }, function (error) {
 

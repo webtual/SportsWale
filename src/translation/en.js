@@ -130,7 +130,9 @@ export default {
 	email:"Email",
 	password:"Password",
 	already_Registered : "Already Registered? ",
-
+	search_game : "Search game",
+	lets_play : "Let's Play!",
+	choose_level : "Choose Level",
 
 	// updated UI
 

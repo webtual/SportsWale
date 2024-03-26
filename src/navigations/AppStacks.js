@@ -3,8 +3,8 @@ import React, { Component, useRef } from 'react';
 
 /* Constants Files */
 import translate from '../translation/Translate';
-import { disableColor, greenPrimary, offWhite, primary, white, secondary_dark_grey, black } from '../constants/Color';
-import { FontSize, SEMIBOLD } from '../constants/Fonts';
+import { disableColor, greenPrimary, offWhite, primary, white, secondary_dark_grey, black, light_grey_02 } from '../constants/Color';
+import { FontSize, REGULAR, SEMIBOLD } from '../constants/Fonts';
 
 
 /* Third party */
@@ -54,6 +54,17 @@ import SelectDateTime from '../screens/OtherScreen/SelectDateTime';
 import InvitePeople from '../screens/OtherScreen/InvitePeople';
 import Register from '../screens/AuthScreen/Register';
 import Payment from '../screens/OtherScreen/Payment';
+import {CurvedBottomBar} from 'react-native-curved-bottom-bar';
+import { Animated, StyleSheet, Text, TouchableOpacity } from 'react-native';
+
+import BookTab from '../screens/DashBoardScreen/BookTab';
+import MenuTab from '../screens/DashBoardScreen/Menu';
+import GamesTab from '../screens/DashBoardScreen/GamesTab';
+import { SCREEN_WIDTH } from '../constants/ConstantKey';
+import HomeIcon from '../assets/images/HomeIcon';
+import UsersIcon from '../assets/images/UsersIcon';
+import GroundIcon from '../assets/images/GroundIcon';
+import MenuIcon from '../assets/images/MenuIcon';
 
 // import { cart_data } from '../redux/reducers/cartReducer';
 // import { useSelector } from 'react-redux';
@@ -63,13 +74,129 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 function HomeTabs() {
 
+	const _renderIcon = (routeName, selectedTab) => {
+		switch (routeName) {
+		  case 'Home':
+			return (
+			  <View style={styles.imgcontainer}>
+				<HomeIcon color={routeName === selectedTab ? primary : light_grey_02}/>
+				{/* <FastImage
+				  source={Images.ICHome}
+				  style={styles.image}
+				  tintColor={
+					routeName === selectedTab ? primary : light_grey_02
+				  }
+				/> */}
+				<Text style={styles.text}>Home</Text>
+			  </View>
+			);
+		  case 'Games':
+			return (
+			  <View style={styles.imgcontainer}>
+				<UsersIcon color={routeName === selectedTab ? primary : light_grey_02}/>
+				{/* <FastImage
+				  source={Images.List}
+				  style={styles.image}
+				  tintColor={
+					routeName === selectedTab ? primary : light_grey_02
+				  }
+				/> */}
+				<Text style={styles.text}>Games</Text>
+			  </View>
+			);
+		  case 'Book':
+			return (
+			  <View style={styles.imgcontainer}>
+				<GroundIcon color={routeName === selectedTab ? primary : light_grey_02}/>
+				{/* <FastImage
+				  source={Images.Chat}
+				  style={styles.image}
+				  tintColor={
+					routeName === selectedTab ? primary : light_grey_02
+				  }
+				/> */}
+				<Text style={styles.text}>Book</Text>
+			  </View>
+			);
+		  case 'Menu':
+			return (
+			  <View style={styles.imgcontainer}>
+				<MenuIcon color={routeName === selectedTab ? primary : light_grey_02}/>
+				{/* <FastImage
+				  source={Images.Share}
+				  style={styles.image}
+				  tintColor={
+					routeName === selectedTab ? primary : light_grey_02
+				  }
+				/> */}
+				<Text style={styles.text}>Menu</Text>
+			  </View>
+			);
+		}
+	  };
+	
+	  const renderTabBar = ({routeName, selectedTab, navigate}) => {
+		return (
+		  <TouchableOpacity
+			onPress={() => navigate(routeName)}
+			style={styles.tabbarItem}>
+			{_renderIcon(routeName, selectedTab)}
+		  </TouchableOpacity>
+		);
+	  };
+
+	return (
+		<>
+		  <CurvedBottomBar.Navigator
+			type="DOWN"
+			style={styles.bottomBar}
+			shadowStyle={styles.shawdow}
+			height={64}
+			width={SCREEN_WIDTH}
+			screenOptions={{headerShown: false}}
+			circleWidth={50}
+			bgColor={white}
+			initialRouteName="Home"
+			renderCircle={({selectedTab, navigate}) => (
+			  <Animated.View style={styles.btnCircleUp}>
+				<TouchableOpacity
+				  style={styles.button}
+				  onPress={() => {}}>
+				  <Icon name="plus" color={white} size={35} />
+				</TouchableOpacity>
+			  </Animated.View>
+			)}
+			tabBar={renderTabBar}>
+			<CurvedBottomBar.Screen
+			  name="Home"
+			  position="LEFT"
+			  component={() => <Home />}
+			/>
+			<CurvedBottomBar.Screen
+			  name="Games"
+			  component={() => <GamesTab />}
+			  position="LEFT"
+			/>
+			<CurvedBottomBar.Screen
+			  name="Book"
+			  position="RIGHT"
+			  component={() => <BookTab />}
+			/>
+			<CurvedBottomBar.Screen
+			  name="Menu"
+			  component={() => <MenuTab />}
+			  position="RIGHT"
+			/>
+		  </CurvedBottomBar.Navigator>
+		</>
+	  );
 	return (
 		<>
 			<Tab.Navigator
 				initialRouteName="Home"
 				screenOptions={{
 					headerShown: false,
-					tabBarShowLabel: false,
+					tabBarShowLabel: true,
 					tabBarActiveTintColor: primary,
 					tabBarInactiveTintColor: "#A6A6A6",
 					tabBarStyle: { backgroundColor: white, height:50,borderRadius:20,elevation:0 },
@@ -91,7 +218,7 @@ function HomeTabs() {
 
 
 				<Tab.Screen
-					name={"Activitys"}
+					name={"Activity"}
 					component={Activity}
 					options={{
 						tabBarLabel: "Activity",
@@ -229,71 +356,58 @@ function AppStacks() {
 export default AppStacks;
 
 
-
-
-
-
-// import { View, Text, SafeAreaView, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native'
-// import React from 'react'
-// import { black, light_grey, primary, warmGrey, white } from '../constants/Color'
-
-// import Translate from '../translation/Translate'
-// import { BOLD, FontSize, MEDIUM, REGULAR, SEMIBOLD } from '../constants/Fonts'
-// import { pixelSizeHorizontal, widthPixel } from '../commonComponents/ResponsiveScreen'
-// import { navigate } from '../navigations/RootNavigation'
-// import IconButton from '../commonComponents/IconButton'
-// import Icon from 'react-native-vector-icons/Feather'
-// const ChooseIntrest = () => {
-
-
-
-//   return (
-//     <SafeAreaView style={styles.container}>
-//         <View style={[styles.container,{marginHorizontal : pixelSizeHorizontal(24)}]}>
-
-//                 <ScrollView style={{flex : 1}}>
-
-//                 <View style={{flexDirection:"row",alignItems:"center", marginTop : pixelSizeHorizontal(20) }}>
-//                   <IconButton 
-//                         additionalStyle={{ marginLeft: pixelSizeHorizontal(-10),}}
-//                         onPress={() => goBack()}>
-//                         <Icon name={"arrow-left"} size={24} color={black} />
-//                     </IconButton>
-//                     <Text style={{fontFamily:BOLD,fontSize:FontSize.FS_22,color:black}}>Choose intrest  <Text style={{ color: primary }}>{Translate.t("app_name")}</Text></Text>
-//                   </View>
-
-//             <TouchableOpacity onPress={() => navigate("OtpView")} style={styles.btnLogin}>
-//                 <Text style={styles.signInText}>Next</Text>
-//             </TouchableOpacity>
-
-   
-
-//             </ScrollView>
-//         </View>
-//     </SafeAreaView>
-//   )
-// }
-
-// const styles = StyleSheet.create({ 
-
-//     container : {
-//         flex : 1, backgroundColor: white
-//     },
-
-//     btnLogin : {
-//         backgroundColor : primary,
-//         borderRadius : widthPixel(5),
-//         padding : pixelSizeHorizontal(10),
-//         alignItems : 'center',
-//         justifyContent : 'center',
-//         marginTop : pixelSizeHorizontal(30)
-//     },
-//     signInText : {
-//         fontSize : FontSize.FS_16,
-//         color : white,
-//         fontFamily : MEDIUM,
-//     }
-
-// })
-
-// export default ChooseIntrest
+export const styles = StyleSheet.create({
+	shawdow: {
+	  shadowColor: '#DDDDDD',
+	  shadowOffset: {
+		width: 0,
+		height: 0,
+	  },
+	  shadowOpacity: 1,
+	  shadowRadius: 5,
+	},
+	button: {
+	  flex: 1,
+	  justifyContent: 'center',
+	},
+	bottomBar: {
+	  flex: 1,
+	  justifyContent: 'space-around',
+	},
+	btnCircleUp: {
+	  width: 60,
+	  height: 60,
+	  borderRadius: 30,
+	  alignItems: 'center',
+	  justifyContent: 'center',
+	  backgroundColor: primary,
+	  bottom: 28,
+	  shadowColor: black,
+	  shadowOffset: {
+		width: 0,
+		height: 1,
+	  },
+	  shadowOpacity: 0.2,
+	  shadowRadius: 1.41,
+	  elevation: 1,
+	},
+	tabbarItem: {
+	  flex: 1,
+	  alignItems: 'center',
+	  justifyContent: 'center',
+	},
+	imgcontainer: {
+	  justifyContent: 'center',
+	  alignItems: 'center',
+	},
+	image: {
+	  width: 25,
+	  height: 25,
+	},
+	text: {
+	  fontFamily: SEMIBOLD,
+	  fontSize: FontSize.FS_10,
+	  marginTop: 2,
+	},
+  });
+  

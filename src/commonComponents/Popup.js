@@ -1,13 +1,15 @@
-import { View, Text, StyleSheet, TouchableOpacity, } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, } from 'react-native'
 import React from 'react'
-import { black, greenPrimary, offWhite, primary, warmGrey, white } from '../constants/Color'
+import { black, greenPrimary, offWhite, primary, seprator, warmGrey, white } from '../constants/Color'
 import { pixelSizeHorizontal, pixelSizeVertical, widthPixel } from './ResponsiveScreen'
 import { FontSize, MEDIUM, REGULAR, SEMIBOLD } from '../constants/Fonts'
 import Modal from "react-native-modal";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../constants/ConstantKey'
+import CommonStyle from './CommonStyle'
 
 
-const PopUp = ({ isVisible, toggleModel, popType = "", Point }) => {
+export const PopUp = ({ isVisible, toggleModel, popType = "", Point }) => {
 
 
 
@@ -51,8 +53,100 @@ const PopUp = ({ isVisible, toggleModel, popType = "", Point }) => {
 }
 
 
+export const BottomModal = ({
+    title,
+    containerStyle,
+    isVisible,
+    onClose,
+    children,
+    closeBtn = true,
+  }) => {
+    return (
+      <Modal
+        transparent={true}
+        // animationType="slide"
+        visible={isVisible}
+        swipeDirection={undefined}
+        style={[
+          {
+            margin: 0,
+            justifyContent: 'flex-end',
+            backgroundColor: 'rgba(0,0,0,0.5)',
+          },
+        ]}
+        deviceHeight={SCREEN_HEIGHT * 0.09}
+        deviceWidth={SCREEN_WIDTH}
+        backdropColor="rgba(0,0,0,0.5)"
+        backdropOpacity={0.7}
+        useNativeDriver={true}
+        onBackdropPress={() => {
+          onClose();
+        }}
+        onBackButtonPress={() => onClose()}>
+        <View
+          style={{
+            maxHeight: SCREEN_HEIGHT * 0.9,
+            // width: '100%',
+            borderTopLeftRadius: 25,
+            borderTopRightRadius: 25,
+            backgroundColor: white,
+          }}>
+          <View>
+            {title || closeBtn ? (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  backgroundColor: white,
+                  alignItems: 'center',
+                  borderBottomWidth: 1,
+                  borderColor: seprator,
+                  borderStyle: 'solid',
+                  padding: 15,
+                  borderTopLeftRadius: 25,
+                  borderTopRightRadius: 25,
+                }}>
+                <Text
+                  style={[
+                    CommonStyle.modalHeaderText,
+                    {
+                      flex: 1,
+                    },
+                  ]}>
+                  {title}
+                </Text>
+  
+                {closeBtn && (
+                  <TouchableOpacity
+                    style={{
+                      borderRadius: 8,
+                      backgroundColor: white,
+                      borderWidth: 1,
+                      borderColor: seprator,
+                      padding: 10,
+                    }}
+                    onPress={() => {
+                      onClose?.();
+                    }}>
+                    <Icon
+                      name={'window-close'}
+                      size={20}
+                      color={black}
+                    />
+                  </TouchableOpacity>
+                )}
+              </View>
+            ) : null}
+          </View>
+  
+          <ScrollView contentContainerStyle={{flexGrow: 1}}>
+            {children}
+          </ScrollView>
+        </View>
+      </Modal>
+    );
+  };
+
 const styles = StyleSheet.create({
 
 })
 
-export default PopUp

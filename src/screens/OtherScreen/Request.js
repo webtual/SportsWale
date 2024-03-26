@@ -140,10 +140,10 @@ const [popUpType, setpopUpType] = useState("")
 
 
             </HeaderView>
-            <PopUp popType={popUpType} 
+            {/* <PopUp popType={popUpType} 
                 isVisible={isModalVisible} toggleModel={() => {
                     toggleModal()
-                }} />
+                }} /> */}
         </>
     )
 }

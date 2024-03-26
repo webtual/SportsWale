@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Alert, Keyboard } from "react-native";
 import { useCallback, useState } from "react";
 import { black, secondary } from "../../constants/Color";
 import Translate from "../../translation/Translate";
@@ -17,8 +17,12 @@ import CommonStyle from "../../commonComponents/CommonStyle";
 import ApiManager from "../../commonComponents/ApiManager";
 import { CHECK_MOBILE, LOGIN } from "../../constants/ApiUrl";
 import CallSVG from "../../assets/images/CallSVG";
+import { useToast } from "native-base";
 
 const Login = ({}) => {
+
+  const toast = useToast();
+
   const [isLoading, setIsLoading] = useState(false);
   const [txtMobile, setTxtMobile] = useState("");
 
@@ -40,10 +44,8 @@ const Login = ({}) => {
   });
 
   const loginData = (value) => {
-    Log("MOBILE NUMBER :", value);
+    Keyboard.dismiss()
     setTxtMobile(value.mobile);
-    // navigate('OtpView',{isRegister: false})
-    // Api_Check_mobile(true, value)
     Api_Check_mobile(true, value);
   };
 
@@ -51,17 +53,11 @@ const Login = ({}) => {
     navigate("Register");
   };
 
-  // const loginData = (value) => {
-  //     // console.log("value", value)
-  //     setMobile(value.mobile)
-  //     Api_Check_mobile(true, value)
-  // }
-
   const Api_Check_mobile = (isLoad, data) => {
     setIsLoading(isLoad);
 
     const formData = new FormData();
-    formData.append("mobile_number", data.mobile);
+    formData.append("mobile_number", data.mobile_number);
 
     ApiManager.post(CHECK_MOBILE, formData, {
       headers: {
@@ -72,16 +68,21 @@ const Login = ({}) => {
         console.log("Api_Check_mobile : ", JSON.stringify(response));
         setIsLoading(false);
 
-        if (response.data.status === true) {
-          var dict = data;
-          dict["isFrom"] = "Login";
+        if (response.data.status == true) {
+          var dict = {
+            isFrom : "Login",
+            mobile_number : data.mobile_number
+          };
           navigate("OtpView", { data: dict });
         } else {
-          if (response.data.is_active === 0) {
-            Alert.alert("Otp_Check_mobile");
-          } else {
-            navigate("Register", { mobile_number: data.mobile });
-          }
+
+          toast.show({
+            description:response.data.message
+          })
+          var dict = {
+            mobile_number : data.mobile_number
+          };
+          navigate("Register", { data: dict });
         }
       })
       .catch((err) => {
@@ -89,6 +90,8 @@ const Login = ({}) => {
         console.error("Api_Check_mobile Error ", err);
       });
   };
+
+
   return (
     <>
       <HeaderView
@@ -117,7 +120,7 @@ const Login = ({}) => {
             }) => (
               <View style={{ marginTop: pixelSizeHorizontal(60) }}>
                 <TextInputView
-                  svgIcon={<CallSVG />}
+                  icon={<CallSVG />}
                   onChangeText={handleChange("mobile_number")}
                   value={values.mobile_number}
                   placeholder={Translate.t("enter_phone_number")}

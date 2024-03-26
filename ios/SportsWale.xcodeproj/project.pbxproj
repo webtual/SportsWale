@@ -69,7 +69,7 @@
 		2EEEA93629D30D9500D4B2C3 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA92129D30D9400D4B2C3 /* FontAwesome5_Brands.ttf */; };
 		2EEEA93829D30D9500D4B2C3 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA92329D30D9400D4B2C3 /* Ionicons.ttf */; };
 		2EEEA93929D30D9500D4B2C3 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA92429D30D9500D4B2C3 /* FontAwesome5_Regular.ttf */; };
-		3BBAA9689624674A0DF681F6 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		3BBAA9689624674A0DF681F6 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
 		4883E2437CB5423CBD12B363 /* Manrope-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E125C7398BC46E4A27BB482 /* Manrope-Bold.ttf */; };
 		671ACCB35C6348B5B30965B9 /* Manrope-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86AD8F9FBEBB4A70ADF3F8A2 /* Manrope-ExtraLight.ttf */; };
 		731BC5B14D60430DB5272FFF /* Manrope-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A983496623DC4660B1F5CC60 /* Manrope-Regular.ttf */; };
@@ -160,7 +160,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BBAA9689624674A0DF681F6 /* (null) in Frameworks */,
+				3BBAA9689624674A0DF681F6 /* BuildFile in Frameworks */,
 				7BFF86A61E381A11115E4643 /* Pods_SportsWaleCommonPods_SportsWale.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -504,15 +504,10 @@
 				2E53B84F29F6863F00A1842C /* Entypo.ttf in Resources */,
 				2E53B85129F6863F00A1842C /* FontAwesome5_Regular.ttf in Resources */,
 				2E53B85229F6863F00A1842C /* Feather.ttf in Resources */,
-				2E53B85529F6863F00A1842C /* Outfit-Bold.ttf in Resources */,
 				2E53B85629F6863F00A1842C /* Zocial.ttf in Resources */,
-				2E53B85729F6863F00A1842C /* Outfit-Light.ttf in Resources */,
 				2E53B85829F6863F00A1842C /* MaterialIcons.ttf in Resources */,
 				2E53B85929F6863F00A1842C /* FontAwesome.ttf in Resources */,
 				2E53B85B29F6863F00A1842C /* Foundation.ttf in Resources */,
-				2E53B85C29F6863F00A1842C /* Outfit-Medium.ttf in Resources */,
-				2E53B85D29F6863F00A1842C /* Outfit-Regular.ttf in Resources */,
-				2E53B85E29F6863F00A1842C /* Outfit-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,15 +529,10 @@
 				2E53B87C29F68C0A00A1842C /* Entypo.ttf in Resources */,
 				2E53B87E29F68C0A00A1842C /* FontAwesome5_Regular.ttf in Resources */,
 				2E53B87F29F68C0A00A1842C /* Feather.ttf in Resources */,
-				2E53B88229F68C0A00A1842C /* Outfit-Bold.ttf in Resources */,
 				2E53B88329F68C0A00A1842C /* Zocial.ttf in Resources */,
-				2E53B88429F68C0A00A1842C /* Outfit-Light.ttf in Resources */,
 				2E53B88529F68C0A00A1842C /* MaterialIcons.ttf in Resources */,
 				2E53B88629F68C0A00A1842C /* FontAwesome.ttf in Resources */,
 				2E53B88829F68C0A00A1842C /* Foundation.ttf in Resources */,
-				2E53B88929F68C0A00A1842C /* Outfit-Medium.ttf in Resources */,
-				2E53B88A29F68C0A00A1842C /* Outfit-Regular.ttf in Resources */,
-				2E53B88B29F68C0A00A1842C /* Outfit-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

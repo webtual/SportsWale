@@ -1,8 +1,12 @@
 
 export const BASE_URL = 'https://project.thewebtual.com:4000/api/v1/'
 export const IMAGE_URL = ""
-export const LOGIN = "auth/login"
+
 export const CHECK_MOBILE = "auth/check-mobile-number"
+export const SEND_OTP = "auth/sent-otp-on-mobile"
+
+
+export const LOGIN = "auth/login"
 export const REGISTER = "auth/register"
 export const GET_PROFILE = "get-profile"
 export const UPDATE_PROFILE = "update-profile"
@@ -16,6 +20,5 @@ export const GET_REWARD = "get-reward-item"
 export const REDEEM_REWARD = "redeem-rewards"
 export const GET_NOTIFICATIONS = "get-notification"
 export const READ_NOTIFICATIONS = "notification-read"
-export const GET_OTP = "auth/sent-otp"
 
 

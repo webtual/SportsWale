@@ -7,7 +7,7 @@ import { FontSize, MEDIUM } from '../constants/Fonts'
 import { black, dim_grey, greenPrimary, light_grey, offWhite, primary, seprator, warmGrey, white } from '../constants/Color'
 import CommonStyle from './CommonStyle'
 
-const TextInputView = ({ value = "", svgIcon, imageSource, onChangeText, placeholder = "", editable = true, containerStyle = {}, ...props }) => {
+const TextInputView = ({ value = "", icon, imageSource, onChangeText, placeholder = "", editable = true, containerStyle = {}, ...props }) => {
 
     const [isFocused, setIsFocused] = useState(false)
 
@@ -41,7 +41,7 @@ const TextInputView = ({ value = "", svgIcon, imageSource, onChangeText, placeho
                         style={{ width: widthPixel(20), height: widthPixel(20) }}
                         resizeMode={'contain'}
                     />}
-                    {svgIcon && svgIcon}
+                    {icon && icon}
 
                 <TextInput
                     returnKeyType='done'
@@ -55,7 +55,7 @@ const TextInputView = ({ value = "", svgIcon, imageSource, onChangeText, placeho
                     style={[CommonStyle.textInputStyle,{
                         flex: 1,
                         paddingVertical: pixelSizeHorizontal(10),
-                    }, imageSource ||svgIcon && {marginHorizontal: pixelSizeHorizontal(12),}]}
+                    }, imageSource ||icon && {marginHorizontal: pixelSizeHorizontal(12),}]}
                     {...props}
                 />
 

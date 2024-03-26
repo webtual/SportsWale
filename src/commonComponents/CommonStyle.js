@@ -31,10 +31,17 @@ import { pixelSizeHorizontal, widthPixel } from "./ResponsiveScreen"
     oneLinerText:{
         fontFamily: MEDIUM, fontSize: FontSize.FS_14, color: primary,
     },
+    regularText:{
+        fontFamily: REGULAR, fontSize: FontSize.FS_16, color: black,
+
+    },
     errorText: {
         fontFamily: REGULAR,
         fontSize: FontSize.FS_13,
         color: secondary,
         // marginLeft: pixelSizeHorizontal(30)
     },
+    modalHeaderText:{
+        fontFamily: BOLD, fontSize: FontSize.FS_18, color: black,
+    }
 })
