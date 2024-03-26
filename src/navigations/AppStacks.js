@@ -35,13 +35,7 @@ import Activity from '../screens/DashBoardScreen/Activity';
 import CreateActivity from '../screens/OtherScreen/CreateActivity';
 import ActivityDetails from '../screens/OtherScreen/ActivityDetails';
 import Request from '../screens/OtherScreen/Request';
-import RegisterName from '../screens/AuthScreen/RegisterName';
-import RegisterMobile from '../screens/AuthScreen/RegisterMobile';
-import RegisterUserDetails from '../screens/AuthScreen/RegisterUserDetail';
 import RegisterSelectSport from '../screens/AuthScreen/RegisterSelectSport';
-import RegisterWhatLearn from '../screens/AuthScreen/RegisterWhatLearn';
-import RegisterFinal from '../screens/AuthScreen/RegisterFinal';
-import RegisterWhatYouGain from '../screens/AuthScreen/RegisterWhatYouGain';
 import { Select, View } from 'native-base';
 import PopUp from '../commonComponents/Popup';
 import { navigate } from './RootNavigation';
@@ -190,122 +184,7 @@ function HomeTabs() {
 		  </CurvedBottomBar.Navigator>
 		</>
 	  );
-	return (
-		<>
-			<Tab.Navigator
-				initialRouteName="Home"
-				screenOptions={{
-					headerShown: false,
-					tabBarShowLabel: true,
-					tabBarActiveTintColor: primary,
-					tabBarInactiveTintColor: "#A6A6A6",
-					tabBarStyle: { backgroundColor: white, height:50,borderRadius:20,elevation:0 },
-					tabBarLabelStyle: { fontFamily: SEMIBOLD, fontSize: FontSize.FS_12, marginBottom: 5, },
-					tabBarHideOnKeyboard: true,
-				}}
-			>
-				<Tab.Screen
-					name={"Home"}	
-					component={Home}
-					options={{
-						tabBarLabel: "Home",
-						tabBarIcon: ({ color, size, focused }) => (
-							<MaterialCommunityIcons name={"view-dashboard-outline"} size={24} color={color} />
-						),
-					}}
-				/>
-
-
-
-				<Tab.Screen
-					name={"Activity"}
-					component={Activity}
-					options={{
-						tabBarLabel: "Activity",
-						tabBarIcon: ({ color, size, focused }) => (
-							<MaterialCommunityIcons name={"text-box-outline"} size={24} color={color} />
-						),
-					}}
-				/>
-
-
-
-
-				<Tab.Screen
-					name={"Activity"}
-					children={() => <View/>}
-					listeners={({navgation}) =>({
-						tabPress: (event) => {
-							event.preventDefault();
-							console.log("ADD ICON")
-							navigate("CreateActivity")
-							// PopUp.current.open()
-						}
-					})}
-					// component={Activity}
-					options={{
-						tabBarLabel: "Activity",
-						tabBarIcon: ({ color, size, focused }) => (
-							<View style={{
-								position:"absolute",
-								bottom:20,
-								height:60,
-								width:60,
-								backgroundColor:primary,
-								justifyContent:"center",
-								alignItems:"center",
-								borderRadius:50
-							}}>
-							<MaterialCommunityIcons name={"plus"} size={35} color={white} style={{alignSelf:"center"}}/>
-						
-							</View>
-						),
-					}}
-				/>
-
-
-				<Tab.Screen
-					name={"Venue"}
-					component={Venue}
-					options={{
-						tabBarLabel: "Venue",
-						tabBarIcon: ({ color, size, focused }) => (
-							<Icon name={"globe"} size={24} color={color} />
-						),
-					}}
-				/>
-
-				<Tab.Screen
-					name={"Profile"}
-					component={Profile}
-					options={{
-						tabBarLabel: "Profile",
-						tabBarIcon: ({ color, size, focused }) => (
-							<Icon name={"user"} size={24} color={color} />
-						),
-					}}
-				/>
-
-
-				{/* <Tab.Screen
-					name={"Settings"}
-					component={Settings}
-					options={{
-						tabBarLabel: "Settings",
-						tabBarIcon: ({ color, size, focused }) => (
-
-							<FastImage style={{ width: size, height: size, }}
-								tintColor={color}
-								resizeMode='contain'
-								source={focused ? SettingFillImg : SettingImg}
-							/>
-
-						),
-					}}
-				/> */}
-			</Tab.Navigator>
-		</>
-	);
+	
 }
 
 
@@ -324,14 +203,10 @@ function AppStacks() {
 			<Stack.Screen name="OtpView" component={OtpView} />
 			<Stack.Screen name="Register" component={Register} />
 
-			<Stack.Screen name="RegisterName" component={RegisterName} />
-			<Stack.Screen name="RegisterMobile" component={RegisterMobile} />
-			<Stack.Screen name="RegisterUserDetails" component={RegisterUserDetails} />
+		
 			<Stack.Screen name="RegisterSelectSport" component={RegisterSelectSport} />
 
-			<Stack.Screen name="RegisterWhatLearn" component={RegisterWhatLearn} />
-			<Stack.Screen name="RegisterWhatYouGain" component={RegisterWhatYouGain} />
-			<Stack.Screen name="RegisterFinal" component={RegisterFinal} />
+			
 			<Stack.Screen name="EnterActivityName" component={EnterActivityName} />
 			<Stack.Screen name="EventType" component={EventType} />
 			<Stack.Screen name="SelectVenue" component={SelectVenue} />

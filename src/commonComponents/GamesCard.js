@@ -14,6 +14,7 @@ import {
 } from "./ResponsiveScreen";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import FastImage from "react-native-fast-image";
+import { navigate } from "../navigations/RootNavigation";
 
 export default function GamesCard({ cardStyles, bookMark }) {
   return (

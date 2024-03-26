@@ -202,6 +202,9 @@ const Register = (props) => {
             onSubmit={(values) => {
               console.log("values : ", values);
               //   loginData(values);
+              var FinalValue = values
+              FinalValue["isFrom"] = "Register"
+              navigate("OtpView",{data : FinalValue})
             }}
           >
             {({

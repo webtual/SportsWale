@@ -8,8 +8,9 @@ import {
   ScrollView,
   Platform,
   FlatList,
+  Image,
 } from "react-native";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   black,
   light_grey,
@@ -33,7 +34,7 @@ import {
   pixelSizeHorizontal,
   widthPixel,
 } from "../../commonComponents/ResponsiveScreen";
-import { goBack, navigate } from "../../navigations/RootNavigation";
+import { goBack, navigate, resetScreen } from "../../navigations/RootNavigation";
 import HeaderView from "../../commonComponents/HeaderView";
 import LoadingView from "../../commonComponents/LoadingView";
 import FastImage from "react-native-fast-image";
@@ -47,8 +48,21 @@ import CommonStyle from "../../commonComponents/CommonStyle";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Feather from "react-native-vector-icons/Feather";
 import { BottomModal } from "../../commonComponents/Popup";
+import ApiManager from "../../commonComponents/ApiManager";
+import { GET_GAMES, REGISTER } from "../../constants/ApiUrl";
+import { useToast } from "native-base";
+import { storeData } from "../../commonComponents/AsyncManager";
+import { BEARER_TOKEN, USER_DATA } from "../../constants/ConstantKey";
+import { storeUserData } from "../../redux/reducers/userReducer";
+import { useDispatch } from "react-redux";
 
-const RegisterSelectSport = ({}) => {
+const RegisterSelectSport = (props) => {
+
+  const dispatch = useDispatch()
+  const toast = useToast()
+
+  const { registerData } = props?.route?.params;
+
   const [isLoading, setIsLoading] = useState(false);
   const [selectedList, setSelectedList] = useState([]);
 
@@ -77,57 +91,96 @@ const RegisterSelectSport = ({}) => {
   ];
   const [selectedLevel, setSelectedLevel] = useState(null);
 
-  const IntrestData = [
-    {
-      id: 1,
-      title: "Cricket",
-      image: "cricket",
-    },
-    {
-      id: 2,
-      title: "Football",
-      image: "soccer",
-    },
-    {
-      id: 3,
-      title: "Cycling",
-      image: "bike",
-    },
-    {
-      id: 4,
-      title: "Baseball",
-      image: "baseball",
-    },
-    {
-      id: 5,
-      title: "Swimming",
-      image: "swim",
-    },
-    {
-      id: 6,
-      title: "Tennis",
-      image: "tennis",
-    },
-    {
-      id: 7,
-      title: "Volley ball",
-      image: "volleyball",
-    },
-
-    {
-      id: 8,
-      title: "Basketball",
-      image: "basketball",
-    },
-    {
-      id: 9,
-      title: "Water polo",
-      image: "water-polo",
-    },
-  ];
+  const [IntrestData, setIntrestData] = useState([]);
   const [selectedInterest, setSelectedInterest] = useState(null);
 
   const [filteredGame, setFilteredGame] = useState(IntrestData);
+
+  useEffect(() => {
+    Api_Get_Games(true);
+  }, []);
+
+  const Api_Get_Games = (isLoad) => {
+    setIsLoading(isLoad);
+
+    // const formData = new FormData();
+    // formData.append("mobile_number", mobile_number);
+
+    ApiManager.get(GET_GAMES, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        console.log("Api_Get_Games : ", JSON.stringify(response));
+        setIsLoading(false);
+
+        if (response.data.status === true) {
+          var allGames = response.data.data;
+          let finalGames = allGames
+            .map((el) => ({ ...el, image: el.asset_url + el.image }))
+            // .reverse();
+          setIntrestData(finalGames);
+          setFilteredGame(finalGames);
+        } else {
+          toast.show({
+            description: response.data.message,
+          });
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.error("Api_Get_Games Error ", err);
+      });
+  };
+
+
+  const Api_Register = (isLoad, mobile_number) => {
+    setIsLoading(isLoad);
+
+    const formData = new FormData();
+    formData.append("name", registerData?.name);
+    formData.append("mobile_number", registerData?.mobile_number);
+    formData.append("email", registerData?.email);
+    formData.append("gender", registerData?.gender)
+    formData.append("dob", registerData?.dob);
+    formData.append("location", registerData?.location);
+    formData.append("latitude", "23.0750219");
+    formData.append("longitude", "72.5693309");
+    formData.append("device_type", Platform.OS == 'android' ? 1 : 2);
+    formData.append("token", "1234567890");
+    if(registerData?.profile_image){
+      formData.append("profile_image", registerData?.name);
+    }
+    formData.append("game_selection", JSON.stringify(selectedList.map((el) => ({  game_id: el.game_id , level : el.level }))));
+
+    ApiManager.post(REGISTER, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        console.log("Api_Register : ", JSON.stringify(response));
+        setIsLoading(false);
+
+        if (response.data.status === true) {
+          let data = response.data.data
+          storeData(BEARER_TOKEN,data?.auth_token)
+          storeData(USER_DATA,response.data.data,() => {
+            dispatch(storeUserData(response.data.data))
+            resetScreen("Dashboard")
+          })
+        } else {
+          toast.show({
+            description : response.data.message
+          })
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.error("Api_Register Error ", err);
+      });
+  };
 
   const SelectIntrest = (item, interest) => {
     console.log("ITEM :", interest);
@@ -142,7 +195,8 @@ const RegisterSelectSport = ({}) => {
     } else {
       console.log("else");
       var finalInterest = interest;
-      finalInterest["level"] = item;
+      finalInterest["level"] = item.title;
+      finalInterest["game_id"] = interest.id;
       selectedData.push(finalInterest);
     }
     console.log("====================================");
@@ -151,20 +205,27 @@ const RegisterSelectSport = ({}) => {
     setSelectedList(selectedData);
 
     setOpenChooseLevelModal(false);
-    setSelectedInterest(null)
+    setSelectedInterest(null);
   };
 
   const checkExists = (item) => {
-    let filter = selectedList.filter((x) => x.id === item.id);
+    let filter = selectedList.filter((x) => x.id == item.id);
     if (filter.length) {
       return true;
     } else {
       return false;
     }
   };
-  const OnPressNext = () => {
-
-    console.log("selected list : ",selectedList)
+  const OnLetsPlayTap = () => {
+    if(selectedList.length){
+      Api_Register(true)
+    }else{
+      toast.show({
+        description : "Please select at'least 1 game"
+      })
+    }
+    console.log("Register Data : ", registerData);
+    console.log("selected list : ", selectedList);
 
     // navigate("RegisterWhatLearn", { SportData: selectedList });
   };
@@ -230,18 +291,25 @@ const RegisterSelectSport = ({}) => {
             keyboardShouldPersistTaps={"always"}
             scrollEnabled={false}
             data={filteredGame}
-            contentContainerStyle={{
-              flexDirection: "row",
-              flexWrap: "wrap",
-              // justifyContent:"center",
+            // contentContainerStyle={{
+            //   flexDirection: "row",
+            //   flexWrap: "wrap",
+            //   // justifyContent:"center",
+            // }}
+            numColumns={4}
+            columnWrapperStyle={{
+              flex: 1,
+              // justifyContent: "space-evenly",
             }}
             renderItem={({ item, index }) => (
               <View
                 key={index}
                 style={{
                   alignItems: "center",
-                  marginVertical: 14,
+                  marginVertical: 15,
                   justifyContent: "center",
+                  flex: 1 / 4,
+                  // backgroundColor : index%2 ? 'red' : "pink"
                 }}
               >
                 <TouchableOpacity
@@ -249,7 +317,7 @@ const RegisterSelectSport = ({}) => {
                     var filterData = selectedList?.filter(
                       (x) => x?.id == item.id
                     );
-                    console.log("filterData ",filterData)
+                    console.log("filterData ", filterData);
                     if (filterData.length) {
                       let filterFinal = selectedList?.filter(
                         (x) => x.id != item.id
@@ -263,20 +331,20 @@ const RegisterSelectSport = ({}) => {
                   style={{
                     backgroundColor:
                       checkExists(item) == true ? primary : primary_light,
-                    marginHorizontal: 10,
-                    width: 60,
-                    height: 60,
-                    flexDirection: "row",
                     alignItems: "center",
-                    alignSelf: "center",
-                    justifyContent: "center",
+                    padding: 15,
                     borderRadius: 50,
+                    flex: 1,
                   }}
                 >
-                  <Icon
-                    name={item.image}
-                    size={42}
-                    color={checkExists(item) == true ? white : primary}
+                  <Image
+                    source={{ uri: item.image }}
+                    style={{
+                      width: 42,
+                      height: 42,
+                      tintColor: checkExists(item) == true ? white : primary,
+                      resizeMode: "contain",
+                    }}
                   />
                 </TouchableOpacity>
                 <Text
@@ -285,6 +353,7 @@ const RegisterSelectSport = ({}) => {
                     fontSize: FontSize.FS_14,
                     color: black,
                     marginVertical: 5,
+                    textAlign: "center",
                   }}
                 >
                   {item.title}
@@ -297,7 +366,7 @@ const RegisterSelectSport = ({}) => {
       <TouchableOpacity
         activeOpacity={0.7}
         onPress={() => {
-          OnPressNext();
+          OnLetsPlayTap();
         }}
         style={[CommonStyle.mainBtnStyle, { margin: pixelSizeHorizontal(20) }]}
       >
@@ -308,7 +377,7 @@ const RegisterSelectSport = ({}) => {
         isVisible={openChooseLevelModal}
         onClose={() => {
           setOpenChooseLevelModal(false);
-          setSelectedInterest(null)
+          setSelectedInterest(null);
         }}
         title={Translate.t("choose_level")}
       >
@@ -330,12 +399,13 @@ const RegisterSelectSport = ({}) => {
                     SelectIntrest(item, selectedInterest);
                   }}
                 >
-                    <Icon
-                    name={"circle"}
-                    size={10}
-                    color={item.color}
-                  />
-                  <Text style={[CommonStyle.regularText, { flex: 1, marginHorizontal:pixelSizeHorizontal(10) }]}>
+                  <Icon name={"circle"} size={10} color={item.color} />
+                  <Text
+                    style={[
+                      CommonStyle.regularText,
+                      { flex: 1, marginHorizontal: pixelSizeHorizontal(10) },
+                    ]}
+                  >
                     {item.title}
                   </Text>
                   <Icon

@@ -41,6 +41,7 @@ const HeaderView = ({
   titleColor = white,
   onPress = {},
   containerStyle = {},
+  leftComponent,
   rightComponent,
   ...props
 }) => {
@@ -77,7 +78,7 @@ const HeaderView = ({
               }}
             />
 
-            {title && (
+            
               <View style={styles.headerRowContainer}>
                 {isBack && (
                   <IconButton
@@ -87,6 +88,11 @@ const HeaderView = ({
                     <Icon name={"chevron-left"} size={32} color={titleColor} />
                   </IconButton>
                 )}
+
+{leftComponent && leftComponent}
+
+                  <View style={{flex:1}}>
+                {title && (
                 <Text
                   numberOfLines={1}
                   style={[
@@ -101,11 +107,12 @@ const HeaderView = ({
                   ]}
                 >
                   {title}
-                </Text>
+                </Text> )}
+                </View>
 
                 {rightComponent && rightComponent}
               </View>
-            )}
+           
           </View>
 
           <View style={[styles.mainView, { ...containerStyle }]}>

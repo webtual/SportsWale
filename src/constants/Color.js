@@ -4,6 +4,12 @@ export const black = "rgb(0,0,0)"
 export const black03 = "rgba(1,1,1,0.3)"
 export const black05 = "rgba(1,1,1,0.5)"
 export const transparent = "transparent"
+export const light_grey_02= '#A6A6A6'
+export const primary = "#3D6FE3"
+
+
+
+
 
 export const seprator = "rgb(230,230,230)"
 export const placeholderGrey = "#C7C7CD"
@@ -38,9 +44,7 @@ export const yellow = "#DF8600"
 export const dim_grey ="#626262"
 export const light_grey = "#e5e7ebe6"
 export const secondary = "#FD3667"
-export const primary = "#3D6FE3"
 export const primary_light = "#DBE6FF"
 export const offWhite = "#F5F5F5"
 export const grey = '#D4D4D4'
-export const light_grey_02= '#A6A6A6'
 

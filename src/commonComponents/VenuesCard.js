@@ -56,7 +56,7 @@ export default function VenuesCard({ item , styles }) {
         >
           <View style={{ flex: 1 }}>
             <Text
-              numberOfLines={2}
+              numberOfLines={1}
               style={{
                 fontFamily: BOLD,
                 fontSize: FontSize.FS_13,
