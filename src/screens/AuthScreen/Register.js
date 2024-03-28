@@ -6,6 +6,8 @@ import {
   ScrollView,
   FlatList,
   Alert,
+  PermissionsAndroid,
+  Platform,
 } from "react-native";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -26,7 +28,7 @@ import HeaderView from "../../commonComponents/HeaderView";
 import LoadingView from "../../commonComponents/LoadingView";
 import TextInputView from "../../commonComponents/TextInputView";
 import {
-    UserPlaceholder,
+  UserPlaceholder,
   athlete,
   ic_email,
   ic_mobile,
@@ -44,10 +46,14 @@ import FastImage from "react-native-fast-image";
 import { SCREEN_WIDTH } from "../../constants/ConstantKey";
 import IconButton from "../../commonComponents/IconButton";
 import ImagePicker from "react-native-image-crop-picker";
+import Geolocation from "@react-native-community/geolocation";
+import { useToast } from "native-base";
 
 const Register = (props) => {
 
-  const {data} = props?.route?.params ?? {}
+  const toast = useToast()
+
+  const { data } = props?.route?.params ?? {};
   const [isLoading, setIsLoading] = useState(false);
 
   const ArrGender = [
@@ -71,24 +77,69 @@ const Register = (props) => {
   const [txtDob, setDob] = useState("");
   const [txtLocation, setTxtLocation] = useState("");
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [CurrentLatitude, setCurrentLatitude] = useState(null);
+  const [CurrentLongitude, setCurrentLongitude] = useState(null);
 
-  useFocusEffect(
-    useCallback(() => {
-      // if (Platform.OS === "android") {
-      //     getFCMToken()
-      // }
-      // else {
-      //     requestUserPermission()
-      // }
-    }, [])
-  );
 
   useEffect(() => {
-    console.log("data : ",data)
-    if(data?.mobile_number){
-      setTxtMobileNo(data?.mobile_number)
+    requestLocationPermission();
+    console.log("data : ", data);
+    if (data?.mobile_number) {
+      setTxtMobileNo(data?.mobile_number);
     }
-  },[])
+  }, []);
+
+  const requestLocationPermission = async () => {
+    if (Platform.OS === 'ios') {
+      getOneTimeLocation();
+    } else {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            title: 'Location Access Required',
+            message: 'This App needs to Access your location',
+          },
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          //To Check, If Permission is granted
+          getOneTimeLocation();
+          console.log('====================================');
+          console.log('Permission Granted');
+          console.log('====================================');
+        } else {
+          console.log('====================================');
+          console.log('Permission Denied');
+          console.log('====================================');
+        }
+      } catch (err) {
+        // Api_GetContacts(true);
+        console.warn(err);
+      }
+    }
+  };
+
+  const getOneTimeLocation = () => {
+    Geolocation.getCurrentPosition(
+      //Will give you the current location
+      position => {
+        // console.log('====================================');
+        // console.log('Current Location is : ' + JSON.stringify(position));
+        // console.log('====================================');
+
+        setCurrentLatitude(position.coords.latitude);
+        setCurrentLongitude(position.coords.longitude);
+      },
+      error => {
+        console.log("Geolocation error : ",error.message);
+      },
+      {
+        enableHighAccuracy: false,
+        timeout: 200000,
+        maximumAge: 3600000,
+      },
+    );
+  };
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -201,10 +252,18 @@ const Register = (props) => {
             validationSchema={registerSchema}
             onSubmit={(values) => {
               console.log("values : ", values);
-              //   loginData(values);
-              var FinalValue = values
-              FinalValue["isFrom"] = "Register"
-              navigate("OtpView",{data : FinalValue})
+              
+              if(CurrentLatitude && CurrentLongitude){
+                var FinalValue = values;
+                FinalValue["isFrom"] = "Register";
+                FinalValue["lat"] = CurrentLatitude;
+                FinalValue["long"] = CurrentLongitude;
+                navigate("OtpView", { data: FinalValue });
+              }else{
+                toast.show({
+                  description : "Please allow location permission, we required your current location"
+                })
+              }              
             }}
           >
             {({
@@ -219,7 +278,6 @@ const Register = (props) => {
               <View style={{ marginTop: pixelSizeHorizontal(10) }}>
                 <View style={{ alignSelf: "center" }}>
                   <TouchableOpacity onPress={() => UploadImage(setFieldValue)}>
-                 
                     <FastImage
                       source={
                         values.profile_image
@@ -234,7 +292,7 @@ const Register = (props) => {
                         borderWidth: 5,
                       }}
                       resizeMode="cover"
-                    /> 
+                    />
                   </TouchableOpacity>
                   {values.profile_image && (
                     <View style={{ position: "absolute", right: 0, top: 10 }}>
@@ -352,7 +410,7 @@ const Register = (props) => {
                   <Text
                     style={[
                       CommonStyle.errorText,
-                      { marginTop: pixelSizeHorizontal(3) },
+                      { marginTop: pixelSizeHorizontal(3)},
                     ]}
                   >
                     {errors.dob && touched.dob && errors.dob}

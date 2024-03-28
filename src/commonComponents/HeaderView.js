@@ -56,7 +56,7 @@ const HeaderView = ({
           style={styles.container}
           contentContainerStyle={{}}
           bounces={false}
-          keyboardShouldPersistTaps="handled"
+          keyboardShouldPersistTaps="always"
         >
           <View
             style={[
@@ -78,41 +78,37 @@ const HeaderView = ({
               }}
             />
 
-            
-              <View style={styles.headerRowContainer}>
-                {isBack && (
-                  <IconButton
-                    additionalStyle={styles.btnBack}
-                    onPress={onPress}
-                  >
-                    <Icon name={"chevron-left"} size={32} color={titleColor} />
-                  </IconButton>
-                )}
+            <View style={styles.headerRowContainer}>
+              {isBack && (
+                <IconButton additionalStyle={styles.btnBack} onPress={onPress}>
+                  <Icon name={"chevron-left"} size={32} color={titleColor} />
+                </IconButton>
+              )}
 
-{leftComponent && leftComponent}
+              {leftComponent && leftComponent}
 
-                  <View style={{flex:1}}>
+              <View style={{ flex: 1 }}>
                 {title && (
-                <Text
-                  numberOfLines={1}
-                  style={[
-                    styles.textTitle,
-                    {
-                      color: titleColor,
-                      marginHorizontal: !isBack
-                        ? pixelSizeHorizontal(20)
-                        : pixelSizeHorizontal(5),
-                      fontSize:FontSize.FS_20,
-                    },
-                  ]}
-                >
-                  {title}
-                </Text> )}
-                </View>
-
-                {rightComponent && rightComponent}
+                  <Text
+                    numberOfLines={1}
+                    style={[
+                      styles.textTitle,
+                      {
+                        color: titleColor,
+                        marginHorizontal: !isBack
+                          ? pixelSizeHorizontal(20)
+                          : pixelSizeHorizontal(0),
+                        fontSize: FontSize.FS_20,
+                      },
+                    ]}
+                  >
+                    {title}
+                  </Text>
+                )}
               </View>
-           
+
+              {rightComponent && rightComponent}
+            </View>
           </View>
 
           <View style={[styles.mainView, { ...containerStyle }]}>
@@ -128,7 +124,7 @@ const styles = StyleSheet.create({
   headerRowContainer: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: pixelSizeHorizontal(10),
+    paddingHorizontal: pixelSizeHorizontal(20),
     position: "absolute",
     bottom: pixelSizeHorizontal(20),
   },

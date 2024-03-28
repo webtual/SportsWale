@@ -15,19 +15,22 @@ import {
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import FastImage from "react-native-fast-image";
 import { navigate } from "../navigations/RootNavigation";
+import { black, black05, dim_grey, primary, primary_light, secondary, white } from "../constants/Color";
+import MoneyIcon from "../assets/images/MoneyIcon";
+import NavigationIcon from "../assets/images/NavigationIcon";
 
-export default function GamesCard({ cardStyles, bookMark }) {
+export default function GamesCard({ cardStyles, bookMark, item }) {
   return (
     <TouchableOpacity
       onPress={() => navigate("VenueDetail", { item: item })}
       activeOpacity={0.7}
       style={[
         {
-          backgroundColor: Colors.white,
-          minHeight: 190,
+          backgroundColor: white,
+          // minHeight: 190,
           // height: 160,
           borderRadius: 10,
-          shadowColor: Colors.black05,
+          shadowColor: black05,
           shadowOffset: {
             width: 0,
             height: 3,
@@ -36,8 +39,8 @@ export default function GamesCard({ cardStyles, bookMark }) {
           shadowRadius: 8,
           elevation: 3,
           alignSelf: "center",
-          paddingLeft: 10,
-          paddingVertical: 5,
+          paddingLeft : 10,
+          paddingVertical: 10,
         },
         cardStyles,
       ]}
@@ -50,22 +53,22 @@ export default function GamesCard({ cardStyles, bookMark }) {
             marginRight: 5,
           }}
         >
-          <Icon name={"bookmark-outline"} size={22} color={Colors.black} />
+          <Icon name={"bookmark-outline"} size={22} color={black} />
         </TouchableOpacity>
       ) : null}
       <View
         style={{
           flexDirection: "row",
-          justifyContent: "space-between",
+          // justifyContent: "space-between",
         }}
       >
-        <Text>6 a side</Text>
+        <Text style={{fontFamily : REGULAR, fontSize : FontSize.FS_12, color :dim_grey, flex:1}}>6 a side</Text>
         <Text
           style={{
-            fontFamily: BOLD,
-            fontSize: FontSize.FS_14,
-            color: Colors.black,
-            marginRight: pixelSizeHorizontal(10),
+            fontFamily: SEMIBOLD,
+            fontSize: FontSize.FS_12,
+            color: black,
+            marginRight : pixelSizeHorizontal(10)
           }}
         >
           Fri,25 Aug,7:00PM
@@ -74,8 +77,8 @@ export default function GamesCard({ cardStyles, bookMark }) {
       <Text
         style={{
           fontFamily: BOLD,
-          fontSize: FontSize.FS_15,
-          color: Colors.black,
+          fontSize: FontSize.FS_16,
+          color: black,
         }}
       >
         FootBall
@@ -84,26 +87,26 @@ export default function GamesCard({ cardStyles, bookMark }) {
       <View
         style={{
           flexDirection: "row",
-          justifyContent: "space-between",
+          // justifyContent: "space-between",
           alignItems: "center",
+          marginTop: pixelSizeHorizontal(12),
         }}
       >
         <View
           style={{
-            flex: 1,
             flexDirection: "row",
             alignItems: "center",
-            position: "relative",
-            marginTop: 8,
           }}
         >
           {/* First Image */}
           <FastImage
             style={{
-              width: 55,
-              height: 55,
-              borderRadius: 25,
+              width: 48,
+              height: 48,
+              borderRadius: 48/2,
               overflow: "hidden",
+              borderWidth: 3,
+              borderColor: white,
             }}
             source={{
               uri: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
@@ -114,14 +117,12 @@ export default function GamesCard({ cardStyles, bookMark }) {
           {/* Second Image */}
           <FastImage
             style={{
-              width: 45,
-              height: 45,
-              borderRadius: 20,
-              position: "absolute",
-              top: 10,
-              left: 35,
+              width: 32,
+              height: 32,
+              borderRadius: 16,
+              marginLeft : -15,
               borderWidth: 3,
-              borderColor: Colors.white,
+              borderColor: white,
             }}
             source={{
               uri: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
@@ -132,14 +133,12 @@ export default function GamesCard({ cardStyles, bookMark }) {
           {/* Third Image */}
           <FastImage
             style={{
-              width: 35,
-              height: 35,
-              borderRadius: 15,
-              position: "absolute",
-              top: 15,
-              left: 65,
+              width: 32,
+              height: 32,
+              borderRadius: 16,
+              marginLeft : -10,
               borderWidth: 3,
-              borderColor: Colors.white,
+              borderColor: white,
             }}
             source={{
               uri: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
@@ -147,26 +146,24 @@ export default function GamesCard({ cardStyles, bookMark }) {
             resizeMode="cover"
           />
         </View>
+        <View style={{flex:1}}>
+            <Text style={{fontFamily : SEMIBOLD, fontSize : FontSize.FS_16, color : black}}>
+            {" "}•{" "}5/11 Playing
+            </Text>
+        </View>
         <View style={styles.moneyContainer}>
-          <FastImage
-            style={{
-              width: 25,
-              height: 25,
-            }}
-            source={money}
-            resizeMode="cover"
-          />
-
-          <Text style={[styles.text, { color: Colors.black }]}>INR 499</Text>
+         
+          <MoneyIcon />
+          <Text style={[styles.text, { color: black, marginLeft : pixelSizeHorizontal(5) }]}>INR 499</Text>
         </View>
       </View>
 
-      <View style={{ flexDirection: "row" }}>
+      <View style={{ flexDirection: "row"}}>
         <View
-          style={[styles.itemContainer, { backgroundColor: Colors.primary }]}
+          style={[styles.itemContainer, { backgroundColor: primary }]}
         >
-          <Icon name={"soccer"} size={20} color={Colors.white} />
-          <Text style={[styles.text, { color: Colors.white }]}>
+          <Icon name={"soccer"} size={20} color={white} />
+          <Text style={[styles.text, { color: white , fontSize : FontSize.FS_12, marginLeft : pixelSizeHorizontal(5)}]}>
             Intermediate
           </Text>
         </View>
@@ -174,7 +171,7 @@ export default function GamesCard({ cardStyles, bookMark }) {
         <View
           style={[
             styles.itemContainer,
-            { backgroundColor: Colors.primaryLight },
+            { backgroundColor: primary_light },
           ]}
         >
           <FastImage
@@ -185,7 +182,7 @@ export default function GamesCard({ cardStyles, bookMark }) {
             source={siren}
             resizeMode="cover"
           />
-          <Text style={[styles.text, { color: Colors.black }]}>
+          <Text style={[styles.text, { color: black,marginLeft : pixelSizeHorizontal(5) }]}>
             Only 5 Slot left
           </Text>
         </View>
@@ -194,32 +191,27 @@ export default function GamesCard({ cardStyles, bookMark }) {
       <View
         style={{
           flexDirection: "row",
-          justifyContent: "space-between",
+          alignItems : 'center'
         }}
       >
         <View
           style={{
             paddingVertical: 5,
-            marginVertical: pixelSizeVertical(10),
+            marginTop: pixelSizeVertical(10),
             alignItems: "center",
             flexDirection: "row",
+            flex:1,
           }}
         >
-          <FastImage
-            style={{
-              width: 18,
-              height: 18,
-            }}
-            source={ic_navigation}
-            resizeMode="cover"
-          />
-          <Text style={[styles.text, { color: Colors.black, marginLeft: 5 }]}>
+         
+          <NavigationIcon/>
+          <Text style={[styles.text, { color: black, fontSize : FontSize.FS_12, marginLeft: pixelSizeHorizontal(5) }]}>
             Vistara Venue
           </Text>
         </View>
 
         <View style={styles.bookContainer}>
-          <Text style={[styles.text, { color: Colors.white }]}>Booked</Text>
+          <Text style={[styles.text, { color: white }]}>Booked</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -229,14 +221,13 @@ export default function GamesCard({ cardStyles, bookMark }) {
 const styles = StyleSheet.create({
   moneyContainer: {
     paddingVertical: 5,
-    marginVertical: 10,
-    backgroundColor: Colors.primaryLight,
+    paddingHorizontal:5,
+    backgroundColor: primary_light,
     borderTopLeftRadius: 6,
     borderBottomLeftRadius: 6,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-evenly",
-    flex: 0.5,
   },
   itemContainer: {
     padding: 5,
@@ -250,8 +241,7 @@ const styles = StyleSheet.create({
 
   bookContainer: {
     paddingVertical: 5,
-    marginVertical: pixelSizeVertical(10),
-    backgroundColor: Colors.secondary,
+    backgroundColor: secondary,
     paddingHorizontal: pixelSizeHorizontal(15),
     borderRadius: 6,
     alignItems: "center",
@@ -259,6 +249,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: SEMIBOLD,
-    fontSize: FontSize.FS_14,
+    fontSize: FontSize.FS_11,
   },
 });

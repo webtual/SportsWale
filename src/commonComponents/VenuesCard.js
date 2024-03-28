@@ -8,6 +8,9 @@ import { SCREEN_WIDTH } from "../constants/ConstantKey";
 import { BOLD, FontSize, SEMIBOLD, MEDIUM } from "../constants/Fonts";
 import Divider from "./Divider";
 import { navigate } from "../navigations/RootNavigation";
+import { black, black05, dim_grey, primary_light, white } from "../constants/Color";
+import IconButton from "./IconButton";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default function VenuesCard({ item , styles }) {
   console.log('navigate', navigate);
@@ -16,10 +19,10 @@ export default function VenuesCard({ item , styles }) {
       onPress={() => navigate("VenueDetail", { item: item })}
       activeOpacity={0.7}
       style={[{
-        backgroundColor: "white",
+        backgroundColor: white,
         borderRadius: 10,
-        minHeight: 190,
-        shadowColor: Colors.black05,
+        // minHeight: 190,
+        shadowColor: black05,
         shadowOffset: {
           width: 0,
           height: 3,
@@ -27,11 +30,12 @@ export default function VenuesCard({ item , styles }) {
         shadowOpacity: 0.17,
         shadowRadius: 8,
         elevation: 3,
-        alignSelf: "center",
+        // alignSelf: "center",
       },
-    styles
+    {...styles}
     ]}
     >
+      <View>
       <FastImage
         style={{
           width: "100%",
@@ -42,6 +46,11 @@ export default function VenuesCard({ item , styles }) {
         source={venue}
         resizeMode="cover"
       />
+      <IconButton additionalStyle={{position : 'absolute', bottom : 10, right : 10}}
+      onPress={() => {}}>
+        <Icon name={"heart-outline"} size={24} color={white}/>
+      </IconButton>
+      </View>
       <View
         style={{
           marginVertical: pixelSizeHorizontal(10),
@@ -59,8 +68,8 @@ export default function VenuesCard({ item , styles }) {
               numberOfLines={1}
               style={{
                 fontFamily: BOLD,
-                fontSize: FontSize.FS_13,
-                color: Colors.black,
+                fontSize: FontSize.FS_14,
+                color: black,
               }}
             >
               {item.venueName}
@@ -70,7 +79,7 @@ export default function VenuesCard({ item , styles }) {
             style={{
               flexDirection: "row",
               alignItems: "center",
-              backgroundColor: Colors.primaryLight,
+              backgroundColor: primary_light,
               padding: 5,
               borderRadius: 6,
             }}
@@ -78,8 +87,8 @@ export default function VenuesCard({ item , styles }) {
             <Text
               style={{
                 fontFamily: SEMIBOLD,
-                fontSize: FontSize.FS_10,
-                color: Colors.black,
+                fontSize: FontSize.FS_11,
+                color: black,
               }}
             >
               4.5 (147)
@@ -89,8 +98,8 @@ export default function VenuesCard({ item , styles }) {
         <Text
           style={{
             fontFamily: SEMIBOLD,
-            fontSize: FontSize.FS_11,
-            color: Colors.secondaryDarkGrey,
+            fontSize: FontSize.FS_10,
+            color: dim_grey,
           }}
         >
           S.P. ring Road
@@ -105,9 +114,9 @@ export default function VenuesCard({ item , styles }) {
         >
           <Text
             style={{
-              fontFamily: MEDIUM,
-              fontSize: FontSize.FS_11,
-              color: Colors.secondaryDarkGrey,
+              fontFamily: SEMIBOLD,
+              fontSize: FontSize.FS_10,
+              color: dim_grey,
             }}
           >
             Pricing Starting From
@@ -115,8 +124,8 @@ export default function VenuesCard({ item , styles }) {
           <Text
             style={{
               fontFamily: BOLD,
-              fontSize: FontSize.FS_11,
-              color: Colors.black,
+              fontSize: FontSize.FS_10,
+              color: black,
             }}
           >
             INR 1000 Onwards

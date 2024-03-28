@@ -7,7 +7,7 @@ import { FontSize, MEDIUM } from '../constants/Fonts'
 import { black, dim_grey, greenPrimary, light_grey, offWhite, primary, seprator, warmGrey, white } from '../constants/Color'
 import CommonStyle from './CommonStyle'
 
-const TextInputView = ({ value = "", icon, imageSource, onChangeText, placeholder = "", editable = true, containerStyle = {}, ...props }) => {
+const TextInputView = ({ value = "", icon, imageSource, onChangeText, placeholder = "", editable = true,textFieldStyle, containerStyle = {}, ...props }) => {
 
     const [isFocused, setIsFocused] = useState(false)
 
@@ -55,7 +55,7 @@ const TextInputView = ({ value = "", icon, imageSource, onChangeText, placeholde
                     style={[CommonStyle.textInputStyle,{
                         flex: 1,
                         paddingVertical: pixelSizeHorizontal(10),
-                    }, imageSource ||icon && {marginHorizontal: pixelSizeHorizontal(12),}]}
+                    }, imageSource ||icon && {marginHorizontal: pixelSizeHorizontal(12),},{...textFieldStyle}]}
                     {...props}
                 />
 

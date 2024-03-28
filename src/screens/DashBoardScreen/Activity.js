@@ -60,7 +60,6 @@ const Activity = () => {
         return <MySports />;
       case 3:
         return <OtherSports />;
-
       default:
         return null;
     }

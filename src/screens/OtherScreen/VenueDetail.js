@@ -73,6 +73,7 @@ const VenueDetail = ({ route }) => {
     <>
       <HeaderView
         title={venueData.venueName}
+        HeaderSmall={true}
         onPress={() => goBack()}
         isBack={true}
         containerStyle={{ paddingHorizontal: pixelSizeHorizontal(0) }}

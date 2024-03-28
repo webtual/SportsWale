@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native"
-import { black, primary, secondary, white } from "../constants/Color"
+import { black, black05, primary, secondary, white } from "../constants/Color"
 import { BOLD, FontSize, MEDIUM, REGULAR, SEMIBOLD } from "../constants/Fonts"
 import { pixelSizeHorizontal, widthPixel } from "./ResponsiveScreen"
 
@@ -33,7 +33,6 @@ import { pixelSizeHorizontal, widthPixel } from "./ResponsiveScreen"
     },
     regularText:{
         fontFamily: REGULAR, fontSize: FontSize.FS_16, color: black,
-
     },
     errorText: {
         fontFamily: REGULAR,
@@ -43,5 +42,15 @@ import { pixelSizeHorizontal, widthPixel } from "./ResponsiveScreen"
     },
     modalHeaderText:{
         fontFamily: BOLD, fontSize: FontSize.FS_18, color: black,
+    },
+    shadow : {
+        shadowColor: black05,
+        shadowOffset: {
+          width: 0,
+          height: 3,
+        },
+        shadowOpacity: 0.17,
+        shadowRadius: 8,
+        elevation: 3,
     }
 })

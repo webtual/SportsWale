@@ -81,6 +81,7 @@ const OtpView = (props) => {
 
         if (response.data.status === true) {
           setOtpResponse(response.data.data)
+          setOptcode(response.data.data.otp)
         } else {
           toast.show({
             description : response.data.message
@@ -157,7 +158,7 @@ const OtpView = (props) => {
       onPress={() => goBack()}
       containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20) }}
     >
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
         <View style={styles.otpView}>
           <OTPInputView
             style={{ flex: 1, height: heightPixel(48) }}

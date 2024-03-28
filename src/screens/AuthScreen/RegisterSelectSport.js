@@ -145,8 +145,8 @@ const RegisterSelectSport = (props) => {
     formData.append("gender", registerData?.gender)
     formData.append("dob", registerData?.dob);
     formData.append("location", registerData?.location);
-    formData.append("latitude", "23.0750219");
-    formData.append("longitude", "72.5693309");
+    formData.append("latitude", registerData?.lat);
+    formData.append("longitude", registerData?.long);
     formData.append("device_type", Platform.OS == 'android' ? 1 : 2);
     formData.append("token", "1234567890");
     if(registerData?.profile_image){
@@ -187,13 +187,10 @@ const RegisterSelectSport = (props) => {
     var selectedData = [...selectedList];
 
     let filter = selectedData.filter((x) => x.id === interest.id);
-    console.log("filter", filter);
     if (filter.length) {
-      console.log("if");
       let filter = selectedData.filter((x) => x.id != interest.id);
       selectedData = filter;
     } else {
-      console.log("else");
       var finalInterest = interest;
       finalInterest["level"] = item.title;
       finalInterest["game_id"] = interest.id;
@@ -243,7 +240,7 @@ const RegisterSelectSport = (props) => {
 
     console.log(filteredName);
     if (!text || text === "") {
-      console.log("Text empty");
+      
       setFilteredGame(IntrestData);
     } else if (filteredName.length == 0) {
       setFilteredGame([]);
@@ -309,7 +306,6 @@ const RegisterSelectSport = (props) => {
                   marginVertical: 15,
                   justifyContent: "center",
                   flex: 1 / 4,
-                  // backgroundColor : index%2 ? 'red' : "pink"
                 }}
               >
                 <TouchableOpacity
@@ -317,7 +313,7 @@ const RegisterSelectSport = (props) => {
                     var filterData = selectedList?.filter(
                       (x) => x?.id == item.id
                     );
-                    console.log("filterData ", filterData);
+                    
                     if (filterData.length) {
                       let filterFinal = selectedList?.filter(
                         (x) => x.id != item.id

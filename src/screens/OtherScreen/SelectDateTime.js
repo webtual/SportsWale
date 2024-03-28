@@ -20,6 +20,7 @@ import CommonStyle from '../../commonComponents/CommonStyle'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { HStack, Radio, Stack } from 'native-base'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import moment from 'moment'
 
 const SelectDateTime = ({ }) => {
 

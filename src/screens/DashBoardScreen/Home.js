@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import {
   black,
   black05,
+  dim_grey,
   light_grey,
   primary,
   primary_light,
@@ -35,7 +36,6 @@ import HeaderView from "../../commonComponents/HeaderView";
 import { ic_gift, ic_group, ic_team } from "../../constants/Images";
 import BasicCard from "../../commonComponents/BasicCard";
 import { VenuesData, HomeBanner } from "../../DummyData/Data";
-import { Colors } from "../../constants/CustomeColor";
 import Divider from "../../commonComponents/Divider";
 import GamesCard from "../../commonComponents/GamesCard";
 import VenuesCard from "../../commonComponents/VenuesCard";
@@ -45,6 +45,11 @@ import ChatIcon from "../../assets/images/ChatIcon";
 import { useSelector } from "react-redux";
 import { user_data } from "../../redux/reducers/userReducer";
 import BellIcon from "../../assets/images/BellIcon";
+import GroupIcon from "../../assets/images/GroupIcon";
+import PlayersIcon from "../../assets/images/PlayersIcon";
+import GiftBoxIcon from "../../assets/images/GiftBoxIcon";
+import MapPinIcon from "../../assets/images/MapPinIcon";
+import CommonStyle from "../../commonComponents/CommonStyle";
 
 const Home = () => {
   const userData = useSelector(user_data);
@@ -70,8 +75,14 @@ const Home = () => {
         StackScreen={true}
         title=""
         isBack={false}
-        containerStyle={{ paddingHorizontal: pixelSizeHorizontal(0) }}
-        titleColor={Colors.white}
+        titleColor={white}
+        leftComponent={<TouchableOpacity style={{ flexDirection: "row", alignItems: "center" }}>
+          <MapPinIcon />
+          <Text style={[CommonStyle.regularText,{color : white, marginLeft : pixelSizeHorizontal(5)}]}>
+            Ahmedabad
+          </Text>
+          <Icon name={"chevron-down"} size={24} color={white}/>
+        </TouchableOpacity>}
         rightComponent={
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <IconButton
@@ -83,6 +94,7 @@ const Home = () => {
             <IconButton onPress={() => {}}>
               <BellIcon />
             </IconButton>
+            {userData &&
             <IconButton
               additionalStyle={{ marginLeft: pixelSizeHorizontal(18) }}
               onPress={() => {}}
@@ -92,12 +104,12 @@ const Home = () => {
                 style={{
                   width: widthPixel(40),
                   height: widthPixel(40),
-                  borderRadius: 20,
+                  borderRadius: widthPixel(20),
                   borderWidth: 1,
                   borderColor: white,
                 }}
               />
-            </IconButton>
+            </IconButton>}
           </View>
         }
       >
@@ -112,14 +124,14 @@ const Home = () => {
               pageSize={SCREEN_WIDTH}
               pageIndicatorOffset={16}
               pageIndicatorStyle={{ backgroundColor: white }}
-              activePageIndicatorStyle={{ backgroundColor: primary }}
+              activePageIndicatorStyle={{ backgroundColor: black }}
               // showsPageIndicator={venueImage.length ==1 ? false : true}
               onPageChanged={(index) => {
                 console.log("index ::::::", index);
                 // setPageIndex(index)
               }}
             >
-              {[1, 1].map((image, index) => {
+              {[1, 1,1].map((image, index) => {
                 return (
                   <View
                     style={{
@@ -172,12 +184,12 @@ const Home = () => {
                 navigate("Venue");
               }}
             >
-              <Icon name={"chevron-right"} size={28} color={Colors.black} />
+              <Icon name={"chevron-right"} size={28} color={black} />
             </TouchableOpacity>
           </View>
           <FlatList
             contentContainerStyle={{
-              paddingBottom: 20,
+              paddingBottom: pixelSizeHorizontal(20),
               paddingHorizontal: pixelSizeHorizontal(20),
             }}
             horizontal
@@ -186,11 +198,12 @@ const Home = () => {
             ItemSeparatorComponent={() => (
               <View
                 style={{ width: widthPixel(20), height: heightPixel(20) }}
-              ></View>
+              />
             )}
             renderItem={({ item }) => (
               <GamesCard
                 cardStyles={{ width: SCREEN_WIDTH / 1.3 }}
+                item={item}
                 bookMark={false}
               />
             )}
@@ -205,12 +218,12 @@ const Home = () => {
                 navigate("Venue");
               }}
             >
-              <Icon name={"chevron-right"} size={28} color={Colors.black} />
+              <Icon name={"chevron-right"} size={28} color={black} />
             </TouchableOpacity>
           </View>
           <FlatList
             contentContainerStyle={{
-              paddingBottom: 20,
+              paddingBottom: pixelSizeHorizontal(20),
               paddingHorizontal: pixelSizeHorizontal(20),
             }}
             horizontal
@@ -218,8 +231,8 @@ const Home = () => {
             showsHorizontalScrollIndicator={false}
             ItemSeparatorComponent={() => (
               <View
-                style={{ width: widthPixel(20), height: heightPixel(20) }}
-              ></View>
+                style={{ width: widthPixel(20), height: widthPixel(20) }} />
+             
             )}
             renderItem={({ item }) => (
               <VenuesCard item={item} styles={{ width: SCREEN_WIDTH / 1.4 }} />
@@ -242,11 +255,7 @@ const Home = () => {
                     alignItems: "center",paddingVertical: pixelSizeHorizontal(10),
                   }}
                 >
-                  <FastImage
-                    style={styles.subIcon}
-                    source={ic_group}
-                    resizeMode="cover"
-                  />
+                  <GroupIcon />
                   <View style={{ marginLeft: pixelSizeHorizontal(15) }}>
                     <Text style={styles.semiText}>Groups</Text>
                     <Text style={[styles.semiSubText,{marginTop:pixelSizeHorizontal(4)}]}>
@@ -254,7 +263,7 @@ const Home = () => {
                     </Text>
                   </View>
                 </View>
-                <Icon name={"chevron-right"} size={28} color={Colors.black} />
+                <Icon name={"chevron-right"} size={28} color={dim_grey} />
               </View>
               <Divider style={{ marginVertical: pixelSizeVertical(10) }} />
               <View
@@ -271,17 +280,14 @@ const Home = () => {
                     paddingVertical: pixelSizeHorizontal(10),
                   }}
                 >
-                  <FastImage
-                    style={styles.subIcon}
-                    source={ic_team}
-                    resizeMode="cover"
-                  />
+                  
+                  <PlayersIcon />
                   <View style={{ marginLeft: pixelSizeHorizontal(15) }}>
                     <Text style={styles.semiText}>Manage Player</Text>
                     <Text style={[styles.semiSubText,{marginTop:pixelSizeHorizontal(4)}]}>Manage your Players</Text>
                   </View>
                 </View>
-                <Icon name={"chevron-right"} size={28} color={Colors.black} />
+                <Icon name={"chevron-right"} size={28} color={dim_grey} />
               </View>
             </BasicCard>
           </View>
@@ -295,12 +301,9 @@ const Home = () => {
                   paddingVertical: pixelSizeHorizontal(10),
                 }}
               >
-                <FastImage
-                  style={styles.subIcon}
-                  source={ic_gift}
-                  resizeMode="cover"
-                />
-                <View style={{ marginLeft: 15 }}>
+               
+                <GiftBoxIcon/>
+                <View style={{ marginHorizontal: 15 }}>
                   <Text style={styles.semiText}>Refer a Sport Lover</Text>
                   <Text style={[styles.semiSubText,{marginTop:pixelSizeHorizontal(4)}]}>Refer & Earn a Coupon</Text>
                 </View>
@@ -316,7 +319,7 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: white,
     justifyContent: "center",
   },
   nearByContainer: {
@@ -330,7 +333,7 @@ const styles = StyleSheet.create({
   nearByText: {
     fontFamily: BOLD,
     fontSize: FontSize.FS_16,
-    color: Colors.black,
+    color: black,
   },
   subIcon: {
     width: widthPixel(28),
@@ -339,19 +342,18 @@ const styles = StyleSheet.create({
   semiText: {
     fontFamily: BOLD,
     fontSize: FontSize.FS_14,
-    color: Colors.black,
+    color: black,
   },
   semiSubText: {
     fontFamily: SEMIBOLD,
     fontSize: FontSize.FS_12,
-    color: Colors.secondaryDarkGrey,
+    color: dim_grey,
   },
   cardContainer: {
     borderWidth: 0,
     marginBottom: 10,
-    
-    elevation: 1,
-    shadowColor: Colors.black05,
+    elevation: 5,
+    shadowColor: black05,
     shadowOffset: {
       width: 0,
       height: 3,

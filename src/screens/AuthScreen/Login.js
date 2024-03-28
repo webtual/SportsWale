@@ -50,6 +50,7 @@ const Login = ({}) => {
   };
 
   const btnRegisterTap = () => {
+    // navigate("Dashboard");
     navigate("Register");
   };
 

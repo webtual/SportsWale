@@ -28,7 +28,7 @@ import Profile from '../screens/DashBoardScreen/Profile';
 import Settings from '../screens/OtherScreen/Settings';
 import FastImage from 'react-native-fast-image';
 import { FolderFillImg, FolderImg, HomeFillImg, HomeImg, SettingFillImg, SettingImg, UserFillImg, UserImg } from '../constants/Images';
-import ChooseIntrest from '../screens/OtherScreen/chooseIntrest';
+import SelectSport from '../screens/OtherScreen/SelectSport';
 import VenueDetail from '../screens/OtherScreen/VenueDetail';
 import AddVenue from '../screens/OtherScreen/AddVenue';
 import Activity from '../screens/DashBoardScreen/Activity';
@@ -59,6 +59,7 @@ import HomeIcon from '../assets/images/HomeIcon';
 import UsersIcon from '../assets/images/UsersIcon';
 import GroundIcon from '../assets/images/GroundIcon';
 import MenuIcon from '../assets/images/MenuIcon';
+import CreateGame from '../screens/OtherScreen/CreateGame';
 
 // import { cart_data } from '../redux/reducers/cartReducer';
 // import { useSelector } from 'react-redux';
@@ -81,7 +82,7 @@ function HomeTabs() {
 					routeName === selectedTab ? primary : light_grey_02
 				  }
 				/> */}
-				<Text style={styles.text}>Home</Text>
+				<Text style={[styles.text,{color: routeName === selectedTab ? primary : light_grey_02}]}>Home</Text>
 			  </View>
 			);
 		  case 'Games':
@@ -95,7 +96,7 @@ function HomeTabs() {
 					routeName === selectedTab ? primary : light_grey_02
 				  }
 				/> */}
-				<Text style={styles.text}>Games</Text>
+				<Text style={[styles.text,{color: routeName === selectedTab ? primary : light_grey_02}]}>Games</Text>
 			  </View>
 			);
 		  case 'Book':
@@ -109,7 +110,7 @@ function HomeTabs() {
 					routeName === selectedTab ? primary : light_grey_02
 				  }
 				/> */}
-				<Text style={styles.text}>Book</Text>
+				<Text style={[styles.text,{color: routeName === selectedTab ? primary : light_grey_02}]}>Book</Text>
 			  </View>
 			);
 		  case 'Menu':
@@ -123,7 +124,7 @@ function HomeTabs() {
 					routeName === selectedTab ? primary : light_grey_02
 				  }
 				/> */}
-				<Text style={styles.text}>Menu</Text>
+				<Text style={[styles.text,{color: routeName === selectedTab ? primary : light_grey_02}]}>Menu</Text>
 			  </View>
 			);
 		}
@@ -155,7 +156,7 @@ function HomeTabs() {
 			  <Animated.View style={styles.btnCircleUp}>
 				<TouchableOpacity
 				  style={styles.button}
-				  onPress={() => {}}>
+				  onPress={() => {navigate("CreateGame")}}>
 				  <Icon name="plus" color={white} size={35} />
 				</TouchableOpacity>
 			  </Animated.View>
@@ -205,6 +206,9 @@ function AppStacks() {
 
 		
 			<Stack.Screen name="RegisterSelectSport" component={RegisterSelectSport} />
+			<Stack.Screen name="CreateGame" component={CreateGame} />
+			<Stack.Screen name="SelectSport" component={SelectSport} />
+
 
 			
 			<Stack.Screen name="EnterActivityName" component={EnterActivityName} />
@@ -216,7 +220,6 @@ function AppStacks() {
 			<Stack.Screen name="InvitePeople" component={InvitePeople} />
 
 			<Stack.Screen name="Dashboard" component={HomeTabs} />
-			<Stack.Screen name="ChooseIntrest" component={ChooseIntrest} />
 			<Stack.Screen name="VenueDetail" component={VenueDetail} />
 			<Stack.Screen name="AddVenue" component={AddVenue} />
 			<Stack.Screen name="CreateActivity" component={CreateActivity} />
@@ -283,6 +286,7 @@ export const styles = StyleSheet.create({
 	  fontFamily: SEMIBOLD,
 	  fontSize: FontSize.FS_10,
 	  marginTop: 2,
+	  textTransform : "uppercase"
 	},
   });
   

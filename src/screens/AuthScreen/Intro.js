@@ -22,7 +22,7 @@ import {
   REGULAR,
   SEMIBOLD,
 } from "../../constants/Fonts";
-import { pixelSizeHorizontal } from "../../commonComponents/ResponsiveScreen";
+import { pixelSizeHorizontal, widthPixel } from "../../commonComponents/ResponsiveScreen";
 import FastImage from "react-native-fast-image";
 import { SCREEN_WIDTH } from "../../constants/ConstantKey";
 import Translate from "../../translation/Translate";
@@ -69,6 +69,7 @@ const Intro = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <FlatList
+        bounces={false}
           ref={scrollRef}
           data={SliderData}
           horizontal
@@ -90,7 +91,7 @@ const Intro = () => {
               <View
                 style={{
                   flex: 1,
-                  marginTop: 20,
+                  marginTop: pixelSizeHorizontal(20),
                   alignItems: "center",
                   justifyContent: "center",
                 }}
@@ -160,15 +161,15 @@ const styles = StyleSheet.create({
     marginTop: pixelSizeHorizontal(20),
   },
   imgStyle: {
-    width: SCREEN_WIDTH - 70,
-    height: SCREEN_WIDTH - 70,
+    width: pixelSizeHorizontal(SCREEN_WIDTH - 70),
+    height: pixelSizeHorizontal(SCREEN_WIDTH - 70),
   },
   btnStyle: {
     backgroundColor: black,
     padding: pixelSizeHorizontal(10),
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 40,
+    borderRadius: widthPixel(40),
     marginHorizontal: pixelSizeHorizontal(40),
   },
   btnText: {

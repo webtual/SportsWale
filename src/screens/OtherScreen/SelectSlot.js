@@ -27,6 +27,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import CommonStyle from "../../commonComponents/CommonStyle";
 import moment from "moment";
 import { slotCreator } from "react-native-slot-creator";
+import { black, dim_grey, grey, offWhite, primary, primary_light, secondary, transparent, white } from "../../constants/Color";
 
 const SelectSlot = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -61,7 +62,7 @@ const SelectSlot = ({}) => {
         true
       );
       setMorningSlot(morning);
-      setSelectedTimeSlot([morning[0], morning[1]]);
+      setSelectedTimeSlot([morning[0]]);
       // let afternoon = slotCreator.createSlot("012:00","18:00","60")
       // setAfterNoonSLot(afternoon)
 
@@ -124,7 +125,7 @@ const SelectSlot = ({}) => {
         onPress={() => goBack()}
         containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20) }}
       >
-        <View style={{ marginVertical: 10 }}>
+        <View style={{ marginVertical: pixelSizeHorizontal(10) }}>
           <FlatList
             data={DateSlot}
             horizontal={true}
@@ -141,22 +142,18 @@ const SelectSlot = ({}) => {
                   onPress={() => SelectIntrest(item)}
                   style={{
                     backgroundColor:
-                      checkExists(item) == true ? Colors.secondary : Colors.primaryLight,
-                    marginHorizontal: 5,
-                    width: 54,
-                    height: 68,
-                    flexDirection: "row",
-                    alignItems: "center",
-                    alignSelf: "center",
+                      checkExists(item) == true ? secondary : primary_light,
+                    marginHorizontal: pixelSizeHorizontal(5),
+                    width: widthPixel(54),
                     justifyContent: "center",
-                    borderRadius: 8,
+                    borderRadius: 5,
                   }}
                 >
                   <Text
                     style={{
                       fontFamily: SEMIBOLD,
                       fontSize: FontSize.FS_14,
-                      color: checkExists(item) == true ? Colors.white : Colors.black,
+                      color: checkExists(item) == true ? white : black,
                       marginVertical: 5,
                       textAlign: "center",
                     }}
@@ -169,10 +166,10 @@ const SelectSlot = ({}) => {
           />
           <Text
             style={{
-              fontFamily: SEMIBOLD,
+              fontFamily: MEDIUM,
               fontSize: FontSize.FS_18,
-              color: Colors.black,
-              margin: 5,
+              color: black,
+              margin: pixelSizeHorizontal(5),
             }}
           >
             {Translate.t("available_slot")}
@@ -180,55 +177,49 @@ const SelectSlot = ({}) => {
           <FlatList
             data={MorningSlot}
             contentContainerStyle={{
-              flexDirection: "row",
-              flexWrap: "wrap",
             }}
+            numColumns={3}
             renderItem={({ item }) => (
               <View
                 style={{
-                  alignItems: "center",
+                  // alignItems: "center",
                   marginVertical: 8,
                   justifyContent: "center",
+                  flex:1/3
                 }}
               >
                 <TouchableOpacity
                   onPress={() => selectTimeSLot(item)}
                   style={{
                     borderColor:
-                      checkTimeSlot(item) == true ? Colors.transparent : Colors.primary,
+                      checkTimeSlot(item) == true ? transparent : primary,
                     backgroundColor:
-                      checkTimeSlot(item) == true ? Colors.secondary : Colors.white,
-                    borderWidth: 1,
-                    marginHorizontal: 5,
-                    width: 92,
-                    height: 42,
-                    flexDirection: "row",
-                    alignItems: "center",
-                    alignSelf: "center",
-                    justifyContent: "center",
-                    borderRadius: 8,
+                      checkTimeSlot(item) == true ? secondary : white,
+                    borderWidth: widthPixel(1),
+                    marginHorizontal: pixelSizeHorizontal(5),
+                    paddingVertical : widthPixel(8),
+                    paddingHorizontal : widthPixel(10),
+                    borderRadius: 5,
                   }}
                 >
                   <Text
                     style={{
                       fontFamily: SEMIBOLD,
-                      fontSize: FontSize.FS_14,
-                      color: checkTimeSlot(item) == true ? Colors.white : Colors.primary,
-                      marginVertical: 5,
+                      fontSize: FontSize.FS_16,
+                      color: checkTimeSlot(item) == true ? white : primary,
+                      textAlign : 'center'
                     }}
                   >
-                    {item == "0:00 PM" ? "12:00 PM" : item}
+                    {item == "0:00 P.M" ? "12:00 P.M" : item}
                   </Text>
                 </TouchableOpacity>
               </View>
             )}
           />
-          {/* <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_18, color: Colors.black, margin: 5 }}>{Translate.t("afternoon")}</Text> */}
-          {/* <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_18, color: Colors.black, margin: 5 }}>{Translate.t("evening")}</Text> */}
         </View>
       </HeaderView>
       <View
-        style={{ backgroundColor: Colors.white, width: "100%", paddingHorizontal: 20 }}
+        style={{ backgroundColor: white, width: "100%", paddingHorizontal: pixelSizeHorizontal(20) }}
       >
         <TouchableOpacity
           activeOpacity={0.7}
@@ -245,6 +236,7 @@ const SelectSlot = ({}) => {
             flexDirection: "row",
             alignItems: "center",
             marginBottom: 10,
+          
           }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -252,8 +244,8 @@ const SelectSlot = ({}) => {
               style={{
                 width: 24,
                 height: 24,
-                borderRadius: 8,
-                backgroundColor: Colors.grey,
+                borderRadius: 5,
+                backgroundColor: grey,
               }}
             ></View>
             <Text style={styles.text}>{"Booked"}</Text>
@@ -263,10 +255,10 @@ const SelectSlot = ({}) => {
               style={{
                 width: 24,
                 height: 24,
-                borderRadius: 8,
-                backgroundColor: Colors.white,
+                borderRadius: 5,
+                backgroundColor: white,
                 borderWidth: 1,
-                borderColor: Colors.primary,
+                borderColor: primary,
               }}
             ></View>
             <Text style={styles.text}>{"Available"}</Text>
@@ -276,8 +268,8 @@ const SelectSlot = ({}) => {
               style={{
                 width: 24,
                 height: 24,
-                borderRadius: 8,
-                backgroundColor: Colors.secondary,
+                borderRadius: 5,
+                backgroundColor: secondary,
               }}
             ></View>
             <Text style={styles.text}>{"Selected"}</Text>
@@ -294,7 +286,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: MEDIUM,
     fontSize: FontSize.FS_14,
-    color: Colors.dimGrey,
+    color: dim_grey,
     marginLeft: 5,
   },
   btn:{
