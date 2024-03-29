@@ -60,6 +60,7 @@ import UsersIcon from '../assets/images/UsersIcon';
 import GroundIcon from '../assets/images/GroundIcon';
 import MenuIcon from '../assets/images/MenuIcon';
 import CreateGame from '../screens/OtherScreen/CreateGame';
+import BokingConfirmation from '../screens/OtherScreen/BokingConfirmation';
 
 // import { cart_data } from '../redux/reducers/cartReducer';
 // import { useSelector } from 'react-redux';
@@ -202,24 +203,25 @@ function AppStacks() {
 			<Stack.Screen name="Intro" component={Intro} />
 			<Stack.Screen name="Login" component={Login} />
 			<Stack.Screen name="OtpView" component={OtpView} />
-			<Stack.Screen name="Register" component={Register} />
-
-		
+			<Stack.Screen name="Register" component={Register} />		
 			<Stack.Screen name="RegisterSelectSport" component={RegisterSelectSport} />
+			
+			<Stack.Screen name="Dashboard" component={HomeTabs} />
+
 			<Stack.Screen name="CreateGame" component={CreateGame} />
 			<Stack.Screen name="SelectSport" component={SelectSport} />
+			<Stack.Screen name="BokingConfirmation" component={BokingConfirmation} />
+			<Stack.Screen name="SelectSlot" component={SelectSlot} />
 
 
 			
 			<Stack.Screen name="EnterActivityName" component={EnterActivityName} />
 			<Stack.Screen name="EventType" component={EventType} />
 			<Stack.Screen name="SelectVenue" component={SelectVenue} />
-			<Stack.Screen name="SelectSlot" component={SelectSlot} />
 			<Stack.Screen name="EnterVenueName" component={EnterVenueName} />
 			<Stack.Screen name="SelectDateTime" component={SelectDateTime} />
 			<Stack.Screen name="InvitePeople" component={InvitePeople} />
 
-			<Stack.Screen name="Dashboard" component={HomeTabs} />
 			<Stack.Screen name="VenueDetail" component={VenueDetail} />
 			<Stack.Screen name="AddVenue" component={AddVenue} />
 			<Stack.Screen name="CreateActivity" component={CreateActivity} />

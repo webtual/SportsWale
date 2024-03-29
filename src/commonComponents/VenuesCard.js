@@ -11,9 +11,12 @@ import { navigate } from "../navigations/RootNavigation";
 import { black, black05, dim_grey, primary_light, white } from "../constants/Color";
 import IconButton from "./IconButton";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { useSelector } from "react-redux";
 
-export default function VenuesCard({ item , styles }) {
-  console.log('navigate', navigate);
+export default function VenuesCard({ item , styles, isShowFavourite = true}) {
+
+ const userData = useSelector(state => state.userRedux.user_data);
+
   return (
     <TouchableOpacity
       onPress={() => navigate("VenueDetail", { item: item })}
@@ -43,13 +46,14 @@ export default function VenuesCard({ item , styles }) {
           borderTopLeftRadius: 10,
           borderTopRightRadius: 10,
         }}
-        source={venue}
+        source={{uri :  userData?.asset_url +item?.image}}
         resizeMode="cover"
       />
+      {isShowFavourite &&
       <IconButton additionalStyle={{position : 'absolute', bottom : 10, right : 10}}
       onPress={() => {}}>
         <Icon name={"heart-outline"} size={24} color={white}/>
-      </IconButton>
+      </IconButton>}
       </View>
       <View
         style={{
@@ -72,7 +76,7 @@ export default function VenuesCard({ item , styles }) {
                 color: black,
               }}
             >
-              {item.venueName}
+              {item.title}
             </Text>
           </View>
           <View
@@ -91,7 +95,7 @@ export default function VenuesCard({ item , styles }) {
                 color: black,
               }}
             >
-              4.5 (147)
+              {item?.avg_rating} ({item?.total_rating})
             </Text>
           </View>
         </View>
@@ -102,7 +106,7 @@ export default function VenuesCard({ item , styles }) {
             color: dim_grey,
           }}
         >
-          S.P. ring Road
+          {item.location}
         </Text>
         <Divider style={{ marginVertical: pixelSizeVertical(10) }} />
 
@@ -128,7 +132,7 @@ export default function VenuesCard({ item , styles }) {
               color: black,
             }}
           >
-            INR 1000 Onwards
+            INR {parseInt(item?.onward_amount)} Onwards
           </Text>
         </View>
       </View>

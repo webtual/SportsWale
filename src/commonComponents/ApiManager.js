@@ -12,6 +12,7 @@ const ApiManager = axios.create({
 	headers: {
 		'Accept': 'application/json',
 		'Content-Type': 'application/x-www-form-urlencoded',
+		// 'Content-Type': 'multipart/form-data',
 		// "Authorization": '',
 	},
 	timeout: 60000
@@ -30,7 +31,7 @@ ApiManager.interceptors.request.use(async config => {
 	token = JSON.parse(token)
 
 	if (token) {
-		config.headers.Authorization = "Bearer "+token
+		config.headers.Authorization = token //"Bearer "+token
 	}
 
 	return config

@@ -48,8 +48,11 @@ import IconButton from "../../commonComponents/IconButton";
 import ImagePicker from "react-native-image-crop-picker";
 import Geolocation from "@react-native-community/geolocation";
 import { useToast } from "native-base";
+import { useDispatch } from "react-redux";
+import { storeCurrentLocation } from "../../redux/reducers/userReducer";
 
 const Register = (props) => {
+  const dispatch = useDispatch()
 
   const toast = useToast()
 
@@ -127,6 +130,7 @@ const Register = (props) => {
         // console.log('Current Location is : ' + JSON.stringify(position));
         // console.log('====================================');
 
+        dispatch(storeCurrentLocation({lat : position.coords.latitude, long : position.coords.longitude}))
         setCurrentLatitude(position.coords.latitude);
         setCurrentLongitude(position.coords.longitude);
       },

@@ -25,6 +25,7 @@ import Modal from "react-native-modal";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../constants/ConstantKey";
 import CommonStyle from "./CommonStyle";
+import IconButton from "./IconButton";
 
 export const PopUp = ({ isVisible, toggleModel, popType = "", Point }) => {
   return (
@@ -85,40 +86,58 @@ export const CenterModal = ({
   containerStyle,
   isVisible,
   onClose,
+  isCloseBtn,
   children,
 }) => {
-  <Modal
-    transparent={true}
-    // animationType="slide"
-    visible={isVisible}
-    swipeDirection={undefined}
-    style={[
-      {
-        backgroundColor: "rgba(0,0,0,0.5)",
-      },
-    ]}
-    deviceHeight={SCREEN_HEIGHT * 0.09}
-    deviceWidth={SCREEN_WIDTH}
-    backdropColor="rgba(0,0,0,0.5)"
-    backdropOpacity={0.7}
-    useNativeDriver={true}
-    onBackdropPress={() => {
-      onClose();
-    }}
-    onBackButtonPress={() => onClose()}
-  >
-    <View
-      style={[{
-        maxHeight: widthPixel(SCREEN_HEIGHT * 0.9),
-        // width: '100%',
-        borderRadius: widthPixel(25),
-        backgroundColor: white,
-        padding : pixelSizeHorizontal(15)
-      },{...containerStyle}]}
+  return (
+    <Modal
+      transparent={true}
+      // animationType="slide"
+      isVisible={isVisible}
+      swipeDirection={undefined}
+      style={[
+        {
+          // backgroundColor: "rgba(0,0,0,0.5)",
+        },
+      ]}
+      // deviceHeight={SCREEN_HEIGHT * 0.09}
+      deviceWidth={SCREEN_WIDTH}
+      hasBackdrop={true}
+      backdropColor="rgba(0,0,0,0.7)"
+      backdropOpacity={0.7}
+      useNativeDriver={true}
+      onBackdropPress={() => {
+        onClose();
+      }}
+      onBackButtonPress={() => onClose()}
     >
-      {children}
-    </View>
-  </Modal>
+      <View
+        style={[
+          {
+            maxHeight: widthPixel(SCREEN_HEIGHT * 0.9),
+            // width: '100%',
+            borderRadius: widthPixel(25),
+            backgroundColor: white,
+            padding: pixelSizeHorizontal(15),
+          },
+          { ...containerStyle },
+        ]}
+      >
+        {isCloseBtn ? (
+          <IconButton
+            additionalStyle={{
+              alignSelf: "flex-end",
+              padding: pixelSizeHorizontal(10),
+            }}
+            onPress={onClose}
+          >
+            <Icon name={"window-close"} size={20} color={black} />
+          </IconButton>
+        ) : null}
+        {children}
+      </View>
+    </Modal>
+  );
 };
 
 export const BottomModal = ({
@@ -133,18 +152,19 @@ export const BottomModal = ({
     <Modal
       transparent={true}
       // animationType="slide"
-      visible={isVisible}
+      isVisible={isVisible}
       swipeDirection={undefined}
       style={[
         {
           margin: 0,
           justifyContent: "flex-end",
-          backgroundColor: "rgba(0,0,0,0.5)",
+          // backgroundColor: "rgba(0,0,0,0.5)",
         },
       ]}
-      deviceHeight={SCREEN_HEIGHT * 0.09}
+      // deviceHeight={SCREEN_HEIGHT * 0.09}
       deviceWidth={SCREEN_WIDTH}
-      backdropColor="rgba(0,0,0,0.5)"
+      hasBackdrop={true}
+      backdropColor="rgba(0,0,0,0.7)"
       backdropOpacity={0.7}
       useNativeDriver={true}
       onBackdropPress={() => {

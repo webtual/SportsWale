@@ -5,7 +5,7 @@ import {
   FlatList,
   StyleSheet,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeaderView from "../../commonComponents/HeaderView";
 import CommonStyle from "../../commonComponents/CommonStyle";
 import { black, dim_grey, secondary, white } from "../../constants/Color";
@@ -28,13 +28,58 @@ import Carousel from "react-native-banner-carousel";
 import { SCREEN_WIDTH } from "../../constants/ConstantKey";
 import BasicCard from "../../commonComponents/BasicCard";
 import { BOLD, FontSize, SEMIBOLD } from "../../constants/Fonts";
+import ApiManager from "../../commonComponents/ApiManager";
+import { GET_ALL_VENUES } from "../../constants/ApiUrl";
+import LoadingView from "../../commonComponents/LoadingView";
 
 const BookTab = () => {
   const toast = useToast();
+  const userReduxData = useSelector((state) => state.userRedux);
 
   const userData = useSelector(user_data);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [allVenues, setAllVenues] = useState([])
+
+  useEffect(() => {
+    Api_GetAllVenue(true)
+  },[])
+
+  const Api_GetAllVenue = (isLoad) => {
+    setIsLoading(isLoad);
+
+    const formData = new FormData();
+    formData.append("page", "1");
+    formData.append("limit", "10");
+    formData.append("latitude", userReduxData.lat);
+    formData.append("longitude", userReduxData.long);
+
+    formData.append("favourites", "0");
+    formData.append("keyword", "");
+
+    ApiManager.post(GET_ALL_VENUES, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        console.log("Api_GetAllVenue : ", JSON.stringify(response));
+        setIsLoading(false);
+
+        if (response.data.status === true) {
+    
+          setAllVenues([...allVenues,...response.data.data.near_by_venues])
+        } else {
+          toast.show({
+            description: response.data.message,
+          });
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.error("Api_GetAllVenue Error ", err);
+      });
+  };
 
   return (
     <>
@@ -181,7 +226,7 @@ const BookTab = () => {
           </View>
 
           <FlatList
-            data={VenuesData}
+            data={allVenues}
             ListHeaderComponent={() => (
               <View style={{ height: widthPixel(12) }} />
             )}
@@ -197,6 +242,7 @@ const BookTab = () => {
           />
         </View>
       </HeaderView>
+      {isLoading && <LoadingView />}
     </>
   );
 };

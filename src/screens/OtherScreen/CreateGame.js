@@ -4,6 +4,8 @@ import {
   black,
   dim_grey,
   placeholderGrey,
+  primary,
+  primary_light,
   secondary,
   white,
 } from "../../constants/Color";
@@ -16,7 +18,7 @@ import {
 import CommonStyle from "../../commonComponents/CommonStyle";
 import BallsIcon from "../../assets/images/BallsIcon";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { BOLD, FontSize, SEMIBOLD } from "../../constants/Fonts";
+import { BOLD, FontSize, REGULAR, SEMIBOLD } from "../../constants/Fonts";
 import LocationIcon from "../../assets/images/LocationIcon";
 import CalendarIcon from "../../assets/images/CalendarIcon";
 import IdeaIcon from "../../assets/images/IdeaIcon";
@@ -24,6 +26,9 @@ import ToggleSwitch from "toggle-switch-react-native";
 import TextInputView from "../../commonComponents/TextInputView";
 import { RUPEE } from "../../constants/ConstantKey";
 import { useToast } from "native-base";
+import { CenterModal } from "../../commonComponents/Popup";
+import UserThumbsUpIcon from "../../assets/images/UserThumbsUpIcon";
+import Slider from "@react-native-community/slider";
 
 const CreateGame = () => {
   const toast = useToast();
@@ -36,18 +41,21 @@ const CreateGame = () => {
   const [txtPlayers, setTxtPlayers] = useState("");
   const [selectedSport, setSelectedSport] = useState(null);
 
+  const [isGameSuccessModal, setIsGameSuccessModal] = useState(false);
+  const [gameLevel, setGameLevel] = useState(1)
+
   const btnSelectSportTap = () => {
     navigate("SelectSport", {
-        selectedSport: selectedSport,
+      selectedSport: selectedSport,
       onSelectSport: (sport) => {
         setSelectedSport(sport);
       },
     });
   };
 
-  const btnSelectDateTap =() => {
-    navigate("SelectSlot")
-  }
+  const btnSelectDateTap = () => {
+    navigate("SelectSlot");
+  };
 
   return (
     <>
@@ -73,7 +81,9 @@ const CreateGame = () => {
             <View
               style={{ flex: 1, marginHorizontal: pixelSizeHorizontal(12) }}
             >
-              <Text style={styles.cardTitle}>{selectedSport ? "Sport" : "Select Sport"}</Text>
+              <Text style={styles.cardTitle}>
+                {selectedSport ? "Sport" : "Select Sport"}
+              </Text>
               <Text
                 style={[
                   styles.cardDescription,
@@ -104,8 +114,10 @@ const CreateGame = () => {
             <Icon name={"chevron-right"} size={24} color={dim_grey} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.cardView, CommonStyle.shadow]}
-          onPress={() => btnSelectDateTap()}>
+          <TouchableOpacity
+            style={[styles.cardView, CommonStyle.shadow]}
+            onPress={() => btnSelectDateTap()}
+          >
             <CalendarIcon />
             <View
               style={{ flex: 1, marginHorizontal: pixelSizeHorizontal(12) }}
@@ -142,9 +154,48 @@ const CreateGame = () => {
                 onColor={secondary}
                 offColor={placeholderGrey}
                 size="medium"
-                onToggle={(isOn) => setGameSkillIsOn(isOn)}
+                onToggle={(isOn) => {setGameSkillIsOn(isOn)
+                setGameLevel(1)
+                }}
               />
             </View>
+
+            {gameSkillIsOn && (
+              <>
+                <Slider
+                  style={{ flex: 1, width: "100%" }}
+                  minimumValue={0}
+                  maximumValue={3}
+                  step={1}
+                  lowerLimit={1}
+                  value={gameLevel}
+                  thumbTintColor={white}
+                  minimumTrackTintColor={primary}
+                  maximumTrackTintColor={primary_light}
+                  onValueChange={setGameLevel}
+                />
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.cardDescription}>Beginner</Text>
+                  </View>
+                  <View
+                    style={{
+                      flex: 1,
+                      alignItems: "center",
+                      borderRightWidth: 3,
+                      borderLeftWidth: 3,
+                      borderRightColor: primary_light,
+                      borderLeftColor: primary_light,
+                    }}
+                  >
+                    <Text style={styles.cardDescription}>Intermediate</Text>
+                  </View>
+                  <View style={{ flex: 1, alignItems: "flex-end" }}>
+                    <Text style={styles.cardDescription}>Advance</Text>
+                  </View>
+                </View>
+              </>
+            )}
           </View>
 
           <Text
@@ -157,7 +208,9 @@ const CreateGame = () => {
           </Text>
           <TextInputView
             containerStyle={{ marginTop: pixelSizeHorizontal(10) }}
-            onChangeText={(text) => {setTxtCost(text)}}
+            onChangeText={(text) => {
+              setTxtCost(text);
+            }}
             value={txtCost}
             placeholder={RUPEE + "500"}
             keyboardType={"number-pad"}
@@ -174,7 +227,9 @@ const CreateGame = () => {
           </Text>
           <TextInputView
             containerStyle={{ marginTop: pixelSizeHorizontal(10) }}
-            onChangeText={(text) => {setTxtPlayers(text)}}
+            onChangeText={(text) => {
+              setTxtPlayers(text);
+            }}
             value={txtPlayers}
             placeholder={"10"}
             keyboardType={"number-pad"}
@@ -202,8 +257,10 @@ const CreateGame = () => {
           />
 
           <TouchableOpacity
-            activeOpacity={1}
-            onPress={() => {}}
+            // activeOpacity={1}
+            onPress={() => {
+              setIsGameSuccessModal(true);
+            }}
             style={[
               CommonStyle.mainBtnStyle,
               { marginVertical: pixelSizeHorizontal(50) },
@@ -213,6 +270,39 @@ const CreateGame = () => {
           </TouchableOpacity>
         </View>
       </HeaderView>
+
+      <CenterModal
+        isVisible={isGameSuccessModal}
+        isCloseBtn={false}
+        onClose={() => setIsGameSuccessModal(false)}
+      >
+        <View style={{ alignItems: "center" }}>
+          <UserThumbsUpIcon />
+          <Text
+            style={{
+              marginTop: pixelSizeHorizontal(12),
+              textAlign: "center",
+              fontFamily: BOLD,
+              fontSize: FontSize.FS_18,
+              color: black,
+            }}
+          >
+            See you at the match!
+          </Text>
+          <Text
+            style={{
+              marginTop: pixelSizeHorizontal(12),
+              textAlign: "center",
+              fontFamily: REGULAR,
+              fontSize: FontSize.FS_10,
+              color: black,
+            }}
+          >
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy.
+          </Text>
+        </View>
+      </CenterModal>
     </>
   );
 };

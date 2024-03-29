@@ -1,5 +1,13 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Platform,
+  PermissionsAndroid,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import {
   black,
   black05,
@@ -28,7 +36,7 @@ import {
 } from "../../commonComponents/ResponsiveScreen";
 import { navigate } from "../../navigations/RootNavigation";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { FlatList, Input } from "native-base";
+import { FlatList, Input, useToast } from "native-base";
 import FastImage from "react-native-fast-image";
 import { SCREEN_WIDTH } from "../../constants/ConstantKey";
 import CarouselCard from "../../commonComponents/Carousel/index";
@@ -42,30 +50,136 @@ import VenuesCard from "../../commonComponents/VenuesCard";
 import Carousel from "react-native-banner-carousel";
 import IconButton from "../../commonComponents/IconButton";
 import ChatIcon from "../../assets/images/ChatIcon";
-import { useSelector } from "react-redux";
-import { user_data } from "../../redux/reducers/userReducer";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  storeCurrentLocation,
+  user_data,
+} from "../../redux/reducers/userReducer";
 import BellIcon from "../../assets/images/BellIcon";
 import GroupIcon from "../../assets/images/GroupIcon";
 import PlayersIcon from "../../assets/images/PlayersIcon";
 import GiftBoxIcon from "../../assets/images/GiftBoxIcon";
 import MapPinIcon from "../../assets/images/MapPinIcon";
 import CommonStyle from "../../commonComponents/CommonStyle";
+import ApiManager from "../../commonComponents/ApiManager";
+import { GET_ALL_VENUES, GET_HOME } from "../../constants/ApiUrl";
+import LoadingView from "../../commonComponents/LoadingView";
+import Geolocation from "@react-native-community/geolocation";
 
 const Home = () => {
-  const userData = useSelector(user_data);
+  const dispatch = useDispatch();
+  const toast = useToast();
 
-  const [Sport, setSport] = useState("");
+  //  const userData = (state) => state.userRedux.user_data
+  const userData = useSelector((state) => state.userRedux.user_data);
 
-  const SelectIntrest = (item) => {
-    setSport(item);
+  const userReduxData = useSelector((state) => state.userRedux);
+
+  // const userData = useSelector(user_data);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [CurrentLatitude, setCurrentLatitude] = useState(null);
+  const [CurrentLongitude, setCurrentLongitude] = useState(null);
+
+  const [homeData, setHomeData] = useState(null);
+
+  useEffect(() => {
+    //
+    requestLocationPermission();
+  }, []);
+
+  const requestLocationPermission = async () => {
+    if (Platform.OS === "ios") {
+      getOneTimeLocation();
+    } else {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            title: "Location Access Required",
+            message: "This App needs to Access your location",
+          }
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          //To Check, If Permission is granted
+          getOneTimeLocation();
+          console.log("====================================");
+          console.log("Permission Granted");
+          console.log("====================================");
+        } else {
+          console.log("====================================");
+          console.log("Permission Denied");
+          console.log("====================================");
+        }
+      } catch (err) {
+        // Api_GetContacts(true);
+        console.warn(err);
+      }
+    }
   };
 
-  const checkExists = (item) => {
-    if (Sport.id === item.id) {
-      return true;
-    } else {
-      return false;
-    }
+  const getOneTimeLocation = () => {
+    Geolocation.getCurrentPosition(
+      //Will give you the current location
+      (position) => {
+        // console.log('====================================');
+        // console.log('Current Location is : ' + JSON.stringify(position));
+        // console.log('====================================');
+
+        dispatch(
+          storeCurrentLocation({
+            lat: position.coords.latitude,
+            long: position.coords.longitude,
+          })
+        );
+        setCurrentLatitude(position.coords.latitude);
+        setCurrentLongitude(position.coords.longitude);
+
+        Api_Home(true, {
+          lat: position.coords.latitude,
+          long: position.coords.longitude,
+        });
+        console.log("userReduxData : ", userReduxData);
+      },
+      (error) => {
+        console.log("Geolocation error : ", error.message);
+      },
+      {
+        enableHighAccuracy: false,
+        timeout: 200000,
+        maximumAge: 3600000,
+      }
+    );
+  };
+
+  const Api_Home = (isLoad, locationCords) => {
+    setIsLoading(isLoad);
+
+    const formData = new FormData();
+    formData.append("latitude", locationCords.lat);
+    formData.append("longitude", locationCords.long);
+
+    ApiManager.post(GET_HOME, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        console.log("Api_Home : ", JSON.stringify(response));
+        setIsLoading(false);
+
+        if (response.data.status === true) {
+          setHomeData(response.data.data);
+        } else {
+          toast.show({
+            description: response.data.message,
+          });
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.error("Api_Home Error ", err);
+      });
   };
 
   return (
@@ -76,13 +190,22 @@ const Home = () => {
         title=""
         isBack={false}
         titleColor={white}
-        leftComponent={<TouchableOpacity style={{ flexDirection: "row", alignItems: "center" }}>
-          <MapPinIcon />
-          <Text style={[CommonStyle.regularText,{color : white, marginLeft : pixelSizeHorizontal(5)}]}>
-            Ahmedabad
-          </Text>
-          <Icon name={"chevron-down"} size={24} color={white}/>
-        </TouchableOpacity>}
+        leftComponent={
+          <TouchableOpacity
+            style={{ flexDirection: "row", alignItems: "center" }}
+          >
+            <MapPinIcon />
+            <Text
+              style={[
+                CommonStyle.regularText,
+                { color: white, marginLeft: pixelSizeHorizontal(5) },
+              ]}
+            >
+              Ahmedabad
+            </Text>
+            <Icon name={"chevron-down"} size={24} color={white} />
+          </TouchableOpacity>
+        }
         rightComponent={
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <IconButton
@@ -94,22 +217,23 @@ const Home = () => {
             <IconButton onPress={() => {}}>
               <BellIcon />
             </IconButton>
-            {userData &&
-            <IconButton
-              additionalStyle={{ marginLeft: pixelSizeHorizontal(18) }}
-              onPress={() => {}}
-            >
-              <FastImage
-                source={{ uri: userData?.asset_url + userData?.profile }}
-                style={{
-                  width: widthPixel(40),
-                  height: widthPixel(40),
-                  borderRadius: widthPixel(20),
-                  borderWidth: 1,
-                  borderColor: white,
-                }}
-              />
-            </IconButton>}
+            {userData && (
+              <IconButton
+                additionalStyle={{ marginLeft: pixelSizeHorizontal(18) }}
+                onPress={() => {}}
+              >
+                <FastImage
+                  source={{ uri: userData?.asset_url + userData?.profile }}
+                  style={{
+                    width: widthPixel(40),
+                    height: widthPixel(40),
+                    borderRadius: widthPixel(20),
+                    borderWidth: 1,
+                    borderColor: white,
+                  }}
+                />
+              </IconButton>
+            )}
           </View>
         }
       >
@@ -127,11 +251,10 @@ const Home = () => {
               activePageIndicatorStyle={{ backgroundColor: black }}
               // showsPageIndicator={venueImage.length ==1 ? false : true}
               onPageChanged={(index) => {
-                console.log("index ::::::", index);
                 // setPageIndex(index)
               }}
             >
-              {[1, 1,1].map((image, index) => {
+              {homeData?.sliders.map((item, index) => {
                 return (
                   <View
                     style={{
@@ -144,7 +267,7 @@ const Home = () => {
                     <FastImage
                       style={{ flex: 1, borderRadius: widthPixel(10) }}
                       source={{
-                        uri: "https://img.freepik.com/free-photo/sports-tools_53876-138077.jpg",
+                        uri: userData.asset_url + item.file,
                       }}
                       resizeMode="cover"
                     />
@@ -193,7 +316,7 @@ const Home = () => {
               paddingHorizontal: pixelSizeHorizontal(20),
             }}
             horizontal
-            data={VenuesData}
+            data={homeData?.near_by_games}
             showsHorizontalScrollIndicator={false}
             ItemSeparatorComponent={() => (
               <View
@@ -227,15 +350,17 @@ const Home = () => {
               paddingHorizontal: pixelSizeHorizontal(20),
             }}
             horizontal
-            data={VenuesData}
+            data={homeData?.near_by_venues}
             showsHorizontalScrollIndicator={false}
             ItemSeparatorComponent={() => (
-              <View
-                style={{ width: widthPixel(20), height: widthPixel(20) }} />
-             
+              <View style={{ width: widthPixel(20), height: widthPixel(20) }} />
             )}
             renderItem={({ item }) => (
-              <VenuesCard item={item} styles={{ width: SCREEN_WIDTH / 1.4 }} />
+              <VenuesCard
+                item={item}
+                styles={{ width: SCREEN_WIDTH / 1.4 }}
+                isShowFavourite={false}
+              />
             )}
           />
 
@@ -246,19 +371,24 @@ const Home = () => {
                   flexDirection: "row",
                   justifyContent: "space-between",
                   alignItems: "center",
-                 
                 }}
               >
                 <View
                   style={{
                     flexDirection: "row",
-                    alignItems: "center",paddingVertical: pixelSizeHorizontal(10),
+                    alignItems: "center",
+                    paddingVertical: pixelSizeHorizontal(10),
                   }}
                 >
                   <GroupIcon />
                   <View style={{ marginLeft: pixelSizeHorizontal(15) }}>
                     <Text style={styles.semiText}>Groups</Text>
-                    <Text style={[styles.semiSubText,{marginTop:pixelSizeHorizontal(4)}]}>
+                    <Text
+                      style={[
+                        styles.semiSubText,
+                        { marginTop: pixelSizeHorizontal(4) },
+                      ]}
+                    >
                       Let's connect and Play
                     </Text>
                   </View>
@@ -280,11 +410,17 @@ const Home = () => {
                     paddingVertical: pixelSizeHorizontal(10),
                   }}
                 >
-                  
                   <PlayersIcon />
                   <View style={{ marginLeft: pixelSizeHorizontal(15) }}>
                     <Text style={styles.semiText}>Manage Player</Text>
-                    <Text style={[styles.semiSubText,{marginTop:pixelSizeHorizontal(4)}]}>Manage your Players</Text>
+                    <Text
+                      style={[
+                        styles.semiSubText,
+                        { marginTop: pixelSizeHorizontal(4) },
+                      ]}
+                    >
+                      Manage your Players
+                    </Text>
                   </View>
                 </View>
                 <Icon name={"chevron-right"} size={28} color={dim_grey} />
@@ -301,17 +437,24 @@ const Home = () => {
                   paddingVertical: pixelSizeHorizontal(10),
                 }}
               >
-               
-                <GiftBoxIcon/>
+                <GiftBoxIcon />
                 <View style={{ marginHorizontal: 15 }}>
                   <Text style={styles.semiText}>Refer a Sport Lover</Text>
-                  <Text style={[styles.semiSubText,{marginTop:pixelSizeHorizontal(4)}]}>Refer & Earn a Coupon</Text>
+                  <Text
+                    style={[
+                      styles.semiSubText,
+                      { marginTop: pixelSizeHorizontal(4) },
+                    ]}
+                  >
+                    Refer & Earn a Coupon
+                  </Text>
                 </View>
               </View>
             </BasicCard>
           </View>
         </View>
       </HeaderView>
+      {isLoading && <LoadingView />}
     </>
   );
 };

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
-import { SCREEN_WIDTH } from "../constants/ConstantKey";
+import { RUPEE, SCREEN_WIDTH } from "../constants/ConstantKey";
 import { BOLD, FontSize, MEDIUM, REGULAR, SEMIBOLD } from "../constants/Fonts";
 import { Colors } from "../constants/CustomeColor";
 import { ic_navigation, money, siren } from "../constants/Images";
@@ -15,11 +15,23 @@ import {
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import FastImage from "react-native-fast-image";
 import { navigate } from "../navigations/RootNavigation";
-import { black, black05, dim_grey, primary, primary_light, secondary, white } from "../constants/Color";
+import {
+  black,
+  black05,
+  dim_grey,
+  primary,
+  primary_light,
+  secondary,
+  white,
+} from "../constants/Color";
 import MoneyIcon from "../assets/images/MoneyIcon";
 import NavigationIcon from "../assets/images/NavigationIcon";
+import moment from "moment";
+import { useSelector } from "react-redux";
 
 export default function GamesCard({ cardStyles, bookMark, item }) {
+  const userData = useSelector((state) => state.userRedux.user_data);
+
   return (
     <TouchableOpacity
       onPress={() => navigate("VenueDetail", { item: item })}
@@ -39,7 +51,7 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
           shadowRadius: 8,
           elevation: 3,
           alignSelf: "center",
-          paddingLeft : 10,
+          paddingLeft: 10,
           paddingVertical: 10,
         },
         cardStyles,
@@ -62,16 +74,26 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
           // justifyContent: "space-between",
         }}
       >
-        <Text style={{fontFamily : REGULAR, fontSize : FontSize.FS_12, color :dim_grey, flex:1}}>6 a side</Text>
+        <Text
+          style={{
+            fontFamily: REGULAR,
+            fontSize: FontSize.FS_12,
+            color: dim_grey,
+            flex: 1,
+          }}
+        >
+          {item?.venue_ground_title}
+        </Text>
         <Text
           style={{
             fontFamily: SEMIBOLD,
             fontSize: FontSize.FS_12,
             color: black,
-            marginRight : pixelSizeHorizontal(10)
+            marginRight: pixelSizeHorizontal(10),
           }}
         >
-          Fri,25 Aug,7:00PM
+          {moment(item?.event_date).format("DD MMM, hh:mm a")}
+          {/* Fri,25 Aug,7:00PM */}
         </Text>
       </View>
       <Text
@@ -81,7 +103,7 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
           color: black,
         }}
       >
-        FootBall
+        {item?.game_title}
       </Text>
 
       <View
@@ -92,87 +114,118 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
           marginTop: pixelSizeHorizontal(12),
         }}
       >
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          {/* First Image */}
-          <FastImage
+        {item?.game_participants.length ? (
+          <View
             style={{
-              width: 48,
-              height: 48,
-              borderRadius: 48/2,
-              overflow: "hidden",
-              borderWidth: 3,
-              borderColor: white,
+              flexDirection: "row",
+              alignItems: "center",
             }}
-            source={{
-              uri: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-            }}
-            resizeMode="cover"
-          />
+          >
+            {/* First Image */}
+            {item?.game_participants.length >= 1 && (
+              <FastImage
+                style={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: 48 / 2,
+                  overflow: "hidden",
+                  borderWidth: 3,
+                  borderColor: white,
+                }}
+                source={{
+                  uri: userData?.asset_url + item?.game_participants[0].profile,
+                }}
+                resizeMode="cover"
+              />
+            )}
 
-          {/* Second Image */}
-          <FastImage
-            style={{
-              width: 32,
-              height: 32,
-              borderRadius: 16,
-              marginLeft : -15,
-              borderWidth: 3,
-              borderColor: white,
-            }}
-            source={{
-              uri: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-            }}
-            resizeMode="cover"
-          />
+            {/* Second Image */}
+            {item?.game_participants.length >= 2 && (
+              <FastImage
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: 16,
+                  marginLeft: -15,
+                  borderWidth: 3,
+                  borderColor: white,
+                }}
+                source={{
+                  uri: userData?.asset_url + item?.game_participants[1].profile,
+                }}
+                resizeMode="cover"
+              />
+            )}
 
-          {/* Third Image */}
-          <FastImage
+            {/* Third Image */}
+            {item?.game_participants.length >= 3 && (
+              <FastImage
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: 16,
+                  marginLeft: -10,
+                  borderWidth: 3,
+                  borderColor: white,
+                }}
+                source={{
+                  uri: userData?.asset_url + item?.game_participants[2].profile,
+                }}
+                resizeMode="cover"
+              />
+            )}
+          </View>
+        ) : null}
+        <View style={{ flex: 1 }}>
+          <Text
             style={{
-              width: 32,
-              height: 32,
-              borderRadius: 16,
-              marginLeft : -10,
-              borderWidth: 3,
-              borderColor: white,
+              fontFamily: SEMIBOLD,
+              fontSize: FontSize.FS_16,
+              color: black,
             }}
-            source={{
-              uri: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
-            }}
-            resizeMode="cover"
-          />
-        </View>
-        <View style={{flex:1}}>
-            <Text style={{fontFamily : SEMIBOLD, fontSize : FontSize.FS_16, color : black}}>
-            {" "}•{" "}5/11 Playing
-            </Text>
+          >
+            {" "}
+            • {item?.total_join_players}/{item?.total_player} Playing
+          </Text>
         </View>
         <View style={styles.moneyContainer}>
-         
           <MoneyIcon />
-          <Text style={[styles.text, { color: black, marginLeft : pixelSizeHorizontal(5) }]}>INR 499</Text>
+          <Text
+            style={[
+              styles.text,
+              { color: black, marginLeft: pixelSizeHorizontal(5) },
+            ]}
+          >
+            {RUPEE + parseInt(item?.cost_per_player_amount)}
+          </Text>
         </View>
       </View>
 
-      <View style={{ flexDirection: "row"}}>
-        <View
-          style={[styles.itemContainer, { backgroundColor: primary }]}
-        >
-          <Icon name={"soccer"} size={20} color={white} />
-          <Text style={[styles.text, { color: white , fontSize : FontSize.FS_12, marginLeft : pixelSizeHorizontal(5)}]}>
-            Intermediate
+      <View style={{ flexDirection: "row" }}>
+        <View style={[styles.itemContainer, { backgroundColor: primary }]}>
+          {/* <Icon name={"soccer"} size={20} color={white} /> */}
+          <FastImage
+            source={{ uri: userData?.asset_url + item?.game_image }}
+            style={{ width: widthPixel(20), height: widthPixel(20) }}
+            resizeMode="contain"
+            tintColor={white}
+          />
+          <Text
+            style={[
+              styles.text,
+              {
+                color: white,
+                fontSize: FontSize.FS_12,
+                marginLeft: pixelSizeHorizontal(5),
+              },
+            ]}
+          >
+            {item?.game_skill_level}
           </Text>
         </View>
 
         <View
-          style={[
-            styles.itemContainer,
-            { backgroundColor: primary_light },
-          ]}
+          style={[styles.itemContainer, { backgroundColor: primary_light }]}
         >
           <FastImage
             style={{
@@ -182,8 +235,13 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
             source={siren}
             resizeMode="cover"
           />
-          <Text style={[styles.text, { color: black,marginLeft : pixelSizeHorizontal(5) }]}>
-            Only 5 Slot left
+          <Text
+            style={[
+              styles.text,
+              { color: black, marginLeft: pixelSizeHorizontal(5) },
+            ]}
+          >
+            Only {item?.spot_left} Slot left
           </Text>
         </View>
       </View>
@@ -191,7 +249,7 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
       <View
         style={{
           flexDirection: "row",
-          alignItems : 'center'
+          alignItems: "center",
         }}
       >
         <View
@@ -200,13 +258,21 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
             marginTop: pixelSizeVertical(10),
             alignItems: "center",
             flexDirection: "row",
-            flex:1,
+            flex: 1,
           }}
         >
-         
-          <NavigationIcon/>
-          <Text style={[styles.text, { color: black, fontSize : FontSize.FS_12, marginLeft: pixelSizeHorizontal(5) }]}>
-            Vistara Venue
+          <NavigationIcon />
+          <Text
+            style={[
+              styles.text,
+              {
+                color: black,
+                fontSize: FontSize.FS_12,
+                marginLeft: pixelSizeHorizontal(5),
+              },
+            ]}
+          >
+            {item?.venue_title}
           </Text>
         </View>
 
@@ -221,7 +287,7 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
 const styles = StyleSheet.create({
   moneyContainer: {
     paddingVertical: 5,
-    paddingHorizontal:5,
+    paddingHorizontal: 5,
     backgroundColor: primary_light,
     borderTopLeftRadius: 6,
     borderBottomLeftRadius: 6,
