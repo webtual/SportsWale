@@ -9,6 +9,7 @@ export const REGISTER = "auth/register"
 export const GET_GAMES = "games"
 export const GET_HOME = "home"
 export const GET_ALL_VENUES = "venues"
+export const VENUES_DETAIL = "venues/"
 
 export const GET_PROFILE = "get-profile"
 export const UPDATE_PROFILE = "update-profile"

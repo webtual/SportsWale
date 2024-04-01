@@ -27,12 +27,25 @@ import { useFocusEffect } from "@react-navigation/native";
 import CommonStyle from "../../commonComponents/CommonStyle";
 import moment from "moment";
 import { slotCreator } from "react-native-slot-creator";
-import { black, dim_grey, grey, offWhite, primary, primary_light, secondary, transparent, white } from "../../constants/Color";
+import {
+  black,
+  dim_grey,
+  grey,
+  offWhite,
+  primary,
+  primary_light,
+  secondary,
+  transparent,
+  white,
+} from "../../constants/Color";
 
 const SelectSlot = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [Sport, setSport] = useState("");
   const [selectedDate, setSelectedDate] = useState(null);
+
+  const [selectedGround, setSelectedGround] = useState(null);
+
   const [DateSlot, setDateSlot] = useState([]);
   const [MorningSlot, setMorningSlot] = useState([]);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState([]);
@@ -126,6 +139,75 @@ const SelectSlot = ({}) => {
         containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20) }}
       >
         <View style={{ marginVertical: pixelSizeHorizontal(10) }}>
+          <Text
+            style={{
+              fontFamily: MEDIUM,
+              fontSize: FontSize.FS_18,
+              color: black,
+              margin: pixelSizeHorizontal(5),
+            }}
+          >
+            Select Ground
+          </Text>
+
+          <FlatList
+            style={{}}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={[
+              { name: "Turf 1" },
+              { name: "Turf 2" },
+              { name: "Turf 3" },
+              { name: "Turf 4" },
+            ]}
+            contentContainerStyle={{
+              flexDirection: "row",
+            }}
+            renderItem={({ item }) => {
+              return (
+                <TouchableOpacity
+                  style={{
+                    paddingHorizontal: 10,
+                    borderWidth: 1,
+                    borderColor :  selectedGround?.name == item.name
+                    ? secondary
+                    : primary,
+                    marginRight: 10,
+                    borderRadius: 5,
+                    backgroundColor:
+                      selectedGround?.name == item.name
+                        ? secondary
+                        : white,
+                    marginVertical: pixelSizeHorizontal(5),
+                  }}
+                  // disabled={isDisabled}
+                  onPress={() => setSelectedGround(item)}
+                >
+                  <Text
+                    style={[
+                      styles.menuItemText,
+                      selectedGround?.name == item.name &&
+                        styles.selectedItemText,
+                    ]}
+                  >
+                    {item.name}
+                  </Text>
+                </TouchableOpacity>
+              );
+            }}
+          />
+
+          <Text
+            style={{
+              fontFamily: MEDIUM,
+              fontSize: FontSize.FS_18,
+              color: black,
+              marginTop: pixelSizeHorizontal(5),
+            }}
+          >
+            Select Date
+          </Text>
+
           <FlatList
             data={DateSlot}
             horizontal={true}
@@ -142,11 +224,14 @@ const SelectSlot = ({}) => {
                   onPress={() => SelectIntrest(item)}
                   style={{
                     backgroundColor:
-                      checkExists(item) == true ? secondary : primary_light,
+                      checkExists(item) == true ? secondary : white,
+                      borderWidth : 1,
+                      borderColor : checkExists(item) == true ? secondary : primary,
                     marginHorizontal: pixelSizeHorizontal(5),
-                    width: widthPixel(54),
                     justifyContent: "center",
+                    alignItems : 'center',
                     borderRadius: 5,
+                    paddingHorizontal : 10
                   }}
                 >
                   <Text
@@ -176,8 +261,7 @@ const SelectSlot = ({}) => {
           </Text>
           <FlatList
             data={MorningSlot}
-            contentContainerStyle={{
-            }}
+            contentContainerStyle={{}}
             numColumns={3}
             renderItem={({ item }) => (
               <View
@@ -185,7 +269,7 @@ const SelectSlot = ({}) => {
                   // alignItems: "center",
                   marginVertical: 8,
                   justifyContent: "center",
-                  flex:1/3
+                  flex: 1 / 3,
                 }}
               >
                 <TouchableOpacity
@@ -197,8 +281,8 @@ const SelectSlot = ({}) => {
                       checkTimeSlot(item) == true ? secondary : white,
                     borderWidth: widthPixel(1),
                     marginHorizontal: pixelSizeHorizontal(5),
-                    paddingVertical : widthPixel(8),
-                    paddingHorizontal : widthPixel(10),
+                    paddingVertical: widthPixel(8),
+                    paddingHorizontal: widthPixel(10),
                     borderRadius: 5,
                   }}
                 >
@@ -207,7 +291,7 @@ const SelectSlot = ({}) => {
                       fontFamily: SEMIBOLD,
                       fontSize: FontSize.FS_16,
                       color: checkTimeSlot(item) == true ? white : primary,
-                      textAlign : 'center'
+                      textAlign: "center",
                     }}
                   >
                     {item == "0:00 P.M" ? "12:00 P.M" : item}
@@ -219,7 +303,11 @@ const SelectSlot = ({}) => {
         </View>
       </HeaderView>
       <View
-        style={{ backgroundColor: white, width: "100%", paddingHorizontal: pixelSizeHorizontal(20) }}
+        style={{
+          backgroundColor: white,
+          width: "100%",
+          paddingHorizontal: pixelSizeHorizontal(20),
+        }}
       >
         <TouchableOpacity
           activeOpacity={0.7}
@@ -236,7 +324,6 @@ const SelectSlot = ({}) => {
             flexDirection: "row",
             alignItems: "center",
             marginBottom: 10,
-          
           }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -289,14 +376,26 @@ const styles = StyleSheet.create({
     color: dim_grey,
     marginLeft: 5,
   },
-  btn:{
+  btn: {
     backgroundColor: Colors.black,
     padding: pixelSizeHorizontal(10),
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 50,
     marginVertical: pixelSizeHorizontal(20),
-  }
+  },
+  menuItemText: {
+    color: Colors.black,
+    paddingVertical: 5,
+    fontFamily: MEDIUM,
+    fontSize: FontSize.FS_14,
+    marginLeft: 5,
+  },
+  selectedItemText: {
+    color: Colors.white,
+    fontFamily: MEDIUM,
+    fontSize: FontSize.FS_14,
+  },
 });
 
 export default SelectSlot;

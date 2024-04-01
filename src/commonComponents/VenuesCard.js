@@ -19,7 +19,7 @@ export default function VenuesCard({ item , styles, isShowFavourite = true}) {
 
   return (
     <TouchableOpacity
-      onPress={() => navigate("VenueDetail", { item: item })}
+      onPress={() => navigate("VenueDetail", { venueData: item })}
       activeOpacity={0.7}
       style={[{
         backgroundColor: white,

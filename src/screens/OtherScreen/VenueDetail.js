@@ -9,7 +9,7 @@ import {
   FlatList,
   Linking,
 } from "react-native";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   BOLD,
   FontSize,
@@ -40,15 +40,70 @@ import { Colors } from "../../constants/CustomeColor";
 import { clock, ic_navigation } from "../../constants/Images";
 import RBSheet from "react-native-raw-bottom-sheet";
 import RatingSheet from "../../commonComponents/sheets/Rating-sheet";
+import ApiManager from "../../commonComponents/ApiManager";
+import { VENUES_DETAIL } from "../../constants/ApiUrl";
+import { useToast } from "native-base";
+import LoadingView from "../../commonComponents/LoadingView";
+import {
+  black,
+  dim_grey,
+  primary,
+  primary_light,
+  secondary,
+  white,
+  yellow,
+} from "../../constants/Color";
+import { user_data } from "../../redux/reducers/userReducer";
+import { useSelector } from "react-redux";
+import IconButton from "../../commonComponents/IconButton";
+import moment from "moment";
+import ClockIcon from "../../assets/images/ClockIcon";
+import LocationIcon from "../../assets/images/LocationIcon";
+import NavigationIcon from "../../assets/images/NavigationIcon";
+import GoogleMapPinIcon from "../../assets/images/GoogleMapPinIcon";
 
-const VenueDetail = ({ route }) => {
+const VenueDetail = (props) => {
+  const toast = useToast();
   const refRBSheet = React.createRef();
 
-  const [venueData, setVenueData] = useState(route?.params?.item);
-  console.log("route: " + JSON.stringify(route.params.item));
+  const { venueData } = props?.route?.params;
+  const userData = useSelector(user_data);
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [venueDetail, setVenueDetail] = useState(null);
 
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
+
+  useEffect(() => {
+    Api_Get_Venue_Details(true);
+  }, []);
+
+  const Api_Get_Venue_Details = (isLoad) => {
+    setIsLoading(isLoad);
+    ApiManager.get(VENUES_DETAIL + venueData?.id, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        console.log("Api_Get_Venue_Details : ", JSON.stringify(response));
+        setIsLoading(false);
+
+        if (response.data.status === true) {
+          setVenueDetail(response.data.data);
+        } else {
+          toast.show({
+            description: response.data.message,
+          });
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.error("Api_Get_Venue_Details Error ", err);
+      });
+  };
 
   const openRatingSheet = () => {
     refRBSheet.current.open();
@@ -71,420 +126,404 @@ const VenueDetail = ({ route }) => {
 
   return (
     <>
-      <HeaderView
-        title={venueData.venueName}
-        HeaderSmall={true}
-        onPress={() => goBack()}
-        isBack={true}
-        containerStyle={{ paddingHorizontal: pixelSizeHorizontal(0) }}
-        titleColor={Colors.white}
-        rightComponent={
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <TouchableOpacity onPress={() => {}}>
-              <Icon
-                name={"heart-outline"}
-                size={26}
-                color={Colors.lightGrey}
-                style={{ marginHorizontal: 5 }}
+      <SafeAreaView style={{ flex: 1, backgroundColor: white }}>
+        <View style={{ flex: 1 }}>
+          <ScrollView style={{ flex: 1 }}>
+            <View>
+              <FlatList
+                data={[{ image: userData?.asset_url + venueDetail?.image }]}
+                horizontal
+                pagingEnabled={true}
+                showsHorizontalScrollIndicator={false}
+                renderItem={({ item, index }) => (
+                  <View
+                    style={{ width: SCREEN_WIDTH, height: widthPixel(180) }}
+                  >
+                    <FastImage
+                      style={{ flex: 1 }}
+                      source={{ uri: item.image }}
+                    />
+                  </View>
+                )}
               />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Icon
-                name={"share-variant-outline"}
-                size={26}
-                color={Colors.lightGrey}
-              />
-            </TouchableOpacity>
-          </View>
-        }
-      >
-        <FlatList
-          data={VenuesData}
-          horizontal
-          pagingEnabled={true}
-          showsHorizontalScrollIndicator={false}
-          renderItem={({ item, index }) => (
-            <View style={{ width: SCREEN_WIDTH, height: widthPixel(220) }}>
-              <FastImage style={{ flex: 1 }} source={{ uri: item.image }} />
+              <TouchableOpacity
+                style={{ position: "absolute", top: 20, left: 10 }}
+              >
+                <IconButton onPress={() => goBack()}>
+                  <Icon name={"chevron-left"} size={32} color={white} />
+                </IconButton>
+              </TouchableOpacity>
             </View>
-          )}
-        />
-        <View
-          style={{
-            marginHorizontal: pixelSizeHorizontal(20),
-            marginVertical: pixelSizeVertical(10),
-          }}
-        >
-          <Text
-            style={{
-              fontFamily: SEMIBOLD,
-              fontSize: FontSize.FS_16,
-              color: Colors.black,
-               marginVertical: pixelSizeVertical(10),
-            }}
-          >
-            {venueData.venueName}
-          </Text>
-        </View>
 
-        <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
-          <View style={styles.infoContainer}>
-            <FastImage
+            <View
               style={{
-                width: 22,
-                height: 22,
-              }}
-              source={clock}
-              resizeMode="cover"
-            />
-
-            <Text
-              style={{
-                fontFamily: SEMIBOLD,
-                fontSize: FontSize.FS_14,
-                color: Colors.black,
+                marginHorizontal: pixelSizeHorizontal(20),
+                marginVertical: pixelSizeVertical(10),
               }}
             >
-              7:30Am to 9:00am
-            </Text>
-          </View>
+              <Text
+                style={{
+                  fontFamily: BOLD,
+                  fontSize: FontSize.FS_16,
+                  color: black,
+                  marginVertical: pixelSizeVertical(10),
+                }}
+              >
+                {venueDetail?.title}
+              </Text>
+            </View>
 
-          <View
-            style={{
-              paddingVertical: 5,
-              alignItems: "center",
-              flexDirection: "row",
-              justifyContent: "center",
-              marginVertical: pixelSizeVertical(10),
-            }}
-          >
-            <FastImage
+            <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
+              <View style={styles.infoContainer}>
+                <ClockIcon />
+
+                <Text
+                  style={{
+                    fontFamily: SEMIBOLD,
+                    fontSize: FontSize.FS_14,
+                    color: black,
+                  }}
+                >
+                  {venueDetail?.start_time} to {venueDetail?.end_time}
+                  {/* {moment(venueDetail?.start_time).format("HH:MM A")} to {moment(venueDetail?.end_time).format("HH:MM A")} */}
+                </Text>
+              </View>
+
+              <View
+                style={{
+                  paddingVertical: 5,
+                  alignItems: "center",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  marginVertical: pixelSizeVertical(10),
+                }}
+              >
+                <NavigationIcon
+                  width={widthPixel(20)}
+                  height={widthPixel(20)}
+                />
+                <Text
+                  style={{
+                    fontFamily: SEMIBOLD,
+                    fontSize: FontSize.FS_13,
+                    color: black,
+                    marginLeft: 8,
+                    flex: 1,
+                  }}
+                >
+                  {venueDetail?.location}
+                </Text>
+              </View>
+            </View>
+            <TouchableOpacity
+              onPress={() => Linking.openURL(venueDetail?.map_url)}
+              style={styles.locationContainer}
+            >
+              <GoogleMapPinIcon />
+              <Text
+                style={{
+                  fontFamily: SEMIBOLD,
+                  fontSize: FontSize.FS_12,
+                  color: dim_grey,
+                }}
+              >
+                Show in Map
+              </Text>
+            </TouchableOpacity>
+
+            <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
+              <Divider style={{ marginVertical: pixelSizeVertical(10) }} />
+            </View>
+
+            <View
               style={{
-                width: 22,
-                height: 22,
-              }}
-              source={ic_navigation}
-              resizeMode="cover"
-            />
-            <Text
-              style={{
-                fontFamily: SEMIBOLD,
-                fontSize: FontSize.FS_13,
-                color: Colors.black05,
-                marginLeft: 5,
+                paddingHorizontal: pixelSizeHorizontal(20),
                 flex: 1,
+                flexDirection: "row",
               }}
             >
-              Lorem ipsum dolor sit amet, consectetur , Lorem ipsum dolor sit
-              amet, consectetur
-            </Text>
-          </View>
-        </View>
-        <TouchableOpacity
-          onPress={() =>
-            Linking.openURL(
-              "https://www.google.com/maps/place/Ahmedabad,+Gujarat/@23.0204978,72.4396539,11z/data=!3m1!4b1!4m6!3m5!1s0x395e848aba5bd449:0x4fcedd11614f6516!8m2!3d23.022505!4d72.5713621!16zL20vMDFkODhj"
-            )
-          }
-          style={styles.locationContainer}
-        >
-          <Icon
-            name={"map-marker-radius-outline"}
-            size={22}
-            color={Colors.black}
-          />
-          <Text
-            style={{
-              fontFamily: REGULAR,
-              fontSize: FontSize.FS_14,
-              color: Colors.black05,
-            }}
-          >
-            Show in Map
-          </Text>
-        </TouchableOpacity>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  flex: 1,
+                }}
+              >
+                <StarRating
+                  fullStarColor={yellow}
+                  disabled={false}
+                  maxStars={5}
+                  rating={parseInt(venueDetail?.avg_rating)}
+                  starSize={16}
+                  containerStyle={{ width: 100 }}
+                  // selectedStar={(rating) => this.onStarRatingPress(rating)}
+                />
+                <Text
+                  style={{
+                    fontFamily: SEMIBOLD,
+                    fontSize: FontSize.FS_15,
+                    color: black,
+                    marginLeft: 15,
+                    flex: 1,
+                  }}
+                >
+                  {parseInt(venueDetail?.avg_rating)}{" "}
+                  <Text
+                    style={{
+                      fontFamily: SEMIBOLD,
+                      fontSize: FontSize.FS_10,
+                      color: black,
+                    }}
+                  >
+                    ({venueDetail?.total_rating})
+                  </Text>
+                </Text>
+              </View>
+              <View style={{ flex: 1 / 1.2, flexWrap: "wrap" }}>
+                <TouchableOpacity
+                  style={[
+                    styles.btn,
+                    {
+                      backgroundColor: secondary,
+                    },
+                  ]}
+                  onPress={openRatingSheet}
+                >
+                  <Text
+                    style={{
+                      color: white,
+                      textAlign: "center",
+                      textTransform: "uppercase",
+                      fontFamily: SEMIBOLD,
+                      fontSize: FontSize.FS_12,
+                    }}
+                  >
+                    Rate Venue
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
 
-        <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
-          <Divider style={{ marginVertical: pixelSizeVertical(10) }} />
-        </View>
-
-        <View
-          style={{
-            paddingHorizontal: pixelSizeHorizontal(20),
-            flex: 1,
-            flexDirection: "row",
-          }}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              flex: 1,
-            }}
-          >
-            <StarRating
-              fullStarColor={Colors.warning}
-              disabled={false}
-              maxStars={5}
-              rating={4}
-              starSize={16}
-              containerStyle={{ width: 100 }}
-              // selectedStar={(rating) => this.onStarRatingPress(rating)}
-            />
-            <Text
-              style={{
-                fontFamily: SEMIBOLD,
-                fontSize: FontSize.FS_15,
-                color: Colors.secondaryDarkGrey,
-                marginLeft: 5,
-              }}
-            >
-              4.0
-            </Text>
-            <Text
-              style={{
-                fontFamily: SEMIBOLD,
-                fontSize: FontSize.FS_10,
-                color: Colors.secondaryDarkGrey,
-                marginLeft: 2,
-              }}
-            >
-              (10k)
-            </Text>
-          </View>
-          <View style={{ flex: 1 }}>
-            <TouchableOpacity
-              style={[
-                styles.btn,
-                {
-                  backgroundColor: Colors.secondary,
+            <RBSheet
+              ref={refRBSheet}
+              height={300}
+              closeOnDragDown={true}
+              customStyles={{
+                container: {
+                  borderTopLeftRadius: widthPixel(30),
+                  borderTopRightRadius: widthPixel(30),
                 },
-              ]}
-              onPress={openRatingSheet}
+              }}
+            >
+              <RatingSheet
+                onRatingChange={onRatingChange}
+                onReviewChange={onReviewChange}
+                onPressRate={onPressRate}
+                rating={rating}
+              />
+            </RBSheet>
+
+            <View
+              style={{
+                paddingHorizontal: pixelSizeHorizontal(20),
+                flex: 1,
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <View style={{ flex: 1 }}>
+                <Text
+                  style={{
+                    fontFamily: SEMIBOLD,
+                    fontSize: FontSize.FS_14,
+                    color: black,
+                  }}
+                >
+                  {venueDetail?.total_game_count} Total games
+                </Text>
+              </View>
+              <View style={{ flex: 1 / 1.2, flexWrap: "wrap" }}>
+                <View
+                  style={[
+                    styles.btn,
+                    {
+                      backgroundColor: Colors.secondary,
+                    },
+                  ]}
+                >
+                  <Text
+                    style={{
+                      color: white,
+                      textAlign: "center",
+                      textTransform: "uppercase",
+                      fontFamily: SEMIBOLD,
+                      fontSize: FontSize.FS_12,
+                    }}
+                  >
+                    {venueDetail?.upcoming_game_count} Upcoming
+                  </Text>
+                </View>
+              </View>
+            </View>
+
+            <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
+              <Divider style={{ marginVertical: pixelSizeVertical(10) }} />
+            </View>
+
+            {venueDetail?.venue_games.length ? (
+              <>
+                <View
+                  style={{
+                    paddingHorizontal: pixelSizeHorizontal(20),
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginVertical: pixelSizeHorizontal(10),
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontFamily: BOLD,
+                      fontSize: FontSize.FS_16,
+                      color: black,
+                    }}
+                  >
+                    Avialable Sports
+                  </Text>
+                </View>
+                <FlatList
+                  style={{ marginHorizontal: pixelSizeHorizontal(20) }}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={venueDetail?.venue_games}
+                  contentContainerStyle={{
+                    flexDirection: "row",
+                  }}
+                  renderItem={({ item }) => (
+                    <SportItem item={item} isDisabled={true} />
+                  )}
+                />
+              </>
+            ) : null}
+
+            {venueDetail?.venue_amenities.length ? (
+              <>
+                <View
+                  style={{
+                    marginHorizontal: pixelSizeHorizontal(20),
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginVertical: pixelSizeHorizontal(10),
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontFamily: BOLD,
+                      fontSize: FontSize.FS_16,
+                      color: black,
+                    }}
+                  >
+                    Amenities
+                  </Text>
+                </View>
+                <FlatList
+                  style={{ marginHorizontal: pixelSizeHorizontal(14) }}
+                  data={venueDetail?.venue_amenities}
+                  numColumns={3}
+                  renderItem={({ item }) => (
+                    <View
+                      style={[
+                        styles.btn,
+                        {
+                          backgroundColor: primary_light,
+                          borderWidth: 0,
+                          marginRight: pixelSizeHorizontal(12),
+                          alignItems: "center",
+                          justifyContent: "center",
+                          flex: 1,
+                        },
+                      ]}
+                    >
+                      <Text
+                        style={{
+                          fontFamily: SEMIBOLD,
+                          fontSize: FontSize.FS_12,
+                          color: primary,
+                          textAlign: "center",
+                        }}
+                      >
+                        {item.title}
+                      </Text>
+                    </View>
+                  )}
+                />
+              </>
+            ):null}
+
+            <View
+              style={{
+                marginHorizontal: pixelSizeHorizontal(20),
+                flexDirection: "row",
+                alignItems: "center",
+                marginVertical: pixelSizeHorizontal(10),
+              }}
             >
               <Text
                 style={{
+                  fontFamily: BOLD,
+                  fontSize: FontSize.FS_16,
+                  color: black,
+                }}
+              >
+                About Venues
+              </Text>
+            </View>
+            <View style={{ marginHorizontal: pixelSizeHorizontal(20) }}>
+              <Text
+                style={{
+                  fontFamily: REGULAR,
+                  fontSize: FontSize.FS_12,
+                  color: black,
+                  marginBottom: 8,
+                }}
+              >
+                {venueDetail?.about}
+              </Text>
+            </View>
+          </ScrollView>
+        </View>
+        <View
+          style={{
+            paddingHorizontal: pixelSizeHorizontal(40),
+          }}
+        >
+          <View style={{}}>
+            <TouchableOpacity
+              style={{
+                backgroundColor: Colors.secondary,
+                borderWidth: 0,
+                marginRight: pixelSizeHorizontal(15),
+                borderRadius: widthPixel(30),
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                marginVertical: 10,
+                padding: pixelSizeHorizontal(15),
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: BOLD,
+                  fontSize: FontSize.FS_15,
                   color: Colors.white,
                 }}
               >
-                Rates
+                Create Game
               </Text>
             </TouchableOpacity>
           </View>
         </View>
-
-        <RBSheet
-          ref={refRBSheet}
-          height={300}
-          closeOnDragDown={true}
-          customStyles={{
-            container: {
-              borderTopLeftRadius: widthPixel(30),
-              borderTopRightRadius: widthPixel(30),
-            },
-          }}
-        >
-          <RatingSheet
-            onRatingChange={onRatingChange}
-            onReviewChange={onReviewChange}
-            onPressRate={onPressRate}
-            rating={rating}
-          />
-        </RBSheet>
-
-        <View
-          style={{
-            paddingHorizontal: pixelSizeHorizontal(20),
-            flex: 1,
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <View style={{ flex: 1 }}>
-            <Text
-              style={{
-                fontFamily: SEMIBOLD,
-                fontSize: FontSize.FS_15,
-                color: Colors.black,
-              }}
-            >
-              200 Total games
-            </Text>
-          </View>
-          <View style={{ flex: 1 }}>
-            <TouchableOpacity
-              style={[
-                styles.btn,
-                {
-                  backgroundColor: Colors.secondary,
-                },
-              ]}
-            >
-              <Text
-                style={{
-                  color: Colors.white,
-                }}
-              >
-                Upcoming
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
-          <Divider style={{ marginVertical: pixelSizeVertical(10) }} />
-        </View>
-
-        <View
-          style={{
-            paddingHorizontal: pixelSizeHorizontal(20),
-            flexDirection: "row",
-            alignItems: "center",
-            marginVertical: pixelSizeHorizontal(10),
-          }}
-        >
-          <Text
-            style={{
-              fontFamily: SEMIBOLD,
-              fontSize: FontSize.FS_18,
-              color: Colors.black,
-            }}
-          >
-            Avialable Sports
-          </Text>
-        </View>
-        <FlatList
-          style={{ marginHorizontal: pixelSizeHorizontal(20) }}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={PickSport}
-          contentContainerStyle={{
-            flexDirection: "row",
-          }}
-          renderItem={({ item }) => <SportItem item={item} isDisabled={true} />}
-        />
-
-        <View
-          style={{
-            marginHorizontal: pixelSizeHorizontal(20),
-            flexDirection: "row",
-            alignItems: "center",
-            marginVertical: pixelSizeHorizontal(10),
-          }}
-        >
-          <Text
-            style={{
-              fontFamily: SEMIBOLD,
-              fontSize: FontSize.FS_18,
-              color: Colors.black,
-            }}
-          >
-            Amenities
-          </Text>
-        </View>
-        <FlatList
-          style={{ marginHorizontal: pixelSizeHorizontal(14) }}
-          data={AmenitiesData}
-          numColumns={3}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              style={[
-                styles.btn,
-                { backgroundColor: Colors.primaryLight, borderWidth: 0 },
-              ]}
-            >
-              <Text
-                style={{
-                  fontFamily: MEDIUM,
-                  fontSize: FontSize.FS_13,
-                  color: Colors.primary,
-                }}
-              >
-                {item.name}
-              </Text>
-            </TouchableOpacity>
-          )}
-        />
-
-        <View style={{ paddingHorizontal: pixelSizeHorizontal(40) }}>
-          <TouchableOpacity
-            style={{
-              backgroundColor: Colors.secondary,
-              borderWidth: 0,
-              marginRight: pixelSizeHorizontal(15),
-              borderRadius: widthPixel(30),
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              marginVertical: 10,
-              padding: pixelSizeHorizontal(15),
-            }}
-          >
-            <Text
-              style={{
-                fontFamily: BOLD,
-                fontSize: FontSize.FS_15,
-                color: Colors.white,
-              }}
-            >
-              Create Game
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        <View
-          style={{
-            marginHorizontal: pixelSizeHorizontal(20),
-            flexDirection: "row",
-            alignItems: "center",
-            marginVertical: pixelSizeHorizontal(10),
-          }}
-        >
-          <Text
-            style={{
-              fontFamily: SEMIBOLD,
-              fontSize: FontSize.FS_18,
-              color: Colors.black,
-            }}
-          >
-            About Venues
-          </Text>
-        </View>
-        <View style={{ marginHorizontal: pixelSizeHorizontal(20) }}>
-          <Text
-            style={{
-              fontFamily: REGULAR,
-              fontSize: FontSize.FS_13,
-              color: Colors.black,
-              marginBottom: 8,
-            }}
-          >
-            A cricket field is a large grass field on which the game of cricket
-            is played. Although generally oval in shape, there is a wide variety
-            within this: some are almost perfect circles, some elongated{" "}
-          </Text>
-        </View>
-      </HeaderView>
-      <View
-        style={{
-          flexDirection: "row",
-          paddingHorizontal: pixelSizeHorizontal(20),
-        }}
-      >
-        <TouchableOpacity
-          onPress={() => handleBulkCorporate()}
-          style={[styles.btnLogin, { marginRight: pixelSizeHorizontal(30) }]}
-        >
-          <Text style={styles.signInText}>Bulk/Corporate</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => navigate("SelectSlot")}
-          style={styles.btnLogin}
-        >
-          <Text style={styles.signInText}>BOOK NOW</Text>
-        </TouchableOpacity>
-      </View>
+        {isLoading && <LoadingView />}
+      </SafeAreaView>
     </>
   );
 };
@@ -503,7 +542,7 @@ const styles = StyleSheet.create({
     height: 30,
     justifyContent: "space-evenly",
     paddingVertical: 5,
-    borderColor: Colors.primary,
+    borderColor: primary_light,
     borderRadius: 5,
   },
   locationContainer: {
@@ -515,6 +554,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     borderWidth: 1,
+    borderColor: dim_grey,
     justifyContent: "space-evenly",
   },
   btnLogin: {
@@ -533,15 +573,12 @@ const styles = StyleSheet.create({
     fontFamily: MEDIUM,
   },
   btn: {
-    width: 100,
-    height: 30,
-    borderWidth: 0.5,
-    marginRight: 15,
+    // minWidth: 100,
+    // marginRight: 15,
     borderRadius: widthPixel(5),
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
     marginVertical: pixelSizeVertical(10),
+    paddingVertical: pixelSizeHorizontal(8),
+    paddingHorizontal: pixelSizeHorizontal(12),
   },
 });
 

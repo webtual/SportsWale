@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   black,
   black05,
@@ -54,8 +54,19 @@ import {
   wallet,
 } from "../../constants/Images";
 import { Colors } from "../../constants/CustomeColor";
+import { useSelector } from "react-redux";
+import { user_data } from "../../redux/reducers/userReducer";
+import { useToast } from "native-base";
 
 const Profile = () => {
+
+  const toast = useToast();
+  const userData = useSelector(user_data);
+
+  useEffect(() => {
+    console.log("userData : ",userData)
+  },[])
+
   const btnLoginTap = () => {
     goBack();
   };
@@ -63,6 +74,8 @@ const Profile = () => {
   return (
     
       <View style={{ paddingHorizontal: pixelSizeHorizontal(20), marginTop:pixelSizeVertical(30) }}>
+        
+        {userData ?
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <View
             style={{
@@ -86,7 +99,7 @@ const Profile = () => {
             <FastImage
               style={{ width: 75, height: 75, borderRadius: 40 }}
               source={{
-                uri: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80",
+                uri: userData?.asset_url + userData?.profile
               }}
               resizeMode="cover"
             />
@@ -100,7 +113,7 @@ const Profile = () => {
                 color: black,
               }}
             >
-              Mike Smith
+             {userData?.first_name} {userData?.last_name}
             </Text>
 
             <TouchableOpacity>
@@ -115,7 +128,7 @@ const Profile = () => {
               </Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </View> : null}
 
         <BasicCard style={{ marginVertical: 10 }}>
           <View style={styles.header}>

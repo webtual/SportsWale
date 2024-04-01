@@ -8,6 +8,7 @@ import AppStack from './AppStacks';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native';
 // import FlashMessage from 'react-native-flash-message';
+import { AlertNotificationRoot } from 'react-native-alert-notification';
 
 
 function AppNavigator() {
@@ -15,7 +16,9 @@ function AppNavigator() {
 	return (
 		
 		<NavigationContainer ref={navigationRef}>
+			<AlertNotificationRoot>
 			<AppStack />
+			</AlertNotificationRoot>
 			{/* <FlashMessage position="top" /> */}
 		</NavigationContainer>
 		

@@ -197,7 +197,6 @@ function AppStacks() {
 			screenOptions={{
 				headerShown: false,
 				gesturesEnabled: false,
-
 			}}>
 			<Stack.Screen name="Splash" component={Splash} />
 			<Stack.Screen name="Intro" component={Intro} />
@@ -212,6 +211,7 @@ function AppStacks() {
 			<Stack.Screen name="SelectSport" component={SelectSport} />
 			<Stack.Screen name="BokingConfirmation" component={BokingConfirmation} />
 			<Stack.Screen name="SelectSlot" component={SelectSlot} />
+			<Stack.Screen name="Profile" component={Profile} />
 
 
 			

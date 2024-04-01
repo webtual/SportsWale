@@ -53,6 +53,10 @@ const CreateGame = () => {
     });
   };
 
+  
+  const btnSelectVenueTap = () => {
+    navigate("SelectVenue");
+  };
   const btnSelectDateTap = () => {
     navigate("SelectSlot");
   };
@@ -96,12 +100,13 @@ const CreateGame = () => {
             <Icon name={"chevron-right"} size={24} color={dim_grey} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.cardView, CommonStyle.shadow]}>
+          <TouchableOpacity style={[styles.cardView, CommonStyle.shadow]}
+          onPress={btnSelectVenueTap}>
             <LocationIcon />
             <View
               style={{ flex: 1, marginHorizontal: pixelSizeHorizontal(12) }}
             >
-              <Text style={styles.cardTitle}>Choose Location</Text>
+              <Text style={styles.cardTitle}>Choose Venue/Location</Text>
               <Text
                 style={[
                   styles.cardDescription,

@@ -39,17 +39,21 @@ const BookTab = () => {
   const userData = useSelector(user_data);
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const [page, setPage] = useState(1);
   const [allVenues, setAllVenues] = useState([])
+  const [showMore, setShowMore] = useState(false);
+
 
   useEffect(() => {
     Api_GetAllVenue(true)
-  },[])
+  },[page])
 
   const Api_GetAllVenue = (isLoad) => {
     setIsLoading(isLoad);
 
     const formData = new FormData();
-    formData.append("page", "1");
+    formData.append("page", page);
     formData.append("limit", "10");
     formData.append("latitude", userReduxData.lat);
     formData.append("longitude", userReduxData.long);
@@ -67,8 +71,15 @@ const BookTab = () => {
         setIsLoading(false);
 
         if (response.data.status === true) {
-    
-          setAllVenues([...allVenues,...response.data.data.near_by_venues])
+          var finalData = response.data.data
+          if(finalData?.current_page >= finalData?.total_pages){
+            setShowMore(false)
+            setAllVenues([...allVenues,...response.data.data.near_by_venues])
+          }else{
+            setShowMore(true)
+            setAllVenues([...allVenues,...response.data.data.near_by_venues])
+          }
+          
         } else {
           toast.show({
             description: response.data.message,
@@ -143,7 +154,7 @@ const BookTab = () => {
             marginHorizontal: pixelSizeHorizontal(20),
           }}
         >
-          <View style={{ marginTop: pixelSizeHorizontal(20) }}>
+          {/* <View style={{ marginTop: pixelSizeHorizontal(20) }}>
             <Carousel
               autoplay={__DEV__ ? false : true}
               // ref={scrollRef}
@@ -180,7 +191,7 @@ const BookTab = () => {
                 );
               })}
             </Carousel>
-          </View>
+          </View> */}
 
           <View
             style={[
@@ -230,8 +241,15 @@ const BookTab = () => {
             ListHeaderComponent={() => (
               <View style={{ height: widthPixel(12) }} />
             )}
-            ListFooterComponent={() => (
-              <View style={{ height: widthPixel(12) }} />
+            ListFooterComponent={() =>  (
+              showMore && <View style={{alignItems : 'center', justifyContent : 'center', marginVertical : pixelSizeHorizontal(20) }} >
+                <TouchableOpacity style={{flexDirection : 'row'}} onPress={() => setPage(page+1)}>
+                  <Text style={[styles.text,{color : secondary}]}>
+                    Show more
+                  </Text>
+                  <Icon name={"arrow-down"} size={20} color={secondary}/>
+                </TouchableOpacity>
+              </View>
             )}
             ItemSeparatorComponent={() => (
               <View style={{ height: widthPixel(12) }} />
