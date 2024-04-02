@@ -3,13 +3,15 @@ import { View, Text } from 'react-native';
 import FastImage from 'react-native-fast-image'; // Import FastImage library
 import { Colors } from '../constants/CustomeColor';
 import { SEMIBOLD , FontSize} from '../constants/Fonts';
+import { black } from '../constants/Color';
+import { pixelSizeHorizontal } from './ResponsiveScreen';
 
 const InfoItem = ({ iconSource, text }) => {
   return (
     <View
       style={{
         flexDirection: 'row',
-        marginVertical: 5,
+        marginVertical: pixelSizeHorizontal(5),
         alignItems: 'center',
       }}
     >
@@ -25,8 +27,8 @@ const InfoItem = ({ iconSource, text }) => {
         style={{
             fontFamily: SEMIBOLD,
             fontSize: FontSize.FS_16,
-            color: Colors.black,
-            marginLeft: 10,
+            color: black,
+            marginLeft: pixelSizeHorizontal(10),
           }}
       >
         {text}

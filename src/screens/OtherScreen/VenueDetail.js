@@ -41,7 +41,7 @@ import { clock, ic_navigation } from "../../constants/Images";
 import RBSheet from "react-native-raw-bottom-sheet";
 import RatingSheet from "../../commonComponents/sheets/Rating-sheet";
 import ApiManager from "../../commonComponents/ApiManager";
-import { VENUES_DETAIL } from "../../constants/ApiUrl";
+import { RATE_VENUE, VENUES_DETAIL } from "../../constants/ApiUrl";
 import { useToast } from "native-base";
 import LoadingView from "../../commonComponents/LoadingView";
 import {
@@ -61,15 +61,17 @@ import ClockIcon from "../../assets/images/ClockIcon";
 import LocationIcon from "../../assets/images/LocationIcon";
 import NavigationIcon from "../../assets/images/NavigationIcon";
 import GoogleMapPinIcon from "../../assets/images/GoogleMapPinIcon";
+import { BottomModal } from "../../commonComponents/Popup";
 
 const VenueDetail = (props) => {
   const toast = useToast();
-  const refRBSheet = React.createRef();
 
   const { venueData } = props?.route?.params;
   const userData = useSelector(user_data);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isOpenRating, setIsOpenRating] = useState(false);
+
 
   const [venueDetail, setVenueDetail] = useState(null);
 
@@ -105,15 +107,52 @@ const VenueDetail = (props) => {
       });
   };
 
+
+  const Api_Rate_Venue = (isLoad,rateData) => {
+    setIsLoading(isLoad);
+
+    const formData = new FormData();
+    formData.append("venue_id",venueData?.id);
+    formData.append("description",rateData?.description);
+    formData.append("rating",rateData?.rating);
+
+
+    ApiManager.post(RATE_VENUE ,formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        console.log("Api_Rate_Venue : ", JSON.stringify(response));
+        setIsLoading(false);
+
+        if (response.data.status === true) {
+          setRating(0);
+    setReview("");
+          toast.show({
+            description: response.data.message,
+          });
+          setIsOpenRating(false)
+        } else {
+          toast.show({
+            description: response.data.message,
+          });
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.error("Api_Rate_Venue Error ", err);
+      });
+  };
+
+
   const openRatingSheet = () => {
-    refRBSheet.current.open();
+    setIsOpenRating(true)
   };
 
   const onPressRate = () => {
-    refRBSheet.current.close();
-    setRating(0);
-    setReview("");
     console.log("rating", rating, review);
+    Api_Rate_Venue(true, {description : review, rating : rating})
   };
 
   const onRatingChange = (newRating) => {
@@ -133,6 +172,7 @@ const VenueDetail = (props) => {
               <FlatList
                 data={[{ image: userData?.asset_url + venueDetail?.image }]}
                 horizontal
+                bounces={false}
                 pagingEnabled={true}
                 showsHorizontalScrollIndicator={false}
                 renderItem={({ item, index }) => (
@@ -158,7 +198,7 @@ const VenueDetail = (props) => {
             <View
               style={{
                 marginHorizontal: pixelSizeHorizontal(20),
-                marginVertical: pixelSizeVertical(10),
+                marginVertical: pixelSizeHorizontal(10),
               }}
             >
               <Text
@@ -166,7 +206,7 @@ const VenueDetail = (props) => {
                   fontFamily: BOLD,
                   fontSize: FontSize.FS_16,
                   color: black,
-                  marginVertical: pixelSizeVertical(10),
+                  marginVertical: pixelSizeHorizontal(10), 
                 }}
               >
                 {venueDetail?.title}
@@ -195,7 +235,7 @@ const VenueDetail = (props) => {
                   alignItems: "center",
                   flexDirection: "row",
                   justifyContent: "center",
-                  marginVertical: pixelSizeVertical(10),
+                  marginVertical: pixelSizeHorizontal(10),
                 }}
               >
                 <NavigationIcon
@@ -303,25 +343,6 @@ const VenueDetail = (props) => {
                 </TouchableOpacity>
               </View>
             </View>
-
-            <RBSheet
-              ref={refRBSheet}
-              height={300}
-              closeOnDragDown={true}
-              customStyles={{
-                container: {
-                  borderTopLeftRadius: widthPixel(30),
-                  borderTopRightRadius: widthPixel(30),
-                },
-              }}
-            >
-              <RatingSheet
-                onRatingChange={onRatingChange}
-                onReviewChange={onReviewChange}
-                onPressRate={onPressRate}
-                rating={rating}
-              />
-            </RBSheet>
 
             <View
               style={{
@@ -522,6 +543,20 @@ const VenueDetail = (props) => {
             </TouchableOpacity>
           </View>
         </View>
+
+        <BottomModal isVisible={isOpenRating} onClose={() =>{ setIsOpenRating(false)
+         setRating(0);
+         setReview("");}}
+        title={"Vista Sports Arena"}>
+          <RatingSheet
+                onRatingChange={onRatingChange}
+                onReviewChange={onReviewChange}
+                onPressRate={onPressRate}
+                rating={rating}
+                review={review}
+                isLoading={isLoading}
+              />
+        </BottomModal>
         {isLoading && <LoadingView />}
       </SafeAreaView>
     </>

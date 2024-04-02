@@ -28,77 +28,71 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import InfoItem from "../../commonComponents/InfoItem";
 import CustomPrice from "../../commonComponents/CustomPrice";
 import ToggleSwitch from "toggle-switch-react-native";
+import { black, primary_light, secondary, white } from "../../constants/Color";
+import { RUPEE } from "../../constants/ConstantKey";
+import { CenterModal } from "../../commonComponents/Popup";
+import UserThumbsUpIcon from "../../assets/images/UserThumbsUpIcon";
 
 export default function Payment() {
-
-  const [redeemToggle , setredeemToggle]=useState(false);
-  const[amountToggle , setamountToggle]=useState(false);
+  const [redeemToggle, setredeemToggle] = useState(false);
+  const [amountToggle, setamountToggle] = useState(false);
+  const [isGameSuccessModal, setIsGameSuccessModal] = useState(false);
 
   return (
     <>
       <HeaderView
         HeaderSmall={true}
-        title={Translate.t("select_slot")}
+        title={"Vista Sports Arena"}
         isBack={true}
         onPress={() => goBack()}
         containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20) }}
       >
-        <View
-          style={{
-            flexDirection: "row",
-            marginVertical: 10,
-            alignItems: "center",
-          }}
-        >
-          <FastImage
-            style={{
-              width: 20,
-              height: 20,
-            }}
-            source={ic_cricket}
-            resizeMode="cover"
-          />
-          <Text
-            style={{
-              fontFamily: SEMIBOLD,
-              fontSize: FontSize.FS_18,
-              color: Colors.black,
-              marginLeft: 10,
-            }}
-          >
-            Box Cricket
-          </Text>
-        </View>
-
-        <View style={{ flexDirection: "row" }}>
-          <Text
-            style={{
-              fontFamily: SEMIBOLD,
-              fontSize: FontSize.FS_13,
-              color: Colors.black,
-            }}
-          >
-            Mon 12 Dec,2024 |
-          </Text>
-          <Text
-            style={{
-              fontFamily: SEMIBOLD,
-              fontSize: FontSize.FS_13,
-              color: Colors.black,
-            }}
-          >
-            07:30AM - 09:00 AM
-          </Text>
-        </View>
-
         <BasicCard style={{ marginVertical: 10 }}>
-          <View style={{ position: "absolute", right: 10, top: 10 }}>
-            <Icon name={"trash-can-outline"} size={28} color={Colors.primary} />
+          <View
+            style={{
+              flexDirection: "row",
+              marginVertical: 10,
+              alignItems: "center",
+            }}
+          >
+            <FastImage
+              style={{
+                width: 20,
+                height: 20,
+              }}
+              source={ic_cricket}
+              resizeMode="contain"
+            />
+            <Text
+              style={{
+                fontFamily: BOLD,
+                fontSize: FontSize.FS_20,
+                color: black,
+                marginLeft: 10,
+              }}
+            >
+              Box Cricket
+            </Text>
           </View>
 
+          <View style={{}}>
+            <Text
+              style={{
+                fontFamily: MEDIUM,
+                fontSize: FontSize.FS_16,
+                color: black,
+              }}
+            >
+              Mon 12 Dec,2024 | 07:30AM - 09:00 AM
+            </Text>
+          </View>
+          {/* <View style={{ position: "absolute", right: 10, top: 10 }}>
+            <Icon name={"trash-can-outline"} size={28} color={Colors.primary} />
+          </View> */}
+
           <InfoItem iconSource={ic_football} text="6 a Side Turf2" />
-          <InfoItem iconSource={ic_note} text="INR 2,500" />
-          <InfoItem iconSource={ic_secure_shield} text="Fitness Cover" />
+          <InfoItem iconSource={ic_note} text={`${RUPEE} 2,500`} />
+          {/* <InfoItem iconSource={ic_secure_shield} text="Fitness Cover" /> */}
         </BasicCard>
 
         <CustomPrice
@@ -113,7 +107,7 @@ export default function Payment() {
           amount={1000}
         />
 
-        <ToggleSwitch
+        {/* <ToggleSwitch
           isOn={redeemToggle}
           onColor="green"
           offColor="red"
@@ -146,21 +140,21 @@ export default function Payment() {
             </Text>
             <Icon name={"chevron-right"} size={28} color={Colors.black} />
           </TouchableOpacity>
-        </BasicCard>
+        </BasicCard> */}
 
         <View
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
             marginVertical: 10,
-            marginTop:15
+            marginTop: 15,
           }}
         >
           <Text
             style={{
               fontFamily: BOLD,
-              fontSize: FontSize.FS_16,
-              color: Colors.black,
+              fontSize: FontSize.FS_18,
+              color: black,
             }}
           >
             Total Amount
@@ -168,32 +162,42 @@ export default function Payment() {
           <Text
             style={{
               fontFamily: SEMIBOLD,
-              fontSize: FontSize.FS_15,
-              color: Colors.secondary,
+              fontSize: FontSize.FS_18,
+              color: secondary,
             }}
           >
-            INR 25000
+            {RUPEE} 25000
           </Text>
         </View>
 
         <BasicCard style={{ marginVertical: 10 }}>
           <ToggleSwitch
             isOn={amountToggle}
-            onColor="green"
-            offColor="red"
+            onColor={secondary}
+            offColor={primary_light}
             label="Pay Full Amount"
             labelStyle={{
-              fontFamily: BOLD,
-              fontSize: FontSize.FS_15,
-              color: Colors.black,
+              fontFamily: MEDIUM,
+              fontSize: FontSize.FS_14,
+              color: black,
             }}
             size="medium"
             onToggle={(isOn) => setamountToggle(!amountToggle)}
           />
 
-          <CustomPrice label="Advance Payable" amount={1000} />
+          <CustomPrice
+            label="Advance Payable"
+            amount={1000}
+            labelStyle={{ fontSize: FontSize.FS_14, fontFamily: SEMIBOLD }}
+            amountStyle={{ fontSize: FontSize.FS_14, fontFamily: SEMIBOLD }}
+          />
 
-          <CustomPrice label="To be paid at Venue" amount={1000} />
+          <CustomPrice
+            label="To be paid at Venue"
+            amount={1000}
+            labelStyle={{ fontSize: FontSize.FS_14, fontFamily: SEMIBOLD }}
+            amountStyle={{ fontSize: FontSize.FS_14, fontFamily: SEMIBOLD }}
+          />
         </BasicCard>
 
         <View>
@@ -201,7 +205,7 @@ export default function Payment() {
             style={{
               fontFamily: SEMIBOLD,
               fontSize: FontSize.FS_16,
-              color: Colors.black,
+              color: black,
               marginVertical: 10,
             }}
           >
@@ -209,9 +213,9 @@ export default function Payment() {
           </Text>
           <Text
             style={{
-              fontFamily: SEMIBOLD,
+              fontFamily: REGULAR,
               fontSize: FontSize.FS_12,
-              color: Colors.black05,
+              color: black,
             }}
           >
             Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -224,30 +228,64 @@ export default function Payment() {
         </View>
       </HeaderView>
 
-      <View style={{ paddingHorizontal: pixelSizeHorizontal(40) }}>
-        <TouchableOpacity style={styles.btn} activeOpacity={0.7}>
+      <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
+        <TouchableOpacity style={styles.btn} activeOpacity={0.7} onPress={() =>setIsGameSuccessModal(true)}>
           <Text
             style={{
               fontFamily: BOLD,
-              fontSize: FontSize.FS_15,
-              color: Colors.white,
+              fontSize: FontSize.FS_20,
+              color: white,
             }}
           >
-            INR 1500
+            {RUPEE} 1500
           </Text>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Text
               style={{
                 fontFamily: BOLD,
-                fontSize: FontSize.FS_14,
-                color: Colors.white,
+                fontSize: FontSize.FS_16,
+                color: white,
               }}
             >
               Proceed to Pay
             </Text>
-            <Icon name={"chevron-right"} size={28} color={Colors.white} />
+            <Icon name={"chevron-right"} size={28} color={white} />
           </View>
         </TouchableOpacity>
+
+        <CenterModal
+        isVisible={isGameSuccessModal}
+        isCloseBtn={false}
+        onClose={() => setIsGameSuccessModal(false)}
+      >
+        <View style={{ alignItems: "center" }}>
+          <UserThumbsUpIcon />
+          <Text
+            style={{
+              marginTop: pixelSizeHorizontal(12),
+              textAlign: "center",
+              fontFamily: BOLD,
+              fontSize: FontSize.FS_18,
+              color: black,
+            }}
+          >
+            See you at the match!
+          </Text>
+          <Text
+            style={{
+              marginTop: pixelSizeHorizontal(12),
+              textAlign: "center",
+              fontFamily: REGULAR,
+              fontSize: FontSize.FS_10,
+              color: black,
+            }}
+          >
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy.
+          </Text>
+        </View>
+      </CenterModal>
+
       </View>
     </>
   );

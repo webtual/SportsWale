@@ -29,10 +29,11 @@ import { SCREEN_WIDTH } from "../../constants/ConstantKey";
 import BasicCard from "../../commonComponents/BasicCard";
 import { BOLD, FontSize, SEMIBOLD } from "../../constants/Fonts";
 import ApiManager from "../../commonComponents/ApiManager";
-import { GET_ALL_VENUES } from "../../constants/ApiUrl";
+import { GET_ALL_VENUES, VENUE_FAVORITE } from "../../constants/ApiUrl";
 import LoadingView from "../../commonComponents/LoadingView";
+import { getUniqueListBy } from "../../commonComponents/Utils";
 
-const BookTab = () => {
+const BookTab = (props) => {
   const toast = useToast();
   const userReduxData = useSelector((state) => state.userRedux);
 
@@ -41,13 +42,14 @@ const BookTab = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [page, setPage] = useState(1);
-  const [allVenues, setAllVenues] = useState([])
+  const [allVenues, setAllVenues] = useState([]);
   const [showMore, setShowMore] = useState(false);
-
+  const [favourites, setFavourites] = useState(0);
 
   useEffect(() => {
-    Api_GetAllVenue(true)
-  },[page])
+    console.log("effecr call");
+    Api_GetAllVenue(true);
+  }, [page, favourites]);
 
   const Api_GetAllVenue = (isLoad) => {
     setIsLoading(isLoad);
@@ -58,7 +60,7 @@ const BookTab = () => {
     formData.append("latitude", userReduxData.lat);
     formData.append("longitude", userReduxData.long);
 
-    formData.append("favourites", "0");
+    formData.append("favourites", favourites);
     formData.append("keyword", "");
 
     ApiManager.post(GET_ALL_VENUES, formData, {
@@ -71,15 +73,24 @@ const BookTab = () => {
         setIsLoading(false);
 
         if (response.data.status === true) {
-          var finalData = response.data.data
-          if(finalData?.current_page >= finalData?.total_pages){
-            setShowMore(false)
-            setAllVenues([...allVenues,...response.data.data.near_by_venues])
-          }else{
-            setShowMore(true)
-            setAllVenues([...allVenues,...response.data.data.near_by_venues])
+          var finalData = response.data.data;
+
+          if (finalData?.current_page >= finalData?.total_pages) {
+            setShowMore(false);
+
+            var finalData = [
+              ...allVenues,
+              ...response.data.data.near_by_venues,
+            ];
+            setAllVenues(getUniqueListBy(finalData, "id"));
+          } else {
+            setShowMore(true);
+            var finalData = [
+              ...allVenues,
+              ...response.data.data.near_by_venues,
+            ];
+            setAllVenues(getUniqueListBy(finalData, "id"));
           }
-          
         } else {
           toast.show({
             description: response.data.message,
@@ -89,6 +100,53 @@ const BookTab = () => {
       .catch((err) => {
         setIsLoading(false);
         console.error("Api_GetAllVenue Error ", err);
+      });
+  };
+
+  const Api_Favorite_Venue = (isLoad, item) => {
+    setIsLoading(isLoad);
+
+    const formData = new FormData();
+    formData.append("venue_id", item.id);
+
+    ApiManager.post(VENUE_FAVORITE, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        console.log("Api_Favorite_Venue : ", JSON.stringify(response));
+        setIsLoading(false);
+
+        if (response.data.status === true) {
+          // Api_GetAllVenue(true);
+
+          if (favourites) {
+            let newData = allVenues.filter(function (data) {
+              return data.id != item.id;
+            });
+            setAllVenues(newData);
+          } else {
+            let newData = allVenues.map((el) =>
+              el.id == item.id
+                ? { ...el, is_favourites: !el?.is_favourites }
+                : el
+            );
+            setAllVenues(newData);
+          }
+
+          toast.show({
+            description: response.data.message,
+          });
+        } else {
+          toast.show({
+            description: response.data.message,
+          });
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.error("Api_Favorite_Venue Error ", err);
       });
   };
 
@@ -236,26 +294,85 @@ const BookTab = () => {
             </View>
           </View>
 
+          <View style={{ flexWrap: "wrap" }}>
+            <TouchableOpacity
+              style={{
+                backgroundColor: favourites && secondary,
+                borderWidth: 1,
+                borderColor: favourites == 0 ? dim_grey : secondary,
+                marginTop: pixelSizeHorizontal(20),
+                borderRadius: pixelSizeHorizontal(5),
+                paddingHorizontal: pixelSizeHorizontal(12),
+                paddingVertical: pixelSizeHorizontal(8),
+              }}
+              onPress={() => {
+                setFavourites(favourites == 0 ? 1 : 0);
+                setPage(1);
+                setAllVenues([]);
+              }}
+            >
+              <Text
+                style={[styles.text, { color: favourites ? white : dim_grey }]}
+              >
+                Favourites
+              </Text>
+            </TouchableOpacity>
+          </View>
+
           <FlatList
             data={allVenues}
+            extraData={props}
             ListHeaderComponent={() => (
               <View style={{ height: widthPixel(12) }} />
             )}
-            ListFooterComponent={() =>  (
-              showMore && <View style={{alignItems : 'center', justifyContent : 'center', marginVertical : pixelSizeHorizontal(20) }} >
-                <TouchableOpacity style={{flexDirection : 'row'}} onPress={() => setPage(page+1)}>
-                  <Text style={[styles.text,{color : secondary}]}>
-                    Show more
-                  </Text>
-                  <Icon name={"arrow-down"} size={20} color={secondary}/>
-                </TouchableOpacity>
-              </View>
-            )}
+            ListFooterComponent={() =>
+              showMore && (
+                <View
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginVertical: pixelSizeHorizontal(20),
+                  }}
+                >
+                  <TouchableOpacity
+                    style={{ flexDirection: "row" }}
+                    onPress={() => setPage(page + 1)}
+                  >
+                    <Text style={[styles.text, { color: secondary }]}>
+                      Show more
+                    </Text>
+                    <Icon name={"arrow-down"} size={20} color={secondary} />
+                  </TouchableOpacity>
+                </View>
+              )
+            }
             ItemSeparatorComponent={() => (
               <View style={{ height: widthPixel(12) }} />
             )}
+            ListEmptyComponent={() => (
+              <View
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: pixelSizeHorizontal(30),
+                }}
+              >
+                <Text style={[styles.text, { color: dim_grey }]}>
+                  No record found
+                </Text>
+              </View>
+            )}
             renderItem={({ item }) => (
-              <VenuesCard item={item} styles={{ flex: 1 }} />
+              <View style={{marginHorizontal : pixelSizeHorizontal(5)}}>
+              <VenuesCard
+                item={item}
+                styles={{ flex: 1 }}
+                btnFavouriteTap={() => {
+                  console.log("favorite");
+                  Api_Favorite_Venue(true, item);
+                }}
+              />
+              </View>
             )}
           />
         </View>

@@ -64,7 +64,7 @@ export default {
 	date:"Date : ",
 	referralcode:"Referral Code",
 
-
+	update_profile : "Update Profile",
 
 
 

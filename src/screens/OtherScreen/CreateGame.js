@@ -264,7 +264,9 @@ const CreateGame = () => {
           <TouchableOpacity
             // activeOpacity={1}
             onPress={() => {
-              setIsGameSuccessModal(true);
+              // setIsGameSuccessModal(true);
+              navigate("Payment")
+              
             }}
             style={[
               CommonStyle.mainBtnStyle,
@@ -276,38 +278,7 @@ const CreateGame = () => {
         </View>
       </HeaderView>
 
-      <CenterModal
-        isVisible={isGameSuccessModal}
-        isCloseBtn={false}
-        onClose={() => setIsGameSuccessModal(false)}
-      >
-        <View style={{ alignItems: "center" }}>
-          <UserThumbsUpIcon />
-          <Text
-            style={{
-              marginTop: pixelSizeHorizontal(12),
-              textAlign: "center",
-              fontFamily: BOLD,
-              fontSize: FontSize.FS_18,
-              color: black,
-            }}
-          >
-            See you at the match!
-          </Text>
-          <Text
-            style={{
-              marginTop: pixelSizeHorizontal(12),
-              textAlign: "center",
-              fontFamily: REGULAR,
-              fontSize: FontSize.FS_10,
-              color: black,
-            }}
-          >
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy.
-          </Text>
-        </View>
-      </CenterModal>
+      
     </>
   );
 };

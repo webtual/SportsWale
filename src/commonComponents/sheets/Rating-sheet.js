@@ -4,6 +4,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import React from "react";
 import StarRating from "react-native-star-rating";
@@ -15,62 +16,52 @@ import {
 } from "../ResponsiveScreen";
 import CommonStyle from "../CommonStyle";
 import { BOLD, FontSize, MEDIUM } from "../../constants/Fonts";
+import { border, white, yellow } from "../../constants/Color";
+import TextInputView from "../TextInputView";
+import { SCREEN_WIDTH } from "../../constants/ConstantKey";
 export default function RatingSheet({
   onRatingChange,
   onReviewChange,
   onPressRate,
   rating,
+  review,
+  isLoading
 }) {
   return (
-    <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
-      <Text
-        style={{
-          textAlign: "center",
-          fontFamily: BOLD,
-          fontSize: FontSize.FS_20,
-          color: Colors.black,
-          marginVertical: pixelSizeVertical(10),
-        }}
-      >
-        Vista Sport Arena
-      </Text>
+    <View style={{ padding: pixelSizeHorizontal(20) }}>
       <StarRating
-        fullStarColor={Colors.warning}
+        fullStarColor={yellow}
         disabled={false}
         maxStars={5}
         rating={rating}
-        starSize={30}
-        containerStyle={{ width: 200, alignSelf: "center" }}
+        starSize={38}
+        containerStyle={{ width: widthPixel(SCREEN_WIDTH-150), alignSelf: "center" }}
         selectedStar={(rating) => {
           onRatingChange(rating);
         }}
       />
 
       <View style={{ padding: 16 }}>
-        <TextInput
-          placeholder="Write a review..."
-          multiline
-          numberOfLines={4}
-          //   value={review}
-          onChangeText={(text) => {
-            onReviewChange(text);
-          }}
-          style={{
-            borderWidth: 1,
-            borderRadius: 10,
-            borderColor: Colors.grey,
-            padding: 8,
-            marginTop: 5,
-          }}
+
+        <TextInputView 
+        style={{minHeight : 100, backgroundColor : white,  borderColor: border,}}
+         placeholder="Write a review (Optional)"
+         multiline
+         numberOfLines={4}
+           value={review}
+         onChangeText={(text) => {
+           onReviewChange(text);
+         }}
         />
       </View>
 
       <TouchableOpacity
         activeOpacity={0.7}
         onPress={onPressRate}
-        style={styles.btn}
+        style={CommonStyle.mainBtnStyle}
       >
-        <Text style={CommonStyle.mainBtnText}>Rate</Text>
+        {isLoading ? <ActivityIndicator size={'small'} color={white}/>:
+        <Text style={CommonStyle.mainBtnText}>Rate</Text>}
       </TouchableOpacity>
     </View>
   );

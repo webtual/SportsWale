@@ -8,12 +8,12 @@ import { SCREEN_WIDTH } from "../constants/ConstantKey";
 import { BOLD, FontSize, SEMIBOLD, MEDIUM } from "../constants/Fonts";
 import Divider from "./Divider";
 import { navigate } from "../navigations/RootNavigation";
-import { black, black05, dim_grey, primary_light, white } from "../constants/Color";
+import { black, black05, dim_grey, primary_light, secondary, white } from "../constants/Color";
 import IconButton from "./IconButton";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useSelector } from "react-redux";
 
-export default function VenuesCard({ item , styles, isShowFavourite = true}) {
+export default function VenuesCard({ item , styles, isShowFavourite = true,...props}) {
 
  const userData = useSelector(state => state.userRedux.user_data);
 
@@ -31,7 +31,7 @@ export default function VenuesCard({ item , styles, isShowFavourite = true}) {
           height: 3,
         },
         shadowOpacity: 0.17,
-        shadowRadius: 8,
+        shadowRadius: 3,
         elevation: 3,
         // alignSelf: "center",
       },
@@ -51,8 +51,8 @@ export default function VenuesCard({ item , styles, isShowFavourite = true}) {
       />
       {isShowFavourite &&
       <IconButton additionalStyle={{position : 'absolute', bottom : 10, right : 10}}
-      onPress={() => {}}>
-        <Icon name={"heart-outline"} size={24} color={white}/>
+      onPress={() => {props?.btnFavouriteTap()}}>
+        <Icon name={item?.is_favourites ? "heart" : "heart-outline"} size={24} color={item?.is_favourites ? secondary : white}/>
       </IconButton>}
       </View>
       <View
@@ -95,7 +95,7 @@ export default function VenuesCard({ item , styles, isShowFavourite = true}) {
                 color: black,
               }}
             >
-              {item?.avg_rating} ({item?.total_rating})
+              {parseFloat(item?.avg_rating).toFixed(1) } ({item?.total_rating})
             </Text>
           </View>
         </View>
