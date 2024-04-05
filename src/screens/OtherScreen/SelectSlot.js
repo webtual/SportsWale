@@ -127,8 +127,8 @@ const SelectSlot = ({}) => {
     }
   };
   const OnPressNext = () => {
-    // navigate("Payment");
-    goBack()
+    navigate("Payment");
+    
   };
   return (
     <>

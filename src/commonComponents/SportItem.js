@@ -15,6 +15,9 @@ export default function SportItem({
   isSelected,
   onPressItem,
   isDisabled,
+  activeOpacity = 0.6,
+  borderColor = dim_grey,
+  textColor= dim_grey
 }) {
   const userData = useSelector(user_data);
 
@@ -23,7 +26,7 @@ export default function SportItem({
       style={{
         paddingHorizontal: 10,
         borderWidth: 1,
-        borderColor : dim_grey,
+        borderColor : isSelected ? secondary : borderColor,
         marginRight: 10,
         borderRadius: 5,
         flexDirection: "row",
@@ -32,6 +35,7 @@ export default function SportItem({
         backgroundColor: isSelected ? secondary : white,
         marginVertical: 5,
       }}
+      activeOpacity={activeOpacity}
       disabled={isDisabled}
       onPress={() => onPressItem(index)}
     >
@@ -43,11 +47,11 @@ export default function SportItem({
       <FastImage
         source={{ uri: userData?.asset_url + item?.game_image }}
         style={{ width: widthPixel(16), height: widthPixel(16) }}
-        tintColor={dim_grey}
+        tintColor={isSelected ? white : textColor}
         resizeMode="contain"
       />
       <Text
-        style={[styles.menuItemText, isSelected && styles.selectedItemText]}
+        style={[styles.menuItemText,{color : textColor}, isSelected && styles.selectedItemText]}
       >
         {item.game_title}
       </Text>
@@ -60,12 +64,12 @@ const styles = StyleSheet.create({
     color: dim_grey,
     paddingVertical: 5,
     fontFamily: SEMIBOLD,
-    fontSize: FontSize.FS_12,
+    fontSize: FontSize.FS_14,
     marginLeft: 5,
   },
   selectedItemText: {
     color: white,
     fontFamily: SEMIBOLD,
-    fontSize: FontSize.FS_12,
+    fontSize: FontSize.FS_14,
   },
 });

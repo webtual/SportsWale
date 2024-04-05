@@ -43,6 +43,9 @@ import { pixelSizeHorizontal, widthPixel } from "./ResponsiveScreen"
     modalHeaderText:{
         fontFamily: BOLD, fontSize: FontSize.FS_18, color: black,
     },
+    titleText:{
+        fontFamily: SEMIBOLD, fontSize: FontSize.FS_16, color: black,
+    },
     shadow : {
         shadowColor: black05,
         shadowOffset: {

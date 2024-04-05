@@ -60,7 +60,9 @@ import UsersIcon from '../assets/images/UsersIcon';
 import GroundIcon from '../assets/images/GroundIcon';
 import MenuIcon from '../assets/images/MenuIcon';
 import CreateGame from '../screens/OtherScreen/CreateGame';
-import BokingConfirmation from '../screens/OtherScreen/BokingConfirmation';
+import VenueSlotBooking from '../screens/OtherScreen/VenueSlotBooking';
+import LocationMap from '../screens/OtherScreen/LocationMap';
+import BokingDetails from '../screens/OtherScreen/BokingDetails';
 
 // import { cart_data } from '../redux/reducers/cartReducer';
 // import { useSelector } from 'react-redux';
@@ -157,7 +159,7 @@ function HomeTabs() {
 			  <Animated.View style={styles.btnCircleUp}>
 				<TouchableOpacity
 				  style={styles.button}
-				  onPress={() => {navigate("CreateGame")}}>
+				  onPress={() => {navigate("SelectVenue")}}>
 				  <Icon name="plus" color={white} size={35} />
 				</TouchableOpacity>
 			  </Animated.View>
@@ -209,10 +211,11 @@ function AppStacks() {
 
 			<Stack.Screen name="CreateGame" component={CreateGame} />
 			<Stack.Screen name="SelectSport" component={SelectSport} />
-			<Stack.Screen name="BokingConfirmation" component={BokingConfirmation} />
+			<Stack.Screen name="BokingDetails" component={BokingDetails} />
 			<Stack.Screen name="SelectSlot" component={SelectSlot} />
 			<Stack.Screen name="Profile" component={Profile} />
-
+			<Stack.Screen name="VenueSlotBooking" component={VenueSlotBooking} />
+			<Stack.Screen name="LocationMap" component={LocationMap} />
 
 			
 			<Stack.Screen name="EnterActivityName" component={EnterActivityName} />

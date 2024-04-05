@@ -41,6 +41,8 @@ const HeaderView = ({
   titleColor = white,
   onPress = {},
   containerStyle = {},
+  scrollContainerStyle = {},
+
   leftComponent,
   rightComponent,
   ...props
@@ -54,8 +56,9 @@ const HeaderView = ({
         <StatusBar barStyle={"dark-content"} backgroundColor={primary} />
         <ScrollView
           style={styles.container}
-          contentContainerStyle={{}}
+          contentContainerStyle={[{...scrollContainerStyle}]}
           bounces={false}
+          nestedScrollEnabled={true}
           keyboardShouldPersistTaps="always"
         >
           <View
@@ -111,7 +114,7 @@ const HeaderView = ({
             </View>
           </View>
 
-          <View style={[styles.mainView, { ...containerStyle }]}>
+          <View style={[styles.mainView, { ...containerStyle }]} onStartShouldSetResponder={() => true}>
             {children}
           </View>
         </ScrollView>
@@ -134,7 +137,7 @@ const styles = StyleSheet.create({
     backgroundColor: primary,
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
-    flex: 1,
+    // flex: 1,
   },
   container: {
     flex: 1,

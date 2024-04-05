@@ -62,14 +62,14 @@ import {
 } from "../../constants/Images";
 import { Colors } from "../../constants/CustomeColor";
 import { useDispatch, useSelector } from "react-redux";
-import { storeCurrentLocation, user_data } from "../../redux/reducers/userReducer";
+import { storeCurrentLocation, storeUserData, user_data } from "../../redux/reducers/userReducer";
 import { useToast } from "native-base";
 import Geolocation from "@react-native-community/geolocation";
 import ImagePicker from "react-native-image-crop-picker";
 
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { SCREEN_WIDTH } from "../../constants/ConstantKey";
+import { SCREEN_WIDTH, USER_DATA } from "../../constants/ConstantKey";
 import TextInputView from "../../commonComponents/TextInputView";
 import CommonStyle from "../../commonComponents/CommonStyle";
 import ApiManager from "../../commonComponents/ApiManager";
@@ -77,6 +77,7 @@ import { GET_PROFILE } from "../../constants/ApiUrl";
 import LoadingView from "../../commonComponents/LoadingView";
 import moment from "moment";
 import Feather from 'react-native-vector-icons/Feather'
+import { storeData } from "../../commonComponents/AsyncManager";
 
 const Profile = () => {
 
@@ -189,6 +190,11 @@ const Profile = () => {
 
         if (response.data.status === true) {
           var profile_data = response.data.data
+
+          storeData(USER_DATA,profile_data,() => {
+            dispatch(storeUserData(profile_data))
+          })
+
           setTxtName(profile_data?.first_name + profile_data?.last_name)
           setDob(moment(profile_data?.dob).format("DD-MM-YYYY"))
           setTxtLocation(profile_data?.player?.location)

@@ -72,7 +72,6 @@ const VenueDetail = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isOpenRating, setIsOpenRating] = useState(false);
 
-
   const [venueDetail, setVenueDetail] = useState(null);
 
   const [rating, setRating] = useState(0);
@@ -107,17 +106,15 @@ const VenueDetail = (props) => {
       });
   };
 
-
-  const Api_Rate_Venue = (isLoad,rateData) => {
+  const Api_Rate_Venue = (isLoad, rateData) => {
     setIsLoading(isLoad);
 
     const formData = new FormData();
-    formData.append("venue_id",venueData?.id);
-    formData.append("description",rateData?.description);
-    formData.append("rating",rateData?.rating);
+    formData.append("venue_id", venueData?.id);
+    formData.append("description", rateData?.description);
+    formData.append("rating", rateData?.rating);
 
-
-    ApiManager.post(RATE_VENUE ,formData, {
+    ApiManager.post(RATE_VENUE, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -128,11 +125,11 @@ const VenueDetail = (props) => {
 
         if (response.data.status === true) {
           setRating(0);
-    setReview("");
+          setReview("");
           toast.show({
             description: response.data.message,
           });
-          setIsOpenRating(false)
+          setIsOpenRating(false);
         } else {
           toast.show({
             description: response.data.message,
@@ -145,14 +142,13 @@ const VenueDetail = (props) => {
       });
   };
 
-
   const openRatingSheet = () => {
-    setIsOpenRating(true)
+    setIsOpenRating(true);
   };
 
   const onPressRate = () => {
     console.log("rating", rating, review);
-    Api_Rate_Venue(true, {description : review, rating : rating})
+    Api_Rate_Venue(true, { description: review, rating: rating });
   };
 
   const onRatingChange = (newRating) => {
@@ -161,6 +157,19 @@ const VenueDetail = (props) => {
 
   const onReviewChange = (newReview) => {
     setReview(newReview);
+  };
+
+  const btnCreateGameTap = () => {
+    if (venueDetail?.venue_grounds.length) {
+      navigate("VenueSlotBooking", { venueDetail: venueDetail });
+    }else{
+      toast.show({
+        description : `${venueDetail?.title} doesn't have any ground linked, please try another venue`,
+        style:{
+          marginHorizontal:pixelSizeHorizontal(20)
+        }
+      })
+    }
   };
 
   return (
@@ -206,7 +215,7 @@ const VenueDetail = (props) => {
                   fontFamily: BOLD,
                   fontSize: FontSize.FS_16,
                   color: black,
-                  marginVertical: pixelSizeHorizontal(10), 
+                  marginVertical: pixelSizeHorizontal(10),
                 }}
               >
                 {venueDetail?.title}
@@ -478,7 +487,7 @@ const VenueDetail = (props) => {
                   )}
                 />
               </>
-            ):null}
+            ) : null}
 
             <View
               style={{
@@ -517,45 +526,49 @@ const VenueDetail = (props) => {
             paddingHorizontal: pixelSizeHorizontal(40),
           }}
         >
-          <View style={{}}>
-            <TouchableOpacity
+          <TouchableOpacity
+            style={{
+              backgroundColor: Colors.secondary,
+              borderWidth: 0,
+              marginRight: pixelSizeHorizontal(15),
+              borderRadius: widthPixel(30),
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              marginVertical: 10,
+              padding: pixelSizeHorizontal(15),
+            }}
+            onPress={() => btnCreateGameTap()}
+          >
+            <Text
               style={{
-                backgroundColor: Colors.secondary,
-                borderWidth: 0,
-                marginRight: pixelSizeHorizontal(15),
-                borderRadius: widthPixel(30),
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                marginVertical: 10,
-                padding: pixelSizeHorizontal(15),
+                fontFamily: BOLD,
+                fontSize: FontSize.FS_15,
+                color: Colors.white,
               }}
             >
-              <Text
-                style={{
-                  fontFamily: BOLD,
-                  fontSize: FontSize.FS_15,
-                  color: Colors.white,
-                }}
-              >
-                Create Game
-              </Text>
-            </TouchableOpacity>
-          </View>
+              Create Game
+            </Text>
+          </TouchableOpacity>
         </View>
 
-        <BottomModal isVisible={isOpenRating} onClose={() =>{ setIsOpenRating(false)
-         setRating(0);
-         setReview("");}}
-        title={"Vista Sports Arena"}>
+        <BottomModal
+          isVisible={isOpenRating}
+          onClose={() => {
+            setIsOpenRating(false);
+            setRating(0);
+            setReview("");
+          }}
+          title={"Vista Sports Arena"}
+        >
           <RatingSheet
-                onRatingChange={onRatingChange}
-                onReviewChange={onReviewChange}
-                onPressRate={onPressRate}
-                rating={rating}
-                review={review}
-                isLoading={isLoading}
-              />
+            onRatingChange={onRatingChange}
+            onReviewChange={onReviewChange}
+            onPressRate={onPressRate}
+            rating={rating}
+            review={review}
+            isLoading={isLoading}
+          />
         </BottomModal>
         {isLoading && <LoadingView />}
       </SafeAreaView>

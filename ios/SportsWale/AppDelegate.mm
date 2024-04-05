@@ -2,6 +2,7 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import "RNCConfig.h"
+#import <GoogleMaps/GoogleMaps.h>
 
 @implementation AppDelegate
 
@@ -18,6 +19,8 @@ NSDictionary *config = [RNCConfig env];
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
 
+  [GMSServices provideAPIKey:@"AIzaSyBOoDtUIYQCLwexvSt3lB0_9VPdGBMgoUk"];
+  
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 

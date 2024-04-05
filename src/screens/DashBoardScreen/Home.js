@@ -298,6 +298,8 @@ const Home = () => {
             /> */}
           </View>
 
+          {homeData?.near_by_games ?
+          <>
           <View style={styles.nearByContainer}>
             <Text style={styles.nearByText}>
               {Translate.t("join_nearby_games")}
@@ -331,38 +333,47 @@ const Home = () => {
               />
             )}
           />
+          </>
+          : null}
 
-          <View style={[styles.nearByContainer, { marginTop: 0 }]}>
-            <Text style={styles.nearByText}>
-              {Translate.t("book_nearby_venue")}
-            </Text>
-            <TouchableOpacity
-              onPress={() => {
-                navigate("Venue");
+              {homeData?.near_by_venues ?
+          <>
+            <View style={[styles.nearByContainer, { marginTop: 0 }]}>
+              <Text style={styles.nearByText}>
+                {Translate.t("book_nearby_venue")}
+              </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  navigate("Book");
+                }}
+              >
+                <Icon name={"chevron-right"} size={28} color={black} />
+              </TouchableOpacity>
+            </View>
+            <FlatList
+              contentContainerStyle={{
+                paddingBottom: pixelSizeHorizontal(20),
+                paddingHorizontal: pixelSizeHorizontal(20),
               }}
-            >
-              <Icon name={"chevron-right"} size={28} color={black} />
-            </TouchableOpacity>
-          </View>
-          <FlatList
-            contentContainerStyle={{
-              paddingBottom: pixelSizeHorizontal(20),
-              paddingHorizontal: pixelSizeHorizontal(20),
-            }}
-            horizontal
-            data={homeData?.near_by_venues}
-            showsHorizontalScrollIndicator={false}
-            ItemSeparatorComponent={() => (
-              <View style={{ width: widthPixel(20), height: widthPixel(20) }} />
-            )}
-            renderItem={({ item }) => (
-              <VenuesCard
-                item={item}
-                styles={{ width: SCREEN_WIDTH / 1.4 }}
-                isShowFavourite={false}
-              />
-            )}
-          />
+              horizontal
+              data={homeData?.near_by_venues}
+              showsHorizontalScrollIndicator={false}
+              ItemSeparatorComponent={() => (
+                <View
+                  style={{ width: widthPixel(20), height: widthPixel(20) }}
+                />
+              )}
+              renderItem={({ item }) => (
+                <VenuesCard
+                  item={item}
+                  styles={{ width: SCREEN_WIDTH / 1.4 }}
+                  isShowFavourite={false}
+                  showGamesList={false}
+                />
+              )}
+            />
+          </> : null}
+
 
           <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
             <BasicCard style={styles.cardContainer}>

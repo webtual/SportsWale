@@ -9,7 +9,7 @@ import {
   PermissionsAndroid,
   Platform,
 } from "react-native";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   black,
   placeholderGrey,
@@ -43,18 +43,19 @@ import moment from "moment";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import FastImage from "react-native-fast-image";
-import { SCREEN_WIDTH } from "../../constants/ConstantKey";
+import { GOOGLE_API_KEY, SCREEN_WIDTH } from "../../constants/ConstantKey";
 import IconButton from "../../commonComponents/IconButton";
 import ImagePicker from "react-native-image-crop-picker";
 import Geolocation from "@react-native-community/geolocation";
 import { useToast } from "native-base";
 import { useDispatch } from "react-redux";
 import { storeCurrentLocation } from "../../redux/reducers/userReducer";
+import MapView, { Marker, PROVIDER_GOOGLE, Callout } from "react-native-maps";
 
 const Register = (props) => {
-  const dispatch = useDispatch()
-
-  const toast = useToast()
+  const dispatch = useDispatch();
+  const refMarker = useRef();
+  const toast = useToast();
 
   const { data } = props?.route?.params ?? {};
   const [isLoading, setIsLoading] = useState(false);
@@ -80,9 +81,8 @@ const Register = (props) => {
   const [txtDob, setDob] = useState("");
   const [txtLocation, setTxtLocation] = useState("");
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [CurrentLatitude, setCurrentLatitude] = useState(null);
-  const [CurrentLongitude, setCurrentLongitude] = useState(null);
-
+  const [CurrentLatitude, setCurrentLatitude] = useState(0);
+  const [CurrentLongitude, setCurrentLongitude] = useState(0);
 
   useEffect(() => {
     requestLocationPermission();
@@ -92,28 +92,43 @@ const Register = (props) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (refMarker.current) {
+
+      refMarker.current.animateToRegion(
+        {
+          latitude: Number(CurrentLatitude),
+          longitude: Number(CurrentLongitude),
+          latitudeDelta: 0.006594926458930672,
+          longitudeDelta: 0.004564784467220306,
+        },
+        1000
+      );
+    }
+  }, [CurrentLatitude, CurrentLongitude]);
+
   const requestLocationPermission = async () => {
-    if (Platform.OS === 'ios') {
+    if (Platform.OS === "ios") {
       getOneTimeLocation();
     } else {
       try {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
           {
-            title: 'Location Access Required',
-            message: 'This App needs to Access your location',
-          },
+            title: "Location Access Required",
+            message: "This App needs to Access your location",
+          }
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
           //To Check, If Permission is granted
           getOneTimeLocation();
-          console.log('====================================');
-          console.log('Permission Granted');
-          console.log('====================================');
+          console.log("====================================");
+          console.log("Permission Granted");
+          console.log("====================================");
         } else {
-          console.log('====================================');
-          console.log('Permission Denied');
-          console.log('====================================');
+          console.log("====================================");
+          console.log("Permission Denied");
+          console.log("====================================");
         }
       } catch (err) {
         // Api_GetContacts(true);
@@ -125,23 +140,30 @@ const Register = (props) => {
   const getOneTimeLocation = () => {
     Geolocation.getCurrentPosition(
       //Will give you the current location
-      position => {
-        // console.log('====================================');
-        // console.log('Current Location is : ' + JSON.stringify(position));
-        // console.log('====================================');
+      (position) => {
+        console.log("====================================");
+        console.log("Current Location is : " + JSON.stringify(position));
+        console.log("====================================");
 
-        dispatch(storeCurrentLocation({lat : position.coords.latitude, long : position.coords.longitude}))
+        dispatch(
+          storeCurrentLocation({
+            lat: position.coords.latitude,
+            long: position.coords.longitude,
+          })
+        );
         setCurrentLatitude(position.coords.latitude);
         setCurrentLongitude(position.coords.longitude);
+
+        getaddressFromLatLong({lat : position.coords.latitude, long : position.coords.longitude, setFieldValue : null})
       },
-      error => {
-        console.log("Geolocation error : ",error.message);
+      (error) => {
+        console.log("Geolocation error : ", error.message);
       },
       {
-        enableHighAccuracy: false,
+        enableHighAccuracy: true,
         timeout: 200000,
         maximumAge: 3600000,
-      },
+      }
     );
   };
 
@@ -209,6 +231,29 @@ const Register = (props) => {
     ]);
   };
 
+
+  const getaddressFromLatLong = async ({lat, long, setFieldValue}) => {
+    await fetch(
+      'https://maps.googleapis.com/maps/api/geocode/json?address=' +
+        lat +
+        ',' +
+        long +
+        '&key=' +
+        GOOGLE_API_KEY,
+    )
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log(
+          'ADDRESS GEOCODE is BACK!! => ' + JSON.stringify(responseJson),
+        );
+        if (responseJson.results.length > 0) {
+          setFieldValue && setFieldValue("location",responseJson.results?.[0].formatted_address);
+          setTxtLocation(responseJson.results?.[0].formatted_address)
+        }
+      });
+  };
+
+
   const registerSchema = Yup.object().shape({
     mobile_number: Yup.string()
       .min(10, "* Please enter valid mobile number")
@@ -216,9 +261,9 @@ const Register = (props) => {
     name: Yup.string()
       .min(3, "* Please enter atlease 3 character")
       .required("* Please enter your full name"),
-    location: Yup.string()
-      .min(3, "* Please enter atlease 3 character")
-      .required("* Please enter location"),
+    // location: Yup.string()
+    //   .min(3, "* Please enter atlease 3 character")
+    //   .required("* Please enter location"),
     dob: Yup.string()
       // .min(10, '* Please enter your password')
       .required("* Please select date of birth"),
@@ -256,18 +301,19 @@ const Register = (props) => {
             validationSchema={registerSchema}
             onSubmit={(values) => {
               console.log("values : ", values);
-              
-              if(CurrentLatitude && CurrentLongitude){
+
+              if (CurrentLatitude && CurrentLongitude) {
                 var FinalValue = values;
                 FinalValue["isFrom"] = "Register";
                 FinalValue["lat"] = CurrentLatitude;
                 FinalValue["long"] = CurrentLongitude;
                 navigate("OtpView", { data: FinalValue });
-              }else{
+              } else {
                 toast.show({
-                  description : "Please allow location permission, we required your current location"
-                })
-              }              
+                  description:
+                    "Please allow location permission, we required your current location",
+                });
+              }
             }}
           >
             {({
@@ -359,14 +405,81 @@ const Register = (props) => {
                 >
                   {Translate.t("location")}
                 </Text>
-                <TextInputView
+                {/* <TextInputView
                   containerStyle={{ marginTop: pixelSizeHorizontal(10) }}
                   onChangeText={handleChange("location")}
                   value={values.location}
                   placeholder={Translate.t("enter_location")}
                   keyboardType={"default"}
                   error={errors.location && touched.location && errors.location}
-                />
+                /> */}
+
+                <View style={{ marginTop: pixelSizeHorizontal(10) }}>
+                  <MapView
+                    scrollEnabled={false}
+                    ref={refMarker}
+                    zoomEnabled={false}
+                    zoomControlEnabled={false}
+                    showsUserLocation={false}
+                    style={{ width: "100%", height: 180 }}
+                    provider={PROVIDER_GOOGLE}
+                    followsUserLocation={true}
+                    showsMyLocationButton={false}
+                    initialRegion={{
+                      latitude: CurrentLatitude,
+                      longitude: CurrentLongitude,
+                      latitudeDelta: 0.006594926458930672,
+                      longitudeDelta:0.004564784467220306
+                    }}
+                    //   onRegionChangeComplete={onRegionChange}
+                    // onRegionChange={onRegionChange}
+                  >
+                    <Marker
+                      //   key={index}
+                      tappable={false}
+                      coordinate={{
+                        latitude: CurrentLatitude,
+                        longitude: CurrentLongitude,
+                      }}
+                      title={"Your Selected Location"}
+                      description={values?.location}
+                    />
+                  </MapView>
+                  <TouchableOpacity
+                    style={{
+                      backgroundColor: primary,
+                      borderRadius: pixelSizeHorizontal(5),
+                      paddingVertical: pixelSizeHorizontal(8),
+                      marginTop: pixelSizeHorizontal(10),
+                    }}
+                    onPress={() => {
+                      navigate("LocationMap",{lat : CurrentLatitude, long : CurrentLongitude, onSelectLocation : (cord) => {
+                        console.log("cord : ",cord)
+                        setCurrentLatitude(cord.coordinate.selectedLatitude);
+                        setCurrentLongitude(
+                          cord.coordinate.selectedLongitude,
+                        );
+                        getaddressFromLatLong(
+                          cord.coordinate.selectedLatitude,
+                          cord.coordinate.selectedLongitude,
+                          setFieldValue
+                        );
+                      }})
+                    }}
+                  >
+                    <Text
+                      style={[
+                        CommonStyle.textInputStyle,
+                        {
+                          color: white,
+                          textAlign: "center",
+                        },
+                      ]}
+                    >
+                      Select your location
+                    </Text>
+                  </TouchableOpacity>
+                </View>
 
                 <Text
                   style={[
@@ -414,7 +527,7 @@ const Register = (props) => {
                   <Text
                     style={[
                       CommonStyle.errorText,
-                      { marginTop: pixelSizeHorizontal(3)},
+                      { marginTop: pixelSizeHorizontal(3) },
                     ]}
                   >
                     {errors.dob && touched.dob && errors.dob}

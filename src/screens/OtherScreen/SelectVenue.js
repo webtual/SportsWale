@@ -9,7 +9,7 @@ import {
   Platform,
   FlatList,
 } from "react-native";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   black,
   light_grey,
@@ -23,6 +23,7 @@ import {
   secondary_dark_grey,
   black05,
   border,
+  dim_grey,
 } from "../../constants/Color";
 
 import Translate from "../../translation/Translate";
@@ -58,83 +59,95 @@ import { Log } from "../../commonComponents/Log";
 import { useFocusEffect } from "@react-navigation/native";
 import CommonStyle from "../../commonComponents/CommonStyle";
 import Icon from "react-native-vector-icons/Feather";
-import { HStack, Radio, Stack } from "native-base";
+import { HStack, Radio, Stack, useToast } from "native-base";
 import { SCREEN_WIDTH } from "../../constants/ConstantKey";
 import moment from "moment";
 import Divider from "../../commonComponents/Divider";
+import VenuesCard from "../../commonComponents/VenuesCard";
+import ApiManager from "../../commonComponents/ApiManager";
+import { GET_ALL_VENUES } from "../../constants/ApiUrl";
+import { useSelector } from "react-redux";
+import { getUniqueListBy } from "../../commonComponents/Utils";
 
 const SelectVenue = ({}) => {
+  const toast = useToast()
+  const userReduxData = useSelector((state) => state.userRedux);
+
+
   const [isLoading, setIsLoading] = useState(false);
   const [Txt, setTxt] = useState("");
   const [isFocus, setIsFocus] = useState(false);
   const [isInvite, setIsInvite] = useState(false);
   const [isFreeAll, setIsFreeAll] = useState(false);
 
+  const [page, setPage] = useState(1);
+
   const [txtSearch, setTxtSearch] = useState("");
+  const [showMore, setShowMore] = useState(false);
+  const [allVenues, setAllVenues] = useState([]);
 
 
   useFocusEffect(useCallback(() => {}, []));
-  const VenuesData = [
-    {
-      image:
-        "https://content.jdmagicbox.com/comp/delhi/s4/011pxx11.xx11.151026131555.u2s4/catalogue/t-n-memorial-cricket-academy-nyay-khand-1-indirapuram-delhi-cricket-coaching-classes-g3hscbmrj5.jpg",
-      venueName: "Ahemedabad cricket ground",
-      venueAddress: "Ahemedabad",
-      rating: "5.0",
-    },
-    {
-      image:
-        "https://media.hudle.in/venues/e5438e14-eef5-4ef7-8d40-2893200604b0/photo/91577a635c28585de0603a74f2bd7cf2014f27c4",
-      venueName: "Vikramnagar Football Ground",
-      venueAddress: "Ranip",
-      rating: "5.0",
-    },
-    {
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROJF5wMaNyC_atpMCOVJhDT-BuOFLkQ_4qpA&usqp=CAU",
-      venueName: "ACC cricket ground",
-      venueAddress: "Thaltej",
-      rating: "5.0",
-    },
-    {
-      image:
-        "https://media.istockphoto.com/id/1130905980/photo/universal-grass-stadium-illuminated-by-spotlights-and-empty-green-grass-playground.jpg?b=1&s=170667a&w=0&k=20&c=7t-jHN-NyuCMH2S9BwUGmQBjbMZaRCykeG86n1PYaD0=",
-      venueName: "Colosseum Ahmedabad",
-      venueAddress: "Prahald nagar",
-      rating: "5.0",
-    },
-    {
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR355I7R0GFo-MLsVRZ0NPICjpTVSRG1T8gyQ&usqp=CAU",
-      venueName: "Ahemedabad cricket ground",
-      venueAddress: "Ghatlodia",
-      rating: "5.0",
-    },
-    {
-      image:
-        "https://i1.wp.com/cricketgraph.com/wp-content/uploads/2017/06/LOGO-2.jpg?fit=613%2C341&ssl=1",
-      venueName: "Kankaria Football Ground (Maninagar)",
-      venueAddress: "Nikol",
-      rating: "5.0",
-    },
-    {
-      image:
-        "https://content.jdmagicbox.com/comp/delhi/s4/011pxx11.xx11.151026131555.u2s4/catalogue/t-n-memorial-cricket-academy-nyay-khand-1-indirapuram-delhi-cricket-coaching-classes-g3hscbmrj5.jpg",
-      venueName: "Ahemedabad cricket ground",
-      venueAddress: "Naroda",
-      rating: "5.0",
-    },
-    {
-      image:
-        "https://cdn3.mycity4kids.com/images/article-images/mobile-web/details/img-20160912-57d683c46cf11.jpg",
-      venueName: "Table Tennis Association of Ahmedabad",
-      venueAddress: "Bodakdev",
-      rating: "5.0",
-    },
-  ];
-  const OnPressNext = () => {
-    navigate("SelectSlot");
+
+
+  useEffect(() => {
+    console.log("effecr call");
+    Api_GetAllVenue(true);
+  }, [page]);
+
+  const Api_GetAllVenue = (isLoad) => {
+    setIsLoading(isLoad);
+
+    const formData = new FormData();
+    formData.append("page", page);
+    formData.append("limit", "10");
+    formData.append("latitude", userReduxData.lat);
+    formData.append("longitude", userReduxData.long);
+
+    formData.append("favourites", 0);
+    formData.append("keyword", txtSearch);
+
+    ApiManager.post(GET_ALL_VENUES, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        console.log("Api_GetAllVenue : ", JSON.stringify(response));
+        setIsLoading(false);
+
+        if (response.data.status === true) {
+          var finalData = response.data.data;
+
+          if (finalData?.current_page >= finalData?.total_pages) {
+            setShowMore(false);
+
+            var finalData = [
+              ...allVenues,
+              ...response.data.data.near_by_venues,
+            ];
+            setAllVenues(getUniqueListBy(finalData, "id"));
+          } else {
+            setShowMore(true);
+            var finalData = [
+              ...allVenues,
+              ...response.data.data.near_by_venues,
+            ];
+            setAllVenues(getUniqueListBy(finalData, "id"));
+          }
+        } else {
+          toast.show({
+            description: response.data.message,
+          });
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.error("Api_GetAllVenue Error ", err);
+      });
   };
+
+  
   return (
     <>
       <HeaderView
@@ -144,7 +157,7 @@ const SelectVenue = ({}) => {
         onPress={() => goBack()}
         containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20) }}
       >
-        <View style={{ marginTop: 10, flex: 1 }}>
+        <View style={{ marginTop: 10, flex: 1 }} onStartShouldSetResponder={() => true}>
 
         <TextInputView
             icon={<Icon name={"search"} size={20} color={secondary} />}
@@ -157,32 +170,61 @@ const SelectVenue = ({}) => {
           <FlatList
             contentContainerStyle={{ paddingBottom: 15 }}
             bounces={false}
-            data={VenuesData}
-            ItemSeparatorComponent={() => (
-              <Divider/>
+            data={allVenues}
+            nestedScrollEnabled={true}
+            onStartShouldSetResponder={() => true}
+            ListHeaderComponent={() => (
+              <View style={{ height: widthPixel(12) }} />
             )}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                style={{
-                  flexDirection: "row",
-                  paddingVertical: pixelSizeHorizontal(12),
-                  alignItems: "center",
-                  flex:1,
-                }}
-              >
-                <Icon name={"map-pin"} size={20} color={black} />
-                <Text
+            ListFooterComponent={() =>
+              showMore && (
+                <View
                   style={{
-                    fontFamily: MEDIUM,
-                    fontSize: FontSize.FS_16,
-                    color: black,
-                    marginHorizontal: pixelSizeHorizontal(8),
-                    flex:1
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginVertical: pixelSizeHorizontal(20),
                   }}
                 >
-                  {item.venueName}
+                  <TouchableOpacity
+                    style={{ flexDirection: "row" }}
+                    onPress={() => setPage(page + 1)}
+                  >
+                    <Text style={[styles.text, { color: secondary }]}>
+                      Show more
+                    </Text>
+                    <Icon name={"arrow-down"} size={20} color={secondary} />
+                  </TouchableOpacity>
+                </View>
+              )
+            }
+            ItemSeparatorComponent={() => (
+              <View style={{ height: widthPixel(12) }} />
+            )}
+            ListEmptyComponent={() => (
+              <View
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: pixelSizeHorizontal(30),
+                }}
+              >
+                <Text style={[styles.text, { color: dim_grey }]}>
+                  No record found
                 </Text>
-              </TouchableOpacity>
+              </View>
+            )}
+            renderItem={({ item }) => (
+              <View style={{marginHorizontal : pixelSizeHorizontal(5)}} onStartShouldSetResponder={() => true}>
+              <VenuesCard
+                item={item}
+                styles={{ flex: 1 }}
+                isShowFavourite={false}
+                btnFavouriteTap={() => {
+                  console.log("favorite");
+                  Api_Favorite_Venue(true, item);
+                }}
+              />
+              </View>
             )}
           />
         </View>
@@ -192,6 +234,11 @@ const SelectVenue = ({}) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  text: {
+    fontFamily: SEMIBOLD,
+    fontSize: FontSize.FS_13,
+  },
+});
 
 export default SelectVenue;

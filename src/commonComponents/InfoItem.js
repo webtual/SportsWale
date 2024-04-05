@@ -6,23 +6,25 @@ import { SEMIBOLD , FontSize} from '../constants/Fonts';
 import { black } from '../constants/Color';
 import { pixelSizeHorizontal } from './ResponsiveScreen';
 
-const InfoItem = ({ iconSource, text }) => {
+const InfoItem = ({ iconSource, text, style={} }) => {
   return (
     <View
-      style={{
+      style={[{
         flexDirection: 'row',
-        marginVertical: pixelSizeHorizontal(5),
-        alignItems: 'center',
-      }}
+        marginVertical: pixelSizeHorizontal(7),
+        // alignItems: 'center',
+      },{...style}]}
     >
-      <FastImage
+      {/* <FastImage
         style={{
           width: 28,
           height: 28,
         }}
         source={iconSource}
         resizeMode="cover"
-      />
+      /> */}
+
+      {iconSource && iconSource}
       <Text
         style={{
             fontFamily: SEMIBOLD,

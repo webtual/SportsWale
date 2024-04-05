@@ -1,4 +1,10 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
 import React from "react";
 import { Colors } from "../constants/CustomeColor";
 import FastImage from "react-native-fast-image";
@@ -8,52 +14,75 @@ import { SCREEN_WIDTH } from "../constants/ConstantKey";
 import { BOLD, FontSize, SEMIBOLD, MEDIUM } from "../constants/Fonts";
 import Divider from "./Divider";
 import { navigate } from "../navigations/RootNavigation";
-import { black, black05, dim_grey, primary_light, secondary, white } from "../constants/Color";
+import {
+  black,
+  black05,
+  dim_grey,
+  primary_light,
+  secondary,
+  white,
+} from "../constants/Color";
 import IconButton from "./IconButton";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useSelector } from "react-redux";
+import SportItem from "./SportItem";
 
-export default function VenuesCard({ item , styles, isShowFavourite = true,...props}) {
-
- const userData = useSelector(state => state.userRedux.user_data);
+export default function VenuesCard({
+  item: VenueData,
+  styles,
+  showGamesList = true,
+  isShowFavourite = true,
+  ...props
+}) {
+  const userData = useSelector((state) => state.userRedux.user_data);
 
   return (
     <TouchableOpacity
-      onPress={() => navigate("VenueDetail", { venueData: item })}
+      onPress={() => navigate("VenueDetail", { venueData: VenueData })}
       activeOpacity={0.7}
-      style={[{
-        backgroundColor: white,
-        borderRadius: 10,
-        // minHeight: 190,
-        shadowColor: black05,
-        shadowOffset: {
-          width: 0,
-          height: 3,
+      style={[
+        {
+          backgroundColor: white,
+          borderRadius: 10,
+          // minHeight: 190,
+          shadowColor: black05,
+          shadowOffset: {
+            width: 0,
+            height: 3,
+          },
+          shadowOpacity: 0.17,
+          shadowRadius: 3,
+          elevation: 3,
+          // alignSelf: "center",
         },
-        shadowOpacity: 0.17,
-        shadowRadius: 3,
-        elevation: 3,
-        // alignSelf: "center",
-      },
-    {...styles}
-    ]}
+        { ...styles },
+      ]}
     >
       <View>
-      <FastImage
-        style={{
-          width: "100%",
-          height: 100,
-          borderTopLeftRadius: 10,
-          borderTopRightRadius: 10,
-        }}
-        source={{uri :  userData?.asset_url +item?.image}}
-        resizeMode="cover"
-      />
-      {isShowFavourite &&
-      <IconButton additionalStyle={{position : 'absolute', bottom : 10, right : 10}}
-      onPress={() => {props?.btnFavouriteTap()}}>
-        <Icon name={item?.is_favourites ? "heart" : "heart-outline"} size={24} color={item?.is_favourites ? secondary : white}/>
-      </IconButton>}
+        <FastImage
+          style={{
+            width: "100%",
+            height: 100,
+            borderTopLeftRadius: 10,
+            borderTopRightRadius: 10,
+          }}
+          source={{ uri: userData?.asset_url + VenueData?.image }}
+          resizeMode="cover"
+        />
+        {isShowFavourite && (
+          <IconButton
+            additionalStyle={{ position: "absolute", bottom: 10, right: 10 }}
+            onPress={() => {
+              props?.btnFavouriteTap();
+            }}
+          >
+            <Icon
+              name={VenueData?.is_favourites ? "heart" : "heart-outline"}
+              size={24}
+              color={VenueData?.is_favourites ? secondary : white}
+            />
+          </IconButton>
+        )}
       </View>
       <View
         style={{
@@ -76,7 +105,7 @@ export default function VenuesCard({ item , styles, isShowFavourite = true,...pr
                 color: black,
               }}
             >
-              {item.title}
+              {VenueData.title}
             </Text>
           </View>
           <View
@@ -95,7 +124,8 @@ export default function VenuesCard({ item , styles, isShowFavourite = true,...pr
                 color: black,
               }}
             >
-              {parseFloat(item?.avg_rating).toFixed(1) } ({item?.total_rating})
+              {parseFloat(VenueData?.avg_rating).toFixed(1)} (
+              {VenueData?.total_rating})
             </Text>
           </View>
         </View>
@@ -106,8 +136,32 @@ export default function VenuesCard({ item , styles, isShowFavourite = true,...pr
             color: dim_grey,
           }}
         >
-          {item.location}
+          {VenueData.location}
         </Text>
+
+        {VenueData?.venue_games.length && showGamesList ? (
+          <FlatList
+            style={{ marginTop: pixelSizeHorizontal(10) }}
+            horizontal={true}
+            bounces={false}
+            showsHorizontalScrollIndicator={false}
+            data={VenueData?.venue_games}
+            contentContainerStyle={{
+              flexDirection: "row",
+            }}
+            renderItem={({ item }) => (
+              <SportItem
+                item={item}
+                isDisabled={false}
+                activeOpacity={1}
+                onPressItem={() => {
+                  navigate("VenueDetail", { venueData: VenueData });
+                }}
+              />
+            )}
+          />
+        ) : null}
+
         <Divider style={{ marginVertical: pixelSizeVertical(10) }} />
 
         <View
@@ -132,7 +186,7 @@ export default function VenuesCard({ item , styles, isShowFavourite = true,...pr
               color: black,
             }}
           >
-            INR {parseInt(item?.onward_amount)} Onwards
+            INR {parseInt(VenueData?.onward_amount)} Onwards
           </Text>
         </View>
       </View>

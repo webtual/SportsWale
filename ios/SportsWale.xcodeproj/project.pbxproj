@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* SportsWaleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SportsWaleTests.m */; };
-		09D11AE56B1E02A6D6F61388 /* Pods_SportsWaleCommonPods_SportsWaleProd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F59AD6CB49D96A22CB73218 /* Pods_SportsWaleCommonPods_SportsWaleProd.framework */; };
+		031FD2233E5F23E5D3892874 /* Pods_SportsWale_SportsWaleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9F8BA649552FC6369FA1B98 /* Pods_SportsWale_SportsWaleTests.framework */; };
 		0D96FC7B4DF7447D8E517AE8 /* Manrope-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7A578A7FCDF4A4086BC6DE3 /* Manrope-SemiBold.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -69,15 +69,12 @@
 		2EEEA93629D30D9500D4B2C3 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA92129D30D9400D4B2C3 /* FontAwesome5_Brands.ttf */; };
 		2EEEA93829D30D9500D4B2C3 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA92329D30D9400D4B2C3 /* Ionicons.ttf */; };
 		2EEEA93929D30D9500D4B2C3 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEEA92429D30D9500D4B2C3 /* FontAwesome5_Regular.ttf */; };
-		3BBAA9689624674A0DF681F6 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
 		4883E2437CB5423CBD12B363 /* Manrope-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E125C7398BC46E4A27BB482 /* Manrope-Bold.ttf */; };
 		671ACCB35C6348B5B30965B9 /* Manrope-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86AD8F9FBEBB4A70ADF3F8A2 /* Manrope-ExtraLight.ttf */; };
 		731BC5B14D60430DB5272FFF /* Manrope-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A983496623DC4660B1F5CC60 /* Manrope-Regular.ttf */; };
-		748B3D2EA6E7641266A7657B /* Pods_SportsWaleCommonPods_SportsWaleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 157AB4D255922514175C0712 /* Pods_SportsWaleCommonPods_SportsWaleTests.framework */; };
 		78C8A03BB2F94A228B1ED27F /* Manrope-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B7C642204BF422DA6B2F515 /* Manrope-Medium.ttf */; };
-		7BFF86A61E381A11115E4643 /* Pods_SportsWaleCommonPods_SportsWale.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0F3EB8CC4A2D165C3EE6F05 /* Pods_SportsWaleCommonPods_SportsWale.framework */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		95CB5EB70287B0A395076F53 /* Pods_SportsWaleCommonPods_SportsWaleDev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C709A0AE1D7E10D561C5C7 /* Pods_SportsWaleCommonPods_SportsWaleDev.framework */; };
+		9E0D168A7651BD8BCF9864EC /* Pods_SportsWale.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F69DEDD4D50D8777ECB3E6 /* Pods_SportsWale.framework */; };
 		CCA30D924E4B4935B36B1D39 /* Manrope-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2D806EC9B2DE46CAA7C92034 /* Manrope-ExtraBold.ttf */; };
 		FECECBD0A5E94C4391355B51 /* Manrope-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A54B399DA5604E7F84859830 /* Manrope-Light.ttf */; };
 /* End PBXBuildFile section */
@@ -96,7 +93,6 @@
 		00E356EE1AD99517003FC87E /* SportsWaleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SportsWaleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* SportsWaleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SportsWaleTests.m; sourceTree = "<group>"; };
-		05A4285AADD1C93F58547AC3 /* Pods-SportsWaleCommonPods-SportsWaleProd.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWaleCommonPods-SportsWaleProd.debug.xcconfig"; path = "Target Support Files/Pods-SportsWaleCommonPods-SportsWaleProd/Pods-SportsWaleCommonPods-SportsWaleProd.debug.xcconfig"; sourceTree = "<group>"; };
 		0E125C7398BC46E4A27BB482 /* Manrope-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-Bold.ttf"; path = "../src/assets/fonts/Manrope-Bold.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* SportsWale.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportsWale.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = SportsWale/AppDelegate.h; sourceTree = "<group>"; };
@@ -104,9 +100,6 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SportsWale/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SportsWale/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SportsWale/main.m; sourceTree = "<group>"; };
-		157AB4D255922514175C0712 /* Pods_SportsWaleCommonPods_SportsWaleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SportsWaleCommonPods_SportsWaleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		17B0DAC339353DE44B8D5342 /* Pods-SportsWaleCommonPods-SportsWaleProd.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWaleCommonPods-SportsWaleProd.release.xcconfig"; path = "Target Support Files/Pods-SportsWaleCommonPods-SportsWaleProd/Pods-SportsWaleCommonPods-SportsWaleProd.release.xcconfig"; sourceTree = "<group>"; };
-		2458B312AD2038DAF968E77E /* Pods-SportsWaleCommonPods-SportsWaleDev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWaleCommonPods-SportsWaleDev.release.xcconfig"; path = "Target Support Files/Pods-SportsWaleCommonPods-SportsWaleDev/Pods-SportsWaleCommonPods-SportsWaleDev.release.xcconfig"; sourceTree = "<group>"; };
 		2D806EC9B2DE46CAA7C92034 /* Manrope-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-ExtraBold.ttf"; path = "../src/assets/fonts/Manrope-ExtraBold.ttf"; sourceTree = "<group>"; };
 		2E53B86529F6863F00A1842C /* SportsWaleDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportsWaleDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E53B89229F68C0A00A1842C /* SportsWaleProd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportsWaleProd.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,20 +119,18 @@
 		2EEEA92129D30D9400D4B2C3 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Brands.ttf; sourceTree = "<group>"; };
 		2EEEA92329D30D9400D4B2C3 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
 		2EEEA92429D30D9500D4B2C3 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Regular.ttf; sourceTree = "<group>"; };
-		2F59AD6CB49D96A22CB73218 /* Pods_SportsWaleCommonPods_SportsWaleProd.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SportsWaleCommonPods_SportsWaleProd.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-SportsWale.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWale.debug.xcconfig"; path = "Target Support Files/Pods-SportsWale/Pods-SportsWale.debug.xcconfig"; sourceTree = "<group>"; };
-		50C709A0AE1D7E10D561C5C7 /* Pods_SportsWaleCommonPods_SportsWaleDev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SportsWaleCommonPods_SportsWaleDev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5709B34CF0A7D63546082F79 /* Pods-SportsWale.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWale.release.xcconfig"; path = "Target Support Files/Pods-SportsWale/Pods-SportsWale.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-SportsWale-SportsWaleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWale-SportsWaleTests.debug.xcconfig"; path = "Target Support Files/Pods-SportsWale-SportsWaleTests/Pods-SportsWale-SportsWaleTests.debug.xcconfig"; sourceTree = "<group>"; };
-		68532B6305CE30F6D008EE96 /* Pods-SportsWaleCommonPods-SportsWaleDev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWaleCommonPods-SportsWaleDev.debug.xcconfig"; path = "Target Support Files/Pods-SportsWaleCommonPods-SportsWaleDev/Pods-SportsWaleCommonPods-SportsWaleDev.debug.xcconfig"; sourceTree = "<group>"; };
 		7BD46155DA8D81F2790298E7 /* Pods-SportsWaleCommonPods-SportsWale.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWaleCommonPods-SportsWale.debug.xcconfig"; path = "Target Support Files/Pods-SportsWaleCommonPods-SportsWale/Pods-SportsWaleCommonPods-SportsWale.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = SportsWale/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		86AD8F9FBEBB4A70ADF3F8A2 /* Manrope-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-ExtraLight.ttf"; path = "../src/assets/fonts/Manrope-ExtraLight.ttf"; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-SportsWale-SportsWaleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWale-SportsWaleTests.release.xcconfig"; path = "Target Support Files/Pods-SportsWale-SportsWaleTests/Pods-SportsWale-SportsWaleTests.release.xcconfig"; sourceTree = "<group>"; };
+		90F69DEDD4D50D8777ECB3E6 /* Pods_SportsWale.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SportsWale.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B7C642204BF422DA6B2F515 /* Manrope-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-Medium.ttf"; path = "../src/assets/fonts/Manrope-Medium.ttf"; sourceTree = "<group>"; };
 		A54B399DA5604E7F84859830 /* Manrope-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-Light.ttf"; path = "../src/assets/fonts/Manrope-Light.ttf"; sourceTree = "<group>"; };
 		A983496623DC4660B1F5CC60 /* Manrope-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-Regular.ttf"; path = "../src/assets/fonts/Manrope-Regular.ttf"; sourceTree = "<group>"; };
-		B0F3EB8CC4A2D165C3EE6F05 /* Pods_SportsWaleCommonPods_SportsWale.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SportsWaleCommonPods_SportsWale.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9F8BA649552FC6369FA1B98 /* Pods_SportsWale_SportsWaleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SportsWale_SportsWaleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4F230D8B09B0A7EE250DAE2 /* Pods-SportsWaleCommonPods-SportsWaleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWaleCommonPods-SportsWaleTests.release.xcconfig"; path = "Target Support Files/Pods-SportsWaleCommonPods-SportsWaleTests/Pods-SportsWaleCommonPods-SportsWaleTests.release.xcconfig"; sourceTree = "<group>"; };
 		C4ABDA98B761C171410AC341 /* Pods-SportsWaleCommonPods-SportsWale.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsWaleCommonPods-SportsWale.release.xcconfig"; path = "Target Support Files/Pods-SportsWaleCommonPods-SportsWale/Pods-SportsWaleCommonPods-SportsWale.release.xcconfig"; sourceTree = "<group>"; };
 		C7A578A7FCDF4A4086BC6DE3 /* Manrope-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-SemiBold.ttf"; path = "../src/assets/fonts/Manrope-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -152,7 +143,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				748B3D2EA6E7641266A7657B /* Pods_SportsWaleCommonPods_SportsWaleTests.framework in Frameworks */,
+				031FD2233E5F23E5D3892874 /* Pods_SportsWale_SportsWaleTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,8 +151,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BBAA9689624674A0DF681F6 /* BuildFile in Frameworks */,
-				7BFF86A61E381A11115E4643 /* Pods_SportsWaleCommonPods_SportsWale.framework in Frameworks */,
+				9E0D168A7651BD8BCF9864EC /* Pods_SportsWale.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,7 +159,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95CB5EB70287B0A395076F53 /* Pods_SportsWaleCommonPods_SportsWaleDev.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,7 +166,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09D11AE56B1E02A6D6F61388 /* Pods_SportsWaleCommonPods_SportsWaleProd.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,10 +207,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				50C709A0AE1D7E10D561C5C7 /* Pods_SportsWaleCommonPods_SportsWaleDev.framework */,
-				157AB4D255922514175C0712 /* Pods_SportsWaleCommonPods_SportsWaleTests.framework */,
-				2F59AD6CB49D96A22CB73218 /* Pods_SportsWaleCommonPods_SportsWaleProd.framework */,
-				B0F3EB8CC4A2D165C3EE6F05 /* Pods_SportsWaleCommonPods_SportsWale.framework */,
+				90F69DEDD4D50D8777ECB3E6 /* Pods_SportsWale.framework */,
+				A9F8BA649552FC6369FA1B98 /* Pods_SportsWale_SportsWaleTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -308,12 +294,8 @@
 				89C6BE57DB24E9ADA2F236DE /* Pods-SportsWale-SportsWaleTests.release.xcconfig */,
 				7BD46155DA8D81F2790298E7 /* Pods-SportsWaleCommonPods-SportsWale.debug.xcconfig */,
 				C4ABDA98B761C171410AC341 /* Pods-SportsWaleCommonPods-SportsWale.release.xcconfig */,
-				68532B6305CE30F6D008EE96 /* Pods-SportsWaleCommonPods-SportsWaleDev.debug.xcconfig */,
-				2458B312AD2038DAF968E77E /* Pods-SportsWaleCommonPods-SportsWaleDev.release.xcconfig */,
 				FD58DE9E424216EAC7A63C02 /* Pods-SportsWaleCommonPods-SportsWaleTests.debug.xcconfig */,
 				B4F230D8B09B0A7EE250DAE2 /* Pods-SportsWaleCommonPods-SportsWaleTests.release.xcconfig */,
-				05A4285AADD1C93F58547AC3 /* Pods-SportsWaleCommonPods-SportsWaleProd.debug.xcconfig */,
-				17B0DAC339353DE44B8D5342 /* Pods-SportsWaleCommonPods-SportsWaleProd.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -368,14 +350,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2E53B86229F6863F00A1842C /* Build configuration list for PBXNativeTarget "SportsWaleDev" */;
 			buildPhases = (
-				2E53B83B29F6863F00A1842C /* [CP] Check Pods Manifest.lock */,
 				2E53B83C29F6863F00A1842C /* Start Packager */,
 				2E53B83D29F6863F00A1842C /* Sources */,
 				2E53B84029F6863F00A1842C /* Frameworks */,
 				2E53B84229F6863F00A1842C /* Resources */,
 				2E53B85F29F6863F00A1842C /* Bundle React Native code and images */,
-				2E53B86029F6863F00A1842C /* [CP] Embed Pods Frameworks */,
-				2E53B86129F6863F00A1842C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -390,14 +369,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2E53B88F29F68C0A00A1842C /* Build configuration list for PBXNativeTarget "SportsWaleProd" */;
 			buildPhases = (
-				2E53B86829F68C0A00A1842C /* [CP] Check Pods Manifest.lock */,
 				2E53B86929F68C0A00A1842C /* Start Packager */,
 				2E53B86A29F68C0A00A1842C /* Sources */,
 				2E53B86D29F68C0A00A1842C /* Frameworks */,
 				2E53B86F29F68C0A00A1842C /* Resources */,
 				2E53B88C29F68C0A00A1842C /* Bundle React Native code and images */,
-				2E53B88D29F68C0A00A1842C /* [CP] Embed Pods Frameworks */,
-				2E53B88E29F68C0A00A1842C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -561,37 +537,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWale/Pods-SportsWaleCommonPods-SportsWale-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWale/Pods-SportsWale-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWale/Pods-SportsWaleCommonPods-SportsWale-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWale/Pods-SportsWale-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWale/Pods-SportsWaleCommonPods-SportsWale-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2E53B83B29F6863F00A1842C /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SportsWaleCommonPods-SportsWaleDev-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWale/Pods-SportsWale-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2E53B83C29F6863F00A1842C /* Start Packager */ = {
@@ -629,62 +583,6 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		2E53B86029F6863F00A1842C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleDev/Pods-SportsWaleCommonPods-SportsWaleDev-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleDev/Pods-SportsWaleCommonPods-SportsWaleDev-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleDev/Pods-SportsWaleCommonPods-SportsWaleDev-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2E53B86129F6863F00A1842C /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleDev/Pods-SportsWaleCommonPods-SportsWaleDev-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleDev/Pods-SportsWaleCommonPods-SportsWaleDev-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleDev/Pods-SportsWaleCommonPods-SportsWaleDev-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2E53B86829F68C0A00A1842C /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SportsWaleCommonPods-SportsWaleProd-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		2E53B86929F68C0A00A1842C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -720,40 +618,6 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		2E53B88D29F68C0A00A1842C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleProd/Pods-SportsWaleCommonPods-SportsWaleProd-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleProd/Pods-SportsWaleCommonPods-SportsWaleProd-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleProd/Pods-SportsWaleCommonPods-SportsWaleProd-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2E53B88E29F68C0A00A1842C /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleProd/Pods-SportsWaleCommonPods-SportsWaleProd-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleProd/Pods-SportsWaleCommonPods-SportsWaleProd-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleProd/Pods-SportsWaleCommonPods-SportsWaleProd-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -769,7 +633,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SportsWaleCommonPods-SportsWaleTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-SportsWale-SportsWaleTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -791,7 +655,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SportsWaleCommonPods-SportsWale-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-SportsWale-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -804,15 +668,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleTests/Pods-SportsWaleCommonPods-SportsWaleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWale-SportsWaleTests/Pods-SportsWale-SportsWaleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleTests/Pods-SportsWaleCommonPods-SportsWaleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWale-SportsWaleTests/Pods-SportsWale-SportsWaleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleTests/Pods-SportsWaleCommonPods-SportsWaleTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWale-SportsWaleTests/Pods-SportsWale-SportsWaleTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
@@ -821,15 +685,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWale/Pods-SportsWaleCommonPods-SportsWale-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWale/Pods-SportsWale-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWale/Pods-SportsWaleCommonPods-SportsWale-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWale/Pods-SportsWale-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWale/Pods-SportsWaleCommonPods-SportsWale-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWale/Pods-SportsWale-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
@@ -838,15 +702,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleTests/Pods-SportsWaleCommonPods-SportsWaleTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWale-SportsWaleTests/Pods-SportsWale-SportsWaleTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleTests/Pods-SportsWaleCommonPods-SportsWaleTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SportsWale-SportsWaleTests/Pods-SportsWale-SportsWaleTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWaleCommonPods-SportsWaleTests/Pods-SportsWaleCommonPods-SportsWaleTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SportsWale-SportsWaleTests/Pods-SportsWale-SportsWaleTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -919,7 +783,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FD58DE9E424216EAC7A63C02 /* Pods-SportsWaleCommonPods-SportsWaleTests.debug.xcconfig */;
+			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-SportsWale-SportsWaleTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -946,7 +810,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B4F230D8B09B0A7EE250DAE2 /* Pods-SportsWaleCommonPods-SportsWaleTests.release.xcconfig */;
+			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-SportsWale-SportsWaleTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -970,7 +834,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7BD46155DA8D81F2790298E7 /* Pods-SportsWaleCommonPods-SportsWale.debug.xcconfig */;
+			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-SportsWale.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -980,6 +844,7 @@
 				DEVELOPMENT_TEAM = MSD97L88TJ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SportsWale/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1001,7 +866,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C4ABDA98B761C171410AC341 /* Pods-SportsWaleCommonPods-SportsWale.release.xcconfig */;
+			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-SportsWale.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1010,6 +875,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MSD97L88TJ;
 				INFOPLIST_FILE = SportsWale/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1030,7 +896,6 @@
 		};
 		2E53B86329F6863F00A1842C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 68532B6305CE30F6D008EE96 /* Pods-SportsWaleCommonPods-SportsWaleDev.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1059,7 +924,6 @@
 		};
 		2E53B86429F6863F00A1842C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2458B312AD2038DAF968E77E /* Pods-SportsWaleCommonPods-SportsWaleDev.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1086,7 +950,6 @@
 		};
 		2E53B89029F68C0A00A1842C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 05A4285AADD1C93F58547AC3 /* Pods-SportsWaleCommonPods-SportsWaleProd.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1115,7 +978,6 @@
 		};
 		2E53B89129F68C0A00A1842C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 17B0DAC339353DE44B8D5342 /* Pods-SportsWaleCommonPods-SportsWaleProd.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

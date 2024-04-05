@@ -13,6 +13,10 @@ export const VENUES_DETAIL = "venues/"
 export const VENUE_FAVORITE = "venue/favourites/"
 export const RATE_VENUE = "venue/ratings/create"
 export const GET_PROFILE = "users/"
+export const VENUE_TIMESLOT = "venues/time-slots"
+
+
+
 
 export const UPDATE_PROFILE = "update-profile"
 export const GET_HOME_BANNER = "get-homebanner"
