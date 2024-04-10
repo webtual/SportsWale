@@ -28,13 +28,14 @@ import MoneyIcon from "../assets/images/MoneyIcon";
 import NavigationIcon from "../assets/images/NavigationIcon";
 import moment from "moment";
 import { useSelector } from "react-redux";
+import CommonStyle from "./CommonStyle";
 
 export default function GamesCard({ cardStyles, bookMark, item }) {
   const userData = useSelector((state) => state.userRedux.user_data);
 
   return (
     <TouchableOpacity
-      onPress={() => navigate("VenueDetail", { item: item })}
+      onPress={() => navigate("GameDetails", { game_data: item })}
       activeOpacity={0.7}
       style={[
         {
@@ -92,7 +93,7 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
             marginRight: pixelSizeHorizontal(10),
           }}
         >
-          {moment(item?.event_date).format("DD MMM, hh:mm a")}
+          {moment(item?.event_date).format("DD MMM, YYYY")} | {item?.event_start_time}
           {/* Fri,25 Aug,7:00PM */}
         </Text>
       </View>
@@ -123,56 +124,64 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
           >
             {/* First Image */}
             {item?.game_participants.length >= 1 && (
+              <View style={[{
+                width: 48,
+                height: 48,
+                borderRadius: 48 / 2,
+                borderWidth: 3,
+                borderColor: white,
+                backgroundColor : white,
+              },CommonStyle.shadow]}>
               <FastImage
-                style={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: 48 / 2,
-                  overflow: "hidden",
-                  borderWidth: 3,
-                  borderColor: white,
-                }}
+                style={{flex:1}}
                 source={{
                   uri: userData?.asset_url + item?.game_participants[0].profile,
                 }}
                 resizeMode="cover"
               />
+              </View>
             )}
 
             {/* Second Image */}
             {item?.game_participants.length >= 2 && (
-              <FastImage
-                style={{
-                  width: 32,
-                  height: 32,
-                  borderRadius: 16,
-                  marginLeft: -15,
-                  borderWidth: 3,
-                  borderColor: white,
-                }}
+             <View style={[{
+              width: 32,
+              height: 32,
+              borderRadius: 16,
+              marginLeft: -15,
+              borderWidth: 3,
+              borderColor: white,
+              backgroundColor : white
+            },CommonStyle.shadow]}>
+             <FastImage
+                style={{flex:1}}
                 source={{
                   uri: userData?.asset_url + item?.game_participants[1].profile,
                 }}
                 resizeMode="cover"
               />
+              </View>
             )}
 
             {/* Third Image */}
             {item?.game_participants.length >= 3 && (
+              <View style={[{backgroundColor:white, width: 32,
+                height: 32,
+                borderRadius: 16,
+                marginLeft: -10,
+                borderWidth: 3,
+                borderColor: white,
+                },CommonStyle.shadow]}>
               <FastImage
-                style={{
-                  width: 32,
-                  height: 32,
-                  borderRadius: 16,
-                  marginLeft: -10,
-                  borderWidth: 3,
-                  borderColor: white,
-                }}
+                style={[{
+                 flex:1
+                }]}
                 source={{
                   uri: userData?.asset_url + item?.game_participants[2].profile,
                 }}
                 resizeMode="cover"
               />
+              </View>
             )}
           </View>
         ) : null}

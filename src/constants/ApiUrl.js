@@ -14,7 +14,8 @@ export const VENUE_FAVORITE = "venue/favourites/"
 export const RATE_VENUE = "venue/ratings/create"
 export const GET_PROFILE = "users/"
 export const VENUE_TIMESLOT = "venues/time-slots"
-
+export const CREATE_GAME = "transactions/create-game"
+export const GAME_DETAILS = "events/players"
 
 
 

@@ -58,16 +58,19 @@ const LocationMap = (props) => {
             ]}
             onPress={() => {
               // Keyboard.dismiss();
-              navigate('SearchLocation', {
-                onSelectLocation: (location, searchText) => {
-                  setsearchText(searchText);
-                  setCurrentLatitude(location.lat);
-                  setCurrentLongitude(location.lng);
+              navigate('LocationGoggle', {
+                title : "Search place",
+                onSelectPlace: (location) => {
+                  var geoLocation = location?.geometry?.location;
+
+                  setsearchText(location?.formatted_address);
+                  setCurrentLatitude(geoLocation.lat);
+                  setCurrentLongitude(geoLocation.lng);
 
                   refMarker.current.animateToRegion(
                     {
-                      latitude: Number(location.lat),
-                      longitude: Number(location.lng),
+                      latitude: Number(geoLocation.lat),
+                      longitude: Number(geoLocation.lng),
                       latitudeDelta: 0.006594926458930672,
                       longitudeDelta: 0.004564784467220306,
                     },

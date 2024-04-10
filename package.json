@@ -48,6 +48,8 @@
     "react-native-dotenv": "^3.4.8",
     "react-native-easy-bottomsheet": "^1.0.11",
     "react-native-fast-image": "^8.6.3",
+    "react-native-geocoding": "^0.5.0",
+    "react-native-google-places-autocomplete": "^2.5.6",
     "react-native-image-crop-picker": "^0.39.0",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-maps": "1.10.3",

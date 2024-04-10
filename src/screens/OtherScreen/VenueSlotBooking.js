@@ -29,8 +29,10 @@ import moment from "moment";
 import { slotCreator } from "react-native-slot-creator";
 import {
   black,
+  border,
   dim_grey,
   grey,
+  light_grey_02,
   offWhite,
   primary,
   primary_light,
@@ -57,21 +59,35 @@ const VenueSlotBooking = (props) => {
   const [DateSlot, setDateSlot] = useState([]);
   const [TimeSlot, setTimeSlot] = useState([]);
 
-  useFocusEffect(
-    useCallback(() => {
-      var data = [1, 2, 3, 4, 5, 6, 7];
-      var arr = [new Date()];
-      data.map((item) => {
-        var date = new Date();
-        date.setDate(date.getDate() + item);
-        arr.push(date);
-        setDateSlot(arr);
-      });
-      //   setSelectedDate(arr[0]);
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     var data = [1, 2, 3, 4, 5, 6, 7];
+  //     var arr = [new Date()];
+  //     data.map((item) => {
+  //       var date = new Date();
+  //       date.setDate(date.getDate() + item);
+  //       arr.push(date);
+  //       setDateSlot(arr);
+  //     });
+  //     //   setSelectedDate(arr[0]);
 
-      //   slotCreate();
-    }, [])
-  );
+  //     //   slotCreate();
+  //   }, [])
+  // );
+
+  useEffect(() => {
+    var data = [1, 2, 3, 4, 5, 6, 7];
+    var arr = [new Date()];
+    data.map((item) => {
+      var date = new Date();
+      date.setDate(date.getDate() + item);
+      arr.push(date);
+      setDateSlot(arr);
+    });
+    //   setSelectedDate(arr[0]);
+
+    //   slotCreate();
+  }, []);
 
   useEffect(() => {
     if (selectedDate) {
@@ -83,9 +99,9 @@ const VenueSlotBooking = (props) => {
     setIsLoading(isLoad);
 
     const formData = new FormData();
-    formData.append("venue_id", venueDetail?.id);
-    formData.append("venue_ground_id", selectedGround?.id);
-    formData.append("venue_game_id", selectedSport?.id);
+    formData.append("venue_id", selectedGround?.venue_id);
+    formData.append("venue_ground_id", selectedGround?.venue_ground_id);
+    formData.append("venue_game_id", selectedGround?.venue_game_id);
     formData.append("date", moment(selectedDate).format("dd-mm-yyyy"));
 
     ApiManager.post(VENUE_TIMESLOT, formData, {
@@ -145,7 +161,7 @@ const VenueSlotBooking = (props) => {
 
   const selectTimeSLot = (item) => {
     console.log("ITEM :", item);
-    var selectedData = [...selectedTimeSlot];
+    var selectedData = [...selectedTimeSlot]
 
     let filter = selectedData?.filter((x) => x?.id === item?.id);
     console.log("filter", filter);
@@ -155,10 +171,11 @@ const VenueSlotBooking = (props) => {
       selectedData = filter;
     } else {
       console.log("else");
-      selectedData.push(item);
+      selectedData = [item]
+      // selectedData.push(item); open this comment for multiple selection
     }
     console.log("====================================");
-    console.log("selectedData", selectedData?.length);
+    console.log("selectedData", selectedData);
     console.log("====================================");
     setSelectedTimeSlot(selectedData);
   };
@@ -172,7 +189,30 @@ const VenueSlotBooking = (props) => {
     }
   };
   const OnPressNext = () => {
-    navigate("Payment");
+    if (selectedSport == null) {
+      toast.show({
+        description: "Please select sport",
+      });
+    } else if (selectedGround == null) {
+      toast.show({
+        description: "Please select ground",
+      });
+    } else if (selectedDate == null) {
+      toast.show({
+        description: "Please select date",
+      });
+    } else if (selectedTimeSlot.length == 0) {
+      toast.show({
+        description: "Please select time slots",
+      });
+    } else {
+      navigate("Payment", {venueDetail : venueDetail, selectedSlots : {
+        sport : selectedSport,
+        ground : selectedGround,
+        date : selectedDate,
+        time : selectedTimeSlot
+      }});
+    }
   };
 
   return (
@@ -193,54 +233,35 @@ const VenueSlotBooking = (props) => {
               margin: pixelSizeHorizontal(5),
             }}
           >
-            Select Ground
+            Select Sport
           </Text>
 
           <FlatList
             style={{}}
             horizontal
             showsHorizontalScrollIndicator={false}
-            data={venueDetail?.venue_grounds}
+            data={venueDetail?.venue_games}
             contentContainerStyle={{
               flexDirection: "row",
             }}
             renderItem={({ item }) => {
               return (
-                <TouchableOpacity
-                  style={{
-                    paddingHorizontal: 10,
-                    borderWidth: 1,
-                    borderColor:
-                      selectedGround?.id == item.id ? secondary : dim_grey,
-                    marginRight: 10,
-                    borderRadius: 5,
-                    backgroundColor:
-                      selectedGround?.id == item.id ? secondary : white,
-                    marginVertical: pixelSizeHorizontal(5),
-                  }}
-                  // disabled={isDisabled}
-                  onPress={() => {
-                    setSelectedGround(item);
-                    setSelectedSport(null);
+                <SportItem
+                  item={item}
+                  isSelected={selectedSport?.id == item?.id}
+                  onPressItem={() => {
+                    setSelectedSport(item);
+                    setSelectedGround(null);
                     setSelectedDate(null);
                     setTimeSlot([]);
                     setSelectedTimeSlot([]);
                   }}
-                >
-                  <Text
-                    style={[
-                      styles.menuItemText,
-                      selectedGround?.id == item.id && styles.selectedItemText,
-                    ]}
-                  >
-                    {item.title}
-                  </Text>
-                </TouchableOpacity>
+                />
               );
             }}
           />
 
-          {selectedGround ? (
+          {selectedSport ? (
             <>
               <Text
                 style={{
@@ -250,29 +271,49 @@ const VenueSlotBooking = (props) => {
                   margin: pixelSizeHorizontal(5),
                 }}
               >
-                Select Sport
+                Select Ground
               </Text>
 
               <FlatList
                 style={{}}
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                data={selectedGround?.ground_games}
+                data={selectedSport?.grounds}
                 contentContainerStyle={{
                   flexDirection: "row",
                 }}
                 renderItem={({ item }) => {
                   return (
-                    <SportItem
-                      item={item}
-                      isSelected={selectedSport?.id == item?.id}
-                      onPressItem={() => {
-                        setSelectedSport(item);
+                    <TouchableOpacity
+                      style={{
+                        paddingHorizontal: 10,
+                        borderWidth: 1,
+                        borderColor:
+                          selectedGround?.id == item.id ? secondary : dim_grey,
+                        marginRight: 10,
+                        borderRadius: 5,
+                        backgroundColor:
+                          selectedGround?.id == item.id ? secondary : white,
+                        marginVertical: pixelSizeHorizontal(5),
+                      }}
+                      // disabled={isDisabled}
+                      onPress={() => {
+                        setSelectedGround(item);
                         setSelectedDate(null);
                         setTimeSlot([]);
                         setSelectedTimeSlot([]);
                       }}
-                    />
+                    >
+                      <Text
+                        style={[
+                          styles.menuItemText,
+                          selectedGround?.id == item.id &&
+                            styles.selectedItemText,
+                        ]}
+                      >
+                        {item.ground_title}
+                      </Text>
+                    </TouchableOpacity>
                   );
                 }}
               />
@@ -347,7 +388,7 @@ const VenueSlotBooking = (props) => {
               <FlatList
                 data={TimeSlot}
                 contentContainerStyle={{}}
-                numColumns={3}
+                numColumns={2}
                 scrollEnabled={false}
                 renderItem={({ item }) => (
                   <View
@@ -355,7 +396,7 @@ const VenueSlotBooking = (props) => {
                       // alignItems: "center",
                       marginVertical: 8,
                       justifyContent: "center",
-                      flex: 1 / 3,
+                      flex: 1 / 2,
                     }}
                   >
                     <TouchableOpacity
@@ -391,7 +432,7 @@ const VenueSlotBooking = (props) => {
                           textAlign: "center",
                         }}
                       >
-                        {item?.time_start}
+                        {item?.time_start} - {item?.time_end}
                       </Text>
                     </TouchableOpacity>
                   </View>
@@ -406,8 +447,12 @@ const VenueSlotBooking = (props) => {
                   { color: dim_grey, textAlign: "center" },
                 ]}
               >
-                Please select ground, sport and date to fetch available time
-                slots
+                {selectedSport &&
+                selectedGround &&
+                selectedDate &&
+                TimeSlot.length == 0
+                  ? "No slots found"
+                  : "Please select ground, sport and date to fetch available time slots"}
               </Text>
             </View>
           )}
@@ -422,10 +467,29 @@ const VenueSlotBooking = (props) => {
       >
         <TouchableOpacity
           activeOpacity={0.7}
+          disabled={
+            !(
+              selectedSport &&
+              selectedGround &&
+              selectedDate &&
+              selectedTimeSlot.length != 0
+            )
+          }
           onPress={() => {
             OnPressNext();
           }}
-          style={styles.btn}
+          style={[
+            styles.btn,
+            {
+              backgroundColor:
+                selectedSport &&
+                selectedGround &&
+                selectedDate &&
+                selectedTimeSlot.length != 0
+                  ? black
+                  : grey,
+            },
+          ]}
         >
           <Text style={CommonStyle.mainBtnText}>{Translate.t("next")}</Text>
         </TouchableOpacity>

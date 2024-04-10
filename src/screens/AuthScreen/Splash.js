@@ -7,7 +7,7 @@ import { black, dodgerBlue, greenPrimary, offWhite, primary, white } from '../..
 import { navigate, resetScreen } from '../../navigations/RootNavigation'
 import { BOLD, FontSize, MEDIUM, SEMIBOLD } from '../../constants/Fonts';
 import { getData, storeData } from '../../commonComponents/AsyncManager';
-import { SCREEN_HEIGHT, SCREEN_WIDTH, USER_DATA } from '../../constants/ConstantKey';
+import { BEARER_TOKEN, SCREEN_HEIGHT, SCREEN_WIDTH, USER_DATA } from '../../constants/ConstantKey';
 import translate from '../../translation/Translate';
 import ApiManager from '../../commonComponents/ApiManager';
 import { name, version } from '../../../package.json'
@@ -44,11 +44,11 @@ const Splash = (props) => {
 		getData(USER_DATA, (data) => {
 			// console.log("USER_DATA Splash: " + JSON.stringify(data))
 			if (data == null) {
-				console.log("go to login")
 				resetScreen('Intro')
 			} else {
-				storeData(USER_DATA, data, () => {
 
+				storeData(BEARER_TOKEN,data?.auth_token)
+				storeData(USER_DATA, data, () => {
 					dispatch(storeUserData(data))
 					resetScreen("Dashboard")
 

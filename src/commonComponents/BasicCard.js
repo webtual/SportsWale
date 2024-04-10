@@ -10,7 +10,7 @@ import { Colors } from "../constants/CustomeColor";
 const BasicCard = ({ children, style, onPress }) => {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
-      <View style={[styles.card, style]}>
+      <View style={[styles.card, {...style}]}>
         <ScrollView
           contentContainerStyle={styles.cardContent}
           showsVerticalScrollIndicator={false}

@@ -241,7 +241,7 @@ const MenuTab = () => {
                     color: warmGrey,
                   }}
                 >
-                  View your Full Profile
+                  View your full profile
                 </Text>
               </TouchableOpacity>
             </View>

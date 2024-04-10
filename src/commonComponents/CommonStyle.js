@@ -53,7 +53,7 @@ import { pixelSizeHorizontal, widthPixel } from "./ResponsiveScreen"
           height: 3,
         },
         shadowOpacity: 0.17,
-        shadowRadius: 8,
+        shadowRadius: 3,
         elevation: 3,
     }
 })

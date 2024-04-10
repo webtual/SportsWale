@@ -38,7 +38,7 @@ import { navigate } from "../../navigations/RootNavigation";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { FlatList, Input, useToast } from "native-base";
 import FastImage from "react-native-fast-image";
-import { SCREEN_WIDTH } from "../../constants/ConstantKey";
+import { GOOGLE_API_KEY, SCREEN_WIDTH } from "../../constants/ConstantKey";
 import CarouselCard from "../../commonComponents/Carousel/index";
 import HeaderView from "../../commonComponents/HeaderView";
 import { ic_gift, ic_group, ic_team } from "../../constants/Images";
@@ -65,8 +65,10 @@ import ApiManager from "../../commonComponents/ApiManager";
 import { GET_ALL_VENUES, GET_HOME } from "../../constants/ApiUrl";
 import LoadingView from "../../commonComponents/LoadingView";
 import Geolocation from "@react-native-community/geolocation";
+import Geocoder from 'react-native-geocoding';
 
-const Home = () => {
+
+const Home = ({navigation}) => {
   const dispatch = useDispatch();
   const toast = useToast();
 
@@ -83,10 +85,64 @@ const Home = () => {
 
   const [homeData, setHomeData] = useState(null);
 
+  const [txtCity, setTxtCity] = useState("")
+
   useEffect(() => {
     //
     requestLocationPermission();
   }, []);
+
+
+  useEffect(() => {
+    const focusListener = navigation?.addListener('tabPress', () => {
+      console.log("screen call")
+    });
+
+    return focusListener
+  }, [navigation]);
+
+
+  const getaddressFromLatLong = async (lat, long) => {
+
+    Geocoder.from(lat, long)
+    .then((json) => {
+      var addressComponent = json.results?.[0];
+      console.log("address comp : ",JSON.stringify(addressComponent));
+      if (addressComponent) {
+
+         var filtered_data = addressComponent?.address_components?.filter((address) => address?.types.includes("locality") || address?.types.includes("administrative_area_level_3"))
+         console.log("filtered address data : ",filtered_data)
+         setTxtCity(filtered_data?.[0]?.long_name)
+      }
+    })
+    .catch((error) => console.warn("Geocoder error", error));
+
+return
+    await fetch(
+      'https://maps.googleapis.com/maps/api/geocode/json?address=' +
+        lat +
+        ',' +
+        long +
+        '&key=' +
+        GOOGLE_API_KEY,
+    )
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log(
+          'ADDRESS GEOCODE is BACK!! => ' + JSON.stringify(responseJson),
+        );
+        if (responseJson.results.length > 0) {
+          setFieldValue && setFieldValue("location",responseJson.results?.[0].formatted_address);
+         
+         var res_data = responseJson.results?.[0]
+
+         var filtered_data = res_data?.address_components?.filter((address) => address?.types.includes("locality") || address?.types.includes("administrative_area_level_3"))
+         console.log("filtered address data : ",filtered_data)
+         setTxtCity(filtered_data?.[0]?.long_name)
+        }
+      });
+  };
+
 
   const requestLocationPermission = async () => {
     if (Platform.OS === "ios") {
@@ -135,6 +191,7 @@ const Home = () => {
         setCurrentLatitude(position.coords.latitude);
         setCurrentLongitude(position.coords.longitude);
 
+        getaddressFromLatLong( position.coords.latitude, position.coords.longitude)
         Api_Home(true, {
           lat: position.coords.latitude,
           long: position.coords.longitude,
@@ -193,6 +250,32 @@ const Home = () => {
         leftComponent={
           <TouchableOpacity
             style={{ flexDirection: "row", alignItems: "center" }}
+            onPress={() =>
+              navigate("LocationGoggle", {
+                title:"Search City",
+                googlePlaceProps: {
+                  filterReverseGeocodingByTypes: [
+                    "locality",
+                    "administrative_area_level_3",
+                  ],
+                },
+                onSelectPlace : (place_detail) => {
+                  console.log("place_detail : ", place_detail)
+                  setTxtCity(place_detail?.name)
+
+                  dispatch(
+                    storeCurrentLocation({
+                      lat:  place_detail?.geometry?.location?.lat,
+                      long: place_detail?.geometry?.location?.lng
+                    })
+                  );
+                  setCurrentLatitude( place_detail?.geometry?.location?.lat);
+                  setCurrentLongitude(place_detail?.geometry?.location?.lng);
+
+                  Api_Home(true,{lat : place_detail?.geometry?.location?.lat, long :  place_detail?.geometry?.location?.lng} )
+                }
+              })
+            }
           >
             <MapPinIcon />
             <Text
@@ -201,7 +284,7 @@ const Home = () => {
                 { color: white, marginLeft: pixelSizeHorizontal(5) },
               ]}
             >
-              Ahmedabad
+              {txtCity}
             </Text>
             <Icon name={"chevron-down"} size={24} color={white} />
           </TouchableOpacity>
@@ -220,7 +303,9 @@ const Home = () => {
             {userData && (
               <IconButton
                 additionalStyle={{ marginLeft: pixelSizeHorizontal(18) }}
-                onPress={() => {}}
+                onPress={() => {
+                  navigate("Profile");
+                }}
               >
                 <FastImage
                   source={{ uri: userData?.asset_url + userData?.profile }}
@@ -298,84 +383,84 @@ const Home = () => {
             /> */}
           </View>
 
-          {homeData?.near_by_games ?
-          <>
-          <View style={styles.nearByContainer}>
-            <Text style={styles.nearByText}>
-              {Translate.t("join_nearby_games")}
-            </Text>
-            <TouchableOpacity
-              onPress={() => {
-                navigate("Venue");
-              }}
-            >
-              <Icon name={"chevron-right"} size={28} color={black} />
-            </TouchableOpacity>
-          </View>
-          <FlatList
-            contentContainerStyle={{
-              paddingBottom: pixelSizeHorizontal(20),
-              paddingHorizontal: pixelSizeHorizontal(20),
-            }}
-            horizontal
-            data={homeData?.near_by_games}
-            showsHorizontalScrollIndicator={false}
-            ItemSeparatorComponent={() => (
-              <View
-                style={{ width: widthPixel(20), height: heightPixel(20) }}
-              />
-            )}
-            renderItem={({ item }) => (
-              <GamesCard
-                cardStyles={{ width: SCREEN_WIDTH / 1.3 }}
-                item={item}
-                bookMark={false}
-              />
-            )}
-          />
-          </>
-          : null}
-
-              {homeData?.near_by_venues ?
-          <>
-            <View style={[styles.nearByContainer, { marginTop: 0 }]}>
-              <Text style={styles.nearByText}>
-                {Translate.t("book_nearby_venue")}
-              </Text>
-              <TouchableOpacity
-                onPress={() => {
-                  navigate("Book");
+          {homeData?.near_by_games.length ? (
+            <>
+              <View style={styles.nearByContainer}>
+                <Text style={styles.nearByText}>
+                  {Translate.t("join_nearby_games")}
+                </Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigate("Venue");
+                  }}
+                >
+                  <Icon name={"chevron-right"} size={28} color={black} />
+                </TouchableOpacity>
+              </View>
+              <FlatList
+                contentContainerStyle={{
+                  paddingBottom: pixelSizeHorizontal(20),
+                  paddingHorizontal: pixelSizeHorizontal(20),
                 }}
-              >
-                <Icon name={"chevron-right"} size={28} color={black} />
-              </TouchableOpacity>
-            </View>
-            <FlatList
-              contentContainerStyle={{
-                paddingBottom: pixelSizeHorizontal(20),
-                paddingHorizontal: pixelSizeHorizontal(20),
-              }}
-              horizontal
-              data={homeData?.near_by_venues}
-              showsHorizontalScrollIndicator={false}
-              ItemSeparatorComponent={() => (
-                <View
-                  style={{ width: widthPixel(20), height: widthPixel(20) }}
-                />
-              )}
-              renderItem={({ item }) => (
-                <VenuesCard
-                  item={item}
-                  styles={{ width: SCREEN_WIDTH / 1.4 }}
-                  isShowFavourite={false}
-                  showGamesList={false}
-                />
-              )}
-            />
-          </> : null}
+                horizontal
+                data={homeData?.near_by_games}
+                showsHorizontalScrollIndicator={false}
+                ItemSeparatorComponent={() => (
+                  <View
+                    style={{ width: widthPixel(20), height: heightPixel(20) }}
+                  />
+                )}
+                renderItem={({ item }) => (
+                  <GamesCard
+                    cardStyles={{ width: SCREEN_WIDTH / 1.3 }}
+                    item={item}
+                    bookMark={false}
+                  />
+                )}
+              />
+            </>
+          ) : null}
 
+          {homeData?.near_by_venues.length ? (
+            <>
+              <View style={[styles.nearByContainer, { marginTop: 10 }]}>
+                <Text style={styles.nearByText}>
+                  {Translate.t("book_nearby_venue")}
+                </Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigate("Book");
+                  }}
+                >
+                  <Icon name={"chevron-right"} size={28} color={black} />
+                </TouchableOpacity>
+              </View>
+              <FlatList
+                contentContainerStyle={{
+                  paddingBottom: pixelSizeHorizontal(20),
+                  paddingHorizontal: pixelSizeHorizontal(20),
+                }}
+                horizontal
+                data={homeData?.near_by_venues}
+                showsHorizontalScrollIndicator={false}
+                ItemSeparatorComponent={() => (
+                  <View
+                    style={{ width: widthPixel(20), height: widthPixel(20) }}
+                  />
+                )}
+                renderItem={({ item }) => (
+                  <VenuesCard
+                    item={item}
+                    styles={{ width: SCREEN_WIDTH / 1.4 }}
+                    isShowFavourite={false}
+                    showGamesList={false}
+                  />
+                )}
+              />
+            </>
+          ) : null}
 
-          <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
+          <View style={{ paddingHorizontal: pixelSizeHorizontal(20), marginTop : pixelSizeHorizontal(10) }}>
             <BasicCard style={styles.cardContainer}>
               <View
                 style={{

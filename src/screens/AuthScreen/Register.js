@@ -51,6 +51,7 @@ import { useToast } from "native-base";
 import { useDispatch } from "react-redux";
 import { storeCurrentLocation } from "../../redux/reducers/userReducer";
 import MapView, { Marker, PROVIDER_GOOGLE, Callout } from "react-native-maps";
+import Geocoder from "react-native-geocoding";
 
 const Register = (props) => {
   const dispatch = useDispatch();
@@ -94,7 +95,6 @@ const Register = (props) => {
 
   useEffect(() => {
     if (refMarker.current) {
-
       refMarker.current.animateToRegion(
         {
           latitude: Number(CurrentLatitude),
@@ -154,7 +154,10 @@ const Register = (props) => {
         setCurrentLatitude(position.coords.latitude);
         setCurrentLongitude(position.coords.longitude);
 
-        getaddressFromLatLong({lat : position.coords.latitude, long : position.coords.longitude, setFieldValue : null})
+        getaddressFromLatLong(
+          position.coords.latitude,
+           position.coords.longitude,
+        );
       },
       (error) => {
         console.log("Geolocation error : ", error.message);
@@ -231,28 +234,44 @@ const Register = (props) => {
     ]);
   };
 
+  const getaddressFromLatLong = async (lat, long, setFieldValue) => {
+    Geocoder.from(lat, long)
+      .then((json) => {
+        var addressComponent = json.results[0];
+        console.log("address comp : ", addressComponent);
+        if (addressComponent.length) {
+          setFieldValue &&
+            setFieldValue("location", addressComponent?.formatted_address);
+          setTxtLocation(addressComponent?.formatted_address);
+        }
+      })
+      .catch((error) => console.warn("Geocoder error", error));
 
-  const getaddressFromLatLong = async ({lat, long, setFieldValue}) => {
+    return;
+
     await fetch(
-      'https://maps.googleapis.com/maps/api/geocode/json?address=' +
+      "https://maps.googleapis.com/maps/api/geocode/json?address=" +
         lat +
-        ',' +
+        "," +
         long +
-        '&key=' +
-        GOOGLE_API_KEY,
+        "&key=" +
+        GOOGLE_API_KEY
     )
-      .then(response => response.json())
-      .then(responseJson => {
+      .then((response) => response.json())
+      .then((responseJson) => {
         console.log(
-          'ADDRESS GEOCODE is BACK!! => ' + JSON.stringify(responseJson),
+          "ADDRESS GEOCODE is BACK!! => " + JSON.stringify(responseJson)
         );
         if (responseJson.results.length > 0) {
-          setFieldValue && setFieldValue("location",responseJson.results?.[0].formatted_address);
-          setTxtLocation(responseJson.results?.[0].formatted_address)
+          setFieldValue &&
+            setFieldValue(
+              "location",
+              responseJson.results?.[0].formatted_address
+            );
+          setTxtLocation(responseJson.results?.[0].formatted_address);
         }
       });
   };
-
 
   const registerSchema = Yup.object().shape({
     mobile_number: Yup.string()
@@ -429,7 +448,7 @@ const Register = (props) => {
                       latitude: CurrentLatitude,
                       longitude: CurrentLongitude,
                       latitudeDelta: 0.006594926458930672,
-                      longitudeDelta:0.004564784467220306
+                      longitudeDelta: 0.004564784467220306,
                     }}
                     //   onRegionChangeComplete={onRegionChange}
                     // onRegionChange={onRegionChange}
@@ -453,18 +472,22 @@ const Register = (props) => {
                       marginTop: pixelSizeHorizontal(10),
                     }}
                     onPress={() => {
-                      navigate("LocationMap",{lat : CurrentLatitude, long : CurrentLongitude, onSelectLocation : (cord) => {
-                        console.log("cord : ",cord)
-                        setCurrentLatitude(cord.coordinate.selectedLatitude);
-                        setCurrentLongitude(
-                          cord.coordinate.selectedLongitude,
-                        );
-                        getaddressFromLatLong(
-                          cord.coordinate.selectedLatitude,
-                          cord.coordinate.selectedLongitude,
-                          setFieldValue
-                        );
-                      }})
+                      navigate("LocationMap", {
+                        lat: CurrentLatitude,
+                        long: CurrentLongitude,
+                        onSelectLocation: (cord) => {
+                          console.log("cord : ", cord);
+                          setCurrentLatitude(cord.coordinate.selectedLatitude);
+                          setCurrentLongitude(
+                            cord.coordinate.selectedLongitude
+                          );
+                          getaddressFromLatLong(
+                            cord.coordinate.selectedLatitude,
+                            cord.coordinate.selectedLongitude,
+                            setFieldValue
+                          );
+                        },
+                      });
                     }}
                   >
                     <Text

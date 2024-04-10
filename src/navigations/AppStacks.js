@@ -63,6 +63,8 @@ import CreateGame from '../screens/OtherScreen/CreateGame';
 import VenueSlotBooking from '../screens/OtherScreen/VenueSlotBooking';
 import LocationMap from '../screens/OtherScreen/LocationMap';
 import BokingDetails from '../screens/OtherScreen/BokingDetails';
+import LocationGoggle from '../screens/OtherScreen/LocationGoggle';
+import GameDetails from '../screens/OtherScreen/GameDetails';
 
 // import { cart_data } from '../redux/reducers/cartReducer';
 // import { useSelector } from 'react-redux';
@@ -168,7 +170,7 @@ function HomeTabs() {
 			<CurvedBottomBar.Screen
 			  name="Home"
 			  position="LEFT"
-			  component={() => <Home />}
+			  component={Home}
 			/>
 			<CurvedBottomBar.Screen
 			  name="Games"
@@ -190,6 +192,101 @@ function HomeTabs() {
 	  );
 	
 }
+
+// function HomeTabs() {
+
+// 	return (
+// 		<>
+// 			<Tab.Navigator
+// 				initialRouteName="Home"
+// 				screenOptions={{
+// 					headerShown: false,
+// 					tabBarShowLabel: true,
+// 					tabBarActiveTintColor: greenPrimary,
+// 					tabBarInactiveTintColor: disableColor,
+// 					tabBarStyle: { backgroundColor: offWhite, borderTopColor: offWhite, },
+// 					tabBarLabelStyle: { fontFamily: SEMIBOLD, fontSize: FontSize.FS_11 },
+// 					tabBarHideOnKeyboard: true
+// 				}}
+// 			>
+// 				<Tab.Screen
+// 					name={"Home"}
+// 					component={Home}
+// 					options={{
+// 						tabBarLabel: "Home",
+// 						// tabBarIcon: ({ color, size, focused }) => (
+
+// 						// 	<FastImage style={{ width: size, height: size, }}
+// 						// 		tintColor={color}
+// 						// 		resizeMode='contain'
+// 						// 		source={focused ? HomeFillImg : HomeImg}
+// 						// 	/>
+
+// 						// ),
+// 					}}
+					
+// 				/>
+
+
+// 				<Tab.Screen
+// 					name={"Games"}
+// 					component={GamesTab}
+// 					options={{
+// 						tabBarLabel: "Games",
+// 						// tabBarIcon: ({ color, size, focused }) => (
+
+// 						// 	<FastImage style={{ width: size, height: size, }}
+// 						// 		tintColor={color}
+// 						// 		resizeMode='contain'
+// 						// 		source={focused ? FolderFillImg : FolderImg}
+// 						// 	/>
+
+// 						// ),
+// 					}}
+// 				/>
+
+// 				<Tab.Screen
+// 					name={"Book"}
+// 					component={BookTab}
+// 					options={{
+// 						tabBarLabel: "Book",
+// 						// tabBarIcon: ({ color, size, focused }) => (
+
+// 						// 	<FastImage style={{ width: size, height: size, }}
+// 						// 		tintColor={color}
+// 						// 		resizeMode='contain'
+// 						// 		source={focused ? UserFillImg : UserImg}
+// 						// 	/>
+
+// 						// ),
+// 					}}
+// 				/>
+
+
+// 				<Tab.Screen
+// 					name={"Menu"}
+// 					component={MenuTab}
+// 					options={{
+// 						tabBarLabel: "Menu",
+// 						// tabBarIcon: ({ color, size, focused }) => (
+
+// 						// 	<FastImage style={{ width: size, height: size, }}
+// 						// 		tintColor={color}
+// 						// 		resizeMode='contain'
+// 						// 		source={focused ? SettingFillImg : SettingImg}
+// 						// 	/>
+
+// 						// ),
+// 					}}
+// 				/>
+
+
+// 			</Tab.Navigator>
+
+
+// 		</>
+// 	);
+// }
 
 
 function AppStacks() {
@@ -216,6 +313,9 @@ function AppStacks() {
 			<Stack.Screen name="Profile" component={Profile} />
 			<Stack.Screen name="VenueSlotBooking" component={VenueSlotBooking} />
 			<Stack.Screen name="LocationMap" component={LocationMap} />
+			<Stack.Screen name="LocationGoggle" component={LocationGoggle} />
+			<Stack.Screen name="GameDetails" component={GameDetails} />
+
 
 			
 			<Stack.Screen name="EnterActivityName" component={EnterActivityName} />

@@ -326,7 +326,7 @@ const BookTab = (props) => {
               <View style={{ height: widthPixel(12) }} />
             )}
             ListFooterComponent={() =>
-              showMore && (
+              showMore ? (
                 <View
                   style={{
                     alignItems: "center",
@@ -344,7 +344,7 @@ const BookTab = (props) => {
                     <Icon name={"arrow-down"} size={20} color={secondary} />
                   </TouchableOpacity>
                 </View>
-              )
+              ) :  <View style={{ height: widthPixel(12) }} />
             }
             ItemSeparatorComponent={() => (
               <View style={{ height: widthPixel(12) }} />

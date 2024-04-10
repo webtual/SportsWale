@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeaderView from "../../commonComponents/HeaderView";
-import { goBack, navigate } from "../../navigations/RootNavigation";
+import { goBack, navigate, popToTop, resetScreen } from "../../navigations/RootNavigation";
 import { Colors } from "../../constants/CustomeColor";
 import Translate from "../../translation/Translate";
 import {
@@ -46,9 +46,22 @@ import CommonStyle from "../../commonComponents/CommonStyle";
 import IdeaIcon from "../../assets/images/IdeaIcon";
 import Slider from "@react-native-community/slider";
 import TextInputView from "../../commonComponents/TextInputView";
+import { user_data } from "../../redux/reducers/userReducer";
+import { useSelector } from "react-redux";
+import moment from "moment";
+import { useToast } from "native-base";
+import ApiManager from "../../commonComponents/ApiManager";
+import { CREATE_GAME } from "../../constants/ApiUrl";
+import LoadingView from "../../commonComponents/LoadingView";
 
+export default function Payment(props) {
+  const toast = useToast();
 
-export default function Payment() {
+  const userData = useSelector(user_data);
+  const { venueDetail, selectedSlots } = props?.route?.params;
+
+  const [isLoading, setIsLoading] = useState(false);
+
   const [redeemToggle, setredeemToggle] = useState(false);
   const [amountToggle, setamountToggle] = useState(false);
   const [isGameSuccessModal, setIsGameSuccessModal] = useState(false);
@@ -56,15 +69,105 @@ export default function Payment() {
   const [gameSkillIsOn, setGameSkillIsOn] = useState(false);
   const [gameLevel, setGameLevel] = useState(1);
 
+  const [txtTotalPlayer, setTxtTotalPlayer] = useState("");
+  const [txtCostPerPlayer, setTxtCostPerPlayer] = useState("");
+
   const [txtInstruction, setTxtInstuction] = useState("");
 
   const [gameType, setGameType] = useState(0);
+
+  useEffect(() => {
+    console.log("selectedSlots : ", selectedSlots);
+  }, []);
+
+
+  const Api_Book_Venue = (isLoad) => {
+    setIsLoading(isLoad);
+
+    var convenienceCharge =
+      (venueDetail?.advance_amount * venueDetail?.convenience_fee_percentage) /
+      100;
+
+    const formData = new FormData();
+    formData.append("venue_id", venueDetail?.id);
+    formData.append("venue_ground_title", selectedSlots?.ground?.ground_title);
+    formData.append("venue_ground_id", selectedSlots?.time?.[0]?.venue_ground_id);
+    formData.append("venue_game_id", selectedSlots?.time?.[0]?.venue_game_id);
+    formData.append("venue_time_slot_id", selectedSlots?.time?.[0]?.id);
+    formData.append("book_date", moment(selectedSlots?.date).format("DD-MM-YYYY"));
+    formData.append("book_start_time", selectedSlots?.time?.[0]?.time_start);
+    formData.append("book_end_time", selectedSlots?.time?.[0]?.time_end);
+    formData.append("game_skill_level_flag", gameSkillIsOn ? 1 : 0);
+    formData.append("game_skill_level", gameLevel == 1 ? "Beginner" : gameLevel == 2 ? "Intermediate" : "Advance");
+    formData.append("cost_per_player_amount", txtCostPerPlayer);
+    formData.append("total_player", txtTotalPlayer);
+    formData.append("instructions", txtInstruction);
+    formData.append("ground_amount", venueDetail?.advance_amount);
+    formData.append("total_payable_amount", calTotalPayableAmount());
+    formData.append("payment_ref_id", "pay_001");
+    formData.append("transaction_order_number", "pay_001");
+
+    formData.append("total_amount", venueDetail?.advance_amount);
+    formData.append("convenience_fees", convenienceCharge);
+
+    ApiManager.post(CREATE_GAME, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        console.log("Api_Book_Venue : ", JSON.stringify(response));
+        setIsLoading(false);
+
+        if (response.data.status === true) {
+         
+          toast.show({
+            description: response.data.message,
+          });
+          setIsGameSuccessModal(true);
+        } else {
+          toast.show({
+            description: response.data.message,
+          });
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.error("Api_Book_Venue Error ", err);
+      });
+  };
+
+
+  const calTotalAmount = () => {
+    console.log("Total Payable : ", txtCostPerPlayer * txtTotalPlayer);
+    var amount = txtCostPerPlayer * txtTotalPlayer;
+    return amount == NaN ? 0 : String(amount);
+  };
+
+  const calTotalPayableAmount = () => {
+    var venueAmount = parseFloat(venueDetail?.advance_amount);
+    var convenienceCharge =
+      (venueDetail?.advance_amount * venueDetail?.convenience_fee_percentage) /
+      100;
+
+    return String(venueAmount + convenienceCharge);
+  };
+
+  const btnProcessTopPayTap = () => {
+    if (txtCostPerPlayer == "" || txtTotalPlayer == "") {
+      toast.show({
+        description: "please ente cost per player and total players",
+      });
+    } else {
+      Api_Book_Venue(true)
+    }
+  };
 
   return (
     <>
       <HeaderView
         HeaderSmall={true}
-        title={"Vista Sports Arena"}
+        title={venueDetail?.title || ""}
         isBack={true}
         onPress={() => goBack()}
         containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20) }}
@@ -82,7 +185,10 @@ export default function Payment() {
                 width: 20,
                 height: 20,
               }}
-              source={ic_cricket}
+              tintColor={secondary}
+              source={{
+                uri: userData?.asset_url + selectedSlots?.sport?.game_image,
+              }}
               resizeMode="contain"
             />
             <Text
@@ -93,7 +199,7 @@ export default function Payment() {
                 marginLeft: 10,
               }}
             >
-              Box Cricket
+              {selectedSlots?.sport?.game_title}
             </Text>
           </View>
 
@@ -105,7 +211,15 @@ export default function Payment() {
                 color: black,
               }}
             >
-              Mon 12 Dec,2024 | 07:30AM - 09:00 AM
+              {selectedSlots?.time[0]?.time_start} to{" "}
+              {selectedSlots?.time[0]?.time_end}
+              {/* {moment(selectedSlots?.date).format("ddd DD MMM, YYYY") +
+                "\n" +
+                selectedSlots?.time
+                  .map((item) => {
+                    return item.time_start
+                  })
+                  .join(", ")} for multiple slots display */}
             </Text>
           </View>
           {/* <View style={{ position: "absolute", right: 10, top: 10 }}>
@@ -117,19 +231,19 @@ export default function Payment() {
             iconSource={
               <TurfIcon style={{ marginTop: pixelSizeHorizontal(3) }} />
             }
-            text="Gokul Ground, Ahmedabad"
+            text={venueDetail?.title}
           />
           <InfoItem
             iconSource={
               <TurfIcon style={{ marginTop: pixelSizeHorizontal(3) }} />
             }
-            text="6 a Side Turf2"
+            text={selectedSlots?.ground?.ground_title}
           />
           <InfoItem
             iconSource={
               <CashIcon style={{ marginTop: pixelSizeHorizontal(3) }} />
             }
-            text={`${RUPEE} 2,500`}
+            text={`${RUPEE} ${venueDetail?.advance_amount}`}
           />
           {/* <InfoItem iconSource={ic_secure_shield} text="Fitness Cover" /> */}
         </BasicCard>
@@ -212,8 +326,9 @@ export default function Payment() {
               style={{ flex: 1 / 2.5, marginLeft: pixelSizeHorizontal(10) }}
             >
               <TextInputView
-                value=""
+                value={venueDetail?.advance_amount}
                 placeholder="200"
+                editable={false}
                 onChangeText={() => {}}
                 maxLength={7}
                 keyboardType={"number-pad"}
@@ -240,9 +355,9 @@ export default function Payment() {
               style={{ flex: 1 / 2.5, marginLeft: pixelSizeHorizontal(10) }}
             >
               <TextInputView
-                value=""
+                value={txtCostPerPlayer}
                 placeholder="200"
-                onChangeText={() => {}}
+                onChangeText={setTxtCostPerPlayer}
                 maxLength={7}
                 keyboardType={"number-pad"}
               />
@@ -266,9 +381,9 @@ export default function Payment() {
               style={{ flex: 1 / 2.5, marginLeft: pixelSizeHorizontal(20) }}
             >
               <TextInputView
-                value=""
+                value={txtTotalPlayer}
                 placeholder="200"
-                onChangeText={() => {}}
+                onChangeText={setTxtTotalPlayer}
                 maxLength={7}
                 keyboardType={"number-pad"}
               />
@@ -294,7 +409,8 @@ export default function Payment() {
               style={{ flex: 1 / 2.5, marginLeft: pixelSizeHorizontal(10) }}
             >
               <TextInputView
-                value=""
+                value={calTotalAmount()}
+                editable={false}
                 placeholder="200"
                 onChangeText={() => {}}
                 maxLength={7}
@@ -316,13 +432,18 @@ export default function Payment() {
               </Text>
             </View>
             <Text style={[styles.cardTitle, { fontSize: FontSize.FS_18 }]}>
-              {RUPEE}
+              % {venueDetail?.convenience_fee_percentage} = {RUPEE}
             </Text>
             <View
               style={{ flex: 1 / 2.5, marginLeft: pixelSizeHorizontal(10) }}
             >
               <TextInputView
-                value=""
+                value={String(
+                  (venueDetail?.advance_amount *
+                    venueDetail?.convenience_fee_percentage) /
+                    100
+                )}
+                editable={false}
                 placeholder="200"
                 onChangeText={() => {}}
                 maxLength={7}
@@ -358,8 +479,9 @@ export default function Payment() {
               style={{ flex: 1 / 2.5, marginLeft: pixelSizeHorizontal(10) }}
             >
               <TextInputView
-                value=""
+                value={calTotalPayableAmount()}
                 placeholder="200"
+                editable={false}
                 onChangeText={() => {}}
                 maxLength={7}
                 keyboardType={"number-pad"}
@@ -374,7 +496,10 @@ export default function Payment() {
         </View>
 
         <View
-          style={{ flexDirection: "row", marginVertical: pixelSizeHorizontal(20) }}
+          style={{
+            flexDirection: "row",
+            marginVertical: pixelSizeHorizontal(20),
+          }}
         >
           <TouchableOpacity
             style={[
@@ -480,7 +605,7 @@ export default function Payment() {
         <TouchableOpacity
           style={styles.btn}
           activeOpacity={0.7}
-          onPress={() => setIsGameSuccessModal(true)}
+          onPress={() => btnProcessTopPayTap()}
         >
           <Text
             style={{
@@ -489,7 +614,7 @@ export default function Payment() {
               color: white,
             }}
           >
-            {RUPEE} 1500
+            {RUPEE} {calTotalPayableAmount()}
           </Text>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Text
@@ -507,9 +632,15 @@ export default function Payment() {
 
         <CenterModal
           isVisible={isGameSuccessModal}
-          isCloseBtn={false}
-          onClose={() => {setIsGameSuccessModal(false)
-            navigate("BokingDetails") }}
+          isCloseBtn={true}
+          onClose={() => {
+            setIsGameSuccessModal(false);
+            
+            setTimeout(() => {
+              popToTop()
+              navigate("BokingDetails");
+            }, 1000);
+          }}
         >
           <View style={{ alignItems: "center" }}>
             <UserThumbsUpIcon />
@@ -539,6 +670,8 @@ export default function Payment() {
           </View>
         </CenterModal>
       </View>
+
+      {isLoading && <LoadingView />}
     </>
   );
 }

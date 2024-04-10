@@ -26,6 +26,7 @@ import IconButton from "./IconButton";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useSelector } from "react-redux";
 import SportItem from "./SportItem";
+import CommonStyle from "./CommonStyle";
 
 export default function VenuesCard({
   item: VenueData,
@@ -45,16 +46,9 @@ export default function VenuesCard({
           backgroundColor: white,
           borderRadius: 10,
           // minHeight: 190,
-          shadowColor: black05,
-          shadowOffset: {
-            width: 0,
-            height: 3,
-          },
-          shadowOpacity: 0.17,
-          shadowRadius: 3,
-          elevation: 3,
           // alignSelf: "center",
         },
+        CommonStyle.shadow,
         { ...styles },
       ]}
     >
@@ -108,6 +102,7 @@ export default function VenuesCard({
               {VenueData.title}
             </Text>
           </View>
+         {VenueData?.avg_rating > 0 && 
           <View
             style={{
               flexDirection: "row",
@@ -119,15 +114,15 @@ export default function VenuesCard({
           >
             <Text
               style={{
-                fontFamily: SEMIBOLD,
-                fontSize: FontSize.FS_11,
+                fontFamily: MEDIUM,
+                fontSize: FontSize.FS_13,
                 color: black,
               }}
             >
-              {parseFloat(VenueData?.avg_rating).toFixed(1)} (
-              {VenueData?.total_rating})
+              <Text style={{ fontFamily: SEMIBOLD,}}>{VenueData?.avg_rating}</Text> ({VenueData?.total_rating})
             </Text>
-          </View>
+          </View> }
+
         </View>
         <Text
           style={{

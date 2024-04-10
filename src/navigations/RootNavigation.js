@@ -25,6 +25,10 @@ export function resetScreen(screenName) {
   );
 }
 
+export function popToTop(){
+  navigationRef.current?.popToTop()
+}
+
 /** Use for Jump to diff tabs after screen reset
  Promise.all([
 				resetScreen("Dashboard")
