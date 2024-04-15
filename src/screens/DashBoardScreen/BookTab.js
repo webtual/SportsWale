@@ -18,8 +18,8 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useToast } from "native-base";
 import ChatIcon from "../../assets/images/ChatIcon";
 import BellIcon from "../../assets/images/BellIcon";
-import { user_data } from "../../redux/reducers/userReducer";
-import { useSelector } from "react-redux";
+import { storeCurrentLocation, user_data } from "../../redux/reducers/userReducer";
+import { useDispatch, useSelector } from "react-redux";
 import FastImage from "react-native-fast-image";
 import IconButton from "../../commonComponents/IconButton";
 import VenuesCard from "../../commonComponents/VenuesCard";
@@ -32,33 +32,69 @@ import ApiManager from "../../commonComponents/ApiManager";
 import { GET_ALL_VENUES, VENUE_FAVORITE } from "../../constants/ApiUrl";
 import LoadingView from "../../commonComponents/LoadingView";
 import { getUniqueListBy } from "../../commonComponents/Utils";
+import { navigate } from "../../navigations/RootNavigation";
+import Geocoder from "react-native-geocoding";
+
 
 const BookTab = (props) => {
   const toast = useToast();
+  const dispatch = useDispatch()
   const userReduxData = useSelector((state) => state.userRedux);
 
   const userData = useSelector(user_data);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [txtCity, setTxtCity] = useState("");
 
   const [page, setPage] = useState(1);
   const [allVenues, setAllVenues] = useState([]);
   const [showMore, setShowMore] = useState(false);
   const [favourites, setFavourites] = useState(0);
 
+
+  const [CurrentLatitude, setCurrentLatitude] = useState(userReduxData.lat || 0.0);
+  const [CurrentLongitude, setCurrentLongitude] = useState(userReduxData.long || 0.0);
+
+  useEffect(() => {
+    getaddressFromLatLong(CurrentLatitude,CurrentLongitude )
+  },[])
+
   useEffect(() => {
     console.log("effecr call");
-    Api_GetAllVenue(true);
+
+    Api_GetAllVenue(true, {
+      lat: CurrentLatitude,
+      long: CurrentLongitude,
+    });
+   
   }, [page, favourites]);
 
-  const Api_GetAllVenue = (isLoad) => {
+  const getaddressFromLatLong = async (lat, long) => {
+    Geocoder.from(lat, long)
+      .then((json) => {
+        var addressComponent = json.results?.[0];
+        console.log("address comp : ", JSON.stringify(addressComponent));
+        if (addressComponent) {
+          var filtered_data = addressComponent?.address_components?.filter(
+            (address) =>
+              address?.types.includes("locality") ||
+              address?.types.includes("administrative_area_level_3")
+          );
+          console.log("filtered address data : ", filtered_data);
+          setTxtCity(filtered_data?.[0]?.long_name);
+        }
+      })
+      .catch((error) => console.warn("Geocoder error", error));
+  };
+
+  const Api_GetAllVenue = (isLoad, locationCords) => {
     setIsLoading(isLoad);
 
     const formData = new FormData();
     formData.append("page", page);
     formData.append("limit", "10");
-    formData.append("latitude", userReduxData.lat);
-    formData.append("longitude", userReduxData.long);
+    formData.append("latitude", locationCords.lat);
+    formData.append("longitude", locationCords.long);
 
     formData.append("favourites", favourites);
     formData.append("keyword", "");
@@ -160,19 +196,48 @@ const BookTab = (props) => {
         titleColor={white}
         leftComponent={
           <TouchableOpacity
-            style={{ flexDirection: "row", alignItems: "center" }}
+          style={{ flexDirection: "row", alignItems: "center" }}
+          onPress={() =>
+            navigate("LocationGoggle", {
+              title: "Search City",
+              googlePlaceProps: {
+                filterReverseGeocodingByTypes: [
+                  "locality",
+                  "administrative_area_level_3",
+                ],
+              },
+              onSelectPlace: (place_detail) => {
+                console.log("place_detail : ", place_detail);
+                setTxtCity(place_detail?.name);
+
+                dispatch(
+                  storeCurrentLocation({
+                    lat: place_detail?.geometry?.location?.lat,
+                    long: place_detail?.geometry?.location?.lng,
+                  })
+                );
+                setCurrentLatitude(place_detail?.geometry?.location?.lat);
+                setCurrentLongitude(place_detail?.geometry?.location?.lng);
+
+                Api_GetAllVenue(true, {
+                  lat: place_detail?.geometry?.location?.lat,
+                  long: place_detail?.geometry?.location?.lng,
+                });
+              },
+            })
+          }
+        >
+          <MapPinIcon />
+          <Text
+            style={[
+              CommonStyle.regularText,
+              { color: white, marginLeft: pixelSizeHorizontal(5) },
+            ]}
           >
-            <MapPinIcon />
-            <Text
-              style={[
-                CommonStyle.regularText,
-                { color: white, marginLeft: pixelSizeHorizontal(5) },
-              ]}
-            >
-              Ahmedabad
-            </Text>
-            <Icon name={"chevron-down"} size={24} color={white} />
-          </TouchableOpacity>
+            {txtCity}
+          </Text>
+          <Icon name={"chevron-down"} size={24} color={white} />
+        </TouchableOpacity>
         }
         rightComponent={
           <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -188,7 +253,7 @@ const BookTab = (props) => {
             {userData && (
               <IconButton
                 additionalStyle={{ marginLeft: pixelSizeHorizontal(18) }}
-                onPress={() => {}}
+                onPress={() => navigate("Profile")}
               >
                 <FastImage
                   source={{ uri: userData?.asset_url + userData?.profile }}

@@ -42,7 +42,7 @@ const HeaderView = ({
   onPress = {},
   containerStyle = {},
   scrollContainerStyle = {},
-
+  isScroll = true,
   leftComponent,
   rightComponent,
   ...props
@@ -54,6 +54,7 @@ const HeaderView = ({
       ></SafeAreaView>
       <SafeAreaView style={{ flex: 1 }}>
         <StatusBar barStyle={"dark-content"} backgroundColor={primary} />
+       {isScroll ?
         <ScrollView
           style={styles.container}
           contentContainerStyle={[{...scrollContainerStyle}]}
@@ -118,6 +119,66 @@ const HeaderView = ({
             {children}
           </View>
         </ScrollView>
+        : 
+        <View style={{flex:1, backgroundColor : 'red'}}>
+           <View
+            style={[
+              styles.headerImgContainer,
+              {
+                height: props.HeaderSmall
+                  ? SCREEN_WIDTH / 4
+                  : SCREEN_WIDTH / 1.8,
+              },
+            ]}
+          >
+            <Image
+              source={headerBackground}
+              // resizeMode='cover'
+              style={{
+                flex: 1,
+                borderBottomLeftRadius: 25,
+                borderBottomRightRadius: 25,
+              }}
+            />
+
+            <View style={styles.headerRowContainer}>
+              {isBack && (
+                <IconButton additionalStyle={styles.btnBack} onPress={onPress}>
+                  <Icon name={"chevron-left"} size={32} color={titleColor} />
+                </IconButton>
+              )}
+
+              {leftComponent && leftComponent}
+
+              <View style={{ flex: 1 }}>
+                {title && (
+                  <Text
+                    numberOfLines={1}
+                    style={[
+                      styles.textTitle,
+                      {
+                        color: titleColor,
+                        marginHorizontal: !isBack
+                          ? pixelSizeHorizontal(20)
+                          : pixelSizeHorizontal(0),
+                        fontSize: FontSize.FS_20,
+                      },
+                    ]}
+                  >
+                    {title}
+                  </Text>
+                )}
+              </View>
+
+              {rightComponent && rightComponent}
+            </View>
+          </View>
+
+          <View style={[styles.mainView, { ...containerStyle }]} onStartShouldSetResponder={() => true}>
+            {children}
+          </View>
+        </View>
+        }
       </SafeAreaView>
     </>
   );

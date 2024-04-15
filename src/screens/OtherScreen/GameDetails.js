@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import HeaderView from "../../commonComponents/HeaderView";
-import { goBack } from "../../navigations/RootNavigation";
+import { goBack, navigate } from "../../navigations/RootNavigation";
 import {
   pixelSizeHorizontal,
   widthPixel,
@@ -12,10 +12,17 @@ import {
   offWhite,
   primary,
   primary_light,
+  secondary,
   white,
 } from "../../constants/Color";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { BOLD, FontSize, MEDIUM, REGULAR, SEMIBOLD } from "../../constants/Fonts";
+import {
+  BOLD,
+  FontSize,
+  MEDIUM,
+  REGULAR,
+  SEMIBOLD,
+} from "../../constants/Fonts";
 import { useToast } from "native-base";
 import { user_data } from "../../redux/reducers/userReducer";
 import { useSelector } from "react-redux";
@@ -27,6 +34,8 @@ import BasicCard from "../../commonComponents/BasicCard";
 import CommonStyle from "../../commonComponents/CommonStyle";
 import NavigationIcon from "../../assets/images/NavigationIcon";
 import FastImage from "react-native-fast-image";
+import InfoItem from "../../commonComponents/InfoItem";
+import TurfIcon from "../../assets/images/TurfIcon";
 
 const GameDetails = (props) => {
   const toast = useToast();
@@ -78,6 +87,11 @@ const GameDetails = (props) => {
     return host?.[0] || null;
   };
 
+
+  const btnJoinGameTap = () => {
+    navigate("PayJoin",{game_details : gameDetails})
+  }
+
   return (
     <>
       <HeaderView
@@ -96,7 +110,7 @@ const GameDetails = (props) => {
       >
         {gameDetails && (
           <View style={{}}>
-            <Text
+            {/* <Text
               style={[
                 styles.titletext,
                 {
@@ -120,7 +134,70 @@ const GameDetails = (props) => {
             >
               {moment(gameDetails?.event_date).format("DD MMM, YYYY")} |{" "}
               {gameDetails?.event_start_time} - {gameDetails?.event_end_time}
-            </Text>
+            </Text> */}
+
+            <BasicCard style={{ marginVertical: 10 }}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  marginVertical: 10,
+                  alignItems: "center",
+                }}
+              >
+                <FastImage
+                  style={{
+                    width: 20,
+                    height: 20,
+                  }}
+                  tintColor={secondary}
+                  source={{
+                    uri: userData?.asset_url + gameDetails?.game_image,
+                  }}
+                  resizeMode="contain"
+                />
+                <Text
+                  style={{
+                    fontFamily: BOLD,
+                    fontSize: FontSize.FS_20,
+                    color: black,
+                    marginLeft: 10,
+                  }}
+                >
+                  {gameDetails?.game_title}
+                </Text>
+              </View>
+
+              <View style={{}}>
+                <Text
+                  style={{
+                    fontFamily: MEDIUM,
+                    fontSize: FontSize.FS_16,
+                    color: black,
+                  }}
+                >
+                  {moment(gameDetails?.event_date).format("DD MMM, YYYY")} |{" "}
+                  {gameDetails?.event_start_time} -{" "}
+                  {gameDetails?.event_end_time}
+                </Text>
+              </View>
+              {/* <View style={{ position: "absolute", right: 10, top: 10 }}>
+            <Icon name={"trash-can-outline"} size={28} color={Colors.primary} />
+          </View> */}
+
+              <InfoItem
+                style={{ marginTop: pixelSizeHorizontal(15) }}
+                iconSource={
+                  <TurfIcon style={{ marginTop: pixelSizeHorizontal(3) }} />
+                }
+                text={gameDetails?.venue_title}
+              />
+              <InfoItem
+                iconSource={
+                  <TurfIcon style={{ marginTop: pixelSizeHorizontal(3) }} />
+                }
+                text={gameDetails?.venue_ground_title}
+              />
+            </BasicCard>
 
             <View
               style={[
@@ -261,40 +338,48 @@ const GameDetails = (props) => {
               </View>
             </View>
 
-            {gameDetails?.instructions &&
-            <>
-            <View
-              style={[
-                styles.card,
-                { marginTop: pixelSizeHorizontal(20), flexDirection : 'row' },
-                CommonStyle.shadow,
-              ]}
-            >
-                <Icon name={"information"} size={25} color={primary}/>
-                <Text
-              style={[
-                styles.titletext,
-                {marginLeft : pixelSizeHorizontal(12)}
-              ]}
-            >
-              Instructions
-            </Text>
+            {gameDetails?.instructions && (
+              <>
+                <View
+                  style={[
+                    styles.card,
+                    {
+                      marginTop: pixelSizeHorizontal(20),
+                      flexDirection: "row",
+                    },
+                    CommonStyle.shadow,
+                  ]}
+                >
+                  <Icon name={"information"} size={25} color={primary} />
+                  <Text
+                    style={[
+                      styles.titletext,
+                      { marginLeft: pixelSizeHorizontal(12) },
+                    ]}
+                  >
+                    Instructions
+                  </Text>
                 </View>
 
                 <View
-              style={[
-                styles.card,
-                { marginTop: pixelSizeHorizontal(5) },
-                CommonStyle.shadow,
-              ]}
-            >
-                <Text style={{fontSize : FontSize.FS_12, color : black, fontFamily : REGULAR}}>
-                {gameDetails?.instructions}
-                </Text>
-            </View>
-                </>
-            }
-
+                  style={[
+                    styles.card,
+                    { marginVertical: pixelSizeHorizontal(5) },
+                    CommonStyle.shadow,
+                  ]}
+                >
+                  <Text
+                    style={{
+                      fontSize: FontSize.FS_12,
+                      color: black,
+                      fontFamily: REGULAR,
+                    }}
+                  >
+                    {gameDetails?.instructions}
+                  </Text>
+                </View>
+              </>
+            )}
           </View>
         )}
       </HeaderView>
@@ -306,7 +391,7 @@ const GameDetails = (props) => {
             marginBottom: pixelSizeHorizontal(20),
           },
         ]}
-        onPress={() => {}}
+        onPress={() => btnJoinGameTap()}
       >
         <Text style={CommonStyle.mainBtnText}>Join Game</Text>
       </TouchableOpacity>

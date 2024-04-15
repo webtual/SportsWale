@@ -65,6 +65,7 @@ import LocationMap from '../screens/OtherScreen/LocationMap';
 import BokingDetails from '../screens/OtherScreen/BokingDetails';
 import LocationGoggle from '../screens/OtherScreen/LocationGoggle';
 import GameDetails from '../screens/OtherScreen/GameDetails';
+import PayJoin from '../screens/OtherScreen/PayJoin';
 
 // import { cart_data } from '../redux/reducers/cartReducer';
 // import { useSelector } from 'react-redux';
@@ -315,6 +316,7 @@ function AppStacks() {
 			<Stack.Screen name="LocationMap" component={LocationMap} />
 			<Stack.Screen name="LocationGoggle" component={LocationGoggle} />
 			<Stack.Screen name="GameDetails" component={GameDetails} />
+			<Stack.Screen name="PayJoin" component={PayJoin} />
 
 
 			
