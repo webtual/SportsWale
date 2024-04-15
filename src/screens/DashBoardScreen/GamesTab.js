@@ -20,11 +20,14 @@ import FastImage from "react-native-fast-image";
 import Geocoder from "react-native-geocoding";
 import { FontSize, MEDIUM } from "../../constants/Fonts";
 import TopTabs from "./TopTabs";
+import LoadingView from "../../commonComponents/LoadingView";
 
 
 const GamesTab = () => {
   const dispatch = useDispatch();
   const toast = useToast();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   //  const userData = (state) => state.userRedux.user_data
   const userData = useSelector((state) => state.userRedux.user_data);
@@ -69,7 +72,7 @@ const GamesTab = () => {
         StackScreen={true}
         title=""
         isBack={false}
-        isScroll={false}
+       // isScroll={false}
         titleColor={white}
         containerStyle={{flex : 1}}
         leftComponent={
@@ -146,13 +149,14 @@ const GamesTab = () => {
         <View
           style={{  
               flex:1,
-            marginBottom: pixelSizeHorizontal(80),
+              marginBottom: pixelSizeHorizontal(80),
             // marginHorizontal: pixelSizeHorizontal(20),
           }}
         >
-          <TopTabs/>
+          <TopTabs setIsLoading={setIsLoading}/>
         </View>
       </HeaderView>
+      {isLoading && <LoadingView />}
     </>
   );
 };

@@ -28,11 +28,6 @@ const InvitePeople = ({ }) => {
     const [isInvite, setIsInvite] = useState(false);
     const [isFreeAll, setIsFreeAll] = useState(false);
 
-    useFocusEffect(
-        useCallback(() => {
-        }, [])
-    );
-
     const OnPressNext = () => {
         resetScreen('SelectVenue')
     }

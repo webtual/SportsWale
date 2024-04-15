@@ -16,7 +16,10 @@ export const GET_PROFILE = "users/"
 export const VENUE_TIMESLOT = "venues/time-slots"
 export const CREATE_GAME = "transactions/create-game"
 export const GAME_DETAILS = "events/players"
-
+export const GET_SCHEDULE_GAME = "events/schedule"
+export const GET_RECOMMENDED_GAME = "events/recommended"
+export const GET_MY_SPORT_EVENTS ="events/my-sports"
+export const GET_OTHER_SPORT_EVENTS ="events/my-other-sports"
 
 
 export const UPDATE_PROFILE = "update-profile"

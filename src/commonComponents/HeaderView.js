@@ -120,7 +120,7 @@ const HeaderView = ({
           </View>
         </ScrollView>
         : 
-        <View style={{flex:1, backgroundColor : 'red'}}>
+        <View style={{flex:1}}>
            <View
             style={[
               styles.headerImgContainer,
