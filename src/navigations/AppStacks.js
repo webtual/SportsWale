@@ -66,6 +66,10 @@ import BokingDetails from '../screens/OtherScreen/BokingDetails';
 import LocationGoggle from '../screens/OtherScreen/LocationGoggle';
 import GameDetails from '../screens/OtherScreen/GameDetails';
 import PayJoin from '../screens/OtherScreen/PayJoin';
+import BookingHistory from '../screens/OtherScreen/BookingHistory';
+import Preference from '../screens/OtherScreen/Preference';
+import MySports from '../screens/OtherScreen/MySports';
+import AddSports from '../screens/OtherScreen/AddSports';
 
 // import { cart_data } from '../redux/reducers/cartReducer';
 // import { useSelector } from 'react-redux';
@@ -317,6 +321,10 @@ function AppStacks() {
 			<Stack.Screen name="LocationGoggle" component={LocationGoggle} />
 			<Stack.Screen name="GameDetails" component={GameDetails} />
 			<Stack.Screen name="PayJoin" component={PayJoin} />
+			<Stack.Screen name="BookingHistory" component={BookingHistory} />
+			<Stack.Screen name="Preference" component={Preference} />
+			<Stack.Screen name="MySports" component={MySports} />
+			<Stack.Screen name="AddSports" component={AddSports} />
 
 
 			

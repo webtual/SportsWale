@@ -43,10 +43,24 @@ const RecommendedList = ({ setIsLoading }) => {
     console.log("Recommended effect call");
 
     Api_GetRecommendedList(true, {
-      lat: CurrentLatitude,
-      long: CurrentLongitude,
+      lat: userReduxData?.lat,
+      long: userReduxData?.long,
     });
   }, [page]);
+
+  useEffect(() => {
+    console.log("Recommended userReduxData effect call");
+
+    setAllRecommendedList([])
+    setPage(1)
+    setTimeout(() => {
+      Api_GetRecommendedList(true, {
+        lat: userReduxData?.lat,
+        long: userReduxData?.long,
+      });
+    }, 1500);
+  
+  }, [userReduxData]);
 
   const Api_GetRecommendedList = (isLoad, locationCords) => {
     setIsLoading?.(isLoad);

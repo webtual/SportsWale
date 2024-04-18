@@ -13,6 +13,7 @@ export const grey = '#DFDFDF'
 export const offWhite = "#F5F5F5"
 export const border = "#D4D4D4"
 export const yellow = "#F8B111"
+export const error = "#CE0E0E"
 
 
 export const seprator = "rgb(230,230,230)"
@@ -26,7 +27,6 @@ export const secondary_grey = "#a6b1c2"
 export const secondary_dark_grey = "#707070"
 
 export const success = "#22b07d"
-export const error = "#f44336"
 export const warning = "#ffba2f"
 
 export const greenPrimary = "rgb(77,184,72)"

@@ -44,10 +44,24 @@ const OtherGamesList = ({setIsLoading}) => {
     console.log("OtherGamesList effect call");
 
     Api_GetOtherGamesList(true, {
-      lat: CurrentLatitude,
-      long: CurrentLongitude,
+      lat: userReduxData.lat, //CurrentLatitude,
+      long: userReduxData.long // CurrentLongitude,
     });
   }, [page]);
+
+
+  useEffect(() => {
+    console.log("OtherGamesList userReduxData effect call");
+    setAllOtherGamesList([])
+    setPage(1)
+    setTimeout(() => {
+      Api_GetOtherGamesList(true, {
+        lat: userReduxData.lat, //CurrentLatitude,
+        long: userReduxData.long // CurrentLongitude,
+      });
+    }, 1000);
+    
+  }, [ userReduxData]);
 
   const Api_GetOtherGamesList = (isLoad, locationCords) => {
     setIsLoading?.(isLoad);

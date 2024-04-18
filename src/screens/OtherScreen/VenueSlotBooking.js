@@ -102,7 +102,7 @@ const VenueSlotBooking = (props) => {
     formData.append("venue_id", selectedGround?.venue_id);
     formData.append("venue_ground_id", selectedGround?.venue_ground_id);
     formData.append("venue_game_id", selectedGround?.venue_game_id);
-    formData.append("date", moment(selectedDate).format("dd-mm-yyyy"));
+    formData.append("date", moment(selectedDate).format("DD-MM-YYYY"));
 
     ApiManager.post(VENUE_TIMESLOT, formData, {
       headers: {
@@ -423,7 +423,7 @@ const VenueSlotBooking = (props) => {
                       <Text
                         style={{
                           fontFamily: SEMIBOLD,
-                          fontSize: FontSize.FS_16,
+                          fontSize: FontSize.FS_12,
                           color: item?.is_available
                             ? checkTimeSlot(item) == true
                               ? white
@@ -432,7 +432,7 @@ const VenueSlotBooking = (props) => {
                           textAlign: "center",
                         }}
                       >
-                        {item?.time_start} - {item?.time_end}
+                        {item?.display_time_start} - {item?.display_time_end}
                       </Text>
                     </TouchableOpacity>
                   </View>

@@ -11,7 +11,7 @@ import {
   Alert,
   FlatList,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   black,
   black05,
@@ -62,7 +62,11 @@ import {
 } from "../../constants/Images";
 import { Colors } from "../../constants/CustomeColor";
 import { useDispatch, useSelector } from "react-redux";
-import { storeCurrentLocation, storeUserData, user_data } from "../../redux/reducers/userReducer";
+import {
+  storeCurrentLocation,
+  storeUserData,
+  user_data,
+} from "../../redux/reducers/userReducer";
 import { useToast } from "native-base";
 import Geolocation from "@react-native-community/geolocation";
 import ImagePicker from "react-native-image-crop-picker";
@@ -76,15 +80,18 @@ import ApiManager from "../../commonComponents/ApiManager";
 import { GET_PROFILE } from "../../constants/ApiUrl";
 import LoadingView from "../../commonComponents/LoadingView";
 import moment from "moment";
-import Feather from 'react-native-vector-icons/Feather'
+import Feather from "react-native-vector-icons/Feather";
 import { storeData } from "../../commonComponents/AsyncManager";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import Geocoder from "react-native-geocoding";
 
 const Profile = () => {
+  const refMarker = useRef();
 
   const toast = useToast();
   const userData = useSelector(user_data);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -109,41 +116,60 @@ const Profile = () => {
   const [txtDob, setDob] = useState("");
   const [txtLocation, setTxtLocation] = useState("");
   const [profileImg, setProfileImg] = useState(null);
+  const [profileData, setProfileData] = useState(null);
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [CurrentLatitude, setCurrentLatitude] = useState(null);
-  const [CurrentLongitude, setCurrentLongitude] = useState(null);
+  const [CurrentLatitude, setCurrentLatitude] = useState(0.0);
+  const [CurrentLongitude, setCurrentLongitude] = useState(0.0);
 
   const [isEditProfile, setIsEditProfile] = useState(false);
 
-
   useEffect(() => {
     requestLocationPermission();
-    Api_Get_Profile(true)
+    Api_Get_Profile(true);
   }, []);
 
+
+  useEffect(() => {
+    
+    setTimeout(() => {
+      console.log("use effect call for map pin navigate : ",CurrentLatitude," longitude : ",CurrentLongitude)
+      refMarker?.current?.animateToRegion(
+        {
+          latitude: CurrentLatitude,
+          longitude: CurrentLongitude,
+          latitudeDelta: 0.006594926458930672,
+          longitudeDelta: 0.004564784467220306,
+        },
+        500
+      );
+    
+    }, 2000);
+   
+  }, [CurrentLatitude, CurrentLongitude]);
+
   const requestLocationPermission = async () => {
-    if (Platform.OS === 'ios') {
+    if (Platform.OS === "ios") {
       getOneTimeLocation();
     } else {
       try {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
           {
-            title: 'Location Access Required',
-            message: 'This App needs to Access your location',
-          },
+            title: "Location Access Required",
+            message: "This App needs to Access your location",
+          }
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
           //To Check, If Permission is granted
           getOneTimeLocation();
-          console.log('====================================');
-          console.log('Permission Granted');
-          console.log('====================================');
+          console.log("====================================");
+          console.log("Permission Granted");
+          console.log("====================================");
         } else {
-          console.log('====================================');
-          console.log('Permission Denied');
-          console.log('====================================');
+          console.log("====================================");
+          console.log("Permission Denied");
+          console.log("====================================");
         }
       } catch (err) {
         // Api_GetContacts(true);
@@ -155,27 +181,35 @@ const Profile = () => {
   const getOneTimeLocation = () => {
     Geolocation.getCurrentPosition(
       //Will give you the current location
-      position => {
+      (position) => {
         // console.log('====================================');
         // console.log('Current Location is : ' + JSON.stringify(position));
         // console.log('====================================');
 
-        dispatch(storeCurrentLocation({lat : position.coords.latitude, long : position.coords.longitude}))
+        dispatch(
+          storeCurrentLocation({
+            lat: position.coords.latitude,
+            long: position.coords.longitude,
+          })
+        );
         setCurrentLatitude(position.coords.latitude);
         setCurrentLongitude(position.coords.longitude);
+
+        getaddressFromLatLong(
+          position.coords.latitude,
+           position.coords.longitude,
+        );
       },
-      error => {
-        console.log("Geolocation error : ",error.message);
+      (error) => {
+        console.log("Geolocation error : ", error.message);
       },
       {
         enableHighAccuracy: false,
         timeout: 200000,
         maximumAge: 3600000,
-      },
+      }
     );
   };
-
-
 
   const Api_Get_Profile = (isLoad) => {
     setIsLoading(isLoad);
@@ -189,19 +223,23 @@ const Profile = () => {
         setIsLoading(false);
 
         if (response.data.status === true) {
-          var profile_data = response.data.data
+          var profile_data = response.data.data;
 
-          storeData(USER_DATA,profile_data,() => {
-            dispatch(storeUserData(profile_data))
-          })
+          storeData(USER_DATA, profile_data, () => {
+            dispatch(storeUserData(profile_data));
+          });
 
-          setTxtName(profile_data?.first_name + profile_data?.last_name)
-          setDob(moment(profile_data?.dob).format("DD-MM-YYYY"))
-          setTxtLocation(profile_data?.player?.location)
-          setTxtMobileNo(profile_data?.mobile)
-          setTxtGender(profile_data?.gender)
-          if(profile_data?.profile){
-            setProfileImg({path : userData?.asset_url+profile_data?.profile})
+          setProfileData(profile_data);
+
+          setTxtName(profile_data?.first_name + " " + profile_data?.last_name);
+          setDob(moment(profile_data?.dob).format("DD-MM-YYYY"));
+          setTxtLocation(profile_data?.player?.location);
+          setTxtMobileNo(profile_data?.mobile);
+          setTxtGender(profile_data?.gender);
+          if (profile_data?.profile) {
+            setProfileImg({
+              path: userData?.asset_url + profile_data?.profile,
+            });
           }
         } else {
           toast.show({
@@ -214,9 +252,6 @@ const Profile = () => {
         console.error("Api_Get_Profile Error ", err);
       });
   };
-
-
-
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -302,141 +337,176 @@ const Profile = () => {
     // ),
   });
 
-  const btnUpdateTap = () => {
+  const btnCancelTap = () => {
+    setIsEditProfile(!isEditProfile);
+    setTxtName(profileData?.first_name + " " + profileData?.last_name);
+    setDob(moment(profileData?.dob).format("DD-MM-YYYY"));
+    setTxtLocation(profileData?.player?.location);
+    setTxtMobileNo(profileData?.mobile);
+    setTxtGender(profileData?.gender);
+    if (profileData?.profile) {
+      setProfileImg({ path: userData?.asset_url + profileData?.profile });
+    }
   };
 
+  const getaddressFromLatLong = async (lat, long, setFieldValue) => {
+    Geocoder.from(lat, long)
+      .then((json) => {
+        var addressComponent = json.results[0];
+        console.log("address comp : ", addressComponent);
+        if (addressComponent.length) {
+          setFieldValue &&
+            setFieldValue("location", addressComponent?.formatted_address);
+          setTxtLocation(addressComponent?.formatted_address);
+        }
+      })
+      .catch((error) => console.warn("Geocoder error", error));
+  };
+
+  const btnUpdateTap = () => {};
+
   return (
-    
     <>
-    <HeaderView
-      title={isEditProfile ? Translate.t("edit_profile") :Translate.t("profile")}
-      isBack={true}
-      onPress={() => goBack()}
-      containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20) }}
-      HeaderSmall={true}
-      rightComponent={ <View style={{ flexDirection: "row", alignItems: "center" }}>
-      {!isEditProfile &&
-      <IconButton
-        additionalStyle={{ }}
-        onPress={() => {setIsEditProfile(true)}}
+      <HeaderView
+        title={
+          isEditProfile ? Translate.t("edit_profile") : Translate.t("profile")
+        }
+        isBack={true}
+        onPress={() => goBack()}
+        containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20) }}
+        HeaderSmall={true}
+        rightComponent={
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            {!isEditProfile && (
+              <IconButton
+                additionalStyle={{}}
+                onPress={() => {
+                  setIsEditProfile(true);
+                }}
+              >
+                <Feather name={"edit"} size={24} color={white} />
+              </IconButton>
+            )}
+          </View>
+        }
       >
-        <Feather name={'edit'} size={24} color={white}/>
-      </IconButton> }
-      </View>}
-    >
-      <View style={{ marginTop: 20 }}>
-        <Formik
-          enableReinitialize
-          initialValues={{
-            mobile_number: txtMobileNo,
-            name: txtName,
-            location: txtLocation,
-            dob: txtDob,
-            gender: txtGender,
-            // acceptTerms: true,
-            profile_image: profileImg,
-          }}
-          validationSchema={registerSchema}
-          onSubmit={(values) => {
-            console.log("values : ", values);
-            
-            if(CurrentLatitude && CurrentLongitude){
-              var FinalValue = values;
-              FinalValue["isFrom"] = "Register";
-              FinalValue["lat"] = CurrentLatitude;
-              FinalValue["long"] = CurrentLongitude;
-              navigate("OtpView", { data: FinalValue });
-            }else{
-              toast.show({
-                description : "Please allow location permission, we required your current location"
-              })
-            }              
-          }}
-        >
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            setFieldValue,
-            values,
-            errors,
-            touched,
-          }) => (
-            <View style={{ marginTop: pixelSizeHorizontal(10) }}>
-              <View style={{ alignSelf: "center" }}>
-                <TouchableOpacity onPress={() => UploadImage(setFieldValue)}>
-                  <FastImage
-                    source={
-                      values.profile_image
-                        ? { uri: values.profile_image.path }
-                        : UserPlaceholder
-                    }
-                    style={{
-                      width: widthPixel(SCREEN_WIDTH / 3),
-                      height: widthPixel(SCREEN_WIDTH / 3),
-                      borderRadius: widthPixel(SCREEN_WIDTH / 3),
-                      borderColor: white,
-                      borderWidth: 5,
-                    }}
-                    resizeMode="cover"
-                  />
-                </TouchableOpacity>
-                {values.profile_image && isEditProfile && (
-                  <View style={{ position: "absolute", right: 0, top: 10 }}>
-                    <IconButton
-                      onPress={() => setFieldValue("profile_image", null)}
-                    >
-                      <Icon
-                        name={"close-circle"}
-                        size={widthPixel(30)}
-                        color={black}
-                      />
-                    </IconButton>
-                  </View>
-                )}
-              </View>
+        <View style={{ marginTop: 20 }}>
+          <Formik
+            enableReinitialize
+            initialValues={{
+              mobile_number: txtMobileNo,
+              name: txtName,
+              location: txtLocation,
+              dob: txtDob,
+              gender: txtGender,
+              // acceptTerms: true,
+              profile_image: profileImg,
+            }}
+            validationSchema={registerSchema}
+            onSubmit={(values) => {
+              console.log("values : ", values);
 
-              <Text
-                style={[
-                  CommonStyle.inputTitle,
-                  { marginTop: pixelSizeHorizontal(18) },
-                ]}
-              >
-                {Translate.t("mobile_number")}
-              </Text>
-              <TextInputView
-                containerStyle={{ marginTop: pixelSizeHorizontal(10) }}
-                onChangeText={handleChange("mobile_number")}
-                value={values.mobile_number}
-                placeholder={Translate.t("enter_mobile_number")}
-                keyboardType={"number-pad"}
-                maxLength={10}
-                editable={false}
-                error={
-                  errors.mobile_number &&
-                  touched.mobile_number &&
-                  errors.mobile_number
-                }
-              />
+              if (CurrentLatitude && CurrentLongitude) {
+                var FinalValue = values;
+                FinalValue["isFrom"] = "Register";
+                FinalValue["lat"] = CurrentLatitude;
+                FinalValue["long"] = CurrentLongitude;
 
-              <Text
-                style={[
-                  CommonStyle.inputTitle,
-                  { marginTop: pixelSizeHorizontal(18) },
-                ]}
-              >
-                {Translate.t("enter_full_name")}
-              </Text>
-              <TextInputView
-                containerStyle={{ marginTop: pixelSizeHorizontal(10) }}
-                onChangeText={handleChange("name")}
-                value={values.name}
-                editable={isEditProfile}
-                placeholder={Translate.t("enter_name")}
-                error={errors.name && touched.name && errors.name}
-              />
+                btnUpdateTap();
+                // navigate("OtpView", { data: FinalValue });
+              } else {
+                toast.show({
+                  description:
+                    "Please allow location permission, we required your current location",
+                });
+              }
+            }}
+          >
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              setFieldValue,
+              resetForm,
+              values,
+              errors,
+              touched,
+            }) => (
+              <View style={{ marginTop: pixelSizeHorizontal(10) }}>
+                <View style={{ alignSelf: "center" }}>
+                  <TouchableOpacity onPress={() => UploadImage(setFieldValue)}>
+                    <FastImage
+                      source={
+                        values.profile_image
+                          ? { uri: values.profile_image.path }
+                          : UserPlaceholder
+                      }
+                      style={{
+                        width: widthPixel(SCREEN_WIDTH / 3),
+                        height: widthPixel(SCREEN_WIDTH / 3),
+                        borderRadius: widthPixel(SCREEN_WIDTH / 3),
+                        borderColor: white,
+                        borderWidth: 5,
+                      }}
+                      resizeMode="cover"
+                    />
+                  </TouchableOpacity>
+                  {values.profile_image && isEditProfile && (
+                    <View style={{ position: "absolute", right: 0, top: 10 }}>
+                      <IconButton
+                        onPress={() => setFieldValue("profile_image", null)}
+                      >
+                        <Icon
+                          name={"close-circle"}
+                          size={widthPixel(30)}
+                          color={black}
+                        />
+                      </IconButton>
+                    </View>
+                  )}
+                </View>
 
-              <Text
+                <Text
+                  style={[
+                    CommonStyle.inputTitle,
+                    { marginTop: pixelSizeHorizontal(18) },
+                  ]}
+                >
+                  {Translate.t("mobile_number")}
+                </Text>
+                <TextInputView
+                  containerStyle={{ marginTop: pixelSizeHorizontal(10) }}
+                  onChangeText={handleChange("mobile_number")}
+                  value={values.mobile_number}
+                  placeholder={Translate.t("enter_mobile_number")}
+                  keyboardType={"number-pad"}
+                  maxLength={10}
+                  editable={false}
+                  error={
+                    errors.mobile_number &&
+                    touched.mobile_number &&
+                    errors.mobile_number
+                  }
+                />
+
+                <Text
+                  style={[
+                    CommonStyle.inputTitle,
+                    { marginTop: pixelSizeHorizontal(18) },
+                  ]}
+                >
+                  {Translate.t("enter_full_name")}
+                </Text>
+                <TextInputView
+                  containerStyle={{ marginTop: pixelSizeHorizontal(10) }}
+                  onChangeText={handleChange("name")}
+                  value={values.name}
+                  editable={isEditProfile}
+                  placeholder={Translate.t("enter_name")}
+                  error={errors.name && touched.name && errors.name}
+                />
+
+                {/* <Text
                 style={[
                   CommonStyle.inputTitle,
                   { marginTop: pixelSizeHorizontal(18) },
@@ -452,151 +522,246 @@ const Profile = () => {
                 placeholder={Translate.t("enter_location")}
                 keyboardType={"default"}
                 error={errors.location && touched.location && errors.location}
-              />
+              /> */}
 
-              <Text
-                style={[
-                  CommonStyle.inputTitle,
-                  { marginTop: pixelSizeHorizontal(18) },
-                ]}
-              >
-                {Translate.t("date_of_birth")}
-              </Text>
-              <TouchableOpacity
-                disabled={!isEditProfile}
-                onPress={() => {
-                  showDatePicker();
-                }}
-                style={{
-                  marginTop: pixelSizeHorizontal(10),
-                  flexDirection: "row",
-                  alignItems: "center",
-                  backgroundColor: white,
-                  borderRadius: 8,
-                  paddingHorizontal: 12,
-                }}
-              >
-                <View
-                  style={{
-                    flex: 1,
-                    paddingVertical: pixelSizeHorizontal(10),
-                  }}
-                >
-                  <Text
-                    style={[
-                      CommonStyle.textInputStyle,
-                      {
-                        color:
-                          values.dob.length <= 0 ? placeholderGrey : black,
-                      },
-                    ]}
-                  >
-                    {values.dob.length <= 0
-                      ? Translate.t("select_date_of_birth")
-                      : values.dob}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-              {errors.dob && touched.dob && errors.dob && (
                 <Text
                   style={[
-                    CommonStyle.errorText,
-                    { marginTop: pixelSizeHorizontal(3)},
+                    CommonStyle.inputTitle,
+                    { marginTop: pixelSizeHorizontal(18) },
                   ]}
                 >
-                  {errors.dob && touched.dob && errors.dob}
+                  {Translate.t("location")}
                 </Text>
-              )}
-
-              <Text
-                style={[
-                  CommonStyle.inputTitle,
-                  { marginTop: pixelSizeHorizontal(18) },
-                ]}
-              >
-                {Translate.t("gender")}
-              </Text>
-              <FlatList
-                style={[{ marginTop: pixelSizeHorizontal(10)  },!isEditProfile && {marginBottom : pixelSizeHorizontal(10)}]}
-                data={ArrGender}
-                horizontal
-                ItemSeparatorComponent={<View style={{ width: 12 }} />}
-                renderItem={({ item, index }) => {
-                  return (
-                    <TouchableOpacity
-                      key={index}
-                      disabled={!isEditProfile}
-                      style={{
-                        paddingVertical: pixelSizeHorizontal(8),
-                        paddingHorizontal: pixelSizeHorizontal(24),
-                        borderRadius: pixelSizeHorizontal(25),
-                        backgroundColor:
-                          values.gender == item.id ? primary : white,
+                <View style={{ marginTop: pixelSizeHorizontal(10) }}>
+                  <MapView
+                    scrollEnabled={false}
+                    ref={refMarker}
+                    zoomEnabled={false}
+                    zoomControlEnabled={false}
+                    showsUserLocation={false}
+                    style={{ width: "100%", height: 180 }}
+                    provider={PROVIDER_GOOGLE}
+                    followsUserLocation={true}
+                    showsMyLocationButton={false}
+                    initialRegion={{
+                      latitude: CurrentLatitude,
+                      longitude: CurrentLongitude,
+                      latitudeDelta: 0.006594926458930672,
+                      longitudeDelta: 0.004564784467220306,
+                    }}
+                    //   onRegionChangeComplete={onRegionChange}
+                    // onRegionChange={onRegionChange}
+                  >
+                    <Marker
+                      //   key={index}
+                      tappable={false}
+                      coordinate={{
+                        latitude: CurrentLatitude,
+                        longitude: CurrentLongitude,
                       }}
-                      onPress={() => setFieldValue("gender", item.id)}
+                      title={"Your Selected Location"}
+                      description={values?.location}
+                    />
+                  </MapView>
+                  <TouchableOpacity
+                    style={{
+                      backgroundColor: primary,
+                      borderRadius: pixelSizeHorizontal(5),
+                      paddingVertical: pixelSizeHorizontal(8),
+                      marginTop: pixelSizeHorizontal(10),
+                    }}
+                    onPress={() => {
+                      navigate("LocationMap", {
+                        lat: CurrentLatitude,
+                        long: CurrentLongitude,
+                        onSelectLocation: (cord) => {
+                          console.log("cord : ", cord);
+                          setCurrentLatitude(cord.coordinate.selectedLatitude);
+                          setCurrentLongitude(
+                            cord.coordinate.selectedLongitude
+                          );
+                          getaddressFromLatLong(
+                            cord.coordinate.selectedLatitude,
+                            cord.coordinate.selectedLongitude,
+                            setFieldValue
+                          );
+
+                        },
+                      });
+                    }}
+                  >
+                    <Text
+                      style={[
+                        CommonStyle.textInputStyle,
+                        {
+                          color: white,
+                          textAlign: "center",
+                        },
+                      ]}
                     >
-                      <Text
-                        style={[
-                          CommonStyle.textInputStyle,
-                          {
-                            color: values.gender == item.id ? white : black,
-                          },
-                        ]}
+                      Select your location
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+
+                <Text
+                  style={[
+                    CommonStyle.inputTitle,
+                    { marginTop: pixelSizeHorizontal(18) },
+                  ]}
+                >
+                  {Translate.t("date_of_birth")}
+                </Text>
+                <TouchableOpacity
+                  disabled={!isEditProfile}
+                  onPress={() => {
+                    showDatePicker();
+                  }}
+                  style={{
+                    marginTop: pixelSizeHorizontal(10),
+                    flexDirection: "row",
+                    alignItems: "center",
+                    backgroundColor: white,
+                    borderRadius: 8,
+                    paddingHorizontal: 12,
+                  }}
+                >
+                  <View
+                    style={{
+                      flex: 1,
+                      paddingVertical: pixelSizeHorizontal(10),
+                    }}
+                  >
+                    <Text
+                      style={[
+                        CommonStyle.textInputStyle,
+                        {
+                          color:
+                            values.dob.length <= 0 ? placeholderGrey : black,
+                        },
+                      ]}
+                    >
+                      {values.dob.length <= 0
+                        ? Translate.t("select_date_of_birth")
+                        : values.dob}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+                {errors.dob && touched.dob && errors.dob && (
+                  <Text
+                    style={[
+                      CommonStyle.errorText,
+                      { marginTop: pixelSizeHorizontal(3) },
+                    ]}
+                  >
+                    {errors.dob && touched.dob && errors.dob}
+                  </Text>
+                )}
+
+                <Text
+                  style={[
+                    CommonStyle.inputTitle,
+                    { marginTop: pixelSizeHorizontal(18) },
+                  ]}
+                >
+                  {Translate.t("gender")}
+                </Text>
+                <FlatList
+                  style={[
+                    { marginTop: pixelSizeHorizontal(10) },
+                    !isEditProfile && { marginBottom: pixelSizeHorizontal(10) },
+                  ]}
+                  data={ArrGender}
+                  horizontal
+                  ItemSeparatorComponent={<View style={{ width: 12 }} />}
+                  renderItem={({ item, index }) => {
+                    return (
+                      <TouchableOpacity
+                        key={index}
+                        disabled={!isEditProfile}
+                        style={{
+                          paddingVertical: pixelSizeHorizontal(8),
+                          paddingHorizontal: pixelSizeHorizontal(24),
+                          borderRadius: pixelSizeHorizontal(25),
+                          backgroundColor:
+                            values.gender == item.id ? primary : white,
+                        }}
+                        onPress={() => setFieldValue("gender", item.id)}
                       >
-                        {item.value}
+                        <Text
+                          style={[
+                            CommonStyle.textInputStyle,
+                            {
+                              color: values.gender == item.id ? white : black,
+                            },
+                          ]}
+                        >
+                          {item.value}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  }}
+                />
+
+                {isEditProfile && (
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      marginVertical: pixelSizeHorizontal(50),
+                    }}
+                  >
+                    <TouchableOpacity
+                      activeOpacity={1}
+                      onPress={() => {
+                        resetForm();
+                        btnCancelTap();
+                      }}
+                      style={[
+                        CommonStyle.mainBtnStyle,
+                        {
+                          flex: 1,
+                          marginRight: pixelSizeHorizontal(20),
+                          borderWidth: 1,
+                          borderColor: border,
+                          backgroundColor: white,
+                        },
+                      ]}
+                    >
+                      <Text style={[CommonStyle.mainBtnText, { color: black }]}>
+                        Cancel
                       </Text>
                     </TouchableOpacity>
-                  );
-                }}
-              />
+                    <TouchableOpacity
+                      activeOpacity={1}
+                      onPress={handleSubmit}
+                      style={[CommonStyle.mainBtnStyle, { flex: 2 }]}
+                    >
+                      <Text style={CommonStyle.mainBtnText}>
+                        {Translate.t("update_profile")}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
 
-                {isEditProfile &&
-                <View style={{flexDirection : 'row', marginVertical: pixelSizeHorizontal(50)}}>
-                  <TouchableOpacity
-                activeOpacity={1}
-                onPress={() => setIsEditProfile(!isEditProfile)}
-                style={[
-                  CommonStyle.mainBtnStyle,
-                  { flex:1, marginRight : pixelSizeHorizontal(20), borderWidth : 1, borderColor : border , backgroundColor : white },
-                ]}
-              >
-                <Text style={[CommonStyle.mainBtnText,{color : black}]}>
-                  Cancel
-                </Text>
-              </TouchableOpacity> 
-              <TouchableOpacity
-                activeOpacity={1}
-                onPress={handleSubmit}
-                style={[
-                  CommonStyle.mainBtnStyle,
-                  { flex:2},
-                ]}
-              >
-                <Text style={CommonStyle.mainBtnText}>
-                  {Translate.t("update_profile")}
-                </Text>
-              </TouchableOpacity> 
-              </View>}
+                <DateTimePickerModal
+                  isVisible={isDatePickerVisible}
+                  mode="date"
+                  maximumDate={new Date()}
+                  onConfirm={(date) => {
+                    console.warn("A date has been picked: ", date);
+                    setFieldValue("dob", moment(date).format("DD-MM-YYYY"));
+                    hideDatePicker();
+                  }}
+                  onCancel={hideDatePicker}
+                />
+              </View>
+            )}
+          </Formik>
+        </View>
+      </HeaderView>
 
-              <DateTimePickerModal
-                isVisible={isDatePickerVisible}
-                mode="date"
-                maximumDate={new Date()}
-                onConfirm={(date) => {
-                  console.warn("A date has been picked: ", date);
-                  setFieldValue("dob", moment(date).format("DD-MM-YYYY"));
-                  hideDatePicker();
-                }}
-                onCancel={hideDatePicker}
-              />
-            </View>
-          )}
-        </Formik>
-      </View>
-    </HeaderView>
-
-    {isLoading && <LoadingView />}
-  </>
+      {isLoading && <LoadingView />}
+    </>
   );
 };
 

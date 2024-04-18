@@ -47,6 +47,7 @@ import LoadingView from "../../commonComponents/LoadingView";
 import {
   black,
   dim_grey,
+  grey,
   primary,
   primary_light,
   secondary,
@@ -233,7 +234,7 @@ const VenueDetail = (props) => {
                     color: black,
                   }}
                 >
-                  {venueDetail?.start_time} to {venueDetail?.end_time}
+                  {venueDetail?.display_start_time} to {venueDetail?.display_end_time}
                   {/* {moment(venueDetail?.start_time).format("HH:MM A")} to {moment(venueDetail?.end_time).format("HH:MM A")} */}
                 </Text>
               </View>
@@ -333,10 +334,14 @@ const VenueDetail = (props) => {
                   style={[
                     styles.btn,
                     {
-                      backgroundColor: secondary,
+                      backgroundColor: venueDetail?.allow_for_rating ? secondary: grey,
                     },
                   ]}
-                  onPress={openRatingSheet}
+                  onPress={() => {
+                    if(venueDetail?.allow_for_rating){
+                      openRatingSheet()
+                    }
+                    }}
                 >
                   <Text
                     style={{

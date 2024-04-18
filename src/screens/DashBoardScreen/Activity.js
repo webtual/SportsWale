@@ -25,7 +25,7 @@ import {
   REGULAR,
   SEMIBOLD,
 } from "../../constants/Fonts";
-import MySports from "../../commonComponents/Activity/MySports";
+// import MySports from "../../commonComponents/Activity/MySports";
 import Recommended from "../../commonComponents/Activity/Recommended";
 import Schedule from "../../commonComponents/Activity/Schedule";
 import OtherSports from "../../commonComponents/Activity/OtherSports";
@@ -57,7 +57,7 @@ const Activity = () => {
       case 1:
         return <Recommended />;
       case 2:
-        return <MySports />;
+        return null //<MySports />;
       case 3:
         return <OtherSports />;
       default:

@@ -93,7 +93,7 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
             marginRight: pixelSizeHorizontal(10),
           }}
         >
-          {moment(item?.event_date).format("DD MMM, YYYY")} | {item?.event_start_time}
+          {moment(item?.event_date).format("DD MMM, YYYY")} | {item?.display_event_start_time} 
           {/* Fri,25 Aug,7:00PM */}
         </Text>
       </View>

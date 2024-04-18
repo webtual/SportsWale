@@ -79,7 +79,7 @@ const MenuTab = () => {
       image: <BookingIcon />,
       title: "Booking History",
       description: "View Transections & Receipts",
-      routeName: "",
+      routeName: "BookingHistory",
     },
     {
       image: <PlayerIcon />,
@@ -97,14 +97,14 @@ const MenuTab = () => {
       image: <PreferenceIcon />,
       title: "Preference",
       description: "Manage Sports, Location, etc",
-      routeName: "",
+      routeName: "Preference",
     },
-    {
-      image: <GiftBoxIcon />,
-      title: "Refer & Earn",
-      description: "",
-      routeName: "",
-    },
+    // {
+    //   image: <GiftBoxIcon />,
+    //   title: "Refer & Earn",
+    //   description: "",
+    //   routeName: "",
+    // },
     {
       image: <RateUsIcon />,
       title: "Rate Us",

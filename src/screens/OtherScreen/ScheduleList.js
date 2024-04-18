@@ -271,7 +271,7 @@ const ScheduleList = ({ setIsLoading }) => {
                 }}
               >
                 <Text style={[styles.descriptionText, {}]}>
-                  {item?.event_start_time} to {item?.event_end_time}
+                  {item?.display_event_start_time} to {item?.display_event_end_time}
                 </Text>
               </View>
             </View>

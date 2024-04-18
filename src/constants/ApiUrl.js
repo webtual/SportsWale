@@ -20,7 +20,10 @@ export const GET_SCHEDULE_GAME = "events/schedule"
 export const GET_RECOMMENDED_GAME = "events/recommended"
 export const GET_MY_SPORT_EVENTS ="events/my-sports"
 export const GET_OTHER_SPORT_EVENTS ="events/my-other-sports"
-
+export const GET_BOOKING_HISTORY = "transactions/booking-histories"
+export const UPDATE_USER_GAME = "user-games/"
+export const DELETE_USER_GAME = "user-games/"
+export const JOIN_GAME = "transactions/join-game"
 
 export const UPDATE_PROFILE = "update-profile"
 export const GET_HOME_BANNER = "get-homebanner"

@@ -404,7 +404,7 @@ const Home = ({ navigation }) => {
                 </Text>
                 <TouchableOpacity
                   onPress={() => {
-                    navigate("Venue");
+                    navigate("Games");
                   }}
                 >
                   <Icon name={"chevron-right"} size={28} color={black} />

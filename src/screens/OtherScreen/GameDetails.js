@@ -176,8 +176,8 @@ const GameDetails = (props) => {
                   }}
                 >
                   {moment(gameDetails?.event_date).format("DD MMM, YYYY")} |{" "}
-                  {gameDetails?.event_start_time} -{" "}
-                  {gameDetails?.event_end_time}
+                  {gameDetails?.display_event_start_time} -{" "}
+                  {gameDetails?.display_event_end_time}
                 </Text>
               </View>
               {/* <View style={{ position: "absolute", right: 10, top: 10 }}>
@@ -234,7 +234,7 @@ const GameDetails = (props) => {
             >
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Text style={[styles.titletext, { flex: 1 }]}>
-                  Players ({gameDetails?.game_participants.length})
+                  Players ({gameDetails?.total_join_players})
                 </Text>
 
                 <Text
@@ -383,6 +383,8 @@ const GameDetails = (props) => {
           </View>
         )}
       </HeaderView>
+      {/* {userData?.id == gameDetails?.user_id ? <></>: */}
+      {gameDetails?.spot_left != 0 ?
       <TouchableOpacity
         style={[
           CommonStyle.mainBtnStyle,
@@ -395,6 +397,7 @@ const GameDetails = (props) => {
       >
         <Text style={CommonStyle.mainBtnText}>Join Game</Text>
       </TouchableOpacity>
+       :null } 
       {isLoading && <LoadingView />}
     </>
   );
