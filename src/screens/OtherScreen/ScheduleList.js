@@ -30,6 +30,7 @@ import { user_data } from "../../redux/reducers/userReducer";
 import { useDispatch, useSelector } from "react-redux";
 import NavigationIcon from "../../assets/images/NavigationIcon";
 import moment from "moment";
+import { navigate } from "../../navigations/RootNavigation";
 
 const ScheduleList = ({ setIsLoading }) => {
   const toast = useToast();
@@ -203,6 +204,7 @@ const ScheduleList = ({ setIsLoading }) => {
               { marginHorizontal: pixelSizeHorizontal(20) },
               CommonStyle.shadow,
             ]}
+           // onPress={() => navigate("GameDetails", { game_data: item })}
           >
             <View style={{ flexDirection: "row" }}>
               <FastImage
@@ -295,7 +297,7 @@ const ScheduleList = ({ setIsLoading }) => {
                     { marginLeft: pixelSizeHorizontal(16), flex: undefined },
                   ]}
                 >
-                  • {item?.game_skill_level}
+                  • {item?.game_title}
                 </Text>
               </View>
 

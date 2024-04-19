@@ -55,5 +55,10 @@ import { pixelSizeHorizontal, widthPixel } from "./ResponsiveScreen"
         shadowOpacity: 0.17,
         shadowRadius: 3,
         elevation: 3,
-    }
+    },
+    card: {
+        backgroundColor: white,
+        borderRadius: widthPixel(12),
+        padding: pixelSizeHorizontal(12),
+      },
 })

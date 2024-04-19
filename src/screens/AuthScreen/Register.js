@@ -8,6 +8,7 @@ import {
   Alert,
   PermissionsAndroid,
   Platform,
+  Linking,
 } from "react-native";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
@@ -52,6 +53,7 @@ import { useDispatch } from "react-redux";
 import { storeCurrentLocation } from "../../redux/reducers/userReducer";
 import MapView, { Marker, PROVIDER_GOOGLE, Callout } from "react-native-maps";
 import Geocoder from "react-native-geocoding";
+import { ALERT_TYPE, Dialog } from "react-native-alert-notification";
 
 const Register = (props) => {
   const dispatch = useDispatch();
@@ -94,17 +96,17 @@ const Register = (props) => {
   }, []);
 
   useEffect(() => {
-    if (refMarker.current) {
+    // if (refMarker.current) {
       refMarker.current.animateToRegion(
         {
-          latitude: Number(CurrentLatitude),
-          longitude: Number(CurrentLongitude),
+          latitude: CurrentLatitude,
+          longitude: CurrentLongitude,
           latitudeDelta: 0.006594926458930672,
           longitudeDelta: 0.004564784467220306,
         },
         1000
       );
-    }
+    // }
   }, [CurrentLatitude, CurrentLongitude]);
 
   const requestLocationPermission = async () => {
@@ -114,10 +116,10 @@ const Register = (props) => {
       try {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-          {
-            title: "Location Access Required",
-            message: "This App needs to Access your location",
-          }
+          // {
+          //   title: "Location Access Required",
+          //   message: "This App needs to Access your location",
+          // }
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
           //To Check, If Permission is granted
@@ -129,6 +131,18 @@ const Register = (props) => {
           console.log("====================================");
           console.log("Permission Denied");
           console.log("====================================");
+
+          Dialog.show({
+            type: ALERT_TYPE.WARNING,
+            title: 'Alert',
+            textBody:
+              'Please allow location permission from setting to access your current location.',
+            button: 'open settings',
+            onPressButton: () => {
+              Linking.openSettings();
+            },
+          });
+
         }
       } catch (err) {
         // Api_GetContacts(true);
@@ -144,6 +158,16 @@ const Register = (props) => {
         console.log("====================================");
         console.log("Current Location is : " + JSON.stringify(position));
         console.log("====================================");
+
+        refMarker?.current?.animateToRegion(
+          {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: 0.006594926458930672,
+            longitudeDelta: 0.004564784467220306,
+          },
+          1000
+        );
 
         dispatch(
           storeCurrentLocation({
@@ -163,9 +187,9 @@ const Register = (props) => {
         console.log("Geolocation error : ", error.message);
       },
       {
-        enableHighAccuracy: true,
-        timeout: 200000,
-        maximumAge: 3600000,
+        // enableHighAccuracy: false,
+        timeout: 500000,
+        // maximumAge: 3600000,
       }
     );
   };

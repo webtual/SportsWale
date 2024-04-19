@@ -117,12 +117,12 @@ const GamesTab = () => {
         }
         rightComponent={
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <IconButton
+            {/* <IconButton
               additionalStyle={{ marginRight: pixelSizeHorizontal(18) }}
               onPress={() => {}}
             >
               <ChatIcon />
-            </IconButton>
+            </IconButton> */}
             <IconButton onPress={() => {}}>
               <BellIcon />
             </IconButton>

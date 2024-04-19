@@ -29,6 +29,7 @@ import NavigationIcon from "../assets/images/NavigationIcon";
 import moment from "moment";
 import { useSelector } from "react-redux";
 import CommonStyle from "./CommonStyle";
+import SirenIcon from "../assets/images/SirenIcon";
 
 export default function GamesCard({ cardStyles, bookMark, item }) {
   const userData = useSelector((state) => state.userRedux.user_data);
@@ -43,18 +44,19 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
           // minHeight: 190,
           // height: 160,
           borderRadius: 10,
-          shadowColor: black05,
-          shadowOffset: {
-            width: 0,
-            height: 3,
-          },
-          shadowOpacity: 0.17,
-          shadowRadius: 8,
-          elevation: 3,
+          // shadowColor: black05,
+          // shadowOffset: {
+          //   width: 0,
+          //   height: 3,
+          // },
+          // shadowOpacity: 0.17,
+          // shadowRadius: 8,
+          // elevation: 3,
           alignSelf: "center",
           paddingLeft: 10,
           paddingVertical: 10,
         },
+        CommonStyle.shadow,
         cardStyles,
       ]}
     >
@@ -236,14 +238,15 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
         <View
           style={[styles.itemContainer, { backgroundColor: primary_light }]}
         >
-          <FastImage
+          {/* <FastImage
             style={{
               width: 20,
               height: 20,
             }}
             source={siren}
-            resizeMode="cover"
-          />
+            resizeMode={'contain'}
+          /> */}
+          <SirenIcon width={19} height={19}/>
           <Text
             style={[
               styles.text,

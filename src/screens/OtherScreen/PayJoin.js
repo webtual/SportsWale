@@ -20,6 +20,7 @@ import { JOIN_GAME } from "../../constants/ApiUrl";
 import { CenterModal } from "../../commonComponents/Popup";
 import UserThumbsUpIcon from "../../assets/images/UserThumbsUpIcon";
 
+
 const PayJoin = (props) => {
   const toast = useToast();
   const { game_details } = props?.route?.params;
@@ -77,8 +78,6 @@ const PayJoin = (props) => {
       });
   };
 
-
-
   const btnMinusTap = () => {
     if (txtPlayersCount > 1) {
       setTxtPlayersCount(txtPlayersCount - 1);
@@ -107,6 +106,24 @@ const PayJoin = (props) => {
 
     Api_Join_Game(true)
   };
+
+  const getAmountFromType = (type) => {
+    var convenienceCharge =
+    (game_details?.cost_per_player_amount * txtPlayersCount) * parseFloat(game_details?.service_fees_percentage)/100;
+
+    var totalAmount = (game_details?.cost_per_player_amount * txtPlayersCount)
+    var totalPayableAmount = (totalAmount + convenienceCharge)
+
+    if(type == "payable"){
+      return totalPayableAmount
+    }else if(type == "total"){
+      return totalAmount
+    }else if (type == "convenience"){
+      return convenienceCharge
+    }else {
+      return 0
+    }
+  }
 
   return (
     <>
@@ -179,12 +196,26 @@ const PayJoin = (props) => {
               style={{
                 flexDirection: "row",
                 alignItems: "center",
-                marginVertical: pixelSizeHorizontal(20),
+                marginTop: pixelSizeHorizontal(20),
               }}
             >
               <Text style={[styles.titleText, { flex: 1 }]}>Total Amount</Text>
               <Text style={styles.titleText}>
                 {RUPEE + txtPlayersCount * game_details?.cost_per_player_amount}
+              </Text>
+            </View>
+
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginTop : pixelSizeHorizontal(10),
+                marginBottom : pixelSizeHorizontal(20)
+              }}
+            >
+              <Text style={[styles.titleText, { flex: 1 }]}>Convenience fees</Text>
+              <Text style={styles.titleText}>
+                {RUPEE + getAmountFromType("convenience")}
               </Text>
             </View>
 
@@ -227,7 +258,7 @@ const PayJoin = (props) => {
         onPress={() => btnPayTap()}
       >
         <Text style={CommonStyle.mainBtnText}>
-          Pay {RUPEE + txtPlayersCount * game_details?.cost_per_player_amount}
+          Pay {RUPEE + getAmountFromType("payable")}
         </Text>
       </TouchableOpacity>
 
@@ -268,8 +299,7 @@ const PayJoin = (props) => {
                 color: black,
               }}
             >
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy.
+              You are now playing with others, please reach location on time
             </Text>
           </View>
         </CenterModal>

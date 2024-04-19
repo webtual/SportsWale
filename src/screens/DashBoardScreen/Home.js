@@ -117,38 +117,6 @@ const Home = ({ navigation }) => {
       })
       .catch((error) => console.warn("Geocoder error", error));
 
-    return;
-    await fetch(
-      "https://maps.googleapis.com/maps/api/geocode/json?address=" +
-        lat +
-        "," +
-        long +
-        "&key=" +
-        GOOGLE_API_KEY
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.log(
-          "ADDRESS GEOCODE is BACK!! => " + JSON.stringify(responseJson)
-        );
-        if (responseJson.results.length > 0) {
-          setFieldValue &&
-            setFieldValue(
-              "location",
-              responseJson.results?.[0].formatted_address
-            );
-
-          var res_data = responseJson.results?.[0];
-
-          var filtered_data = res_data?.address_components?.filter(
-            (address) =>
-              address?.types.includes("locality") ||
-              address?.types.includes("administrative_area_level_3")
-          );
-          console.log("filtered address data : ", filtered_data);
-          setTxtCity(filtered_data?.[0]?.long_name);
-        }
-      });
   };
 
   const requestLocationPermission = async () => {
@@ -212,9 +180,9 @@ const Home = ({ navigation }) => {
         console.log("Geolocation error : ", error.message);
       },
       {
-        enableHighAccuracy: false,
+        // enableHighAccuracy: false,
         timeout: 200000,
-        maximumAge: 3600000,
+        // maximumAge: 3600000,
       }
     );
   };
@@ -304,12 +272,12 @@ const Home = ({ navigation }) => {
         }
         rightComponent={
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <IconButton
+            {/* <IconButton
               additionalStyle={{ marginRight: pixelSizeHorizontal(18) }}
               onPress={() => {}}
             >
               <ChatIcon />
-            </IconButton>
+            </IconButton> */}
             <IconButton onPress={() => {}}>
               <BellIcon />
             </IconButton>
@@ -609,14 +577,14 @@ const styles = StyleSheet.create({
   cardContainer: {
     borderWidth: 0,
     marginBottom: 10,
-    elevation: 5,
     shadowColor: black05,
     shadowOffset: {
       width: 0,
       height: 3,
     },
     shadowOpacity: 0.17,
-    shadowRadius: 8,
+    shadowRadius: 3,
+    elevation: 3,
   },
 });
 

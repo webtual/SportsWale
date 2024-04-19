@@ -125,7 +125,7 @@ const Profile = () => {
   const [isEditProfile, setIsEditProfile] = useState(false);
 
   useEffect(() => {
-    requestLocationPermission();
+    // requestLocationPermission();
     Api_Get_Profile(true);
   }, []);
 
@@ -144,7 +144,7 @@ const Profile = () => {
         500
       );
     
-    }, 2000);
+    }, 1000);
    
   }, [CurrentLatitude, CurrentLongitude]);
 
@@ -204,9 +204,9 @@ const Profile = () => {
         console.log("Geolocation error : ", error.message);
       },
       {
-        enableHighAccuracy: false,
+        // enableHighAccuracy: false,
         timeout: 200000,
-        maximumAge: 3600000,
+        // maximumAge: 3600000,
       }
     );
   };
@@ -241,6 +241,13 @@ const Profile = () => {
               path: userData?.asset_url + profile_data?.profile,
             });
           }
+
+          if(profile_data?.player){
+            setCurrentLatitude(Number( profile_data?.player?.latitude) || 0.0)
+            setCurrentLongitude(Number(profile_data?.player?.longitude) || 0.0)
+
+          }
+
         } else {
           toast.show({
             description: response.data.message,

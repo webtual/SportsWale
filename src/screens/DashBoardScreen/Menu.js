@@ -68,6 +68,9 @@ import HelpSupportIcon from "../../assets/images/HelpSupportIcon";
 import LogoutIcon from "../../assets/images/LogoutIcon";
 import { removeAllData } from "../../commonComponents/AsyncManager";
 import { ALERT_TYPE, Dialog } from 'react-native-alert-notification'
+import InAppReview from 'react-native-in-app-review';
+
+
 
 const MenuTab = () => {
   const dispatch = useDispatch()
@@ -109,7 +112,7 @@ const MenuTab = () => {
       image: <RateUsIcon />,
       title: "Rate Us",
       description: "",
-      routeName: "",
+      routeName: "rate_us",
     },
     {
       image: <HelpSupportIcon />,
@@ -134,6 +137,45 @@ const MenuTab = () => {
   useEffect(() => {
     console.log("userData : ", userData);
   }, []);
+
+  const showRatingAlert = () => {
+    if (InAppReview.isAvailable()) {
+      // trigger UI InAppreview
+      InAppReview.RequestInAppReview()
+        .then(hasFlowFinishedSuccessfully => {
+          // when return true in android it means user finished or close review flow
+
+          // when return true in ios it means review flow lanuched to user.
+
+          // 1- you have option to do something ex: (navigate Home page) (in android).
+          // 2- you have option to do something,
+          // ex: (save date today to lanuch InAppReview after 15 days) (in android and ios).
+
+          // 3- another option:
+          if (hasFlowFinishedSuccessfully) {
+            // do something for ios
+            // do something for android
+            
+          }
+
+          // for android:
+          // The flow has finished. The API does not indicate whether the user
+          // reviewed or not, or even whether the review dialog was shown. Thus, no
+          // matter the result, we continue our app flow.
+
+          // for ios
+          // the flow lanuched successfully, The API does not indicate whether the user
+          // reviewed or not, or he/she closed flow yet as android, Thus, no
+          // matter the result, we continue our app flow.
+        })
+        .catch(error => {
+          console.log("error : ",error)
+          //we continue our app flow.
+          // we have some error could happen while lanuching InAppReview,
+          // Check table for errors and code number that can return in catch.
+        });
+    }
+  };
 
 
   /* Clear all stored data & Logout  */
@@ -175,7 +217,10 @@ const MenuTab = () => {
           },
 
       })
-    } else {
+    }else if(item.routeName == "rate_us"){
+      showRatingAlert()
+    }
+     else {
       navigate(item.routeName);
     }
   };

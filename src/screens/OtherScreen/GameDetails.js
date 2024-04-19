@@ -255,7 +255,7 @@ const GameDetails = (props) => {
                     padding: pixelSizeHorizontal(5),
                     borderRadius: widthPixel(50),
                   }}
-                  onPress={() => {}}
+                  onPress={() => {navigate("AllPlayers",{gameDetails : gameDetails ,  players : gameDetails?.game_participants})}}
                 >
                   <Icon name={"chevron-right"} size={25} color={white} />
                 </IconButton>

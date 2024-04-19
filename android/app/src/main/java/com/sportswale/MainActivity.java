@@ -4,7 +4,6 @@ import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactActivityDelegate;
-import com.otplessreactnative.OtplessReactNativeManager;
 import android.content.Intent;
 
 public class MainActivity extends ReactActivity {
@@ -21,12 +20,10 @@ public class MainActivity extends ReactActivity {
   @Override
   public void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
-    OtplessReactNativeManager.INSTANCE.onNewIntent(intent);
   }
 
   @Override
   public void onBackPressed() {
-    if (OtplessReactNativeManager.INSTANCE.onBackPressed()) return;
     super.onBackPressed();
   }
 

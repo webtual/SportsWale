@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Platform } from "react-native";
 import React, { useEffect, useState } from "react";
 import HeaderView from "../../commonComponents/HeaderView";
 import { goBack, navigate, popToTop, resetScreen } from "../../navigations/RootNavigation";
@@ -106,6 +106,7 @@ export default function Payment(props) {
     formData.append("total_payable_amount", calTotalPayableAmount());
     formData.append("payment_ref_id", "pay_001");
     formData.append("transaction_order_number", "pay_001");
+    formData.append("is_public", gameType);
 
     formData.append("total_amount", venueDetail?.advance_amount);
     formData.append("convenience_fees", convenienceCharge);
@@ -211,8 +212,8 @@ export default function Payment(props) {
                 color: black,
               }}
             >
-              {selectedSlots?.time[0]?.time_start} to{" "}
-              {selectedSlots?.time[0]?.time_end}
+              {selectedSlots?.time[0]?.display_time_start} to{" "}
+              {selectedSlots?.time[0]?.display_time_end}
               {/* {moment(selectedSlots?.date).format("ddd DD MMM, YYYY") +
                 "\n" +
                 selectedSlots?.time
@@ -277,13 +278,13 @@ export default function Payment(props) {
           {gameSkillIsOn && (
             <>
               <Slider
-                style={{ flex: 1, width: "100%" }}
+                style={{ flex: 1, width: "100%", marginTop : pixelSizeHorizontal(20) }}
                 minimumValue={0}
                 maximumValue={3}
                 step={1}
                 lowerLimit={1}
                 value={gameLevel}
-                thumbTintColor={white}
+                thumbTintColor={Platform.OS == 'ios' ? white : primary}
                 minimumTrackTintColor={primary}
                 maximumTrackTintColor={primary_light}
                 onValueChange={setGameLevel}
@@ -594,6 +595,28 @@ export default function Payment(props) {
             {venueDetail?.booking_policy}
           </Text>
         </View>
+
+        <View>
+          <Text
+            style={{
+              fontFamily: SEMIBOLD,
+              fontSize: FontSize.FS_14,
+              color: black,
+              marginVertical: pixelSizeHorizontal(15),
+            }}
+          >
+            Cancellation Policy's
+          </Text>
+          <Text
+            style={{
+              fontFamily: REGULAR,
+              fontSize: FontSize.FS_12,
+              color: black,
+            }}
+          >
+            {venueDetail?.cancellation_policy}
+          </Text>
+        </View>
       </HeaderView>
 
       <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
@@ -661,8 +684,7 @@ export default function Payment(props) {
                 color: black,
               }}
             >
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy.
+              Game has been created, please react to the location on time.
             </Text>
           </View>
         </CenterModal>

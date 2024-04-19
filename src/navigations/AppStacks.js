@@ -70,6 +70,7 @@ import BookingHistory from '../screens/OtherScreen/BookingHistory';
 import Preference from '../screens/OtherScreen/Preference';
 import MySports from '../screens/OtherScreen/MySports';
 import AddSports from '../screens/OtherScreen/AddSports';
+import AllPlayers from '../screens/OtherScreen/AllPlayers';
 
 // import { cart_data } from '../redux/reducers/cartReducer';
 // import { useSelector } from 'react-redux';
@@ -325,6 +326,8 @@ function AppStacks() {
 			<Stack.Screen name="Preference" component={Preference} />
 			<Stack.Screen name="MySports" component={MySports} />
 			<Stack.Screen name="AddSports" component={AddSports} />
+			<Stack.Screen name="AllPlayers" component={AllPlayers} />
+
 
 
 			
