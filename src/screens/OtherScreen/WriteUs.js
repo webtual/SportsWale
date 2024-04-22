@@ -82,6 +82,14 @@ export default function WriteUs() {
       },
     ]);
   };
+
+  const handleRemoveImage=(indexToRemove)=>{
+    console.log('remove image');
+    SetScreenshot(prevLandImg =>
+        prevLandImg.filter((_, index) => index !== indexToRemove),
+      );
+  }
+
   return (
     <>
       <HeaderView
@@ -176,7 +184,7 @@ export default function WriteUs() {
                       top: -5,
                     }}
                     onPress={() => {
-                      handleRemoveImage(image, index);
+                      handleRemoveImage(index);
                     }}
                   >
                     <Icon name={"close"} size={20} color={white} />
@@ -189,7 +197,7 @@ export default function WriteUs() {
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => {
-              btnDoneTap();
+              console.log('send');
             }}
             style={[
               CommonStyle.mainBtnStyle,

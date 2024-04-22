@@ -240,16 +240,12 @@ const BookingHistory = () => {
               </View>
             )}
             renderItem={({ item }) => {
-              var info = item?.purpose == "JOINING" ? item?.joining_information : item?.venue_booked_information
-              return(
-              <View style={[styles.cardView, CommonStyle.shadow]}>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    flex: 1,
-                  }}
-                >
+              var info =
+                item?.purpose == "JOINING"
+                  ? item?.joining_information
+                  : item?.venue_booked_information;
+              return (
+                <View style={[styles.cardView, CommonStyle.shadow]}>
                   <View
                     style={{
                       flexDirection: "row",
@@ -259,75 +255,76 @@ const BookingHistory = () => {
                   >
                     <View
                       style={{
-                        height: widthPixel(30),
-                        width: widthPixel(30),
-                        borderRadius: widthPixel(15),
-                        backgroundColor: primary_light,
-                        padding: pixelSizeHorizontal(5),
+                        flexDirection: "row",
+                        alignItems: "center",
+                        flex: 1,
                       }}
                     >
-                      <FastImage
-                        source={{
-                          uri:
-                            userData?.asset_url +
-                            info?.game_image,
+                      <View
+                        style={{
+                          height: widthPixel(30),
+                          width: widthPixel(30),
+                          borderRadius: widthPixel(15),
+                          backgroundColor: primary_light,
+                          padding: pixelSizeHorizontal(5),
                         }}
-                        resizeMode={"contain"}
-                        style={{ flex: 1 }}
-                      />
+                      >
+                        <FastImage
+                          source={{
+                            uri: userData?.asset_url + info?.game_image,
+                          }}
+                          resizeMode={"contain"}
+                          style={{ flex: 1 }}
+                        />
+                      </View>
+                      <Text
+                        style={[
+                          styles.titleText,
+                          { marginHorizontal: pixelSizeHorizontal(10) },
+                        ]}
+                      >
+                        {info?.game_title}
+                      </Text>
+                      <Text style={[styles.descriptionText]}>
+                        {info?.venue_ground_title}
+                      </Text>
                     </View>
+
+                    <Text style={[styles.titleText]}>
+                      {RUPEE}
+                      {item?.amount}
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      marginTop: pixelSizeHorizontal(10),
+                    }}
+                  >
+                    <NavigationIcon
+                      width={widthPixel(20)}
+                      height={widthPixel(20)}
+                    />
                     <Text
                       style={[
-                        styles.titleText,
-                        { marginHorizontal: pixelSizeHorizontal(10) },
+                        {
+                          marginLeft: pixelSizeHorizontal(10),
+                          flex: 1,
+                          fontFamily: MEDIUM,
+                          fontSize: FontSize.FS_12,
+                          color: black,
+                        },
                       ]}
                     >
-                      {info?.game_title}
-                    </Text>
-                    <Text style={[styles.descriptionText]}>
-                      {info?.venue_ground_title}
+                      {info?.venue_location}
                     </Text>
                   </View>
 
-                  <Text style={[styles.titleText]}>
-                    {RUPEE}
-                    {item?.amount}
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    marginTop: pixelSizeHorizontal(10),
-                  }}
-                >
-                  <NavigationIcon
-                    width={widthPixel(20)}
-                    height={widthPixel(20)}
-                  />
-                  <Text
-                    style={[
-                      {
-                        marginLeft: pixelSizeHorizontal(10),
-                        flex: 1,
-                        fontFamily: MEDIUM,
-                        fontSize: FontSize.FS_12,
-                        color: black,
-                      },
-                    ]}
-                  >
-                    {info?.venue_location}
-                  </Text>
-                </View>
-
-                <View
-                  style={{
-                    flexDirection: "row",
-                    marginTop: pixelSizeHorizontal(10),
-                    flex: 1,
-                  }}
-                >
                   <View
                     style={{
+                      flexDirection: "row",
+                      marginTop: pixelSizeHorizontal(10),
+                      flex: 1,
                       borderWidth: 1,
                       borderColor: primary_light,
                       borderRadius: widthPixel(5),
@@ -342,76 +339,72 @@ const BookingHistory = () => {
                         { fontSize: FontSize.FS_14 },
                       ]}
                     >
-                      {moment(
-                        info?.event_date
-                      ).format("ddd, DD MMM, YYYY")}{" "}
-                      |{" "}
-                      {info?.display_event_start_time}{" "}
-                      to{" "}
+                      {moment(info?.event_date).format("ddd, DD MMM, YYYY")} |{" "}
+                      {info?.display_event_start_time} to{" "}
                       {info?.display_event_end_time}
                     </Text>
                   </View>
-                </View>
 
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    marginTop: pixelSizeHorizontal(16),
-                    flex: 1,
-                  }}
-                >
                   <View
                     style={{
-                      backgroundColor: primary_light,
-                      borderRadius: widthPixel(5),
-                      paddingVertical: pixelSizeHorizontal(8),
-                      paddingHorizontal: pixelSizeHorizontal(5),
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginTop: pixelSizeHorizontal(16),
+                      flex: 1,
                     }}
                   >
-                    <Text style={[styles.descriptionText]}>
-                      <Text style={{ color: primary }}>Booking ID : </Text>
-                      {item?.reference_number}
-                    </Text>
+                    <View
+                      style={{
+                        backgroundColor: primary_light,
+                        borderRadius: widthPixel(5),
+                        paddingVertical: pixelSizeHorizontal(8),
+                        paddingHorizontal: pixelSizeHorizontal(5),
+                      }}
+                    >
+                      <Text style={[styles.descriptionText]}>
+                        <Text style={{ color: primary }}>Booking ID : </Text>
+                        {item?.reference_number}
+                      </Text>
+                    </View>
+
+                    <View style={{ flex: 1 }}>
+                      <Text
+                        style={[
+                          {
+                            fontSize: FontSize.FS_10,
+                            fontFamily: REGULAR,
+                            color: black,
+                            textAlign: "right",
+                          },
+                        ]}
+                      >
+                        Booked on :{" "}
+                        {moment(item?.created_at).format("DD MMM YYYY")}
+                      </Text>
+                    </View>
                   </View>
 
-                  <View style={{ flex: 1 }}>
+                  {info?.is_cancelled ? (
                     <Text
                       style={[
                         {
-                          fontSize: FontSize.FS_10,
-                          fontFamily: REGULAR,
-                          color: black,
-                          textAlign: "right",
+                          fontFamily: MEDIUM,
+                          fontSize: FontSize.FS_12,
+                          color: error,
+                          marginTop: pixelSizeHorizontal(10),
+                          textTransform: "uppercase",
                         },
                       ]}
                     >
-                      Booked on :{" "}
-                      {moment(item?.created_at).format("DD MMM YYYY")}
+                      Cancelled booking on{" "}
+                      {moment(info?.cancelled_on).format(
+                        "DD MMM YYYY [AT] HH:MM A"
+                      )}
                     </Text>
-                  </View>
+                  ) : null}
                 </View>
-
-                {info?.is_cancelled ? (
-                  <Text
-                    style={[
-                      {
-                        fontFamily: MEDIUM,
-                        fontSize: FontSize.FS_12,
-                        color: error,
-                        marginTop: pixelSizeHorizontal(10),
-                        textTransform: "uppercase",
-                      },
-                    ]}
-                  >
-                    Cancelled booking on{" "}
-                    {moment(
-                      info?.cancelled_on
-                    ).format("DD MMM YYYY [AT] HH:MM A")}
-                  </Text>
-                ) : null}
-              </View>
-            )}}
+              );
+            }}
           />
         </View>
       </HeaderView>

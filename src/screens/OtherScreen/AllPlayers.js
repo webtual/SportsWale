@@ -63,6 +63,7 @@ const AllPlayers = (props) => {
                         width: 48,
                         height: 48,
                         borderRadius: 48 / 2,
+                        overflow:'hidden'
                       },
                     ]}
                   >
