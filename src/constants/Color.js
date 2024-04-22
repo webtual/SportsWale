@@ -14,6 +14,7 @@ export const offWhite = "#F5F5F5"
 export const border = "#D4D4D4"
 export const yellow = "#F8B111"
 export const error = "#CE0E0E"
+export const green = "#008F20"
 
 
 export const seprator = "rgb(230,230,230)"

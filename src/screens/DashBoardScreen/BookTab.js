@@ -51,7 +51,6 @@ const BookTab = (props) => {
   const [showMore, setShowMore] = useState(false);
   const [favourites, setFavourites] = useState(0);
 
-
   const [CurrentLatitude, setCurrentLatitude] = useState(userReduxData.lat || 0.0);
   const [CurrentLongitude, setCurrentLongitude] = useState(userReduxData.long || 0.0);
 

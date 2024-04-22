@@ -94,7 +94,7 @@ const MenuTab = () => {
       image: <WalletIcon />,
       title: "Payments & Wallet",
       description: "Manage Payment Settings",
-      routeName: "",
+      routeName: "PaymentWallet",
     },
     {
       image: <PreferenceIcon />,

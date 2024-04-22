@@ -65,6 +65,7 @@ import AllPlayers from '../screens/OtherScreen/AllPlayers';
 import HelpSupport from '../screens/OtherScreen/HelpSupport';
 import BookingPolicy from '../screens/OtherScreen/BookingPolicy';
 import WriteUs from '../screens/OtherScreen/WriteUs';
+import PaymentWallet from '../screens/OtherScreen/PaymentWallet';
 
 // import { cart_data } from '../redux/reducers/cartReducer';
 // import { useSelector } from 'react-redux';
@@ -325,6 +326,8 @@ function AppStacks() {
 			<Stack.Screen name="HelpSupport" component={HelpSupport} />
 			<Stack.Screen name="BookingPolicy" component={BookingPolicy} />
 			<Stack.Screen name="WriteUs" component={WriteUs} />
+			<Stack.Screen name="PaymentWallet" component={PaymentWallet} />
+
 
 
 			

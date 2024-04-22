@@ -836,7 +836,7 @@ const Profile = () => {
                 <DateTimePickerModal
                   isVisible={isDatePickerVisible}
                   mode="date"
-                  // date={new Date(values?.dob)}
+                   date={new Date(values?.dob)}
                   maximumDate={new Date()}
                   onConfirm={(date) => {
                     console.warn("A date has been picked: ", date);
