@@ -96,7 +96,7 @@ const Register = (props) => {
   }, []);
 
   useEffect(() => {
-    // if (refMarker.current) {
+     if (refMarker.current) {
       refMarker.current.animateToRegion(
         {
           latitude: CurrentLatitude,
@@ -106,7 +106,7 @@ const Register = (props) => {
         },
         1000
       );
-    // }
+     }
   }, [CurrentLatitude, CurrentLongitude]);
 
   const requestLocationPermission = async () => {

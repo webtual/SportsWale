@@ -19,7 +19,7 @@ import { getUniqueListBy } from "../../commonComponents/Utils";
 import GamesCard from "../../commonComponents/GamesCard";
 import { SCREEN_WIDTH } from "../../constants/ConstantKey";
 import { FontSize, SEMIBOLD } from "../../constants/Fonts";
-import { dim_grey } from "../../constants/Color";
+import { dim_grey, secondary } from "../../constants/Color";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const MySportList = ({ setIsLoading }) => {

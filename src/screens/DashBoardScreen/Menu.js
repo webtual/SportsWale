@@ -118,7 +118,7 @@ const MenuTab = () => {
       image: <HelpSupportIcon />,
       title: "Help & Support",
       description: "",
-      routeName: "",
+      routeName: "HelpSupport",
     },
     {
       image: <LogoutIcon width={32} height={32} />,

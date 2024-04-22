@@ -24,8 +24,10 @@ export const GET_BOOKING_HISTORY = "transactions/booking-histories"
 export const UPDATE_USER_GAME = "user-games/"
 export const DELETE_USER_GAME = "user-games/"
 export const JOIN_GAME = "transactions/join-game"
+export const FAQ = "faqs/"
+export const UPDATE_PROFILE = "users/"
 
-export const UPDATE_PROFILE = "update-profile"
+
 export const GET_HOME_BANNER = "get-homebanner"
 export const GET_FAQS = "get-faqs"
 export const GET_CONTACT_DETAILS = "get-contact-details"

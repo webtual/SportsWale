@@ -23,27 +23,18 @@ import Login from '../screens/AuthScreen/Login';
 import OtpView from '../screens/AuthScreen/OtpView';
 // import Register from '../screens/AuthScreen/Register1';
 import Home from '../screens/DashBoardScreen/Home';
-import Venue from '../screens/DashBoardScreen/Venue';
 import Profile from '../screens/DashBoardScreen/Profile';
 import Settings from '../screens/OtherScreen/Settings';
 import FastImage from 'react-native-fast-image';
-import { FolderFillImg, FolderImg, HomeFillImg, HomeImg, SettingFillImg, SettingImg, UserFillImg, UserImg } from '../constants/Images';
 import SelectSport from '../screens/OtherScreen/SelectSport';
 import VenueDetail from '../screens/OtherScreen/VenueDetail';
-import AddVenue from '../screens/OtherScreen/AddVenue';
-import Activity from '../screens/DashBoardScreen/Activity';
-import CreateActivity from '../screens/OtherScreen/CreateActivity';
-import ActivityDetails from '../screens/OtherScreen/ActivityDetails';
 import Request from '../screens/OtherScreen/Request';
 import RegisterSelectSport from '../screens/AuthScreen/RegisterSelectSport';
 import { Select, View } from 'native-base';
 import PopUp from '../commonComponents/Popup';
 import { navigate } from './RootNavigation';
-import EnterActivityName from '../screens/OtherScreen/EnterActivityName';
-import EventType from '../screens/OtherScreen/EventType';
 import SelectVenue from '../screens/OtherScreen/SelectVenue';
 import SelectSlot from '../screens/OtherScreen/SelectSlot';
-import EnterVenueName from '../screens/OtherScreen/EnterVenueName';
 import SelectDateTime from '../screens/OtherScreen/SelectDateTime';
 import InvitePeople from '../screens/OtherScreen/InvitePeople';
 import Register from '../screens/AuthScreen/Register';
@@ -71,6 +62,7 @@ import Preference from '../screens/OtherScreen/Preference';
 import MySports from '../screens/OtherScreen/MySports';
 import AddSports from '../screens/OtherScreen/AddSports';
 import AllPlayers from '../screens/OtherScreen/AllPlayers';
+import HelpSupport from '../screens/OtherScreen/HelpSupport';
 
 // import { cart_data } from '../redux/reducers/cartReducer';
 // import { useSelector } from 'react-redux';
@@ -327,23 +319,19 @@ function AppStacks() {
 			<Stack.Screen name="MySports" component={MySports} />
 			<Stack.Screen name="AddSports" component={AddSports} />
 			<Stack.Screen name="AllPlayers" component={AllPlayers} />
+			<Stack.Screen name="Payment" component={Payment} />
+			<Stack.Screen name="HelpSupport" component={HelpSupport} />
 
 
 
 			
-			<Stack.Screen name="EnterActivityName" component={EnterActivityName} />
-			<Stack.Screen name="EventType" component={EventType} />
 			<Stack.Screen name="SelectVenue" component={SelectVenue} />
-			<Stack.Screen name="EnterVenueName" component={EnterVenueName} />
 			<Stack.Screen name="SelectDateTime" component={SelectDateTime} />
 			<Stack.Screen name="InvitePeople" component={InvitePeople} />
 
 			<Stack.Screen name="VenueDetail" component={VenueDetail} />
-			<Stack.Screen name="AddVenue" component={AddVenue} />
-			<Stack.Screen name="CreateActivity" component={CreateActivity} />
-			<Stack.Screen name="ActivityDetails" component={ActivityDetails} />
 			<Stack.Screen name="Request" component={Request} />
-			<Stack.Screen name="Payment" component={Payment} />
+			
 		</Stack.Navigator>
 	)
 }

@@ -77,13 +77,14 @@ import { SCREEN_WIDTH, USER_DATA } from "../../constants/ConstantKey";
 import TextInputView from "../../commonComponents/TextInputView";
 import CommonStyle from "../../commonComponents/CommonStyle";
 import ApiManager from "../../commonComponents/ApiManager";
-import { GET_PROFILE } from "../../constants/ApiUrl";
+import { GET_PROFILE, UPDATE_PROFILE } from "../../constants/ApiUrl";
 import LoadingView from "../../commonComponents/LoadingView";
 import moment from "moment";
 import Feather from "react-native-vector-icons/Feather";
 import { storeData } from "../../commonComponents/AsyncManager";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import Geocoder from "react-native-geocoding";
+import { getFileNameFromPath } from "../../commonComponents/Utils";
 
 const Profile = () => {
   const refMarker = useRef();
@@ -245,7 +246,10 @@ const Profile = () => {
           if(profile_data?.player){
             setCurrentLatitude(Number( profile_data?.player?.latitude) || 0.0)
             setCurrentLongitude(Number(profile_data?.player?.longitude) || 0.0)
-
+            getaddressFromLatLong(
+              profile_data?.player?.latitude,
+              profile_data?.player?.longitude
+            );
           }
 
         } else {
@@ -259,6 +263,59 @@ const Profile = () => {
         console.error("Api_Get_Profile Error ", err);
       });
   };
+
+
+  const Api_Update_profile = (isLoad, profile_data) => {
+    setIsLoading(isLoad);
+
+    const formData = new FormData();
+    formData.append("name", profile_data?.name);
+    formData.append("email", "");
+    formData.append("gender", profile_data?.gender)
+
+    formData.append("dob", profile_data?.dob);
+    formData.append("location", profile_data?.location);
+    formData.append("latitude", profile_data?.lat);
+    formData.append("longitude", profile_data?.long);
+    formData.append("bio", "");
+    // formData.append("device_type", Platform.OS == 'android' ? 1 : 2);
+    // formData.append("token", "1234567890");
+    if(profile_data?.profile_image){
+      formData.append('profile_image', {
+        uri: profile_data?.profile_image?.path,
+        name: getFileNameFromPath(profile_data?.profile_image?.path),
+        type: profile_data?.profile_image?.mime
+      });
+    }
+   
+    ApiManager.put(UPDATE_PROFILE+ userData?.id, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        console.log("Api_Update_profile : ", JSON.stringify(response));
+        setIsLoading(false);
+
+        if (response.data.status === true) {
+          toast.show({
+            description : response.data.message
+          })
+
+          Api_Get_Profile(true)
+          setIsEditProfile(false)
+        } else {
+          toast.show({
+            description : response.data.message
+          })
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.error("Api_Update_profile Error ", err);
+      });
+  };
+
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -324,7 +381,7 @@ const Profile = () => {
     ]);
   };
 
-  const registerSchema = Yup.object().shape({
+  const profileSchema = Yup.object().shape({
     mobile_number: Yup.string()
       .min(10, "* Please enter valid mobile number")
       .required("* Please enter mobile number"),
@@ -370,7 +427,12 @@ const Profile = () => {
       .catch((error) => console.warn("Geocoder error", error));
   };
 
-  const btnUpdateTap = () => {};
+  const btnUpdateTap = (final_data) => {
+    console.log("final_data : ",final_data)
+
+    console.log("getFileNameFromPath : ",final_data?.profile_image?.path.split('\\').pop().split('/').pop())
+    // Api_Update_profile(true, final_data)
+  };
 
   return (
     <>
@@ -409,17 +471,16 @@ const Profile = () => {
               // acceptTerms: true,
               profile_image: profileImg,
             }}
-            validationSchema={registerSchema}
+            validationSchema={profileSchema}
             onSubmit={(values) => {
               console.log("values : ", values);
 
               if (CurrentLatitude && CurrentLongitude) {
                 var FinalValue = values;
-                FinalValue["isFrom"] = "Register";
                 FinalValue["lat"] = CurrentLatitude;
                 FinalValue["long"] = CurrentLongitude;
 
-                btnUpdateTap();
+                btnUpdateTap(FinalValue);
                 // navigate("OtpView", { data: FinalValue });
               } else {
                 toast.show({
@@ -441,7 +502,8 @@ const Profile = () => {
             }) => (
               <View style={{ marginTop: pixelSizeHorizontal(10) }}>
                 <View style={{ alignSelf: "center" }}>
-                  <TouchableOpacity onPress={() => UploadImage(setFieldValue)}>
+                  <TouchableOpacity onPress={() => isEditProfile && UploadImage(setFieldValue)}
+                    disabled={!isEditProfile}>
                     <FastImage
                       source={
                         values.profile_image
@@ -753,6 +815,7 @@ const Profile = () => {
                 <DateTimePickerModal
                   isVisible={isDatePickerVisible}
                   mode="date"
+                  // date={new Date(values?.dob)}
                   maximumDate={new Date()}
                   onConfirm={(date) => {
                     console.warn("A date has been picked: ", date);

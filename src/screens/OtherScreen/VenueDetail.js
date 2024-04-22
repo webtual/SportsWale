@@ -564,7 +564,7 @@ const VenueDetail = (props) => {
             setRating(0);
             setReview("");
           }}
-          title={"Vista Sports Arena"}
+          title={venueDetail?.title}
         >
           <RatingSheet
             onRatingChange={onRatingChange}

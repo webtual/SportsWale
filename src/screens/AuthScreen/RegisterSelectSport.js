@@ -55,6 +55,7 @@ import { storeData } from "../../commonComponents/AsyncManager";
 import { BEARER_TOKEN, USER_DATA } from "../../constants/ConstantKey";
 import { storeUserData } from "../../redux/reducers/userReducer";
 import { useDispatch } from "react-redux";
+import { getFileNameFromPath } from "../../commonComponents/Utils";
 
 const RegisterSelectSport = (props) => {
 
@@ -150,7 +151,12 @@ const RegisterSelectSport = (props) => {
     formData.append("device_type", Platform.OS == 'android' ? 1 : 2);
     formData.append("token", "1234567890");
     if(registerData?.profile_image){
-      formData.append("profile_image", registerData?.name);
+      // formData.append("profile_image", registerData?.name);
+      formData.append('profile_image', {
+        uri: registerData?.profile_image?.path,
+        name: getFileNameFromPath(registerData?.profile_image?.path),
+        type: registerData?.profile_image?.mime
+      });
     }
     formData.append("game_selection", JSON.stringify(selectedList.map((el) => ({  game_id: el.game_id , level : el.level }))));
 

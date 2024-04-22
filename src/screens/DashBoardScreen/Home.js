@@ -511,7 +511,7 @@ const Home = ({ navigation }) => {
           </View>
 
           <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
-            <BasicCard style={styles.cardContainer}>
+            <BasicCard style={styles.cardContainer} onPress={()=> navigate("InvitePeople")}>
               <View
                 style={{
                   flexDirection: "row",
