@@ -133,6 +133,7 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
                 borderWidth: 3,
                 borderColor: white,
                 backgroundColor : white,
+                overflow:'hidden'
               },CommonStyle.shadow]}>
               <FastImage
                 style={{flex:1}}
@@ -153,7 +154,8 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
               marginLeft: -15,
               borderWidth: 3,
               borderColor: white,
-              backgroundColor : white
+              backgroundColor : white,
+              overflow:'hidden'
             },CommonStyle.shadow]}>
              <FastImage
                 style={{flex:1}}
@@ -173,6 +175,7 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
                 marginLeft: -10,
                 borderWidth: 3,
                 borderColor: white,
+                overflow:'hidden'
                 },CommonStyle.shadow]}>
               <FastImage
                 style={[{

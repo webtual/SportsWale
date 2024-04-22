@@ -280,15 +280,15 @@ const Profile = () => {
     formData.append("bio", "");
     // formData.append("device_type", Platform.OS == 'android' ? 1 : 2);
     // formData.append("token", "1234567890");
-    if(profile_data?.profile_image){
-      formData.append('profile_image', {
-        uri: profile_data?.profile_image?.path,
-        name: getFileNameFromPath(profile_data?.profile_image?.path),
-        type: profile_data?.profile_image?.mime
+    if (profileImg?.mime) {
+      formData.append("profile_image", {
+        uri: profileImg?.path,
+        name: Platform.OS == "android" ? "image.png" : profileImg.filename,
+        type: profileImg?.mime,
       });
     }
-   
-    ApiManager.put(UPDATE_PROFILE+ userData?.id, formData, {
+
+    ApiManager.put(UPDATE_PROFILE + userData?.id, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -299,15 +299,15 @@ const Profile = () => {
 
         if (response.data.status === true) {
           toast.show({
-            description : response.data.message
-          })
+            description: response.data.message,
+          });
 
-          Api_Get_Profile(true)
-          setIsEditProfile(false)
+          Api_Get_Profile(true);
+          setIsEditProfile(false);
         } else {
           toast.show({
-            description : response.data.message
-          })
+            description: response.data.message,
+          });
         }
       })
       .catch((err) => {
@@ -342,6 +342,7 @@ const Profile = () => {
               // console.log("Selected Image  " + JSON.stringify(images))
 
               setFieldValue("profile_image", images);
+              setProfileImg(images);
               setIsLoading(false);
             })
             .catch((error) => {
@@ -364,6 +365,7 @@ const Profile = () => {
             .then((images) => {
               console.log("Selected Image : " + JSON.stringify(images));
               setIsLoading(false);
+              setProfileImg(images);
               setFieldValue("profile_image", images);
             })
             .catch((error) => {
@@ -417,8 +419,8 @@ const Profile = () => {
     Geocoder.from(lat, long)
       .then((json) => {
         var addressComponent = json.results[0];
-        console.log("address comp : ", addressComponent);
-        if (addressComponent.length) {
+
+        if (addressComponent.address_components.length) {
           setFieldValue &&
             setFieldValue("location", addressComponent?.formatted_address);
           setTxtLocation(addressComponent?.formatted_address);
@@ -428,10 +430,11 @@ const Profile = () => {
   };
 
   const btnUpdateTap = (final_data) => {
-    console.log("final_data : ",final_data)
-
-    console.log("getFileNameFromPath : ",final_data?.profile_image?.path.split('\\').pop().split('/').pop())
-    // Api_Update_profile(true, final_data)
+    console.log(
+      "getFileNameFromPath : ",
+      final_data?.profile_image?.path.split("\\").pop().split("/").pop()
+    );
+    Api_Update_profile(true, final_data);
   };
 
   return (
@@ -502,9 +505,11 @@ const Profile = () => {
             }) => (
               <View style={{ marginTop: pixelSizeHorizontal(10) }}>
                 <View style={{ alignSelf: "center" }}>
-                  <TouchableOpacity onPress={() => isEditProfile && UploadImage(setFieldValue)}
-                    disabled={!isEditProfile}>
-                    <FastImage
+                  <TouchableOpacity
+                    onPress={() => isEditProfile && UploadImage(setFieldValue)}
+                    disabled={!isEditProfile}
+                  >
+                    {/* <FastImage
                       source={
                         values.profile_image
                           ? { uri: values.profile_image.path }
@@ -518,12 +523,25 @@ const Profile = () => {
                         borderWidth: 5,
                       }}
                       resizeMode="cover"
-                    />
+                    /> */}
+
+                    {profileImg?.path ? (
+                      <FastImage
+                        source={{ uri: profileImg?.path }}
+                        style={styles.image}
+                      />
+                    ) : (
+                      <FastImage
+                        source={UserPlaceholder}
+                        style={styles.image}
+                        resizeMode="cover"
+                      />
+                    )}
                   </TouchableOpacity>
-                  {values.profile_image && isEditProfile && (
+                  {/* {values.profile_image && isEditProfile && (
                     <View style={{ position: "absolute", right: 0, top: 10 }}>
                       <IconButton
-                        onPress={() => setFieldValue("profile_image", null)}
+                        onPress={() => setProfileImg(null)}
                       >
                         <Icon
                           name={"close-circle"}
@@ -532,7 +550,7 @@ const Profile = () => {
                         />
                       </IconButton>
                     </View>
-                  )}
+                  )} */}
                 </View>
 
                 <Text
@@ -632,45 +650,48 @@ const Profile = () => {
                       description={values?.location}
                     />
                   </MapView>
-                  <TouchableOpacity
-                    style={{
-                      backgroundColor: primary,
-                      borderRadius: pixelSizeHorizontal(5),
-                      paddingVertical: pixelSizeHorizontal(8),
-                      marginTop: pixelSizeHorizontal(10),
-                    }}
-                    onPress={() => {
-                      navigate("LocationMap", {
-                        lat: CurrentLatitude,
-                        long: CurrentLongitude,
-                        onSelectLocation: (cord) => {
-                          console.log("cord : ", cord);
-                          setCurrentLatitude(cord.coordinate.selectedLatitude);
-                          setCurrentLongitude(
-                            cord.coordinate.selectedLongitude
-                          );
-                          getaddressFromLatLong(
-                            cord.coordinate.selectedLatitude,
-                            cord.coordinate.selectedLongitude,
-                            setFieldValue
-                          );
-
-                        },
-                      });
-                    }}
-                  >
-                    <Text
-                      style={[
-                        CommonStyle.textInputStyle,
-                        {
-                          color: white,
-                          textAlign: "center",
-                        },
-                      ]}
+                  {isEditProfile && (
+                    <TouchableOpacity
+                      style={{
+                        backgroundColor: primary,
+                        borderRadius: pixelSizeHorizontal(5),
+                        paddingVertical: pixelSizeHorizontal(8),
+                        marginTop: pixelSizeHorizontal(10),
+                      }}
+                      onPress={() => {
+                        navigate("LocationMap", {
+                          lat: CurrentLatitude,
+                          long: CurrentLongitude,
+                          onSelectLocation: (cord) => {
+                            console.log("cord : ", cord);
+                            setCurrentLatitude(
+                              cord.coordinate.selectedLatitude
+                            );
+                            setCurrentLongitude(
+                              cord.coordinate.selectedLongitude
+                            );
+                            getaddressFromLatLong(
+                              cord.coordinate.selectedLatitude,
+                              cord.coordinate.selectedLongitude,
+                              setFieldValue
+                            );
+                          },
+                        });
+                      }}
                     >
-                      Select your location
-                    </Text>
-                  </TouchableOpacity>
+                      <Text
+                        style={[
+                          CommonStyle.textInputStyle,
+                          {
+                            color: white,
+                            textAlign: "center",
+                          },
+                        ]}
+                      >
+                        Select your location
+                      </Text>
+                    </TouchableOpacity>
+                  )}
                 </View>
 
                 <Text
@@ -845,6 +866,13 @@ const styles = StyleSheet.create({
     color: black,
     fontFamily: MEDIUM,
     fontSize: FontSize.FS_14,
+  },
+  image: {
+    width: widthPixel(SCREEN_WIDTH / 3),
+    height: widthPixel(SCREEN_WIDTH / 3),
+    borderRadius: widthPixel(SCREEN_WIDTH / 3),
+    borderColor: white,
+    borderWidth: 5,
   },
 });
 

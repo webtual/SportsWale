@@ -448,11 +448,14 @@ const Home = ({ navigation }) => {
             }}
           >
             <BasicCard style={styles.cardContainer}>
-              <View
+              <TouchableOpacity
                 style={{
                   flexDirection: "row",
                   justifyContent: "space-between",
                   alignItems: "center",
+                }}
+                onPress={()=>{
+                  navigate('BookingPolicy')
                 }}
               >
                 <View
@@ -476,13 +479,17 @@ const Home = ({ navigation }) => {
                   </View>
                 </View>
                 <Icon name={"chevron-right"} size={28} color={dim_grey} />
-              </View>
+              </TouchableOpacity>
               <Divider style={{ marginVertical: pixelSizeVertical(10) }} />
-              <View
+              <TouchableOpacity
                 style={{
                   flexDirection: "row",
                   justifyContent: "space-between",
                   alignItems: "center",
+                }}
+
+                onPress={()=>{
+                  navigate('WriteUs')
                 }}
               >
                 <View
@@ -506,7 +513,7 @@ const Home = ({ navigation }) => {
                   </View>
                 </View>
                 <Icon name={"chevron-right"} size={28} color={dim_grey} />
-              </View>
+              </TouchableOpacity>
             </BasicCard>
           </View>
 

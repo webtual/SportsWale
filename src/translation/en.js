@@ -133,6 +133,7 @@ export default {
 	search_game : "Search game",
 	lets_play : "Let's Play!",
 	choose_level : "Choose Level",
+	send:'Send',
 
 	// updated UI
 

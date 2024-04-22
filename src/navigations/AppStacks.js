@@ -63,6 +63,8 @@ import MySports from '../screens/OtherScreen/MySports';
 import AddSports from '../screens/OtherScreen/AddSports';
 import AllPlayers from '../screens/OtherScreen/AllPlayers';
 import HelpSupport from '../screens/OtherScreen/HelpSupport';
+import BookingPolicy from '../screens/OtherScreen/BookingPolicy';
+import WriteUs from '../screens/OtherScreen/WriteUs';
 
 // import { cart_data } from '../redux/reducers/cartReducer';
 // import { useSelector } from 'react-redux';
@@ -321,7 +323,8 @@ function AppStacks() {
 			<Stack.Screen name="AllPlayers" component={AllPlayers} />
 			<Stack.Screen name="Payment" component={Payment} />
 			<Stack.Screen name="HelpSupport" component={HelpSupport} />
-
+			<Stack.Screen name="BookingPolicy" component={BookingPolicy} />
+			<Stack.Screen name="WriteUs" component={WriteUs} />
 
 
 			
