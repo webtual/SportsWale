@@ -36,6 +36,8 @@ import NavigationIcon from "../../assets/images/NavigationIcon";
 import FastImage from "react-native-fast-image";
 import InfoItem from "../../commonComponents/InfoItem";
 import TurfIcon from "../../assets/images/TurfIcon";
+import { MenuProvider } from 'react-native-popup-menu';
+import DotVerticalIcon from "../../assets/images/DotVerticalIcon";
 
 const GameDetails = (props) => {
   const toast = useToast();
@@ -101,9 +103,12 @@ const GameDetails = (props) => {
         onPress={() => goBack()}
         containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20) }}
         rightComponent={
-          <View style={{ alignItems: "center" }}>
+          <View style={{ alignItems: "center" , flexDirection:'row'}}>
             <IconButton additionalStyle={{}} onPress={() => {}}>
               <Icon name={"share-variant"} size={24} color={white} />
+            </IconButton>
+            <IconButton additionalStyle={{marginLeft:25}} onPress={() => {}}>
+              <DotVerticalIcon/>
             </IconButton>
           </View>
         }

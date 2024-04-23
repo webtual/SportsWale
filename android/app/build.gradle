@@ -120,10 +120,10 @@ android {
             keyPassword 'android'
         }
         release {
-            storeFile file('debug.keystore')
-            storePassword 'android'
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
+            storeFile file('sportswale.keystore')
+            storePassword 'sportswale@123'
+            keyAlias 'sportswale'
+            keyPassword 'sportswale@123'
         }
     }
     buildTypes {

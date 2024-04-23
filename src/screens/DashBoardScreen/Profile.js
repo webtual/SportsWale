@@ -225,6 +225,7 @@ const Profile = () => {
 
         if (response.data.status === true) {
           var profile_data = response.data.data;
+          console.log("🚀 ~ .then ~ profile_data:", profile_data);
 
           storeData(USER_DATA, profile_data, () => {
             dispatch(storeUserData(profile_data));
@@ -243,15 +244,14 @@ const Profile = () => {
             });
           }
 
-          if(profile_data?.player){
-            setCurrentLatitude(Number( profile_data?.player?.latitude) || 0.0)
-            setCurrentLongitude(Number(profile_data?.player?.longitude) || 0.0)
+          if (profile_data?.player) {
+            setCurrentLatitude(Number(profile_data?.player?.latitude) || 0.0);
+            setCurrentLongitude(Number(profile_data?.player?.longitude) || 0.0);
             getaddressFromLatLong(
               profile_data?.player?.latitude,
               profile_data?.player?.longitude
             );
           }
-
         } else {
           toast.show({
             description: response.data.message,
@@ -264,14 +264,13 @@ const Profile = () => {
       });
   };
 
-
   const Api_Update_profile = (isLoad, profile_data) => {
     setIsLoading(isLoad);
 
     const formData = new FormData();
     formData.append("name", profile_data?.name);
     formData.append("email", "");
-    formData.append("gender", profile_data?.gender)
+    formData.append("gender", profile_data?.gender);
 
     formData.append("dob", profile_data?.dob);
     formData.append("location", profile_data?.location);
@@ -315,7 +314,6 @@ const Profile = () => {
         console.error("Api_Update_profile Error ", err);
       });
   };
-
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -833,18 +831,20 @@ const Profile = () => {
                   </View>
                 )}
 
-                <DateTimePickerModal
-                  isVisible={isDatePickerVisible}
-                  mode="date"
-                   date={new Date(values?.dob)}
-                  maximumDate={new Date()}
-                  onConfirm={(date) => {
-                    console.warn("A date has been picked: ", date);
-                    setFieldValue("dob", moment(date).format("DD-MM-YYYY"));
-                    hideDatePicker();
-                  }}
-                  onCancel={hideDatePicker}
-                />
+                {isDatePickerVisible && (
+                  <DateTimePickerModal
+                    isVisible={isDatePickerVisible}
+                    mode="date"
+                    date={moment(values?.dob, "DD-MM-YYYY").toDate()}
+                    maximumDate={new Date()}
+                    onConfirm={(date) => {
+                      console.warn("A date has been picked: ", date);
+                      hideDatePicker();
+                      setFieldValue("dob", moment(date).format("DD-MM-YYYY"));
+                    }}
+                    onCancel={hideDatePicker}
+                  />
+                )}
               </View>
             )}
           </Formik>
