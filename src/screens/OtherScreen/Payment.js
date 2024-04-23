@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Platform } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Platform, Keyboard } from "react-native";
 import React, { useEffect, useState } from "react";
 import HeaderView from "../../commonComponents/HeaderView";
 import { goBack, navigate, popToTop, resetScreen } from "../../navigations/RootNavigation";
@@ -572,6 +572,10 @@ export default function Payment(props) {
           placeholder={"Instructions (optional)"}
           error={""}
           multiline={true}
+          blurOnSubmit={true}
+          onSubmitEditing={() => {
+           Keyboard.dismiss();
+         }}
         />
 
         <View>

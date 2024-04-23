@@ -1,5 +1,6 @@
 import {
   Alert,
+  Keyboard,
   StyleSheet,
   Text,
   TextInput,
@@ -19,12 +20,59 @@ import AttachIcon from "../../assets/images/AttachIcon";
 import ImageCropPicker from "react-native-image-crop-picker";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import FastImage from "react-native-fast-image";
+import { useToast } from "native-base";
+import ApiManager from "../../commonComponents/ApiManager";
+import { WRITE_TO_US } from "../../constants/ApiUrl";
+import { getFileNameFromPath } from "../../commonComponents/Utils";
 
 export default function WriteUs() {
+  const toast = useToast()
+
   const [description, setDescription] = useState("");
 
   const [screenshot, SetScreenshot] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+
+  const Api_Write_to_Us = (isLoad) => {
+    setIsLoading(isLoad);
+    const formData = new FormData();
+    formData.append("description", description);
+    
+    if (screenshot.length) {
+      formData.append("file", screenshot?.map((item) => {return {
+        uri: item?.path,
+        name: getFileNameFromPath(item?.path),
+        type: item?.mime,
+      }}))
+    }
+
+    ApiManager.post(WRITE_TO_US, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        console.log("Api_Write_to_Us : ", JSON.stringify(response));
+        setIsLoading(false);
+
+        if (response.data.status === true) {
+          toast.show({
+            description: response.data.message,
+          });
+          goBack()
+        } else {
+          toast.show({
+            description: response.data.message,
+          });
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.error("Api_Write_to_Us Error ", err);
+      });
+  };
+
 
   const UploadImage = (setFieldValue) => {
     Alert.alert("Upload Picture", "Upload your profile picture", [
@@ -120,6 +168,10 @@ export default function WriteUs() {
               setDescription(text);
             }}
             value={description}
+            blurOnSubmit={true}
+            onSubmitEditing={() => {
+             Keyboard.dismiss();
+           }}
           />
           <Text
             style={{
@@ -172,7 +224,7 @@ export default function WriteUs() {
                   onPress={() => {}}
                 >
                   <FastImage
-                    source={{ uri: image.path }}
+                    source={{ uri: image?.path }}
                     style={{ width: 50, height: 50 }}
                   />
                   <TouchableOpacity
@@ -197,7 +249,14 @@ export default function WriteUs() {
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => {
-              console.log('send');
+              if(description == ""){
+                toast.show({
+                  description :"Please write description"
+                })
+              }
+              else{
+                Api_Write_to_Us(true)
+              }
             }}
             style={[
               CommonStyle.mainBtnStyle,

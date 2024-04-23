@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
+  Keyboard,
 } from "react-native";
 import React from "react";
 import StarRating from "react-native-star-rating";
@@ -52,6 +53,10 @@ export default function RatingSheet({
          onChangeText={(text) => {
            onReviewChange(text);
          }}
+         blurOnSubmit={true}
+         onSubmitEditing={() => {
+          Keyboard.dismiss();
+        }}
         />
       </View>
 

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Keyboard } from "react-native";
 import React, { useState } from "react";
 import {
   black,
@@ -259,6 +259,10 @@ const CreateGame = () => {
             placeholder={"Instructions (optional)"}
             error={""}
             multiline={true}
+            blurOnSubmit={true}
+            onSubmitEditing={() => {
+             Keyboard.dismiss();
+           }}
           />
 
           <TouchableOpacity
