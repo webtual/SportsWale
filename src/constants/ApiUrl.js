@@ -26,6 +26,8 @@ export const DELETE_USER_GAME = "user-games/"
 export const JOIN_GAME = "transactions/join-game"
 export const FAQ = "faqs/"
 export const UPDATE_PROFILE = "users/"
+export const ADD_QUESTION ="event-questions/"
+export const WRITE_TO_US ="inquiries/write-to-us"
 
 
 export const GET_HOME_BANNER = "get-homebanner"

@@ -1,18 +1,27 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Keyboard,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import HeaderView from "../../commonComponents/HeaderView";
 import { goBack, navigate } from "../../navigations/RootNavigation";
 import {
   pixelSizeHorizontal,
+  pixelSizeVertical,
   widthPixel,
 } from "../../commonComponents/ResponsiveScreen";
 import IconButton from "../../commonComponents/IconButton";
 import {
   black,
+  border,
   offWhite,
   primary,
   primary_light,
   secondary,
+  transparent,
   white,
 } from "../../constants/Color";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -28,7 +37,7 @@ import { user_data } from "../../redux/reducers/userReducer";
 import { useSelector } from "react-redux";
 import LoadingView from "../../commonComponents/LoadingView";
 import ApiManager from "../../commonComponents/ApiManager";
-import { GAME_DETAILS } from "../../constants/ApiUrl";
+import { ADD_QUESTION, GAME_DETAILS } from "../../constants/ApiUrl";
 import moment from "moment";
 import BasicCard from "../../commonComponents/BasicCard";
 import CommonStyle from "../../commonComponents/CommonStyle";
@@ -44,6 +53,8 @@ import {
   MenuTrigger,
 } from "react-native-popup-menu";
 import DotVerticalIcon from "../../assets/images/DotVerticalIcon";
+import { BottomModal } from "../../commonComponents/Popup";
+import TextInputView from "../../commonComponents/TextInputView";
 
 const GameDetails = (props) => {
   const toast = useToast();
@@ -55,6 +66,9 @@ const GameDetails = (props) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [gameDetails, setGameDetails] = useState(null);
+  const [isOpenQuestion, setOpenQuestion] = useState(false);
+
+  const [txtQuestion, setTxtQuestion] = useState("");
 
   useEffect(() => {
     Api_Get_Game_Details(true);
@@ -85,6 +99,41 @@ const GameDetails = (props) => {
       .catch((err) => {
         setIsLoading(false);
         console.error("Api_Get_Game_Details Error ", err);
+      });
+  };
+
+  const Api_Add_Question = (isLoad) => {
+    setIsLoading(isLoad);
+    const formData = new FormData();
+    formData.append("venue_user_game_id", game_data?.id);
+    formData.append("venue_id", game_data?.venue_id);
+    formData.append("question", txtQuestion);
+
+    ApiManager.post(ADD_QUESTION, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        console.log("Api_Add_Question : ", JSON.stringify(response));
+        setIsLoading(false);
+
+        if (response.data.status === true) {
+          toast.show({
+            description: response.data.message,
+          });
+          setTxtQuestion("");
+          setOpenQuestion(false);
+          Api_Get_Game_Details(true);
+        } else {
+          toast.show({
+            description: response.data.message,
+          });
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.error("Api_Add_Question Error ", err);
       });
   };
 
@@ -436,6 +485,96 @@ const GameDetails = (props) => {
                 </View>
               </>
             )}
+
+            <View
+              style={[
+                styles.card,
+                {marginVertical: pixelSizeHorizontal(20)},
+                CommonStyle.shadow,
+              ]}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Text style={[styles.titletext, { flex: 1 }]}>
+                  Questions ({gameDetails?.questions.length})
+                </Text>
+
+                {gameDetails?.questions.length > 1 ? (
+                  <>
+                    <Text
+                      style={{
+                        color: black,
+                        fontSize: FontSize.FS_12,
+                        fontFamily: MEDIUM,
+                        marginRight: pixelSizeHorizontal(12),
+                      }}
+                    >
+                      See All
+                    </Text>
+                    <IconButton
+                      additionalStyle={{
+                        backgroundColor: primary,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        padding: pixelSizeHorizontal(5),
+                        borderRadius: widthPixel(50),
+                      }}
+                      onPress={() => {
+                        navigate("AllQuestions",{game_data : gameDetails});
+                      }}
+                    >
+                      <Icon name={"chevron-right"} size={25} color={white} />
+                    </IconButton>
+                  </>
+                ) : null}
+              </View>
+
+              {gameDetails?.questions.length > 0 ? (
+                <View style={{ marginVertical: pixelSizeHorizontal(20) }}>
+                  <Text style={[styles.questionText]}>
+                    <Text style={{ fontFamily: SEMIBOLD }}>Q. </Text>
+                    {gameDetails?.questions?.[0]?.question}
+                  </Text>
+                  {gameDetails?.questions?.[0]?.answer ? (
+                    <Text
+                      style={[
+                        styles.questionText,
+                        { marginTop: pixelSizeHorizontal(5) },
+                      ]}
+                    >
+                      <Text style={{ fontFamily: SEMIBOLD }}>A.</Text>
+                      {gameDetails?.questions?.[0]?.answer}
+                    </Text>
+                  ) : null}
+                </View>
+              ) : (
+                <Text
+                  style={[
+                    CommonStyle.titleText,
+                    { marginTop: pixelSizeVertical(20), textAlign: "center" },
+                  ]}
+                >
+                  No Questions Yet!
+                </Text>
+              )}
+
+              <TouchableOpacity
+                style={[
+                  CommonStyle.mainBtnStyle,
+                  {
+                    backgroundColor: transparent,
+                    borderWidth: 1,
+                    borderColor: black,
+                    marginHorizontal: pixelSizeHorizontal(20),
+                    marginVertical: pixelSizeHorizontal(20),
+                  },
+                ]}
+                onPress={() => setOpenQuestion(true)}
+              >
+                <Text style={[CommonStyle.mainBtnText, { color: black }]}>
+                  Ask Questions
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         )}
       </HeaderView>
@@ -454,6 +593,50 @@ const GameDetails = (props) => {
           <Text style={CommonStyle.mainBtnText}>Join Game</Text>
         </TouchableOpacity>
       ) : null}
+
+      <BottomModal
+        isVisible={isOpenQuestion}
+        title={"Your Question"}
+        onClose={() => setOpenQuestion(false)}
+      >
+        <View
+          style={{ padding: pixelSizeHorizontal(15), backgroundColor: white }}
+        >
+          <Text style={[styles.questionText]}>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy.
+          </Text>
+
+          <View style={{ marginVertical: pixelSizeHorizontal(12) }}>
+            <TextInputView
+              style={{
+                minHeight: 100,
+                width: "100%",
+                backgroundColor: white,
+                borderColor: border,
+              }}
+              placeholder="Write a review (Optional)"
+              multiline
+              value={txtQuestion}
+              onChangeText={(text) => {
+                setTxtQuestion(text);
+              }}
+              onSubmitEditing={() => {
+                Keyboard.dismiss();
+              }}
+              blurOnSubmit={true}
+            />
+          </View>
+
+          <TouchableOpacity
+            style={[CommonStyle.mainBtnStyle]}
+            onPress={() => Api_Add_Question(true)}
+          >
+            <Text style={CommonStyle.mainBtnText}>Ask Question</Text>
+          </TouchableOpacity>
+        </View>
+      </BottomModal>
+
       {isLoading && <LoadingView />}
     </MenuProvider>
   );
@@ -474,6 +657,11 @@ const styles = StyleSheet.create({
     paddingVertical: pixelSizeHorizontal(5),
     paddingHorizontal: pixelSizeHorizontal(15),
     borderRadius: 5,
+  },
+  questionText: {
+    fontSize: FontSize.FS_12,
+    fontFamily: REGULAR,
+    color: black,
   },
 });
 export default GameDetails;

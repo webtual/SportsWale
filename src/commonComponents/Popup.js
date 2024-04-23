@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
 import React from "react";
 import {
@@ -158,6 +159,7 @@ export const BottomModal = ({
         {
           margin: 0,
           justifyContent: "flex-end",
+          
           // backgroundColor: "rgba(0,0,0,0.5)",
         },
       ]}
@@ -172,7 +174,9 @@ export const BottomModal = ({
       }}
       onBackButtonPress={() => onClose()}
     >
-      <View
+      <KeyboardAvoidingView
+      behavior="position"
+      enabled
         style={{
           maxHeight: SCREEN_HEIGHT * 0.9,
           // width: '100%',
@@ -227,10 +231,10 @@ export const BottomModal = ({
           ) : null}
         </View>
 
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps={'handled'}>
           {children}
         </ScrollView>
-      </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 };
