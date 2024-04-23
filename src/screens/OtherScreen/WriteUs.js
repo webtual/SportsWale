@@ -16,9 +16,9 @@ import { black, dim_grey, primary, white } from "../../constants/Color";
 import CommonStyle from "../../commonComponents/CommonStyle";
 import Translate from "../../translation/Translate";
 import AttachIcon from "../../assets/images/AttachIcon";
-import ImageCropPicker from "react-native-image-crop-picker";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import FastImage from "react-native-fast-image";
+import ImagePicker from 'react-native-image-crop-picker';
 
 export default function WriteUs() {
   const [description, setDescription] = useState("");
@@ -26,13 +26,13 @@ export default function WriteUs() {
   const [screenshot, SetScreenshot] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const UploadImage = (setFieldValue) => {
+  const UploadImage = () => {
     Alert.alert("Upload Picture", "Upload your profile picture", [
       {
         text: "Gallery",
         onPress: () => {
           setIsLoading(true);
-          ImageCropPicker.openPicker({
+          ImagePicker.openPicker({
             freeStyleCropEnabled: true,
             cropping: true,
             mediaType: "photo",
@@ -65,8 +65,8 @@ export default function WriteUs() {
           })
             .then((images) => {
               console.log("Selected Image : " + JSON.stringify(images));
-              setIsLoading(false);
               SetScreenshot([...screenshot, ...images]);
+              setIsLoading(false);
             })
             .catch((error) => {
               setIsLoading(false);

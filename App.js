@@ -20,13 +20,13 @@ const App = () => {
   },[])
 
   return (
-    // <SheetProvider>
+   
       <NativeBaseProvider>
         <Provider store={store}>
           <AppNavigator />
         </Provider>
       </NativeBaseProvider>
-    // </SheetProvider>
+
   );
 };
 

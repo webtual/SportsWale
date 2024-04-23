@@ -36,7 +36,13 @@ import NavigationIcon from "../../assets/images/NavigationIcon";
 import FastImage from "react-native-fast-image";
 import InfoItem from "../../commonComponents/InfoItem";
 import TurfIcon from "../../assets/images/TurfIcon";
-import { MenuProvider } from 'react-native-popup-menu';
+import {
+  Menu,
+  MenuProvider,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+} from "react-native-popup-menu";
 import DotVerticalIcon from "../../assets/images/DotVerticalIcon";
 
 const GameDetails = (props) => {
@@ -89,13 +95,12 @@ const GameDetails = (props) => {
     return host?.[0] || null;
   };
 
-
   const btnJoinGameTap = () => {
-    navigate("PayJoin",{game_details : gameDetails})
-  }
+    navigate("PayJoin", { game_details: gameDetails });
+  };
 
   return (
-    <>
+    <MenuProvider>
       <HeaderView
         HeaderSmall={true}
         title={""}
@@ -103,13 +108,54 @@ const GameDetails = (props) => {
         onPress={() => goBack()}
         containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20) }}
         rightComponent={
-          <View style={{ alignItems: "center" , flexDirection:'row'}}>
+          <View style={{ alignItems: "center", flexDirection: "row" }}>
             <IconButton additionalStyle={{}} onPress={() => {}}>
               <Icon name={"share-variant"} size={24} color={white} />
             </IconButton>
-            <IconButton additionalStyle={{marginLeft:25}} onPress={() => {}}>
-              <DotVerticalIcon/>
-            </IconButton>
+            <Menu>
+              <MenuTrigger
+                customStyles={{
+                  triggerTouchable: {},
+                  triggerOuterWrapper: {
+                    marginLeft: 15,
+                    padding: 10,
+                  },
+                }}
+                children={<DotVerticalIcon />}
+              />
+
+              <MenuOptions>
+                <MenuOption
+                  onSelect={() => alert(`Save`)}
+                  text="Edit Game"
+                  customStyles={{
+                    optionText: {
+                      fontFamily: MEDIUM,
+                      fontSize: 14,
+                      color: black,
+                    },
+                    optionWrapper: {
+                      padding: 10,
+                      backgroundColor: white,
+                    },
+                  }}
+                />
+                <MenuOption
+                  onSelect={() => alert(`Delete`)}
+                  text="Delete Game"
+                  customStyles={{
+                    optionText: {
+                      fontFamily: MEDIUM,
+                      fontSize: 14,
+                      color: black,
+                    },
+                    optionWrapper: {
+                      padding: 10,
+                    },
+                  }}
+                />
+              </MenuOptions>
+            </Menu>
           </View>
         }
       >
@@ -260,7 +306,12 @@ const GameDetails = (props) => {
                     padding: pixelSizeHorizontal(5),
                     borderRadius: widthPixel(50),
                   }}
-                  onPress={() => {navigate("AllPlayers",{gameDetails : gameDetails ,  players : gameDetails?.game_participants})}}
+                  onPress={() => {
+                    navigate("AllPlayers", {
+                      gameDetails: gameDetails,
+                      players: gameDetails?.game_participants,
+                    });
+                  }}
                 >
                   <Icon name={"chevron-right"} size={25} color={white} />
                 </IconButton>
@@ -389,22 +440,22 @@ const GameDetails = (props) => {
         )}
       </HeaderView>
       {/* {userData?.id == gameDetails?.user_id ? <></>: */}
-      {gameDetails?.spot_left != 0 ?
-      <TouchableOpacity
-        style={[
-          CommonStyle.mainBtnStyle,
-          {
-            marginHorizontal: pixelSizeHorizontal(20),
-            marginBottom: pixelSizeHorizontal(20),
-          },
-        ]}
-        onPress={() => btnJoinGameTap()}
-      >
-        <Text style={CommonStyle.mainBtnText}>Join Game</Text>
-      </TouchableOpacity>
-       :null } 
+      {gameDetails?.spot_left != 0 ? (
+        <TouchableOpacity
+          style={[
+            CommonStyle.mainBtnStyle,
+            {
+              marginHorizontal: pixelSizeHorizontal(20),
+              marginBottom: pixelSizeHorizontal(20),
+            },
+          ]}
+          onPress={() => btnJoinGameTap()}
+        >
+          <Text style={CommonStyle.mainBtnText}>Join Game</Text>
+        </TouchableOpacity>
+      ) : null}
       {isLoading && <LoadingView />}
-    </>
+    </MenuProvider>
   );
 };
 
