@@ -58,7 +58,7 @@ const PaymentWallet = () => {
             value=""
             maxLength={7}
             keyboardType="number-pad"
-            placeholder={RUPEE + "500"}
+            placeholder={RUPEE + "0"}
             onChangeText={(text) => {}}
           />
 

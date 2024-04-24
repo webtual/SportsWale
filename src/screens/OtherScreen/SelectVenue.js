@@ -74,10 +74,6 @@ const SelectVenue = ({}) => {
 
 
   const [isLoading, setIsLoading] = useState(false);
-  const [Txt, setTxt] = useState("");
-  const [isFocus, setIsFocus] = useState(false);
-  const [isInvite, setIsInvite] = useState(false);
-  const [isFreeAll, setIsFreeAll] = useState(false);
 
   const [page, setPage] = useState(1);
 

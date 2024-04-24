@@ -535,6 +535,8 @@ const Profile = () => {
                   )} */}
                 </View>
 
+                  {!isEditProfile ? 
+                  <>
                 <Text
                   style={[
                     CommonStyle.inputTitle,
@@ -557,6 +559,7 @@ const Profile = () => {
                     errors.mobile_number
                   }
                 />
+                </> : null}
 
                 <Text
                   style={[

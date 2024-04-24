@@ -84,12 +84,12 @@ const MenuTab = () => {
       description: "View Transections & Receipts",
       routeName: "BookingHistory",
     },
-    {
-      image: <PlayerIcon />,
-      title: "Players",
-      description: "View & Manage Players",
-      routeName: "",
-    },
+    // {
+    //   image: <PlayerIcon />,
+    //   title: "Players",
+    //   description: "View & Manage Players",
+    //   routeName: "",
+    // },
     {
       image: <WalletIcon />,
       title: "Payments & Wallet",
@@ -102,12 +102,12 @@ const MenuTab = () => {
       description: "Manage Sports, Location, etc",
       routeName: "Preference",
     },
-    // {
-    //   image: <GiftBoxIcon />,
-    //   title: "Refer & Earn",
-    //   description: "",
-    //   routeName: "",
-    // },
+    {
+      image: <GiftBoxIcon />,
+      title: "Favourite Venues",
+      description: "All venues which you love to play",
+      routeName: "FavouriteVenue",
+    },
     {
       image: <RateUsIcon />,
       title: "Rate Us",
@@ -313,11 +313,11 @@ const MenuTab = () => {
                   >
                     {item?.image && item.image}
                   </View>
-                  <View style={{ marginLeft: 15 }}>
-                    <Text style={styles.primaryText}>{item?.title}</Text>
+                  <View style={{ marginLeft: 15 , flex:1}}>
+                    <Text style={[styles.primaryText,]}>{item?.title}</Text>
                     
                     {item?.description && (
-                      <Text style={styles.secondaryText}>
+                      <Text style={[styles.secondaryText,{flex:1}]}>
                         {item?.description}
                       </Text>
                     )}

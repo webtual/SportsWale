@@ -316,11 +316,21 @@ const BookTab = (props) => {
               </Text>
             </View>
             <View style={styles.bookContainer}>
-              <Text style={[styles.text, { color: white }]}>Book</Text>
+              <Text style={[styles.text, { color: white }]}>Book Now</Text>
             </View>
           </View>
 
-          <View style={{ flexWrap: "wrap" }}>
+          <Text
+            style={[
+              CommonStyle.titleText,
+              { fontSize: FontSize.FS_18, marginTop: pixelSizeHorizontal(20) },
+            ]}
+          >
+            Recently Booked
+          </Text>
+
+
+          {/* <View style={{ flexWrap: "wrap" }}>
             <TouchableOpacity
               style={{
                 backgroundColor: favourites && secondary,
@@ -343,7 +353,7 @@ const BookTab = (props) => {
                 Favourites
               </Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
 
           <FlatList
             data={allVenues}

@@ -316,9 +316,35 @@ export default function Payment(props) {
             >
               <TextInputView
                 value={venueDetail?.advance_amount}
-                placeholder="200"
+                placeholder="00"
                 editable={false}
                 onChangeText={() => {}}
+                maxLength={7}
+                keyboardType={"number-pad"}
+              />
+            </View>
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginTop: pixelSizeHorizontal(10),
+            }}
+          >
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.cardDescription, { color: black }]}>
+                Total Player (Including Creator)
+              </Text>
+            </View>
+
+            <View
+              style={{ flex: 1 / 2.5, marginLeft: pixelSizeHorizontal(20) }}
+            >
+              <TextInputView
+                value={txtTotalPlayer}
+                placeholder=""
+                onChangeText={setTxtTotalPlayer}
                 maxLength={7}
                 keyboardType={"number-pad"}
               />
@@ -345,7 +371,7 @@ export default function Payment(props) {
             >
               <TextInputView
                 value={txtCostPerPlayer}
-                placeholder="200"
+                placeholder="00"
                 onChangeText={setTxtCostPerPlayer}
                 maxLength={7}
                 keyboardType={"number-pad"}
@@ -353,31 +379,7 @@ export default function Payment(props) {
             </View>
           </View>
 
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginTop: pixelSizeHorizontal(10),
-            }}
-          >
-            <View style={{ flex: 1 }}>
-              <Text style={[styles.cardDescription, { color: black }]}>
-                Total Player (Including Creator)
-              </Text>
-            </View>
-
-            <View
-              style={{ flex: 1 / 2.5, marginLeft: pixelSizeHorizontal(20) }}
-            >
-              <TextInputView
-                value={txtTotalPlayer}
-                placeholder="200"
-                onChangeText={setTxtTotalPlayer}
-                maxLength={7}
-                keyboardType={"number-pad"}
-              />
-            </View>
-          </View>
+        
 
           <View
             style={{
@@ -400,7 +402,7 @@ export default function Payment(props) {
               <TextInputView
                 value={calTotalAmount()}
                 editable={false}
-                placeholder="200"
+                placeholder="00"
                 onChangeText={() => {}}
                 maxLength={7}
                 keyboardType={"number-pad"}
@@ -433,7 +435,7 @@ export default function Payment(props) {
                     100
                 )}
                 editable={false}
-                placeholder="200"
+                placeholder="00"
                 onChangeText={() => {}}
                 maxLength={7}
                 keyboardType={"number-pad"}
@@ -469,7 +471,7 @@ export default function Payment(props) {
             >
               <TextInputView
                 value={calTotalPayableAmount()}
-                placeholder="200"
+                placeholder="00"
                 editable={false}
                 onChangeText={() => {}}
                 maxLength={7}

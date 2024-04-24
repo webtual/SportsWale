@@ -439,7 +439,7 @@ const Home = ({ navigation }) => {
             </>
           ) : null}
 
-          <View
+          {/* <View
             style={{
               paddingHorizontal: pixelSizeHorizontal(20),
               marginTop: pixelSizeHorizontal(10),
@@ -513,7 +513,7 @@ const Home = ({ navigation }) => {
                 <Icon name={"chevron-right"} size={28} color={dim_grey} />
               </TouchableOpacity>
             </BasicCard>
-          </View>
+          </View> */}
 
           <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
             <BasicCard style={styles.cardContainer} onPress={()=> navigate("InvitePeople")}>

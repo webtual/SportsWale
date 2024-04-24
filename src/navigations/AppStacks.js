@@ -33,7 +33,6 @@ import PopUp from '../commonComponents/Popup';
 import { navigate } from './RootNavigation';
 import SelectVenue from '../screens/OtherScreen/SelectVenue';
 import SelectSlot from '../screens/OtherScreen/SelectSlot';
-import SelectDateTime from '../screens/OtherScreen/SelectDateTime';
 import InvitePeople from '../screens/OtherScreen/InvitePeople';
 import Register from '../screens/AuthScreen/Register';
 import Payment from '../screens/OtherScreen/Payment';
@@ -65,6 +64,7 @@ import BookingPolicy from '../screens/OtherScreen/BookingPolicy';
 import WriteUs from '../screens/OtherScreen/WriteUs';
 import PaymentWallet from '../screens/OtherScreen/PaymentWallet';
 import AllQuestions from '../screens/OtherScreen/AllQuestions';
+import FavouriteVenue from '../screens/OtherScreen/FavouriteVenue';
 
 // import { cart_data } from '../redux/reducers/cartReducer';
 // import { useSelector } from 'react-redux';
@@ -203,13 +203,9 @@ function AppStacks() {
 			<Stack.Screen name="WriteUs" component={WriteUs} />
 			<Stack.Screen name="PaymentWallet" component={PaymentWallet} />
 			<Stack.Screen name="AllQuestions" component={AllQuestions} />
-
-
-
-
-			
+			<Stack.Screen name="FavouriteVenue" component={FavouriteVenue} />
 			<Stack.Screen name="SelectVenue" component={SelectVenue} />
-			<Stack.Screen name="SelectDateTime" component={SelectDateTime} />
+
 			<Stack.Screen name="InvitePeople" component={InvitePeople} />
 
 			<Stack.Screen name="VenueDetail" component={VenueDetail} />

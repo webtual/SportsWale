@@ -1,20 +1,24 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import HeaderView from "../../commonComponents/HeaderView";
 import { goBack, navigate } from "../../navigations/RootNavigation";
 import { pixelSizeHorizontal, widthPixel } from "../../commonComponents/ResponsiveScreen";
 import CommonStyle from "../../commonComponents/CommonStyle";
 import { BOLD, FontSize } from "../../constants/Fonts";
-import { black, dim_grey, white } from "../../constants/Color";
+import { black, dim_grey, placeholderGrey, secondary, white } from "../../constants/Color";
 import BallsIcon from "../../assets/images/BallsIcon";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import MapPinIcon from "../../assets/images/MapPinIcon";
 import LocationIcon from "../../assets/images/LocationIcon";
 import NotificationIcon from "../../assets/images/NotificationIcon";
+import ToggleSwitch from "toggle-switch-react-native";
+import { useToast } from "native-base";
 
 
 const Preference = () => {
+  const toast = useToast()
 
+  const [isNotification, setIsNotification] = useState(false)
 
   const btnSportsTap = () =>{
     navigate("MySports")
@@ -49,14 +53,14 @@ const Preference = () => {
                 <Icon name={'chevron-right'} size={25} color={dim_grey}/>
             </TouchableOpacity>
 
-            <TouchableOpacity style={[styles.cardView,{}]}>
+            {/* <TouchableOpacity style={[styles.cardView,{}]}>
                 <LocationIcon />
                 <Text style={[styles.titleText,{marginHorizontal : pixelSizeHorizontal(20), flex:1}]}>
                     Location
                 </Text>
 
                 <Icon name={'chevron-right'} size={25} color={dim_grey}/>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <TouchableOpacity style={[styles.cardView,{}]}>
                 <NotificationIcon />
@@ -64,7 +68,16 @@ const Preference = () => {
                     Notifications
                 </Text>
 
-                <Icon name={'chevron-right'} size={25} color={dim_grey}/>
+                <ToggleSwitch
+              isOn={isNotification}
+              onColor={secondary}
+              offColor={placeholderGrey}
+              size="medium"
+              onToggle={(isOn) => {
+                setIsNotification(isOn);
+              }}
+            />
+                {/* <Icon name={'chevron-right'} size={25} color={dim_grey}/> */}
             </TouchableOpacity>
         </View>
       </HeaderView>

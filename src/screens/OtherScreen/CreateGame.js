@@ -203,24 +203,6 @@ const CreateGame = () => {
             )}
           </View>
 
-          <Text
-            style={[
-              CommonStyle.inputTitle,
-              { marginTop: pixelSizeHorizontal(12) },
-            ]}
-          >
-            Cost Per Player
-          </Text>
-          <TextInputView
-            containerStyle={{ marginTop: pixelSizeHorizontal(10) }}
-            onChangeText={(text) => {
-              setTxtCost(text);
-            }}
-            value={txtCost}
-            placeholder={RUPEE + "500"}
-            keyboardType={"number-pad"}
-            error={""}
-          />
 
           <Text
             style={[
@@ -236,10 +218,31 @@ const CreateGame = () => {
               setTxtPlayers(text);
             }}
             value={txtPlayers}
-            placeholder={"10"}
+            placeholder={"0"}
             keyboardType={"number-pad"}
             error={""}
           />
+
+          <Text
+            style={[
+              CommonStyle.inputTitle,
+              { marginTop: pixelSizeHorizontal(12) },
+            ]}
+          >
+            Cost Per Player
+          </Text>
+          <TextInputView
+            containerStyle={{ marginTop: pixelSizeHorizontal(10) }}
+            onChangeText={(text) => {
+              setTxtCost(text);
+            }}
+            value={txtCost}
+            placeholder={RUPEE + "0"}
+            keyboardType={"number-pad"}
+            error={""}
+          />
+
+        
 
           <Text
             style={[

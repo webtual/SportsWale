@@ -23,7 +23,7 @@ const Login = ({}) => {
 
   const toast = useToast();
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [txtMobile, setTxtMobile] = useState("");
 
   useFocusEffect(

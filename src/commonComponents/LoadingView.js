@@ -7,7 +7,6 @@ import {
   StyleSheet,
 } from "react-native";
 
-/*  Constant Files */
 import {
   black,
   white,
