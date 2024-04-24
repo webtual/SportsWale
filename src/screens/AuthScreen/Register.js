@@ -54,6 +54,8 @@ import { storeCurrentLocation } from "../../redux/reducers/userReducer";
 import MapView, { Marker, PROVIDER_GOOGLE, Callout } from "react-native-maps";
 import Geocoder from "react-native-geocoding";
 import { ALERT_TYPE, Dialog } from "react-native-alert-notification";
+import { BottomModal } from "../../commonComponents/Popup";
+import TermandCondition from "../../commonComponents/TermandCondition";
 
 const Register = (props) => {
   const dispatch = useDispatch();
@@ -62,6 +64,18 @@ const Register = (props) => {
 
   const { data } = props?.route?.params ?? {};
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedSheet, setSelectedSheet] = useState(null);
+  const [conditionModal, setConditionModal] = useState(false);
+
+  const handleTermsPress = () => {
+    setConditionModal(true);
+    setSelectedSheet("terms");
+  };
+
+  const handlePrivacyPolicyPress = () => {
+    setConditionModal(true);
+    setSelectedSheet("privacy");
+  };
 
   const ArrGender = [
     {
@@ -96,7 +110,7 @@ const Register = (props) => {
   }, []);
 
   useEffect(() => {
-     if (refMarker.current) {
+    if (refMarker.current) {
       refMarker.current.animateToRegion(
         {
           latitude: CurrentLatitude,
@@ -106,7 +120,7 @@ const Register = (props) => {
         },
         1000
       );
-     }
+    }
   }, [CurrentLatitude, CurrentLongitude]);
 
   const requestLocationPermission = async () => {
@@ -115,7 +129,7 @@ const Register = (props) => {
     } else {
       try {
         const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
           // {
           //   title: "Location Access Required",
           //   message: "This App needs to Access your location",
@@ -134,15 +148,14 @@ const Register = (props) => {
 
           Dialog.show({
             type: ALERT_TYPE.WARNING,
-            title: 'Alert',
+            title: "Alert",
             textBody:
-              'Please allow location permission from setting to access your current location.',
-            button: 'open settings',
+              "Please allow location permission from setting to access your current location.",
+            button: "open settings",
             onPressButton: () => {
               Linking.openSettings();
             },
           });
-
         }
       } catch (err) {
         // Api_GetContacts(true);
@@ -180,7 +193,7 @@ const Register = (props) => {
 
         getaddressFromLatLong(
           position.coords.latitude,
-           position.coords.longitude,
+          position.coords.longitude
         );
       },
       (error) => {
@@ -263,7 +276,7 @@ const Register = (props) => {
       .then((json) => {
         var addressComponent = json.results[0];
         console.log("address comp : ", addressComponent);
-        if (addressComponent.length) {
+        if (addressComponent.address_components.length) {
           setFieldValue &&
             setFieldValue("location", addressComponent?.formatted_address);
           setTxtLocation(addressComponent?.formatted_address);
@@ -643,7 +656,7 @@ const Register = (props) => {
                       color={primary}
                     />
                   </TouchableOpacity>
-                  <Text
+                  {/* <Text
                     style={[
                       CommonStyle.oneLinerText,
                       { marginLeft: pixelSizeHorizontal(10) },
@@ -657,7 +670,40 @@ const Register = (props) => {
                     <Text style={{ textDecorationLine: "underline" }}>
                       privacy policy
                     </Text>
-                  </Text>
+                  </Text> */}
+                  <View
+                    style={{ flexDirection: "row", flex: 1, flexWrap: "wrap" }}
+                  >
+                    <Text
+                      style={[
+                        CommonStyle.oneLinerText,
+                        { marginLeft: pixelSizeHorizontal(10) },
+                      ]}
+                    >
+                      I have read{" "}
+                    </Text>
+                    <TouchableOpacity onPress={handleTermsPress}>
+                      <Text
+                        style={[
+                          CommonStyle.oneLinerText,
+                          { textDecorationLine: "underline" },
+                        ]}
+                      >
+                        terms & conditions
+                      </Text>
+                    </TouchableOpacity>
+                    <Text style={[CommonStyle.oneLinerText]}> & </Text>
+                    <TouchableOpacity onPress={handlePrivacyPolicyPress}>
+                      <Text
+                        style={[
+                          CommonStyle.oneLinerText,
+                          { textDecorationLine: "underline" },
+                        ]}
+                      >
+                        privacy policy
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
                 {errors.acceptTerms &&
                   touched.acceptTerms &&
@@ -687,7 +733,23 @@ const Register = (props) => {
                   </Text>
                 </TouchableOpacity>
 
-                <View
+                <BottomModal
+                  isVisible={conditionModal}
+                  onClose={() => {
+                    setConditionModal(false);
+                    setSelectedSheet(null);
+                  }}
+                  title={selectedSheet}
+                >
+                  {selectedSheet === 'terms' && (
+                    <TermandCondition  />
+                  )}
+                  {selectedSheet === 'privacy' && (
+                    <TermandCondition  />
+                  )}
+                </BottomModal>
+
+                {/* <View
                   style={{
                     alignSelf: "center",
                     flexDirection: "row",
@@ -702,7 +764,7 @@ const Register = (props) => {
                       {Translate.t("login")}
                     </Text>
                   </TouchableOpacity>
-                </View>
+                </View> */}
                 <DateTimePickerModal
                   isVisible={isDatePickerVisible}
                   mode="date"

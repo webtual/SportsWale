@@ -142,7 +142,7 @@ const RegisterSelectSport = (props) => {
     const formData = new FormData();
     formData.append("name", registerData?.name);
     formData.append("mobile_number", registerData?.mobile_number);
-    formData.append("email", registerData?.email);
+    formData.append("email", '');
     formData.append("gender", registerData?.gender)
     formData.append("dob", registerData?.dob);
     formData.append("location", registerData?.location);
@@ -224,7 +224,7 @@ const RegisterSelectSport = (props) => {
       Api_Register(true)
     }else{
       toast.show({
-        description : "Please select at'least 1 game"
+        description : "Please select at least 1 game"
       })
     }
     console.log("Register Data : ", registerData);

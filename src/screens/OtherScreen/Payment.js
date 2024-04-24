@@ -572,6 +572,7 @@ export default function Payment(props) {
           placeholder={"Instructions (optional)"}
           error={""}
           multiline={true}
+          textAlignVertical='top'
           blurOnSubmit={true}
           onSubmitEditing={() => {
            Keyboard.dismiss();

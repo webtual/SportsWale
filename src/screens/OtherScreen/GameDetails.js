@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Keyboard,
+  Pressable,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import HeaderView from "../../commonComponents/HeaderView";
@@ -32,7 +33,7 @@ import {
   REGULAR,
   SEMIBOLD,
 } from "../../constants/Fonts";
-import { useToast } from "native-base";
+import { useToast, Menu } from "native-base";
 import { user_data } from "../../redux/reducers/userReducer";
 import { useSelector } from "react-redux";
 import LoadingView from "../../commonComponents/LoadingView";
@@ -45,16 +46,17 @@ import NavigationIcon from "../../assets/images/NavigationIcon";
 import FastImage from "react-native-fast-image";
 import InfoItem from "../../commonComponents/InfoItem";
 import TurfIcon from "../../assets/images/TurfIcon";
-import {
-  Menu,
-  MenuProvider,
-  MenuOptions,
-  MenuOption,
-  MenuTrigger,
-} from "react-native-popup-menu";
+// import {
+//   Menu,
+//   MenuProvider,
+//   MenuOptions,
+//   MenuOption,
+//   MenuTrigger,
+// } from "react-native-popup-menu";
 import DotVerticalIcon from "../../assets/images/DotVerticalIcon";
 import { BottomModal } from "../../commonComponents/Popup";
 import TextInputView from "../../commonComponents/TextInputView";
+import QuestionList from "../../commonComponents/QuestionList";
 
 const GameDetails = (props) => {
   const toast = useToast();
@@ -149,7 +151,7 @@ const GameDetails = (props) => {
   };
 
   return (
-    <MenuProvider>
+    <>
       <HeaderView
         HeaderSmall={true}
         title={""}
@@ -161,49 +163,22 @@ const GameDetails = (props) => {
             <IconButton additionalStyle={{}} onPress={() => {}}>
               <Icon name={"share-variant"} size={24} color={white} />
             </IconButton>
-            <Menu>
-              <MenuTrigger
-                customStyles={{
-                  triggerTouchable: {},
-                  triggerOuterWrapper: {
-                    marginLeft: 15,
-                    padding: 10,
-                  },
-                }}
-                children={<DotVerticalIcon />}
-              />
-
-              <MenuOptions>
-                <MenuOption
-                  onSelect={() => alert(`Save`)}
-                  text="Edit Game"
-                  customStyles={{
-                    optionText: {
-                      fontFamily: MEDIUM,
-                      fontSize: 14,
-                      color: black,
-                    },
-                    optionWrapper: {
-                      padding: 10,
-                      backgroundColor: white,
-                    },
-                  }}
-                />
-                <MenuOption
-                  onSelect={() => alert(`Delete`)}
-                  text="Delete Game"
-                  customStyles={{
-                    optionText: {
-                      fontFamily: MEDIUM,
-                      fontSize: 14,
-                      color: black,
-                    },
-                    optionWrapper: {
-                      padding: 10,
-                    },
-                  }}
-                />
-              </MenuOptions>
+            <Menu
+              closeOnSelect={false}
+              // placement="bottom right" 
+              style={{}}
+              onOpen={() => console.log("opened")}
+              onClose={() => console.log("closed")}
+              trigger={(triggerProps) => {
+                return (
+                  <Pressable {...triggerProps} style={{ marginLeft: 15 }}>
+                    <Icon name={"dots-vertical"} size={24} color={white} />
+                  </Pressable>
+                );
+              }}
+            >
+              <Menu.Item _text={{fontFamily:MEDIUM , fontSize:FontSize.FS_14, color:black}}>Edit Game</Menu.Item>
+              <Menu.Item _text={{fontFamily:MEDIUM , fontSize:FontSize.FS_14, color:black}}>Delete Game</Menu.Item>
             </Menu>
           </View>
         }
@@ -384,7 +359,7 @@ const GameDetails = (props) => {
                     borderWidth: pixelSizeHorizontal(2),
                     borderColor: white,
                   }}
-                  resizeMode="contain"
+                  resizeMode="cover"
                 />
 
                 <Text
@@ -489,7 +464,7 @@ const GameDetails = (props) => {
             <View
               style={[
                 styles.card,
-                {marginVertical: pixelSizeHorizontal(20)},
+                { marginVertical: pixelSizeHorizontal(20) },
                 CommonStyle.shadow,
               ]}
             >
@@ -519,7 +494,7 @@ const GameDetails = (props) => {
                         borderRadius: widthPixel(50),
                       }}
                       onPress={() => {
-                        navigate("AllQuestions",{game_data : gameDetails});
+                        navigate("AllQuestions", { game_data: gameDetails });
                       }}
                     >
                       <Icon name={"chevron-right"} size={25} color={white} />
@@ -556,6 +531,10 @@ const GameDetails = (props) => {
                   No Questions Yet!
                 </Text>
               )}
+
+              {/* <QuestionList
+                gameDetails={gameDetails}
+              /> */}
 
               <TouchableOpacity
                 style={[
@@ -617,6 +596,7 @@ const GameDetails = (props) => {
               }}
               placeholder="Write a review (Optional)"
               multiline
+              textAlignVertical='top'
               value={txtQuestion}
               onChangeText={(text) => {
                 setTxtQuestion(text);
@@ -638,7 +618,7 @@ const GameDetails = (props) => {
       </BottomModal>
 
       {isLoading && <LoadingView />}
-    </MenuProvider>
+    </>
   );
 };
 

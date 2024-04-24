@@ -72,9 +72,9 @@ const HeaderView = ({
               },
             ]}
           >
-            <Image
+            <FastImage
               source={headerBackground}
-              // resizeMode='cover'
+              resizeMode='cover'
               style={{
                 flex: 1,
                 borderBottomLeftRadius: 25,

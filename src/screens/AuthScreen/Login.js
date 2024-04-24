@@ -142,7 +142,7 @@ const Login = ({}) => {
                   </Text>
                 </TouchableOpacity>
 
-                <View
+                {/* <View
                   style={{
                     alignSelf: "center",
                     flexDirection: "row",
@@ -157,7 +157,7 @@ const Login = ({}) => {
                       {Translate.t("register")}
                     </Text>
                   </TouchableOpacity>
-                </View>
+                </View> */}
               </View>
             )}
           </Formik>
