@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   FlatList,
+  Image,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import HeaderView from "../../commonComponents/HeaderView";
@@ -36,7 +37,6 @@ import ApiManager from "../../commonComponents/ApiManager";
 import { getUniqueListBy } from "../../commonComponents/Utils";
 import { GET_BOOKING_HISTORY } from "../../constants/ApiUrl";
 import CommonStyle from "../../commonComponents/CommonStyle";
-import FastImage from "react-native-fast-image";
 import NavigationIcon from "../../assets/images/NavigationIcon";
 import moment from "moment";
 import { RUPEE } from "../../constants/ConstantKey";
@@ -269,12 +269,11 @@ const BookingHistory = () => {
                           padding: pixelSizeHorizontal(5),
                         }}
                       >
-                        <FastImage
+                        <Image
                           source={{
                             uri: userData?.asset_url + info?.game_image,
                           }}
-                          resizeMode={"contain"}
-                          style={{ flex: 1 }}
+                          style={{ flex: 1 , resizeMode : 'contain'}}
                         />
                       </View>
                       <Text

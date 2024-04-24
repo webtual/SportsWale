@@ -8,6 +8,7 @@ import {
   ScrollView,
   FlatList,
   Linking,
+  Image,
 } from "react-native";
 import React, { useState, useRef, useEffect } from "react";
 import {
@@ -31,7 +32,6 @@ import {
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import HeaderView from "../../commonComponents/HeaderView";
 import Divider from "../../commonComponents/Divider";
-import FastImage from "react-native-fast-image";
 import { SCREEN_WIDTH } from "../../constants/ConstantKey";
 import StarRating from "react-native-star-rating";
 import { VenuesData, PickSport, AmenitiesData } from "../../DummyData/Data";
@@ -189,7 +189,7 @@ const VenueDetail = (props) => {
                   <View
                     style={{ width: SCREEN_WIDTH, height: widthPixel(180) }}
                   >
-                    <FastImage
+                    <Image
                       style={{ flex: 1 }}
                       source={{ uri: item.image }}
                     />

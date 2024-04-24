@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   FlatList,
+  Image,
 } from "react-native";
 import React, { useEffect } from "react";
 import {
@@ -43,7 +44,6 @@ import IconButton from "../../commonComponents/IconButton";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import HeaderView from "../../commonComponents/HeaderView";
-import FastImage from "react-native-fast-image";
 import BasicCard from "../../commonComponents/BasicCard";
 import {
   athlete,
@@ -258,12 +258,11 @@ const MenuTab = () => {
                 marginRight: 10,
               }}
             >
-              <FastImage
-                style={{ width: 75, height: 75, borderRadius: 40 }}
+              <Image
+                style={{ width: 75, height: 75, borderRadius: 40 , resizeMode : 'cover'}}
                 source={{
                   uri: userData?.asset_url + userData?.profile,
                 }}
-                resizeMode="cover"
               />
             </View>
 

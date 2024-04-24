@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Keyboard,
+  Image,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import HeaderView from "../../commonComponents/HeaderView";
@@ -42,17 +43,8 @@ import moment from "moment";
 import BasicCard from "../../commonComponents/BasicCard";
 import CommonStyle from "../../commonComponents/CommonStyle";
 import NavigationIcon from "../../assets/images/NavigationIcon";
-import FastImage from "react-native-fast-image";
 import InfoItem from "../../commonComponents/InfoItem";
 import TurfIcon from "../../assets/images/TurfIcon";
-import {
-  Menu,
-  MenuProvider,
-  MenuOptions,
-  MenuOption,
-  MenuTrigger,
-} from "react-native-popup-menu";
-import DotVerticalIcon from "../../assets/images/DotVerticalIcon";
 import { BottomModal } from "../../commonComponents/Popup";
 import TextInputView from "../../commonComponents/TextInputView";
 
@@ -64,10 +56,8 @@ const GameDetails = (props) => {
   const userData = useSelector(user_data);
 
   const [isLoading, setIsLoading] = useState(false);
-
   const [gameDetails, setGameDetails] = useState(null);
   const [isOpenQuestion, setOpenQuestion] = useState(false);
-
   const [txtQuestion, setTxtQuestion] = useState("");
 
   useEffect(() => {
@@ -149,7 +139,7 @@ const GameDetails = (props) => {
   };
 
   return (
-    <MenuProvider>
+    <>
       <HeaderView
         HeaderSmall={true}
         title={""}
@@ -161,7 +151,7 @@ const GameDetails = (props) => {
             <IconButton additionalStyle={{}} onPress={() => {}}>
               <Icon name={"share-variant"} size={24} color={white} />
             </IconButton>
-            <Menu>
+            {/* <Menu>
               <MenuTrigger
                 customStyles={{
                   triggerTouchable: {},
@@ -204,7 +194,7 @@ const GameDetails = (props) => {
                   }}
                 />
               </MenuOptions>
-            </Menu>
+            </Menu> */}
           </View>
         }
       >
@@ -244,16 +234,15 @@ const GameDetails = (props) => {
                   alignItems: "center",
                 }}
               >
-                <FastImage
+                <Image
                   style={{
                     width: 20,
                     height: 20,
+                    resizeMode : 'contain', tintColor : secondary
                   }}
-                  tintColor={secondary}
                   source={{
                     uri: userData?.asset_url + gameDetails?.game_image,
                   }}
-                  resizeMode="contain"
                 />
                 <Text
                   style={{
@@ -373,7 +362,7 @@ const GameDetails = (props) => {
                   marginTop: pixelSizeHorizontal(12),
                 }}
               >
-                <FastImage
+                <Image
                   source={{
                     uri: userData?.asset_url + filterGameHost()?.profile,
                   }}
@@ -383,8 +372,8 @@ const GameDetails = (props) => {
                     borderRadius: widthPixel(52),
                     borderWidth: pixelSizeHorizontal(2),
                     borderColor: white,
+                    resizeMode : 'contain'
                   }}
-                  resizeMode="contain"
                 />
 
                 <Text
@@ -638,7 +627,7 @@ const GameDetails = (props) => {
       </BottomModal>
 
       {isLoading && <LoadingView />}
-    </MenuProvider>
+    </>
   );
 };
 

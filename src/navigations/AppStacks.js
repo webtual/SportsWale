@@ -25,10 +25,8 @@ import OtpView from '../screens/AuthScreen/OtpView';
 import Home from '../screens/DashBoardScreen/Home';
 import Profile from '../screens/DashBoardScreen/Profile';
 import Settings from '../screens/OtherScreen/Settings';
-import FastImage from 'react-native-fast-image';
 import SelectSport from '../screens/OtherScreen/SelectSport';
 import VenueDetail from '../screens/OtherScreen/VenueDetail';
-import Request from '../screens/OtherScreen/Request';
 import RegisterSelectSport from '../screens/AuthScreen/RegisterSelectSport';
 import { Select, View } from 'native-base';
 import PopUp from '../commonComponents/Popup';
@@ -82,13 +80,6 @@ function HomeTabs() {
 			return (
 			  <View style={styles.imgcontainer}>
 				<HomeIcon color={routeName === selectedTab ? primary : light_grey_02}/>
-				{/* <FastImage
-				  source={Images.ICHome}
-				  style={styles.image}
-				  tintColor={
-					routeName === selectedTab ? primary : light_grey_02
-				  }
-				/> */}
 				<Text style={[styles.text,{color: routeName === selectedTab ? primary : light_grey_02}]}>Home</Text>
 			  </View>
 			);
@@ -96,13 +87,6 @@ function HomeTabs() {
 			return (
 			  <View style={styles.imgcontainer}>
 				<UsersIcon color={routeName === selectedTab ? primary : light_grey_02}/>
-				{/* <FastImage
-				  source={Images.List}
-				  style={styles.image}
-				  tintColor={
-					routeName === selectedTab ? primary : light_grey_02
-				  }
-				/> */}
 				<Text style={[styles.text,{color: routeName === selectedTab ? primary : light_grey_02}]}>Games</Text>
 			  </View>
 			);
@@ -110,13 +94,6 @@ function HomeTabs() {
 			return (
 			  <View style={styles.imgcontainer}>
 				<GroundIcon color={routeName === selectedTab ? primary : light_grey_02}/>
-				{/* <FastImage
-				  source={Images.Chat}
-				  style={styles.image}
-				  tintColor={
-					routeName === selectedTab ? primary : light_grey_02
-				  }
-				/> */}
 				<Text style={[styles.text,{color: routeName === selectedTab ? primary : light_grey_02}]}>Book</Text>
 			  </View>
 			);
@@ -124,13 +101,6 @@ function HomeTabs() {
 			return (
 			  <View style={styles.imgcontainer}>
 				<MenuIcon color={routeName === selectedTab ? primary : light_grey_02}/>
-				{/* <FastImage
-				  source={Images.Share}
-				  style={styles.image}
-				  tintColor={
-					routeName === selectedTab ? primary : light_grey_02
-				  }
-				/> */}
 				<Text style={[styles.text,{color: routeName === selectedTab ? primary : light_grey_02}]}>Menu</Text>
 			  </View>
 			);
@@ -195,102 +165,6 @@ function HomeTabs() {
 	
 }
 
-// function HomeTabs() {
-
-// 	return (
-// 		<>
-// 			<Tab.Navigator
-// 				initialRouteName="Home"
-// 				screenOptions={{
-// 					headerShown: false,
-// 					tabBarShowLabel: true,
-// 					tabBarActiveTintColor: greenPrimary,
-// 					tabBarInactiveTintColor: disableColor,
-// 					tabBarStyle: { backgroundColor: offWhite, borderTopColor: offWhite, },
-// 					tabBarLabelStyle: { fontFamily: SEMIBOLD, fontSize: FontSize.FS_11 },
-// 					tabBarHideOnKeyboard: true
-// 				}}
-// 			>
-// 				<Tab.Screen
-// 					name={"Home"}
-// 					component={Home}
-// 					options={{
-// 						tabBarLabel: "Home",
-// 						// tabBarIcon: ({ color, size, focused }) => (
-
-// 						// 	<FastImage style={{ width: size, height: size, }}
-// 						// 		tintColor={color}
-// 						// 		resizeMode='contain'
-// 						// 		source={focused ? HomeFillImg : HomeImg}
-// 						// 	/>
-
-// 						// ),
-// 					}}
-					
-// 				/>
-
-
-// 				<Tab.Screen
-// 					name={"Games"}
-// 					component={GamesTab}
-// 					options={{
-// 						tabBarLabel: "Games",
-// 						// tabBarIcon: ({ color, size, focused }) => (
-
-// 						// 	<FastImage style={{ width: size, height: size, }}
-// 						// 		tintColor={color}
-// 						// 		resizeMode='contain'
-// 						// 		source={focused ? FolderFillImg : FolderImg}
-// 						// 	/>
-
-// 						// ),
-// 					}}
-// 				/>
-
-// 				<Tab.Screen
-// 					name={"Book"}
-// 					component={BookTab}
-// 					options={{
-// 						tabBarLabel: "Book",
-// 						// tabBarIcon: ({ color, size, focused }) => (
-
-// 						// 	<FastImage style={{ width: size, height: size, }}
-// 						// 		tintColor={color}
-// 						// 		resizeMode='contain'
-// 						// 		source={focused ? UserFillImg : UserImg}
-// 						// 	/>
-
-// 						// ),
-// 					}}
-// 				/>
-
-
-// 				<Tab.Screen
-// 					name={"Menu"}
-// 					component={MenuTab}
-// 					options={{
-// 						tabBarLabel: "Menu",
-// 						// tabBarIcon: ({ color, size, focused }) => (
-
-// 						// 	<FastImage style={{ width: size, height: size, }}
-// 						// 		tintColor={color}
-// 						// 		resizeMode='contain'
-// 						// 		source={focused ? SettingFillImg : SettingImg}
-// 						// 	/>
-
-// 						// ),
-// 					}}
-// 				/>
-
-
-// 			</Tab.Navigator>
-
-
-// 		</>
-// 	);
-// }
-
-
 function AppStacks() {
 	return (
 		<Stack.Navigator
@@ -339,7 +213,6 @@ function AppStacks() {
 			<Stack.Screen name="InvitePeople" component={InvitePeople} />
 
 			<Stack.Screen name="VenueDetail" component={VenueDetail} />
-			<Stack.Screen name="Request" component={Request} />
 			
 		</Stack.Navigator>
 	)

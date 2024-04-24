@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import React from "react";
 import HeaderView from "../../commonComponents/HeaderView";
 import { black, offWhite, primary, white } from "../../constants/Color";
@@ -11,7 +11,6 @@ import IconButton from "../../commonComponents/IconButton";
 import Feather from "react-native-vector-icons/Feather";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import BasicCard from "../../commonComponents/BasicCard";
-import FastImage from "react-native-fast-image";
 import CommonStyle from "../../commonComponents/CommonStyle";
 import { BOLD, FontSize, MEDIUM, SEMIBOLD } from "../../constants/Fonts";
 import CustomPrice from "../../commonComponents/CustomPrice";
@@ -57,7 +56,7 @@ const BokingDetails = () => {
           }}
         >
           <BasicCard style={{ marginTop: pixelSizeHorizontal(20) }}>
-            <FastImage
+            <Image
               source={{
                 uri: "https://media.istockphoto.com/id/828088276/vector/qr-code-illustration.jpg?s=612x612&w=0&k=20&c=FnA7agr57XpFi081ZT5sEmxhLytMBlK4vzdQxt8A70M=",
               }}
@@ -65,8 +64,8 @@ const BokingDetails = () => {
                 height: widthPixel(150),
                 width: widthPixel(150),
                 alignSelf: "center",
+                resizeMode : 'contain'
               }}
-              resizeMode="contain"
             />
 
             <Text

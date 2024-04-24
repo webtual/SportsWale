@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import HeaderView from "../../commonComponents/HeaderView";
 import { navigate } from "../../navigations/RootNavigation";
@@ -16,7 +16,6 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import IconButton from "../../commonComponents/IconButton";
 import ChatIcon from "../../assets/images/ChatIcon";
 import BellIcon from "../../assets/images/BellIcon";
-import FastImage from "react-native-fast-image";
 import Geocoder from "react-native-geocoding";
 import { FontSize, MEDIUM } from "../../constants/Fonts";
 import TopTabs from "./TopTabs";
@@ -131,7 +130,7 @@ const GamesTab = () => {
                 additionalStyle={{ marginLeft: pixelSizeHorizontal(18) }}
                 onPress={() => navigate("Profile")}
               >
-                <FastImage
+                <Image
                   source={{ uri: userData?.asset_url + userData?.profile }}
                   style={{
                     width: widthPixel(40),

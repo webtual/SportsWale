@@ -28,7 +28,6 @@ import {
   widthPixel,
 } from "./ResponsiveScreen";
 import IconButton from "./IconButton";
-import FastImage from "react-native-fast-image";
 import { BackImg, headerBackground } from "../constants/Images";
 import { BOLD, FontSize, SEMIBOLD } from "../constants/Fonts";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";

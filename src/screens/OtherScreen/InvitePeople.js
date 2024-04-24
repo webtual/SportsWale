@@ -9,7 +9,6 @@ import { pixelSizeHorizontal, widthPixel } from '../../commonComponents/Responsi
 import { goBack, navigate, resetScreen } from '../../navigations/RootNavigation'
 import HeaderView from '../../commonComponents/HeaderView'
 import LoadingView from '../../commonComponents/LoadingView'
-import FastImage from 'react-native-fast-image'
 import TextInputView from '../../commonComponents/TextInputView'
 import { ic_activity, ic_coin, ic_location, ic_mobile, ic_user } from '../../constants/Images'
 import { Formik } from 'formik'

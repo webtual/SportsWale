@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { RUPEE, SCREEN_WIDTH } from "../constants/ConstantKey";
 import { BOLD, FontSize, MEDIUM, REGULAR, SEMIBOLD } from "../constants/Fonts";
@@ -13,7 +13,6 @@ import {
   pixelSizeHorizontal,
 } from "./ResponsiveScreen";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import FastImage from "react-native-fast-image";
 import { navigate } from "../navigations/RootNavigation";
 import {
   black,
@@ -135,12 +134,11 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
                 backgroundColor : white,
                 overflow:'hidden'
               },CommonStyle.shadow]}>
-              <FastImage
-                style={{flex:1}}
+              <Image
+                style={{flex:1, resizeMode : 'cover'}}
                 source={{
                   uri: userData?.asset_url + item?.game_participants[0].profile,
                 }}
-                resizeMode="cover"
               />
               </View>
             )}
@@ -157,12 +155,11 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
               backgroundColor : white,
               overflow:'hidden'
             },CommonStyle.shadow]}>
-             <FastImage
-                style={{flex:1}}
+             <Image
+                style={{flex:1, resizeMode : 'cover'}}
                 source={{
                   uri: userData?.asset_url + item?.game_participants[1].profile,
                 }}
-                resizeMode="cover"
               />
               </View>
             )}
@@ -177,14 +174,13 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
                 borderColor: white,
                 overflow:'hidden'
                 },CommonStyle.shadow]}>
-              <FastImage
+              <Image
                 style={[{
-                 flex:1
+                 flex:1, resizeMode : 'cover'
                 }]}
                 source={{
                   uri: userData?.asset_url + item?.game_participants[2].profile,
                 }}
-                resizeMode="cover"
               />
               </View>
             )}
@@ -218,11 +214,9 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
       <View style={{ flexDirection: "row" }}>
         <View style={[styles.itemContainer, { backgroundColor: primary }]}>
           {/* <Icon name={"soccer"} size={20} color={white} /> */}
-          <FastImage
+          <Image
             source={{ uri: userData?.asset_url + item?.game_image }}
-            style={{ width: widthPixel(20), height: widthPixel(20) }}
-            resizeMode="contain"
-            tintColor={white}
+            style={{ width: widthPixel(20), height: widthPixel(20), resizeMode : 'contain', tintColor : white }}
           />
           <Text
             style={[
@@ -241,14 +235,6 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
         <View
           style={[styles.itemContainer, { backgroundColor: primary_light }]}
         >
-          {/* <FastImage
-            style={{
-              width: 20,
-              height: 20,
-            }}
-            source={siren}
-            resizeMode={'contain'}
-          /> */}
           <SirenIcon width={19} height={19}/>
           <Text
             style={[

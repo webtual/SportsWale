@@ -38,7 +38,6 @@ import {
 import { navigate } from "../../navigations/RootNavigation";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Input, useToast } from "native-base";
-import FastImage from "react-native-fast-image";
 import { GOOGLE_API_KEY, SCREEN_WIDTH } from "../../constants/ConstantKey";
 import CarouselCard from "../../commonComponents/Carousel/index";
 import HeaderView from "../../commonComponents/HeaderView";
@@ -288,7 +287,7 @@ const Home = ({ navigation }) => {
                   navigate("Profile");
                 }}
               >
-                <FastImage
+                <Image
                   source={{ uri: userData?.asset_url + userData?.profile }}
                   style={{
                     width: widthPixel(40),
@@ -330,12 +329,11 @@ const Home = ({ navigation }) => {
                       borderRadius: widthPixel(10),
                     }}
                   >
-                    <FastImage
-                      style={{ flex: 1, borderRadius: widthPixel(10) }}
+                    <Image
+                      style={{ flex: 1, borderRadius: widthPixel(10), resizeMode : 'cover' }}
                       source={{
                         uri: userData.asset_url + item.file,
                       }}
-                      resizeMode="cover"
                     />
                   </View>
                 );

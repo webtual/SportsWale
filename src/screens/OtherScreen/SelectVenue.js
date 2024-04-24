@@ -42,7 +42,6 @@ import {
 import { goBack, navigate } from "../../navigations/RootNavigation";
 import HeaderView from "../../commonComponents/HeaderView";
 import LoadingView from "../../commonComponents/LoadingView";
-import FastImage from "react-native-fast-image";
 import TextInputView from "../../commonComponents/TextInputView";
 import {
   ic_activity,

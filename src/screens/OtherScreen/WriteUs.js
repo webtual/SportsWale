@@ -1,5 +1,6 @@
 import {
   Alert,
+  Image,
   Keyboard,
   StyleSheet,
   Text,
@@ -18,7 +19,6 @@ import CommonStyle from "../../commonComponents/CommonStyle";
 import Translate from "../../translation/Translate";
 import AttachIcon from "../../assets/images/AttachIcon";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import FastImage from "react-native-fast-image";
 import ImagePicker from 'react-native-image-crop-picker';
 import { useToast } from "native-base";
 import ApiManager from "../../commonComponents/ApiManager";
@@ -223,7 +223,7 @@ export default function WriteUs() {
                   }}
                   onPress={() => {}}
                 >
-                  <FastImage
+                  <Image
                     source={{ uri: image?.path }}
                     style={{ width: 50, height: 50 }}
                   />

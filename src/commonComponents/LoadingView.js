@@ -15,12 +15,25 @@ import {
   secondary,
 } from "../constants/Color";
 import { FontSize, REGULAR } from "../constants/Fonts";
+import LottieView from 'lottie-react-native'
 
 const LoadingView = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.indicatorView}>
-        <ActivityIndicator size={"large"} color={secondary} />
+        {/* <ActivityIndicator size={"large"} color={secondary} /> */}
+
+        <LottieView
+            style={{
+              width: 120,
+              height: 120,
+              // backgroundColor : 'red'
+            }}
+            source={require('../assets/lottie_loading.json')}
+            resizeMode='contain'
+            autoPlay
+            loop
+          />
         {props.text !== "" && props.text !== undefined ? (
           <Text style={styles.text} numberOfLines={2}>
             {props.text}
@@ -48,7 +61,7 @@ const styles = StyleSheet.create({
     backgroundColor: white,
     justifyContent: "center",
     alignItems: "center",
-    padding: FontSize.FS_25,
+    // padding: FontSize.FS_25,
     shadowOffset: { width: 0, height: 2 },
     maxWidth: 150,
     maxHeight: 150,

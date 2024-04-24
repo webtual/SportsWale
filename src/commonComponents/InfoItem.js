@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import FastImage from 'react-native-fast-image'; // Import FastImage library
+import { View, Text, Image } from 'react-native';
 import { Colors } from '../constants/CustomeColor';
 import { SEMIBOLD , FontSize} from '../constants/Fonts';
 import { black } from '../constants/Color';
@@ -15,13 +14,12 @@ const InfoItem = ({ iconSource, text, style={} }) => {
         // alignItems: 'center',
       },{...style}]}
     >
-      {/* <FastImage
+      {/* <Image
         style={{
           width: 28,
-          height: 28,
+          height: 28, resizeMode : 'cover'
         }}
         source={iconSource}
-        resizeMode="cover"
       /> */}
 
       {iconSource && iconSource}

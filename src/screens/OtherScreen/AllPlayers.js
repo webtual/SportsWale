@@ -1,4 +1,4 @@
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, Text, FlatList, StyleSheet, Image } from "react-native";
 import React from "react";
 import { useToast } from "native-base";
 import HeaderView from "../../commonComponents/HeaderView";
@@ -6,7 +6,6 @@ import { goBack } from "../../navigations/RootNavigation";
 import { pixelSizeHorizontal } from "../../commonComponents/ResponsiveScreen";
 import CommonStyle from "../../commonComponents/CommonStyle";
 import { black, primary, primary_light, white } from "../../constants/Color";
-import FastImage from "react-native-fast-image";
 import { useSelector } from "react-redux";
 import { user_data } from "../../redux/reducers/userReducer";
 import { BOLD, FontSize, REGULAR, SEMIBOLD } from "../../constants/Fonts";
@@ -67,12 +66,11 @@ const AllPlayers = (props) => {
                       },
                     ]}
                   >
-                    <FastImage
-                      style={{ flex: 1 }}
+                    <Image
+                      style={{ flex: 1 , resizeMode : 'cover'}}
                       source={{
                         uri: userData?.asset_url + item?.profile,
                       }}
-                      resizeMode="cover"
                     />
                   </View>
                   <View

@@ -1,7 +1,5 @@
-import { View, Text, TextInput } from 'react-native'
+import { View, Text, TextInput, Image } from 'react-native'
 import React, { useState } from 'react'
-import FastImage from 'react-native-fast-image'
-import { PhoneImg } from '../constants/Images'
 import { pixelSizeHorizontal, widthPixel } from './ResponsiveScreen'
 import { FontSize, MEDIUM } from '../constants/Fonts'
 import { black, dim_grey, greenPrimary, light_grey, offWhite, primary, seprator, warmGrey, white } from '../constants/Color'
@@ -36,10 +34,9 @@ const TextInputView = ({ value = "", icon, imageSource, onChangeText, placeholde
             }, { ...containerStyle }]}>
 
                 {imageSource &&
-                    <FastImage
+                    <Image
                         source={imageSource}
-                        style={{ width: widthPixel(20), height: widthPixel(20) }}
-                        resizeMode={'contain'}
+                        style={{ width: widthPixel(20), height: widthPixel(20), resizeMode : 'contain' }}
                     />}
                     {icon && icon}
 

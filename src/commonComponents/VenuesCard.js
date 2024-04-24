@@ -4,10 +4,10 @@ import {
   View,
   TouchableOpacity,
   FlatList,
+  Image,
 } from "react-native";
 import React from "react";
 import { Colors } from "../constants/CustomeColor";
-import FastImage from "react-native-fast-image";
 import { venue } from "../constants/Images";
 import { pixelSizeHorizontal, pixelSizeVertical } from "./ResponsiveScreen";
 import { SCREEN_WIDTH } from "../constants/ConstantKey";
@@ -53,15 +53,15 @@ export default function VenuesCard({
       ]}
     >
       <View>
-        <FastImage
+        <Image
           style={{
             width: "100%",
             height: 100,
             borderTopLeftRadius: 10,
             borderTopRightRadius: 10,
+            resizeMode : 'cover'
           }}
           source={{ uri: userData?.asset_url + VenueData?.image }}
-          resizeMode="cover"
         />
         {isShowFavourite && (
           <IconButton
