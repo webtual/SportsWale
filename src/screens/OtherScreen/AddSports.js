@@ -13,10 +13,13 @@ import Translate from "../../translation/Translate";
 import { FontSize, SEMIBOLD } from "../../constants/Fonts";
 import {
   black,
+  green,
+  orange,
   primary,
   primary_light,
   secondary,
   white,
+  yellow,
 } from "../../constants/Color";
 import LoadingView from "../../commonComponents/LoadingView";
 import CommonStyle from "../../commonComponents/CommonStyle";
@@ -37,17 +40,17 @@ const AddSports = (props) => {
   const ArrLevels = [
     {
       id: 1,
-      color: "#008000",
+      color: orange,
       title: "Beginner",
     },
     {
       id: 2,
-      color: "#FF4500",
+      color: yellow,
       title: "Intermediate",
     },
     {
       id: 3,
-      color: "#00ff00",
+      color: green,
       title: "Advance",
     },
   ];
@@ -64,7 +67,9 @@ const AddSports = (props) => {
       console.log("addedGames : ",addedGames)
       let preAddedGames = addedGames.map((el) => ({
         ...el,
-        id: el.game_id
+        id: el.game_id,
+        level : el.skill,
+        color : el.skill_color_code
       }));
       setSelectedList(preAddedGames)
     }
@@ -119,6 +124,7 @@ const AddSports = (props) => {
     } else {
       var finalInterest = interest;
       finalInterest["level"] = item.title;
+      finalInterest["color"] = item.color;
       finalInterest["game_id"] = interest.id;
       selectedData.push(finalInterest);
     }
@@ -139,6 +145,16 @@ const AddSports = (props) => {
       return false;
     }
   };
+
+  const getColor = (item) => {
+    let filter = selectedList.filter((x) => x.id == item.id);
+    if (filter.length) {
+      console.log("filter :=> ",filter)
+      return filter?.[0].color;
+    } else {
+      return primary_light;
+    }
+  }
 
   const onSearchGame = (search) => {
     let text = search.toLowerCase();
@@ -242,8 +258,9 @@ const AddSports = (props) => {
                     }
                   }}
                   style={{
-                    backgroundColor:
-                      checkExists(item) == true ? primary : primary_light,
+                    // backgroundColor:
+                    //   checkExists(item) == true ? primary : primary_light,
+                    backgroundColor : getColor(item),
                     alignItems: "center",
                     padding: 15,
                     borderRadius: 50,

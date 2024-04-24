@@ -23,7 +23,6 @@ import {
   SEMIBOLD,
 } from "../../constants/Fonts";
 import { pixelSizeHorizontal, widthPixel } from "../../commonComponents/ResponsiveScreen";
-import FastImage from "react-native-fast-image";
 import { SCREEN_WIDTH } from "../../constants/ConstantKey";
 import Translate from "../../translation/Translate";
 import { navigate, resetScreen } from "../../navigations/RootNavigation";

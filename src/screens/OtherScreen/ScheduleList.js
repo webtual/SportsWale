@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   FlatList,
+  Image,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import {
@@ -25,7 +26,6 @@ import ApiManager from "../../commonComponents/ApiManager";
 import { GET_SCHEDULE_GAME } from "../../constants/ApiUrl";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import CommonStyle from "../../commonComponents/CommonStyle";
-import FastImage from "react-native-fast-image";
 import { user_data } from "../../redux/reducers/userReducer";
 import { useDispatch, useSelector } from "react-redux";
 import NavigationIcon from "../../assets/images/NavigationIcon";
@@ -207,7 +207,7 @@ const ScheduleList = ({ setIsLoading }) => {
            // onPress={() => navigate("GameDetails", { game_data: item })}
           >
             <View style={{ flexDirection: "row" }}>
-              <FastImage
+              <Image
                 source={{ uri: userData?.asset_url + item?.game_image }}
                 style={{
                   width: widthPixel(54),

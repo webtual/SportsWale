@@ -13,13 +13,16 @@ import {
 import React, { useCallback, useEffect, useState } from "react";
 import {
   black,
+  green,
   light_grey,
+  orange,
   primary,
   primary_light,
   secondary,
   seprator,
   warmGrey,
   white,
+  yellow,
 } from "../../constants/Color";
 
 import Translate from "../../translation/Translate";
@@ -37,7 +40,6 @@ import {
 import { goBack, navigate, resetScreen } from "../../navigations/RootNavigation";
 import HeaderView from "../../commonComponents/HeaderView";
 import LoadingView from "../../commonComponents/LoadingView";
-import FastImage from "react-native-fast-image";
 import TextInputView from "../../commonComponents/TextInputView";
 import { ic_mobile, ic_user } from "../../constants/Images";
 import { Formik } from "formik";
@@ -76,17 +78,17 @@ const RegisterSelectSport = (props) => {
   const ArrLevels = [
     {
       id: 1,
-      color: "#008000",
+      color: orange,
       title: "Beginner",
     },
     {
       id: 2,
-      color: "#FF4500",
+      color: yellow,
       title: "Intermediate",
     },
     {
       id: 3,
-      color: "#00ff00",
+      color: green,
       title: "Advance",
     },
   ];
@@ -136,7 +138,7 @@ const RegisterSelectSport = (props) => {
   };
 
 
-  const Api_Register = (isLoad, mobile_number) => {
+  const Api_Register = (isLoad) => {
     setIsLoading(isLoad);
 
     const formData = new FormData();

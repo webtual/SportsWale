@@ -10,6 +10,7 @@ import {
   PermissionsAndroid,
   Alert,
   FlatList,
+  Image,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -48,8 +49,7 @@ import IconButton from "../../commonComponents/IconButton";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import HeaderView from "../../commonComponents/HeaderView";
-import FastImage from "react-native-fast-image";
-import BasicCard from "../../commonComponents/BasicCard";
+
 import {
   UserPlaceholder,
   athlete,
@@ -507,32 +507,16 @@ const Profile = () => {
                     onPress={() => isEditProfile && UploadImage(setFieldValue)}
                     disabled={!isEditProfile}
                   >
-                    {/* <FastImage
-                      source={
-                        values.profile_image
-                          ? { uri: values.profile_image.path }
-                          : UserPlaceholder
-                      }
-                      style={{
-                        width: widthPixel(SCREEN_WIDTH / 3),
-                        height: widthPixel(SCREEN_WIDTH / 3),
-                        borderRadius: widthPixel(SCREEN_WIDTH / 3),
-                        borderColor: white,
-                        borderWidth: 5,
-                      }}
-                      resizeMode="cover"
-                    /> */}
-
+                  
                     {profileImg?.path ? (
-                      <FastImage
+                      <Image
                         source={{ uri: profileImg?.path }}
                         style={styles.image}
                       />
                     ) : (
-                      <FastImage
+                      <Image
                         source={UserPlaceholder}
-                        style={styles.image}
-                        resizeMode="cover"
+                        style={[styles.image, {resizeMode : 'cover'}]}
                       />
                     )}
                   </TouchableOpacity>

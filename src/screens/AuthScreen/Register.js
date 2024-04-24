@@ -9,6 +9,7 @@ import {
   PermissionsAndroid,
   Platform,
   Linking,
+  Image,
 } from "react-native";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
@@ -43,7 +44,6 @@ import CommonStyle from "../../commonComponents/CommonStyle";
 import moment from "moment";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import FastImage from "react-native-fast-image";
 import { GOOGLE_API_KEY, SCREEN_WIDTH } from "../../constants/ConstantKey";
 import IconButton from "../../commonComponents/IconButton";
 import ImagePicker from "react-native-image-crop-picker";
@@ -384,7 +384,7 @@ const Register = (props) => {
               <View style={{ marginTop: pixelSizeHorizontal(10) }}>
                 <View style={{ alignSelf: "center" }}>
                   <TouchableOpacity onPress={() => UploadImage(setFieldValue)}>
-                    <FastImage
+                    <Image
                       source={
                         values.profile_image
                           ? { uri: values.profile_image.path }
@@ -396,8 +396,8 @@ const Register = (props) => {
                         borderRadius: widthPixel(SCREEN_WIDTH / 3),
                         borderColor: white,
                         borderWidth: 5,
+                        resizeMode : 'cover'
                       }}
-                      resizeMode="cover"
                     />
                   </TouchableOpacity>
                   {values.profile_image && (

@@ -1,31 +1,31 @@
-import { View, Text, FlatList, StyleSheet } from "react-native";
-import React from "react";
+import { View, Text, FlatList, StyleSheet, Image } from "react-native";
+import React, { useState } from "react";
 import { useToast } from "native-base";
 import HeaderView from "../../commonComponents/HeaderView";
 import { goBack } from "../../navigations/RootNavigation";
 import { pixelSizeHorizontal } from "../../commonComponents/ResponsiveScreen";
 import CommonStyle from "../../commonComponents/CommonStyle";
 import { black, primary, primary_light, white } from "../../constants/Color";
-import FastImage from "react-native-fast-image";
 import { useSelector } from "react-redux";
 import { user_data } from "../../redux/reducers/userReducer";
 import { BOLD, FontSize, REGULAR, SEMIBOLD } from "../../constants/Fonts";
 import IconButton from "../../commonComponents/IconButton";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import HorizontalTab from "../../commonComponents/HorizontalTab";
+import PlayerRequest from "./PlayerRequest";
 
 const AllPlayers = (props) => {
   const toast = useToast();
   const userData = useSelector(user_data);
+  const [currentSelectedTab, setCurrentSelectedTab] = useState(0);
 
   const { players, gameDetails } = props?.route?.params;
 
   const filterGameHost = (item) => {
-
-    if(item?.user_id == gameDetails?.user_id){
-        return true;
+    if (item?.user_id == gameDetails?.user_id) {
+      return true;
     }
-    return false
-    
+    return false;
   };
 
   return (
@@ -38,7 +38,16 @@ const AllPlayers = (props) => {
         containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20) }}
       >
         <View style={{ flex: 1 }}>
-          <FlatList
+          <HorizontalTab
+            tabs={[{ name: "All Players" }, { name: "Requests" }]}
+            currentTabIndex={currentSelectedTab}
+            onTabChange={(currentIndex) => {
+              console.log("currentIndex", currentIndex);
+              setCurrentSelectedTab(currentIndex);
+            }}
+          />
+
+          {currentSelectedTab == 0 ?  <FlatList
             data={players || []}
             ListHeaderComponent={
               <View style={{ height: pixelSizeHorizontal(12) }} />
@@ -63,16 +72,15 @@ const AllPlayers = (props) => {
                         width: 48,
                         height: 48,
                         borderRadius: 48 / 2,
-                        overflow:'hidden'
+                        overflow: "hidden",
                       },
                     ]}
                   >
-                    <FastImage
-                      style={{ flex: 1 }}
+                    <Image
+                      style={{ flex: 1, resizeMode: "cover" }}
                       source={{
                         uri: userData?.asset_url + item?.profile,
                       }}
-                      resizeMode="cover"
                     />
                   </View>
                   <View
@@ -83,31 +91,37 @@ const AllPlayers = (props) => {
                   >
                     <Text style={[styles.titleText]}>{item?.name}</Text>
                     {item?.skill && (
-                      <Text style={[styles.descriprionText, {marginTop : pixelSizeHorizontal(2)}]}>
+                      <Text
+                        style={[
+                          styles.descriprionText,
+                          { marginTop: pixelSizeHorizontal(2) },
+                        ]}
+                      >
                         {item?.skill}
                       </Text>
                     )}
                     <View>
-                        {filterGameHost(item) ?
-                    <View
-                      style={[
-                        styles.badgeView,
-                        {
-                          backgroundColor: primary_light,
-                          marginTop : pixelSizeHorizontal(5)
-                        },
-                      ]}
-                    >
-                      <Text
-                        style={{
-                          color: primary,
-                          fontSize: FontSize.FS_10,
-                          fontFamily: SEMIBOLD,
-                        }}
-                      >
-                        Host
-                      </Text>
-                    </View> : null}
+                      {filterGameHost(item) ? (
+                        <View
+                          style={[
+                            styles.badgeView,
+                            {
+                              backgroundColor: primary_light,
+                              marginTop: pixelSizeHorizontal(5),
+                            },
+                          ]}
+                        >
+                          <Text
+                            style={{
+                              color: primary,
+                              fontSize: FontSize.FS_10,
+                              fontFamily: SEMIBOLD,
+                            }}
+                          >
+                            Host
+                          </Text>
+                        </View>
+                      ) : null}
                     </View>
                   </View>
 
@@ -117,7 +131,9 @@ const AllPlayers = (props) => {
                 </View>
               );
             }}
-          />
+          /> : currentSelectedTab == 1 ? (
+            <PlayerRequest />
+          ) : null}
         </View>
       </HeaderView>
     </>
@@ -139,7 +155,7 @@ const styles = StyleSheet.create({
     paddingVertical: pixelSizeHorizontal(5),
     paddingHorizontal: pixelSizeHorizontal(15),
     borderRadius: 5,
-    alignSelf: 'flex-start' 
+    alignSelf: "flex-start",
   },
 });
 export default AllPlayers;

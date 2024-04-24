@@ -1,9 +1,8 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { Colors } from "../constants/CustomeColor";
 import { FontSize, MEDIUM, SEMIBOLD } from "../constants/Fonts";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import FastImage from "react-native-fast-image";
 import { dim_grey, secondary, white } from "../constants/Color";
 import { user_data } from "../redux/reducers/userReducer";
 import { useSelector } from "react-redux";
@@ -44,11 +43,9 @@ export default function SportItem({
       size={16}
       color={isSelected ? Colors.white : Colors.black}
     /> */}
-      <FastImage
+      <Image
         source={{ uri: userData?.asset_url + item?.game_image }}
-        style={{ width: widthPixel(16), height: widthPixel(16) }}
-        tintColor={isSelected ? white : textColor}
-        resizeMode="contain"
+        style={{ width: widthPixel(16), height: widthPixel(16), resizeMode : 'contain', tintColor : isSelected ? white : textColor }}
       />
       <Text
         style={[styles.menuItemText,{color : textColor}, isSelected && styles.selectedItemText]}

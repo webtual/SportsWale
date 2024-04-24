@@ -4,6 +4,7 @@ import {
   View,
   TouchableOpacity,
   FlatList,
+  Image,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { storeData } from "../../commonComponents/AsyncManager";
@@ -29,7 +30,6 @@ import {
 } from "../../constants/Color";
 import { BOLD, FontSize, SEMIBOLD } from "../../constants/Fonts";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import FastImage from "react-native-fast-image";
 import CommonStyle from "../../commonComponents/CommonStyle";
 import { ALERT_TYPE, Dialog } from "react-native-alert-notification";
 
@@ -238,16 +238,15 @@ const MySports = () => {
                           height: widthPixel(50),
                           width: widthPixel(50),
                           borderRadius: widthPixel(25),
-                          backgroundColor: primary_light,
+                          backgroundColor: item?.skill_color_code ? item?.skill_color_code : primary_light,
                           padding: pixelSizeHorizontal(10),
                         }}
                       >
-                        <FastImage
+                        <Image
                           source={{
                             uri: userData?.asset_url + item?.game_image,
                           }}
-                          resizeMode={"contain"}
-                          style={{ flex: 1 }}
+                          style={{ flex: 1, resizeMode : 'contain', tintColor : white }}
                         />
                       </View>
                       <Text

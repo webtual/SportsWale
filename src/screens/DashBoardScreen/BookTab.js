@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   FlatList,
   StyleSheet,
+  Image,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import HeaderView from "../../commonComponents/HeaderView";
@@ -20,7 +21,6 @@ import ChatIcon from "../../assets/images/ChatIcon";
 import BellIcon from "../../assets/images/BellIcon";
 import { storeCurrentLocation, user_data } from "../../redux/reducers/userReducer";
 import { useDispatch, useSelector } from "react-redux";
-import FastImage from "react-native-fast-image";
 import IconButton from "../../commonComponents/IconButton";
 import VenuesCard from "../../commonComponents/VenuesCard";
 import { VenuesData } from "../../DummyData/Data";
@@ -254,7 +254,7 @@ const BookTab = (props) => {
                 additionalStyle={{ marginLeft: pixelSizeHorizontal(18) }}
                 onPress={() => navigate("Profile")}
               >
-                <FastImage
+                <Image
                   source={{ uri: userData?.asset_url + userData?.profile }}
                   style={{
                     width: widthPixel(40),
@@ -276,44 +276,6 @@ const BookTab = (props) => {
             marginHorizontal: pixelSizeHorizontal(20),
           }}
         >
-          {/* <View style={{ marginTop: pixelSizeHorizontal(20) }}>
-            <Carousel
-              autoplay={__DEV__ ? false : true}
-              // ref={scrollRef}
-              // autoplayTimeout={5000}
-              loop={__DEV__ ? false : true}
-              index={0}
-              pageSize={SCREEN_WIDTH}
-              pageIndicatorOffset={16}
-              pageIndicatorStyle={{ backgroundColor: white }}
-              activePageIndicatorStyle={{ backgroundColor: black }}
-              // showsPageIndicator={venueImage.length ==1 ? false : true}
-              onPageChanged={(index) => {
-                console.log("index ::::::", index);
-                // setPageIndex(index)
-              }}
-            >
-              {[1, 1, 1].map((image, index) => {
-                return (
-                  <View
-                    style={{
-                      width: widthPixel(SCREEN_WIDTH - 30),
-                      height: widthPixel(180),
-                      borderRadius: widthPixel(10),
-                    }}
-                  >
-                    <FastImage
-                      style={{ flex: 1, borderRadius: widthPixel(10) }}
-                      source={{
-                        uri: "https://img.freepik.com/free-photo/sports-tools_53876-138077.jpg",
-                      }}
-                      resizeMode="cover"
-                    />
-                  </View>
-                );
-              })}
-            </Carousel>
-          </View> */}
 
           <View
             style={[
@@ -329,7 +291,7 @@ const BookTab = (props) => {
             ]}
           >
             <IconButton additionalStyle={{}} onPress={() => {}}>
-              <FastImage
+              <Image
                 source={{ uri: userData?.asset_url + userData?.profile }}
                 style={{
                   width: widthPixel(40),

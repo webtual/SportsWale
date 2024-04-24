@@ -12,9 +12,10 @@ export const primary_light = "#DBE6FF"
 export const grey = '#DFDFDF'
 export const offWhite = "#F5F5F5"
 export const border = "#D4D4D4"
-export const yellow = "#F8B111"
 export const error = "#CE0E0E"
 export const green = "#008F20"
+export const yellow = "#F8B111"
+export const orange = "#FE6D3E"
 
 
 export const seprator = "rgb(230,230,230)"
@@ -22,7 +23,6 @@ export const placeholderGrey = "#C7C7CD"
 
 export const lightPrimary = "#ff8a43"
 export const blackTitle = "#252525"
-
 
 export const secondary_grey = "#a6b1c2"
 export const secondary_dark_grey = "#707070"

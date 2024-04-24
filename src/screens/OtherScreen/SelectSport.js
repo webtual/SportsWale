@@ -39,7 +39,6 @@ import {
 } from "../../navigations/RootNavigation";
 import IconButton from "../../commonComponents/IconButton";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import FastImage from "react-native-fast-image";
 import HeaderView from "../../commonComponents/HeaderView";
 import TextInputView from "../../commonComponents/TextInputView";
 import Feather from "react-native-vector-icons/Feather";

@@ -17,7 +17,6 @@ import { appLogoWhiteTrans, ImgLogo, SplashImg } from '../../constants/Images';
 /** Redux Files */
 import { useSelector, useDispatch } from 'react-redux'
 import { storeUserData, user_data } from '../../redux/reducers/userReducer'
-import FastImage from 'react-native-fast-image';
 import { heightPixel, pixelSizeHorizontal, pixelSizeVertical } from '../../commonComponents/ResponsiveScreen';
 import Translate from '../../translation/Translate';
 
@@ -63,10 +62,9 @@ const Splash = (props) => {
 			<StatusBar barStyle={'dark-content'} backgroundColor={primary} />
 			<View style={{ flex: 1, backgroundColor: primary, alignItems: 'center', justifyContent: 'center' }}>
 
-				<FastImage
+				<Image
 					source={appLogoWhiteTrans}
-					style={{ width: SCREEN_WIDTH - 60 , height: heightPixel(400), alignSelf: 'center' }}
-					resizeMode="cover"
+					style={{ width: SCREEN_WIDTH - 60 , height: heightPixel(400), alignSelf: 'center', resizeMode : 'cover' }}
 				/>
 			</View>
 		</View>

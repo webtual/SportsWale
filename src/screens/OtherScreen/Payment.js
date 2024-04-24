@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Platform, Keyboard } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Platform, Keyboard, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import HeaderView from "../../commonComponents/HeaderView";
 import { goBack, navigate, popToTop, resetScreen } from "../../navigations/RootNavigation";
@@ -16,7 +16,6 @@ import {
   pixelSizeHorizontal,
   widthPixel,
 } from "../../commonComponents/ResponsiveScreen";
-import FastImage from "react-native-fast-image";
 import {
   ic_cricket,
   ic_football,
@@ -181,16 +180,15 @@ export default function Payment(props) {
               alignItems: "center",
             }}
           >
-            <FastImage
+            <Image
               style={{
                 width: 20,
                 height: 20,
+                resizeMode : 'contain', tintColor : secondary
               }}
-              tintColor={secondary}
               source={{
                 uri: userData?.asset_url + selectedSlots?.sport?.game_image,
               }}
-              resizeMode="contain"
             />
             <Text
               style={{
@@ -214,18 +212,8 @@ export default function Payment(props) {
             >
               {selectedSlots?.time[0]?.display_time_start} to{" "}
               {selectedSlots?.time[0]?.display_time_end}
-              {/* {moment(selectedSlots?.date).format("ddd DD MMM, YYYY") +
-                "\n" +
-                selectedSlots?.time
-                  .map((item) => {
-                    return item.time_start
-                  })
-                  .join(", ")} for multiple slots display */}
             </Text>
           </View>
-          {/* <View style={{ position: "absolute", right: 10, top: 10 }}>
-            <Icon name={"trash-can-outline"} size={28} color={Colors.primary} />
-          </View> */}
 
           <InfoItem
             style={{ marginTop: pixelSizeHorizontal(15) }}

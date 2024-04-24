@@ -8,6 +8,7 @@ import {
   ScrollView,
   Platform,
   FlatList,
+  Image,
 } from "react-native";
 import React, { useCallback, useState } from "react";
 import {
@@ -37,7 +38,6 @@ import {
 import { goBack, navigate } from "../../navigations/RootNavigation";
 import HeaderView from "../../commonComponents/HeaderView";
 import LoadingView from "../../commonComponents/LoadingView";
-import FastImage from "react-native-fast-image";
 import TextInputView from "../../commonComponents/TextInputView";
 import {
   ic_activity,
@@ -114,10 +114,9 @@ const SelectDateTime = ({}) => {
               paddingHorizontal: 14,
             }}
           >
-            <FastImage
+            <Image
               source={ic_calender}
-              style={{ width: widthPixel(15), height: widthPixel(15) }}
-              resizeMode={"contain"}
+              style={{ width: widthPixel(15), height: widthPixel(15), resizeMode : 'contain' }}
             />
             <View
               style={{

@@ -134,6 +134,8 @@ export default {
 	lets_play : "Let's Play!",
 	choose_level : "Choose Level",
 	send:'Send',
+	accept:'Accept',
+	reject:'Reject',
 
 	// updated UI
 
