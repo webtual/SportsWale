@@ -7,7 +7,11 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import ApiManager from "../../commonComponents/ApiManager";
-import { GET_GAMES, GET_MY_SPORT_EVENTS, GET_OTHER_SPORT_EVENTS } from "../../constants/ApiUrl";
+import {
+  GET_GAMES,
+  GET_MY_SPORT_EVENTS,
+  GET_OTHER_SPORT_EVENTS,
+} from "../../constants/ApiUrl";
 import { Input, useToast } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import SportItem from "../../commonComponents/SportItem";
@@ -22,13 +26,16 @@ import { FontSize, SEMIBOLD } from "../../constants/Fonts";
 import { dim_grey, secondary } from "../../constants/Color";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-const OtherGamesList = ({setIsLoading}) => {
+const OtherGamesList = ({ setIsLoading }) => {
   const toast = useToast();
 
   const userReduxData = useSelector((state) => state.userRedux);
 
   const [page, setPage] = useState(1);
   const [showMore, setShowMore] = useState(false);
+
+  const [allGames, setGames] = useState([]);
+  const [selectedSport, setSelectedSport] = useState(null);
 
   const [CurrentLatitude, setCurrentLatitude] = useState(
     userReduxData.lat || 0.0
@@ -39,30 +46,65 @@ const OtherGamesList = ({setIsLoading}) => {
 
   const [allOtherGamesList, setAllOtherGamesList] = useState([]);
 
-
   useEffect(() => {
     console.log("OtherGamesList effect call");
 
     Api_GetOtherGamesList(true, {
       lat: userReduxData.lat, //CurrentLatitude,
-      long: userReduxData.long // CurrentLongitude,
+      long: userReduxData.long, // CurrentLongitude,
     });
   }, [page]);
 
 
   useEffect(() => {
-    console.log("OtherGamesList userReduxData effect call");
-    setAllOtherGamesList([])
-    setPage(1)
-    setTimeout(() => {
-      Api_GetOtherGamesList(true, {
-        lat: userReduxData.lat, //CurrentLatitude,
-        long: userReduxData.long // CurrentLongitude,
-      });
-    }, 1000);
-    
-  }, [ userReduxData]);
+    Api_Get_Games(true);
+  }, []);
 
+  const Api_Get_Games = (isLoad) => {
+    setIsLoading?.(isLoad);
+
+    // const formData = new FormData();
+    // formData.append("mobile_number", mobile_number);
+
+    ApiManager.get(GET_GAMES, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        console.log("Api_Get_Games : ", JSON.stringify(response));
+        setIsLoading?.(false);
+
+        if (response.data.status === true) {
+          var allGames = response.data.data;
+          let finalGames = allGames.map((el) => ({
+            ...el,
+            game_image: el.image,
+            game_title: el.title,
+          }));
+          console.log("🚀 ~ finalGames ~ finalGames:", finalGames)
+
+          let my_sport = userReduxData.user_data.game_selection;
+          console.log("🚀 ~ .then ~ my_sport:", my_sport)
+
+          const filtered_games = finalGames.filter(
+            (game) => !my_sport.some((sport) => sport.game_title === game.title)
+          );
+          // .reverse();
+
+          setSelectedSport(filtered_games?.[0]);
+          setGames(filtered_games);
+        } else {
+          toast.show({
+            description: response.data.message,
+          });
+        }
+      })
+      .catch((err) => {
+        setIsLoading?.(false);
+        console.error("Api_Get_Games Error ", err);
+      });
+  };
   const Api_GetOtherGamesList = (isLoad, locationCords) => {
     setIsLoading?.(isLoad);
 
@@ -87,11 +129,17 @@ const OtherGamesList = ({setIsLoading}) => {
           if (finalData?.current_page >= finalData?.total_pages) {
             setShowMore(false);
 
-            var finalData = [...allOtherGamesList, ...response.data.data.other_sport_events];
+            var finalData = [
+              ...allOtherGamesList,
+              ...response.data.data.other_sport_events,
+            ];
             setAllOtherGamesList(getUniqueListBy(finalData, "id"));
           } else {
             setShowMore(true);
-            var finalData = [...allOtherGamesList, ...response.data.data.other_sport_events];
+            var finalData = [
+              ...allOtherGamesList,
+              ...response.data.data.other_sport_events,
+            ];
             setAllOtherGamesList(getUniqueListBy(finalData, "id"));
           }
         } else {
@@ -107,7 +155,36 @@ const OtherGamesList = ({setIsLoading}) => {
   };
 
   return (
-    <View style={{flex:1}}>
+    <View style={{ flex: 1 }}>
+      <FlatList
+        style={{ marginTop: pixelSizeHorizontal(10) }}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        data={allGames}
+        ListFooterComponent={
+          <View style={{ width: pixelSizeHorizontal(20) }}></View>
+        }
+        ListHeaderComponent={
+          <View style={{ width: pixelSizeHorizontal(20) }}></View>
+        }
+        contentContainerStyle={{
+          flexDirection: "row",
+        }}
+        renderItem={({ item }) => {
+          return (
+            <SportItem
+              item={item}
+              isSelected={selectedSport?.id == item?.id}
+              onPressItem={() => {
+                setSelectedSport(item);
+                setPage(1);
+                setAllOtherGamesList([]);
+              }}
+            />
+          );
+        }}
+      />
+
       <FlatList
         style={{ flex: 1 }}
         data={allOtherGamesList}
@@ -163,9 +240,8 @@ const OtherGamesList = ({setIsLoading}) => {
         )}
       />
     </View>
-  )
-}
-
+  );
+};
 
 const styles = StyleSheet.create({
   text: {
@@ -174,4 +250,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OtherGamesList
+export default OtherGamesList;

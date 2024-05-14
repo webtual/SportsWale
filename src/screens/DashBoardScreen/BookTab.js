@@ -29,11 +29,12 @@ import { SCREEN_WIDTH } from "../../constants/ConstantKey";
 import BasicCard from "../../commonComponents/BasicCard";
 import { BOLD, FontSize, SEMIBOLD } from "../../constants/Fonts";
 import ApiManager from "../../commonComponents/ApiManager";
-import { GET_ALL_VENUES, VENUE_FAVORITE } from "../../constants/ApiUrl";
+import { GET_ALL_VENUES, RECENT_BOOK, VENUE_FAVORITE } from "../../constants/ApiUrl";
 import LoadingView from "../../commonComponents/LoadingView";
 import { getUniqueListBy } from "../../commonComponents/Utils";
 import { navigate } from "../../navigations/RootNavigation";
 import Geocoder from "react-native-geocoding";
+import moment from "moment";
 
 
 const BookTab = (props) => {
@@ -50,6 +51,9 @@ const BookTab = (props) => {
   const [allVenues, setAllVenues] = useState([]);
   const [showMore, setShowMore] = useState(false);
   const [favourites, setFavourites] = useState(0);
+
+  const [recentPlay, setRecentPlay] = useState(null);
+  console.log("🚀 ~ BookTab ~ recentPlay:", recentPlay)
 
   const [CurrentLatitude, setCurrentLatitude] = useState(userReduxData.lat || 0.0);
   const [CurrentLongitude, setCurrentLongitude] = useState(userReduxData.long || 0.0);
@@ -92,13 +96,13 @@ const BookTab = (props) => {
     const formData = new FormData();
     formData.append("page", page);
     formData.append("limit", "10");
-    formData.append("latitude", locationCords.lat);
-    formData.append("longitude", locationCords.long);
+    // formData.append("latitude", locationCords.lat);
+    // formData.append("longitude", locationCords.long);
 
-    formData.append("favourites", favourites);
-    formData.append("keyword", "");
+    // formData.append("favourites", favourites);
+    // formData.append("keyword", "");
 
-    ApiManager.post(GET_ALL_VENUES, formData, {
+    ApiManager.post(RECENT_BOOK, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -115,14 +119,16 @@ const BookTab = (props) => {
 
             var finalData = [
               ...allVenues,
-              ...response.data.data.near_by_venues,
+              ...response.data.data.recent_booked_venues,
             ];
+
+            setRecentPlay(response.data.data.last_played_record);
             setAllVenues(getUniqueListBy(finalData, "id"));
           } else {
             setShowMore(true);
             var finalData = [
               ...allVenues,
-              ...response.data.data.near_by_venues,
+              ...response.data.data.recent_booked_venues,
             ];
             setAllVenues(getUniqueListBy(finalData, "id"));
           }
@@ -305,14 +311,16 @@ const BookTab = (props) => {
             <View
               style={{ flex: 1, marginHorizontal: pixelSizeHorizontal(12) }}
             >
-              <Text style={styles.cardTitle}>Vista Sports Arena</Text>
+              <Text style={styles.cardTitle}>{recentPlay?.title}</Text>
               <Text
                 style={[
                   styles.cardDescription,
                   { marginTop: pixelSizeHorizontal(4) },
                 ]}
               >
-                Last Played on 08 November, 2023
+                Last Played on{' '}
+                {moment(recentPlay?.transactions?.created_at).format("DD MMM, YYYY")}
+                 
               </Text>
             </View>
             <View style={styles.bookContainer}>

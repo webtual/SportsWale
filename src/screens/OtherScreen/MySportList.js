@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import ApiManager from "../../commonComponents/ApiManager";
-import { GET_GAMES, GET_MY_SPORT_EVENTS } from "../../constants/ApiUrl";
+import { GET_GAMES, GET_MY_SPORT_EVENTS, GET_PROFILE } from "../../constants/ApiUrl";
 import { Input, useToast } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import SportItem from "../../commonComponents/SportItem";
@@ -21,9 +21,11 @@ import { SCREEN_WIDTH } from "../../constants/ConstantKey";
 import { FontSize, SEMIBOLD } from "../../constants/Fonts";
 import { dim_grey, secondary } from "../../constants/Color";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { user_data } from "../../redux/reducers/userReducer";
 
 const MySportList = ({ setIsLoading }) => {
   const toast = useToast();
+  const userData = useSelector(user_data);
 
   const [allGames, setGames] = useState([]);
   const [selectedSport, setSelectedSport] = useState(null);
@@ -34,39 +36,34 @@ const MySportList = ({ setIsLoading }) => {
   const [showMore, setShowMore] = useState(false);
 
   useEffect(() => {
-    Api_Get_Games(true);
-  }, []);
-
-  useEffect(() => {
     if(selectedSport){
       Api_GetMySportEventList(true);
     }
   }, [selectedSport]);
 
-  const Api_Get_Games = (isLoad) => {
-    setIsLoading?.(isLoad);
+  useEffect(() => {
+    Api_Get_Profile(true);
+  }, []);
 
-    // const formData = new FormData();
-    // formData.append("mobile_number", mobile_number);
-
-    ApiManager.get(GET_GAMES, {
+  const Api_Get_Profile = (isLoad) => {
+    setIsLoading(isLoad);
+    ApiManager.get(GET_PROFILE + userData?.id, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     })
       .then((response) => {
-        console.log("Api_Get_Games : ", JSON.stringify(response));
-        setIsLoading?.(false);
+        console.log("Api_Get_Profile : ", JSON.stringify(response));
+        setIsLoading(false);
 
         if (response.data.status === true) {
-          var allGames = response.data.data;
-          let finalGames = allGames.map((el) => ({
+          var profile_data = response.data.data;
+      
+          let finalGames = profile_data.game_selection.map((el) => ({
             ...el,
-            game_image: el.image,
-            game_title: el.title,
+            game_image: el.game_image,
+            game_title: el.game_title,
           }));
-          // .reverse();
-
           setSelectedSport(finalGames?.[0]);
           setGames(finalGames);
          
@@ -77,8 +74,8 @@ const MySportList = ({ setIsLoading }) => {
         }
       })
       .catch((err) => {
-        setIsLoading?.(false);
-        console.error("Api_Get_Games Error ", err);
+        setIsLoading(false);
+        console.error("Api_Get_Profile Error ", err);
       });
   };
 
@@ -101,6 +98,7 @@ const MySportList = ({ setIsLoading }) => {
 
         if (response.data.status === true) {
           var finalData = response.data.data;
+          console.log("🚀 ~ .then ~ finalData:", finalData)
 
           if (finalData?.current_page >= finalData?.total_pages) {
             setShowMore(false);
