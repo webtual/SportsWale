@@ -9,7 +9,7 @@ export function navigate(name, params) {
 }
 
 export function push(name, params) {
-  navigationRef.current && navigationRef.current.dispatch(StackActions.push(name, params));
+   navigationRef.current.dispatch(StackActions.push(name, params));
 }
 
 export function goBack() {

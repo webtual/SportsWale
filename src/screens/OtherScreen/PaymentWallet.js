@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import HeaderView from "../../commonComponents/HeaderView";
 import { goBack } from "../../navigations/RootNavigation";
 import {
@@ -14,6 +14,8 @@ import TextInputView from "../../commonComponents/TextInputView";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const PaymentWallet = () => {
+
+  const [txtAmount, setTxtAmount] = useState("")
   return (
     <>
       <HeaderView
@@ -51,15 +53,15 @@ const PaymentWallet = () => {
             containerStyle={{
               marginTop: pixelSizeHorizontal(12),
               borderRadius: widthPixel(10),
-              borderWidth: 0.5,
+              borderWidth: 1,
               borderColor: border,
               width: "70%",
             }}
-            value=""
+            value={txtAmount}
             maxLength={7}
             keyboardType="number-pad"
             placeholder={RUPEE + "0"}
-            onChangeText={(text) => {}}
+            onChangeText={(text) => {setTxtAmount(text)}}
           />
 
           <TouchableOpacity

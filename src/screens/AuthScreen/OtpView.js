@@ -134,7 +134,8 @@ const OtpView = (props) => {
       if (data?.isFrom == "Login") {
         Api_Login(true,data?.mobile_number )
       } else {
-       navigate("RegisterSelectSport", {registerData : data})
+        navigate("Register", { data: data });
+      //  navigate("RegisterSelectSport", {registerData : data})
       }
     }else{
       toast.show({

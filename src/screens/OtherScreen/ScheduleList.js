@@ -157,7 +157,7 @@ const ScheduleList = ({ setIsLoading }) => {
         scrollEnabled
         nestedScrollEnabled={true}
         // extraData={props}
-        ListHeaderComponent={() => <View style={{ height: widthPixel(12) }} />}
+       // ListHeaderComponent={() => <View style={{ height: widthPixel(12) }} />}
         ListFooterComponent={() =>
           showMore ? (
             <View
@@ -198,13 +198,13 @@ const ScheduleList = ({ setIsLoading }) => {
           </View>
         )}
         renderItem={({ item }) => (
-          <View
+          <TouchableOpacity
             style={[
               styles.cardView,
               { marginHorizontal: pixelSizeHorizontal(20) },
               CommonStyle.shadow,
             ]}
-           // onPress={() => navigate("GameDetails", { game_data: item })}
+           onPress={() => navigate("GameDetails", { game_data: {...item,id : item.venue_user_game_id,} })}
           >
             <View style={{ flexDirection: "row" }}>
               <Image
@@ -314,7 +314,7 @@ const ScheduleList = ({ setIsLoading }) => {
                 {item?.total_join_players + "\nGoing"}
               </Text>
             </View>
-          </View>
+          </TouchableOpacity>
         )}
       />
     </View>

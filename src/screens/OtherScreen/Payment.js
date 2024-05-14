@@ -84,8 +84,7 @@ export default function Payment(props) {
     setIsLoading(isLoad);
 
     var convenienceCharge =
-      (venueDetail?.advance_amount * venueDetail?.convenience_fee_percentage) /
-      100;
+      (venueDetail?.advance_amount * venueDetail?.convenience_fee_percentage) /100;
 
     const formData = new FormData();
     formData.append("venue_id", venueDetail?.id);

@@ -146,17 +146,17 @@ function HomeTabs() {
 			/>
 			<CurvedBottomBar.Screen
 			  name="Games"
-			  component={() => <GamesTab />}
+			  component={GamesTab}
 			  position="LEFT"
 			/>
 			<CurvedBottomBar.Screen
 			  name="Book"
 			  position="RIGHT"
-			  component={() => <BookTab />}
+			  component={BookTab}
 			/>
 			<CurvedBottomBar.Screen
 			  name="Menu"
-			  component={() => <MenuTab />}
+			  component={MenuTab}
 			  position="RIGHT"
 			/>
 		  </CurvedBottomBar.Navigator>
@@ -205,6 +205,8 @@ function AppStacks() {
 			<Stack.Screen name="AllQuestions" component={AllQuestions} />
 			<Stack.Screen name="FavouriteVenue" component={FavouriteVenue} />
 			<Stack.Screen name="SelectVenue" component={SelectVenue} />
+			<Stack.Screen name="Games" component={GamesTab} />
+
 
 			<Stack.Screen name="InvitePeople" component={InvitePeople} />
 

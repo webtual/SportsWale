@@ -61,33 +61,34 @@ import CommonStyle from "../../commonComponents/CommonStyle";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { HStack, Radio, Stack } from "native-base";
 import ReferIcon from "../../assets/images/ReferIcon";
-import { ANDROID_APP_LINK, IOS_APP_LINK, SCREEN_WIDTH } from "../../constants/ConstantKey";
+import {
+  ANDROID_APP_LINK,
+  IOS_APP_LINK,
+  SCREEN_WIDTH,
+} from "../../constants/ConstantKey";
 
 const InvitePeople = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
- 
 
-  // Action Methods 
-	const btnReferTap = () => {
-        var message = `Check this out amazing app Sports Vale, Download & join to this app.\n\n Download app now:\nPlay Store Link : ${ANDROID_APP_LINK}\niPhone App Link : ${IOS_APP_LINK}` 
-   
-			const result = Share.share({
-                title: "Sports Vale",
-                message: message,
-                // url: Platform.OS == 'ios' ? IOS_APP_LINK : ANDROID_APP_LINK
-            });
-            if (result.action === Share.sharedAction) {
-                if (result.activityType) {
-                    // shared with activity type of result.activityType
-                } else {
-                    // shared
-                }
-            } else if (result.action === Share.dismissedAction) {
-                // dismissed
-            }
-		
-	}
+  // Action Methods
+  const btnReferTap = () => {
+    var message = `Check this out amazing app Sports Vale, Download & join to this app.\n\n Download app now:\nPlay Store Link : ${ANDROID_APP_LINK}\niPhone App Link : ${IOS_APP_LINK}`;
 
+    const result = Share.share({
+      title: "Sports Vale",
+      message: message,
+      // url: Platform.OS == 'ios' ? IOS_APP_LINK : ANDROID_APP_LINK
+    });
+    if (result.action === Share.sharedAction) {
+      if (result.activityType) {
+        // shared with activity type of result.activityType
+      } else {
+        // shared
+      }
+    } else if (result.action === Share.dismissedAction) {
+      // dismissed
+    }
+  };
 
   return (
     <>
@@ -134,7 +135,7 @@ const InvitePeople = ({}) => {
 
           <TouchableOpacity
             onPress={() => {
-                btnReferTap();
+              btnReferTap();
             }}
             style={CommonStyle.mainBtnStyle}
           >

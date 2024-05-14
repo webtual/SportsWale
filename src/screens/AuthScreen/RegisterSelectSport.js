@@ -139,6 +139,7 @@ const RegisterSelectSport = (props) => {
 
 
   const Api_Register = (isLoad) => {
+
     setIsLoading(isLoad);
 
     const formData = new FormData();
@@ -201,6 +202,7 @@ const RegisterSelectSport = (props) => {
     } else {
       var finalInterest = interest;
       finalInterest["level"] = item.title;
+      finalInterest["color"] = item.color;
       finalInterest["game_id"] = interest.id;
       selectedData.push(finalInterest);
     }
@@ -221,6 +223,17 @@ const RegisterSelectSport = (props) => {
       return false;
     }
   };
+
+  const getColor = (item) => {
+    let filter = selectedList.filter((x) => x.id == item.id);
+    if (filter.length) {
+      console.log("filter :=> ",filter)
+      return filter?.[0].color;
+    } else {
+      return primary_light;
+    }
+  }
+
   const OnLetsPlayTap = () => {
     if(selectedList.length){
       Api_Register(true)
@@ -333,8 +346,9 @@ const RegisterSelectSport = (props) => {
                     }
                   }}
                   style={{
-                    backgroundColor:
-                      checkExists(item) == true ? primary : primary_light,
+                    // backgroundColor:
+                    //   checkExists(item) == true ? primary : primary_light,
+                    backgroundColor : getColor(item),
                     alignItems: "center",
                     padding: 15,
                     borderRadius: 50,

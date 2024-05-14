@@ -188,7 +188,7 @@ const FavouriteVenue = () => {
     <>
     <HeaderView
       HeaderSmall={true}
-      title={"Select Venue/Location"}
+      title={"Favourite Venue/Location"}
       isBack={true}
       onPress={() => goBack()}
       containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20) }}

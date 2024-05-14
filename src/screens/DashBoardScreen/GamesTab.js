@@ -22,7 +22,7 @@ import TopTabs from "./TopTabs";
 import LoadingView from "../../commonComponents/LoadingView";
 
 
-const GamesTab = () => {
+const GamesTab = (props) => {
   const dispatch = useDispatch();
   const toast = useToast();
 
@@ -44,7 +44,12 @@ const GamesTab = () => {
 
   useEffect(() => {
     getaddressFromLatLong(CurrentLatitude, CurrentLongitude);
+
+    return () => {
+      
+    }
   }, []);
+
 
   const getaddressFromLatLong = async (lat, long) => {
     Geocoder.from(lat, long)

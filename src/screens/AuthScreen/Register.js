@@ -363,7 +363,9 @@ const Register = (props) => {
                 FinalValue["isFrom"] = "Register";
                 FinalValue["lat"] = CurrentLatitude;
                 FinalValue["long"] = CurrentLongitude;
-                navigate("OtpView", { data: FinalValue });
+       navigate("RegisterSelectSport", {registerData : FinalValue})
+                
+                // navigate("OtpView", { data: FinalValue });
               } else {
                 toast.show({
                   description:
@@ -427,6 +429,7 @@ const Register = (props) => {
                   containerStyle={{ marginTop: pixelSizeHorizontal(10) }}
                   onChangeText={handleChange("mobile_number")}
                   value={values.mobile_number}
+                  editable={false}
                   placeholder={Translate.t("enter_mobile_number")}
                   keyboardType={"number-pad"}
                   maxLength={10}
@@ -725,7 +728,7 @@ const Register = (props) => {
                   onPress={handleSubmit}
                   style={[
                     CommonStyle.mainBtnStyle,
-                    { marginTop: pixelSizeHorizontal(50) },
+                    { marginTop: pixelSizeHorizontal(50), marginBottom : pixelSizeHorizontal(20) },
                   ]}
                 >
                   <Text style={CommonStyle.mainBtnText}>

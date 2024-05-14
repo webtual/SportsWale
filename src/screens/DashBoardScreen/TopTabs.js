@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import ScheduleList from "../OtherScreen/ScheduleList";
@@ -11,7 +11,7 @@ import { FontSize, MEDIUM } from "../../constants/Fonts";
 import HorizontalTab from "../../commonComponents/HorizontalTab";
 const Tab = createMaterialTopTabNavigator();
 
-const TopTabs = ({ setIsLoading }) => {
+const TopTabs = ({ setIsLoading, ActiveTab }) => {
   const tabs = [
     {
       name: "Schedule",
@@ -28,6 +28,7 @@ const TopTabs = ({ setIsLoading }) => {
   ];
   const [currentSelectedTab, setCurrentSelectedTab] = useState(0);
 
+  
   return (
     <View style={{ flex: 1 }}>
       <HorizontalTab

@@ -69,6 +69,8 @@ import LogoutIcon from "../../assets/images/LogoutIcon";
 import { removeAllData } from "../../commonComponents/AsyncManager";
 import { ALERT_TYPE, Dialog } from 'react-native-alert-notification'
 import InAppReview from 'react-native-in-app-review';
+import UserDeleteIcon from "../../assets/images/UserDeleteIcon";
+import HeartIcon from "../../assets/images/HeartIcon";
 
 
 
@@ -103,7 +105,7 @@ const MenuTab = () => {
       routeName: "Preference",
     },
     {
-      image: <GiftBoxIcon />,
+      image: <HeartIcon />,
       title: "Favourite Venues",
       description: "All venues which you love to play",
       routeName: "FavouriteVenue",
@@ -127,7 +129,7 @@ const MenuTab = () => {
       routeName: "logout",
     },
     {
-      image: <LogoutIcon width={32} height={32} />,
+      image: <UserDeleteIcon width={32} height={32} />,
       title: "Delete Account",
       description: "",
       routeName: "delete_account",

@@ -7,6 +7,7 @@ import {
   ScrollView,
   ImageBackground,
   Image,
+  RefreshControl,
 } from "react-native";
 import React from "react";
 import {
@@ -44,6 +45,8 @@ const HeaderView = ({
   isScroll = true,
   leftComponent,
   rightComponent,
+  isRefreshing=false,
+  onRefresh,
   ...props
 }) => {
   return (
@@ -53,15 +56,7 @@ const HeaderView = ({
       ></SafeAreaView>
       <SafeAreaView style={{ flex: 1 }}>
         <StatusBar barStyle={"dark-content"} backgroundColor={primary} />
-       {isScroll ?
-        <ScrollView
-          style={styles.container}
-          contentContainerStyle={[{...scrollContainerStyle}]}
-          bounces={false}
-          nestedScrollEnabled={true}
-          keyboardShouldPersistTaps="always"
-        >
-          <View
+        <View
             style={[
               styles.headerImgContainer,
               {
@@ -113,6 +108,23 @@ const HeaderView = ({
               {rightComponent && rightComponent}
             </View>
           </View>
+       {isScroll ?
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={[{...scrollContainerStyle}]}
+          // bounces={false}
+          nestedScrollEnabled={true}
+          keyboardShouldPersistTaps="always"
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              onRefresh={() => {
+                console.log("onRefresh : ",onRefresh)
+                onRefresh == undefined ? {} : onRefresh?.() }}
+            />
+          }
+        >
+        
 
           <View style={[styles.mainView, { ...containerStyle }]} onStartShouldSetResponder={() => true}>
             {children}

@@ -155,7 +155,7 @@ const GameDetails = (props) => {
             </IconButton>
             <Menu
               closeOnSelect={false}
-              // placement="bottom right" 
+              placement="bottom right" 
               style={{}}
               onOpen={() => console.log("opened")}
               onClose={() => console.log("closed")}

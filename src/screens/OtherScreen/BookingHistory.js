@@ -40,6 +40,7 @@ import CommonStyle from "../../commonComponents/CommonStyle";
 import NavigationIcon from "../../assets/images/NavigationIcon";
 import moment from "moment";
 import { RUPEE } from "../../constants/ConstantKey";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const BookingHistory = () => {
   const toast = useToast();

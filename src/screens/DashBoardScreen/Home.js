@@ -6,7 +6,8 @@ import {
   Image,
   Platform,
   PermissionsAndroid,
-  FlatList
+  FlatList,
+  Linking
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import {
@@ -35,7 +36,7 @@ import {
   widthPixel,
   pixelSizeVertical,
 } from "../../commonComponents/ResponsiveScreen";
-import { navigate } from "../../navigations/RootNavigation";
+import { navigate, push } from "../../navigations/RootNavigation";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Input, useToast } from "native-base";
 import { GOOGLE_API_KEY, SCREEN_WIDTH } from "../../constants/ConstantKey";
@@ -78,6 +79,8 @@ const Home = ({ navigation }) => {
 
   // const userData = useSelector(user_data);
   const [isLoading, setIsLoading] = useState(false);
+  const [isRefresh, setIsRefresh] = useState(false);
+
 
   const [CurrentLatitude, setCurrentLatitude] = useState(null);
   const [CurrentLongitude, setCurrentLongitude] = useState(null);
@@ -90,14 +93,6 @@ const Home = ({ navigation }) => {
     //
     requestLocationPermission();
   }, []);
-
-  useEffect(() => {
-    const focusListener = navigation?.addListener("tabPress", () => {
-      console.log("screen call");
-    });
-
-    return focusListener;
-  }, [navigation]);
 
   const getaddressFromLatLong = async (lat, long) => {
     Geocoder.from(lat, long)
@@ -137,11 +132,13 @@ const Home = ({ navigation }) => {
           console.log("Permission Granted");
           console.log("====================================");
         } else {
+          setIsRefresh(false)
           console.log("====================================");
           console.log("Permission Denied");
           console.log("====================================");
         }
       } catch (err) {
+        setIsRefresh(false)
         // Api_GetContacts(true);
         console.warn(err);
       }
@@ -176,6 +173,7 @@ const Home = ({ navigation }) => {
         console.log("userReduxData : ", userReduxData);
       },
       (error) => {
+        setIsRefresh(false)
         console.log("Geolocation error : ", error.message);
       },
       {
@@ -201,6 +199,7 @@ const Home = ({ navigation }) => {
       .then((response) => {
         console.log("Api_Home : ", JSON.stringify(response));
         setIsLoading(false);
+        setIsRefresh(false)
 
         if (response.data.status === true) {
           setHomeData(response.data.data);
@@ -212,6 +211,7 @@ const Home = ({ navigation }) => {
       })
       .catch((err) => {
         setIsLoading(false);
+        setIsRefresh(false)
         console.error("Api_Home Error ", err);
       });
   };
@@ -224,6 +224,10 @@ const Home = ({ navigation }) => {
         title=""
         isBack={false}
         titleColor={white}
+        isRefreshing={isRefresh}
+        onRefresh={() => {
+          setIsRefresh(true)
+          requestLocationPermission()}}
         leftComponent={
           <TouchableOpacity
             style={{ flexDirection: "row", alignItems: "center" }}
@@ -321,12 +325,17 @@ const Home = ({ navigation }) => {
             >
               {homeData?.sliders.map((item, index) => {
                 return (
-                  <View
+                  <TouchableOpacity
                     style={{
                       width: widthPixel(SCREEN_WIDTH - 30),
                       height: widthPixel(180),
                       alignSelf: "center",
                       borderRadius: widthPixel(10),
+                    }}
+                    onPress={() => {
+                      if(item?.url != null){
+                        Linking.openURL(item.url)
+                      }
                     }}
                   >
                     <Image
@@ -335,7 +344,7 @@ const Home = ({ navigation }) => {
                         uri: userData.asset_url + item.file,
                       }}
                     />
-                  </View>
+                  </TouchableOpacity>
                 );
               })}
             </Carousel>

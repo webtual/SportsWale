@@ -83,7 +83,9 @@ const Login = ({}) => {
           var dict = {
             mobile_number : data.mobile_number
           };
-          navigate("Register", { data: dict });
+          navigate("OtpView", { data: dict });
+
+          // navigate("Register", { data: dict });
         }
       })
       .catch((err) => {
