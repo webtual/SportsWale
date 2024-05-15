@@ -49,12 +49,14 @@ const OtherGamesList = ({ setIsLoading }) => {
   useEffect(() => {
     console.log("OtherGamesList effect call");
 
-    Api_GetOtherGamesList(true, {
-      lat: userReduxData.lat, //CurrentLatitude,
-      long: userReduxData.long, // CurrentLongitude,
-    });
-  }, [page]);
-
+    if(selectedSport){
+      Api_GetOtherGamesList(true, {
+        lat: userReduxData.lat, //CurrentLatitude,
+        long: userReduxData.long, // CurrentLongitude,
+      });
+    }
+   
+  }, [page, selectedSport]);
 
   useEffect(() => {
     Api_Get_Games(true);
@@ -113,6 +115,8 @@ const OtherGamesList = ({ setIsLoading }) => {
     formData.append("limit", "10");
     formData.append("latitude", locationCords.lat);
     formData.append("longitude", locationCords.long);
+    formData.append("game_ids", selectedSport?.id);
+
 
     ApiManager.post(GET_OTHER_SPORT_EVENTS, formData, {
       headers: {
@@ -176,9 +180,11 @@ const OtherGamesList = ({ setIsLoading }) => {
               item={item}
               isSelected={selectedSport?.id == item?.id}
               onPressItem={() => {
-                setSelectedSport(item);
-                setPage(1);
-                setAllOtherGamesList([]);
+                if(selectedSport?.id != item?.id){
+                  setSelectedSport(item);
+                  setPage(1);
+                  setAllOtherGamesList([]);
+                }
               }}
             />
           );

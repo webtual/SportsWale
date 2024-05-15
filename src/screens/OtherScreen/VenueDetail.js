@@ -280,6 +280,9 @@ const VenueDetail = (props) => {
                 Show in Map
               </Text>
             </TouchableOpacity>
+            <Text style={{marginHorizontal : pixelSizeHorizontal(20), fontFamily : REGULAR, fontSize:FontSize.FS_12, color: dim_grey}}>
+              {venueDetail?.distance} KM away from you
+            </Text>
 
             <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
               <Divider style={{ marginVertical: pixelSizeVertical(10) }} />

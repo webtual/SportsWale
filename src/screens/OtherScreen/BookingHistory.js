@@ -126,9 +126,11 @@ const BookingHistory = () => {
             <TouchableOpacity
               style={[type == "UPCOMING" ? styles.btnSelected : styles.btn]}
               onPress={() => {
-                setType("UPCOMING");
-                setPage(1);
-                setAllBookingList([]);
+                if(type != "UPCOMING"){
+                  setType("UPCOMING");
+                  setPage(1);
+                  setAllBookingList([]);
+                }
               }}
             >
               <Text
@@ -151,9 +153,11 @@ const BookingHistory = () => {
                 },
               ]}
               onPress={() => {
-                setType("PAST");
-                setPage(1);
-                setAllBookingList([]);
+                if(type != "PAST"){
+                  setType("PAST");
+                  setPage(1);
+                  setAllBookingList([]);
+                }
               }}
             >
               <Text
@@ -174,9 +178,11 @@ const BookingHistory = () => {
                 {},
               ]}
               onPress={() => {
-                setType("CANCELLED");
-                setPage(1);
-                setAllBookingList([]);
+                if(type != "CANCELLED"){
+                  setType("CANCELLED");
+                  setPage(1);
+                  setAllBookingList([]);
+                }
               }}
             >
               <Text

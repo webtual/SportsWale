@@ -39,7 +39,7 @@ const AllPlayers = (props) => {
       >
         <View style={{ flex: 1 }}>
           <HorizontalTab
-            tabs={[{ name: "All Players" }, { name: "Requests" }]}
+            tabs={gameDetails?.is_public ? [{ name: "All Players" }] : [{ name: "All Players" }, { name: "Requests" }]}
             currentTabIndex={currentSelectedTab}
             onTabChange={(currentIndex) => {
               console.log("currentIndex", currentIndex);
@@ -97,7 +97,7 @@ const AllPlayers = (props) => {
                           { marginTop: pixelSizeHorizontal(2) },
                         ]}
                       >
-                        {item?.skill}
+                        {item?.total_join_player} players join
                       </Text>
                     )}
                     <View>

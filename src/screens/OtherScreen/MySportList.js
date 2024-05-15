@@ -144,9 +144,11 @@ const MySportList = ({ setIsLoading }) => {
               item={item}
               isSelected={selectedSport?.id == item?.id}
               onPressItem={() => {
-                setSelectedSport(item);
-                setPage(1);
-                setAllSportGames([]);
+                if(selectedSport.id != item?.id){
+                  setSelectedSport(item);
+                  setPage(1);
+                  setAllSportGames([]);
+                }
               }}
             />
           );

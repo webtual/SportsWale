@@ -6,6 +6,7 @@ import {
   Keyboard,
   Pressable,
   Image,
+  Share,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import HeaderView from "../../commonComponents/HeaderView";
@@ -49,6 +50,7 @@ import TurfIcon from "../../assets/images/TurfIcon";
 import { BottomModal } from "../../commonComponents/Popup";
 import TextInputView from "../../commonComponents/TextInputView";
 import QuestionList from "../../commonComponents/QuestionList";
+import { DEEPLINK_TEST_URL } from "../../constants/ConstantKey";
 
 const GameDetails = (props) => {
   const toast = useToast();
@@ -140,6 +142,29 @@ const GameDetails = (props) => {
     navigate("PayJoin", { game_details: gameDetails });
   };
 
+  const btnShareTap = () => {
+    if(gameDetails){
+      var link = `${DEEPLINK_TEST_URL}?game_id=${game_data?.id}&type=game_detail`
+      var message = `${filterGameHost()?.name} created ${gameDetails?.game_title} game on ${moment(gameDetails?.event_date).format("DD MMM, YYYY")} , ${gameDetails?.display_event_start_time} - ${gameDetails?.display_event_end_time} at ${gameDetails?.venue_title},\n\n you are invided for game play. please join game by clicking on below link.\n\n${link}`;
+
+      const result = Share.share({
+        title: "Sports Vale",
+        message: message,
+        // url: Platform.OS == 'ios' ? IOS_APP_LINK : ANDROID_APP_LINK
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    }
+    
+  };
+
   return (
     <>
       <HeaderView
@@ -149,13 +174,19 @@ const GameDetails = (props) => {
         onPress={() => goBack()}
         containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20) }}
         rightComponent={
+          gameDetails &&
           <View style={{ alignItems: "center", flexDirection: "row" }}>
-            <IconButton additionalStyle={{}} onPress={() => {}}>
+            <IconButton
+              additionalStyle={{}}
+              onPress={() => {
+                btnShareTap();
+              }}
+            >
               <Icon name={"share-variant"} size={24} color={white} />
             </IconButton>
             <Menu
               closeOnSelect={false}
-              placement="bottom right" 
+              placement="bottom right"
               style={{}}
               onOpen={() => console.log("opened")}
               onClose={() => console.log("closed")}
@@ -167,8 +198,24 @@ const GameDetails = (props) => {
                 );
               }}
             >
-              <Menu.Item _text={{fontFamily:MEDIUM , fontSize:FontSize.FS_14, color:black}}>Edit Game</Menu.Item>
-              <Menu.Item _text={{fontFamily:MEDIUM , fontSize:FontSize.FS_14, color:black}}>Delete Game</Menu.Item>
+              <Menu.Item
+                _text={{
+                  fontFamily: MEDIUM,
+                  fontSize: FontSize.FS_14,
+                  color: black,
+                }}
+              >
+                View Receipt
+              </Menu.Item>
+              <Menu.Item
+                _text={{
+                  fontFamily: MEDIUM,
+                  fontSize: FontSize.FS_14,
+                  color: black,
+                }}
+              >
+                Cancel Game
+              </Menu.Item>
             </Menu>
           </View>
         }
@@ -213,7 +260,8 @@ const GameDetails = (props) => {
                   style={{
                     width: 20,
                     height: 20,
-                    resizeMode : 'contain', tintColor : secondary
+                    resizeMode: "contain",
+                    tintColor: secondary,
                   }}
                   source={{
                     uri: userData?.asset_url + gameDetails?.game_image,
@@ -347,7 +395,7 @@ const GameDetails = (props) => {
                     borderRadius: widthPixel(52),
                     borderWidth: pixelSizeHorizontal(2),
                     borderColor: white,
-                    resizeMode : 'contain'
+                    resizeMode: "contain",
                   }}
                   resizeMode="cover"
                 />
@@ -586,7 +634,7 @@ const GameDetails = (props) => {
               }}
               placeholder="Write a review (Optional)"
               multiline
-              textAlignVertical='top'
+              textAlignVertical="top"
               value={txtQuestion}
               onChangeText={(text) => {
                 setTxtQuestion(text);

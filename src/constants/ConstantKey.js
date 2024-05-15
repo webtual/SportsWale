@@ -1,4 +1,4 @@
-import { Dimensions } from "react-native";
+import { Dimensions, Platform } from "react-native";
 
 
 export const SCREEN_WIDTH = Dimensions.get('window').width
@@ -13,4 +13,7 @@ export const BANNER_DATA = "BANNER_DATA"
 export const GOOGLE_API_KEY = 'AIzaSyBOoDtUIYQCLwexvSt3lB0_9VPdGBMgoUk'
 
 export const ANDROID_APP_LINK = 'https://play.google.com/store/apps/details?id=com.sportsvale.app'
-export const IOS_APP_LINK = ''
+export const IOS_APP_LINK = 'https://apps.apple.com/us/app/'
+
+export const DEEPLINK_LIVE_URL =  "sportswale.app.link"
+export const DEEPLINK_TEST_URL =  "sportswale-alternate.app.link"

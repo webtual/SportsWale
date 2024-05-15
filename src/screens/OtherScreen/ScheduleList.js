@@ -108,9 +108,12 @@ const ScheduleList = ({ setIsLoading }) => {
         <TouchableOpacity
           style={[type == "UPCOMING" ? styles.btnSelected : styles.btn]}
           onPress={() => {
-            setType("UPCOMING");
-            setPage(1);
-            setAllScheduleList([]);
+            if(type != "UPCOMING"){
+              setType("UPCOMING");
+              setPage(1);
+              setAllScheduleList([]);
+            }
+            
           }}
         >
           <Text
@@ -133,9 +136,11 @@ const ScheduleList = ({ setIsLoading }) => {
             },
           ]}
           onPress={() => {
-            setType("PAST");
-            setPage(1);
-            setAllScheduleList([]);
+            if(type != "PAST"){
+              setType("PAST");
+              setPage(1);
+              setAllScheduleList([]);
+            }
           }}
         >
           <Text

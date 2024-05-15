@@ -283,6 +283,8 @@ const BookTab = (props) => {
           }}
         >
 
+
+          {recentPlay ?
           <View
             style={[
               CommonStyle.shadow,
@@ -296,7 +298,7 @@ const BookTab = (props) => {
               },
             ]}
           >
-            <IconButton additionalStyle={{}} onPress={() => {}}>
+            {/* <IconButton additionalStyle={{}} onPress={() => {}}> */}
               <Image
                 source={{ uri: userData?.asset_url + userData?.profile }}
                 style={{
@@ -307,7 +309,7 @@ const BookTab = (props) => {
                   borderColor: white,
                 }}
               />
-            </IconButton>
+            {/* </IconButton> */}
             <View
               style={{ flex: 1, marginHorizontal: pixelSizeHorizontal(12) }}
             >
@@ -320,13 +322,13 @@ const BookTab = (props) => {
               >
                 Last Played on{' '}
                 {moment(recentPlay?.transactions?.created_at).format("DD MMM, YYYY")}
-                 
               </Text>
             </View>
-            <View style={styles.bookContainer}>
+            <TouchableOpacity style={styles.bookContainer}
+            onPress={() => navigate("VenueDetail", { venueData: recentPlay })}>
               <Text style={[styles.text, { color: white }]}>Book Now</Text>
-            </View>
-          </View>
+            </TouchableOpacity>
+          </View> : null}
 
           <Text
             style={[
