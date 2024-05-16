@@ -1,9 +1,9 @@
-import { View, Text, FlatList, StyleSheet, Image } from "react-native";
+import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { useToast } from "native-base";
 import HeaderView from "../../commonComponents/HeaderView";
-import { goBack } from "../../navigations/RootNavigation";
-import { pixelSizeHorizontal } from "../../commonComponents/ResponsiveScreen";
+import { goBack, navigate } from "../../navigations/RootNavigation";
+import { pixelSizeHorizontal, widthPixel } from "../../commonComponents/ResponsiveScreen";
 import CommonStyle from "../../commonComponents/CommonStyle";
 import { black, primary, primary_light, white } from "../../constants/Color";
 import { useSelector } from "react-redux";
@@ -59,6 +59,7 @@ const AllPlayers = (props) => {
               <View style={{ height: pixelSizeHorizontal(5) }} />
             }
             renderItem={({ item, index }) => {
+              console.log("🚀 ~ AllPlayers ~ item:", item)
               return (
                 <View
                   style={[
@@ -66,15 +67,18 @@ const AllPlayers = (props) => {
                     { flexDirection: "row", alignItems: "center" },
                   ]}
                 >
-                  <View
+                  <TouchableOpacity
                     style={[
                       {
-                        width: 48,
-                        height: 48,
-                        borderRadius: 48 / 2,
+                        width: widthPixel(48),
+                        height: widthPixel(48),
+                        borderRadius: widthPixel(48/2),
                         overflow: "hidden",
                       },
                     ]}
+                    onPress={()=>{
+                      navigate('UserProfileDetails',{userId : item.user_id})
+                    }}
                   >
                     <Image
                       style={{ flex: 1, resizeMode: "cover" }}
@@ -82,7 +86,7 @@ const AllPlayers = (props) => {
                         uri: userData?.asset_url + item?.profile,
                       }}
                     />
-                  </View>
+                  </TouchableOpacity>
                   <View
                     style={{
                       flex: 1,

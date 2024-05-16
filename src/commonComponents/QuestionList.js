@@ -7,7 +7,6 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { navigate } from '../navigations/RootNavigation';
 
 export default function QuestionList({ gameDetails}) {
-    console.log("🚀 ~ QuestionList ~ gameDetails:", gameDetails)
     const renderQuestion = (question, index) => (
         <View key={index} style={{ marginVertical: pixelSizeHorizontal(20) }}>
           <Text style={[styles.questionText]}>

@@ -29,7 +29,7 @@ const PayJoin = (props) => {
   const [txtPlayersCount, setTxtPlayersCount] = useState(1);
 
   const [isGameSuccessModal, setIsGameSuccessModal] = useState(false);
-
+  const[transactionId , setTransactionId]=useState();
 
   const Api_Join_Game = (isLoad) => {
 
@@ -60,7 +60,7 @@ const PayJoin = (props) => {
         setIsLoading(false);
 
         if (response.data.status === true) {
-          
+          setTransactionId(response?.data?.data?.transactions.id)
           toast.show({
             description: response.data.message,
           });
@@ -272,7 +272,7 @@ const PayJoin = (props) => {
 
               Promise.all([
                 resetScreen("Dashboard")
-                ]).then(() => navigate('BokingDetails'))
+                ]).then(() => navigate('BokingDetails',{transactionId:transactionId}))
 
             }, 1000);
           }}

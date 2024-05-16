@@ -1,7 +1,20 @@
-import { StyleSheet, Text, View, TouchableOpacity, Platform, Keyboard, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Platform,
+  Keyboard,
+  Image,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import HeaderView from "../../commonComponents/HeaderView";
-import { goBack, navigate, popToTop, resetScreen } from "../../navigations/RootNavigation";
+import {
+  goBack,
+  navigate,
+  popToTop,
+  resetScreen,
+} from "../../navigations/RootNavigation";
 import { Colors } from "../../constants/CustomeColor";
 import Translate from "../../translation/Translate";
 import {
@@ -79,24 +92,33 @@ export default function Payment(props) {
     console.log("selectedSlots : ", selectedSlots);
   }, []);
 
-
   const Api_Book_Venue = (isLoad) => {
     setIsLoading(isLoad);
 
     var convenienceCharge =
-      (venueDetail?.advance_amount * venueDetail?.convenience_fee_percentage) /100;
+      (venueDetail?.advance_amount * venueDetail?.convenience_fee_percentage) /
+      100;
 
     const formData = new FormData();
     formData.append("venue_id", venueDetail?.id);
     formData.append("venue_ground_title", selectedSlots?.ground?.ground_title);
-    formData.append("venue_ground_id", selectedSlots?.time?.[0]?.venue_ground_id);
+    formData.append(
+      "venue_ground_id",
+      selectedSlots?.time?.[0]?.venue_ground_id
+    );
     formData.append("venue_game_id", selectedSlots?.time?.[0]?.venue_game_id);
     formData.append("venue_time_slot_id", selectedSlots?.time?.[0]?.id);
-    formData.append("book_date", moment(selectedSlots?.date).format("DD-MM-YYYY"));
+    formData.append(
+      "book_date",
+      moment(selectedSlots?.date).format("DD-MM-YYYY")
+    );
     formData.append("book_start_time", selectedSlots?.time?.[0]?.time_start);
     formData.append("book_end_time", selectedSlots?.time?.[0]?.time_end);
     formData.append("game_skill_level_flag", gameSkillIsOn ? 1 : 0);
-    formData.append("game_skill_level", gameLevel == 1 ? "Beginner" : gameLevel == 2 ? "Intermediate" : "Advance");
+    formData.append(
+      "game_skill_level",
+      gameLevel == 1 ? "Beginner" : gameLevel == 2 ? "Intermediate" : "Advance"
+    );
     formData.append("cost_per_player_amount", txtCostPerPlayer);
     formData.append("total_player", txtTotalPlayer);
     formData.append("instructions", txtInstruction);
@@ -119,7 +141,8 @@ export default function Payment(props) {
         setIsLoading(false);
 
         if (response.data.status === true) {
-         
+          setTransactionId(response?.data?.data?.transactions.id);
+
           toast.show({
             description: response.data.message,
           });
@@ -135,7 +158,6 @@ export default function Payment(props) {
         console.error("Api_Book_Venue Error ", err);
       });
   };
-
 
   const calTotalAmount = () => {
     console.log("Total Payable : ", txtCostPerPlayer * txtTotalPlayer);
@@ -158,7 +180,7 @@ export default function Payment(props) {
         description: "please ente cost per player and total players",
       });
     } else {
-      Api_Book_Venue(true)
+      Api_Book_Venue(true);
     }
   };
 
@@ -183,7 +205,8 @@ export default function Payment(props) {
               style={{
                 width: 20,
                 height: 20,
-                resizeMode : 'contain', tintColor : secondary
+                resizeMode: "contain",
+                tintColor: secondary,
               }}
               source={{
                 uri: userData?.asset_url + selectedSlots?.sport?.game_image,
@@ -265,13 +288,17 @@ export default function Payment(props) {
           {gameSkillIsOn && (
             <>
               <Slider
-                style={{ flex: 1, width: "100%", marginTop : pixelSizeHorizontal(20) }}
+                style={{
+                  flex: 1,
+                  width: "100%",
+                  marginTop: pixelSizeHorizontal(20),
+                }}
                 minimumValue={0}
                 maximumValue={3}
                 step={1}
                 lowerLimit={1}
                 value={gameLevel}
-                thumbTintColor={Platform.OS == 'ios' ? white : primary}
+                thumbTintColor={Platform.OS == "ios" ? white : primary}
                 minimumTrackTintColor={primary}
                 maximumTrackTintColor={primary_light}
                 onValueChange={setGameLevel}
@@ -377,8 +404,6 @@ export default function Payment(props) {
               />
             </View>
           </View>
-
-        
 
           <View
             style={{
@@ -561,11 +586,11 @@ export default function Payment(props) {
           placeholder={"Instructions (optional)"}
           error={""}
           multiline={true}
-          textAlignVertical='top'
+          textAlignVertical="top"
           blurOnSubmit={true}
           onSubmitEditing={() => {
-           Keyboard.dismiss();
-         }}
+            Keyboard.dismiss();
+          }}
         />
 
         <View>
@@ -647,12 +672,11 @@ export default function Payment(props) {
           isCloseBtn={true}
           onClose={() => {
             setIsGameSuccessModal(false);
-            
+
             setTimeout(() => {
-             
-              Promise.all([
-                resetScreen("Dashboard")
-                ]).then(() => navigate('BokingDetails'))
+              Promise.all([resetScreen("Dashboard")]).then(() =>
+                navigate("BokingDetails", { transactionId: transactionId })
+              );
             }, 1000);
           }}
         >

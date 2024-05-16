@@ -65,6 +65,7 @@ import WriteUs from '../screens/OtherScreen/WriteUs';
 import PaymentWallet from '../screens/OtherScreen/PaymentWallet';
 import AllQuestions from '../screens/OtherScreen/AllQuestions';
 import FavouriteVenue from '../screens/OtherScreen/FavouriteVenue';
+import UserProfileDetails from '../screens/OtherScreen/UserProfileDetails';
 
 // import { cart_data } from '../redux/reducers/cartReducer';
 // import { useSelector } from 'react-redux';
@@ -211,6 +212,7 @@ function AppStacks() {
 			<Stack.Screen name="InvitePeople" component={InvitePeople} />
 
 			<Stack.Screen name="VenueDetail" component={VenueDetail} />
+			<Stack.Screen name="UserProfileDetails" component={UserProfileDetails} />
 			
 		</Stack.Navigator>
 	)

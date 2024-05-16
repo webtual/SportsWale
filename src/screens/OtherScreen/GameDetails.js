@@ -40,7 +40,12 @@ import { user_data } from "../../redux/reducers/userReducer";
 import { useSelector } from "react-redux";
 import LoadingView from "../../commonComponents/LoadingView";
 import ApiManager from "../../commonComponents/ApiManager";
-import { ADD_QUESTION, GAME_DETAILS } from "../../constants/ApiUrl";
+import {
+  ADD_QUESTION,
+  DELETE_QUESTION,
+  GAME_DETAILS,
+  UPDATE_QUESTION,
+} from "../../constants/ApiUrl";
 import moment from "moment";
 import BasicCard from "../../commonComponents/BasicCard";
 import CommonStyle from "../../commonComponents/CommonStyle";
@@ -63,6 +68,9 @@ const GameDetails = (props) => {
   const [gameDetails, setGameDetails] = useState(null);
   const [isOpenQuestion, setOpenQuestion] = useState(false);
   const [txtQuestion, setTxtQuestion] = useState("");
+  const [txtReply, setTxtReply] = useState("");
+  const [isOpenReply, setIsOpenReply] = useState(false);
+  const [replyId, setReplyId] = useState(null);
 
   useEffect(() => {
     Api_Get_Game_Details(true);
@@ -143,9 +151,15 @@ const GameDetails = (props) => {
   };
 
   const btnShareTap = () => {
-    if(gameDetails){
-      var link = `${DEEPLINK_TEST_URL}?game_id=${game_data?.id}&type=game_detail`
-      var message = `${filterGameHost()?.name} created ${gameDetails?.game_title} game on ${moment(gameDetails?.event_date).format("DD MMM, YYYY")} , ${gameDetails?.display_event_start_time} - ${gameDetails?.display_event_end_time} at ${gameDetails?.venue_title},\n\n you are invided for game play. please join game by clicking on below link.\n\n${link}`;
+    if (gameDetails) {
+      var link = `${DEEPLINK_TEST_URL}?game_id=${game_data?.id}&type=game_detail`;
+      var message = `${filterGameHost()?.name} created ${
+        gameDetails?.game_title
+      } game on ${moment(gameDetails?.event_date).format("DD MMM, YYYY")} , ${
+        gameDetails?.display_event_start_time
+      } - ${gameDetails?.display_event_end_time} at ${
+        gameDetails?.venue_title
+      },\n\n you are invided for game play. please join game by clicking on below link.\n\n${link}`;
 
       const result = Share.share({
         title: "Sports Vale",
@@ -162,7 +176,65 @@ const GameDetails = (props) => {
         // dismissed
       }
     }
-    
+  };
+
+  const Api_delete_question = (isLoad, questionId) => {
+    setIsLoading(isLoad);
+    ApiManager.delete(DELETE_QUESTION + questionId, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        console.log("Api_delete_question : ", JSON.stringify(response));
+        setIsLoading(false);
+
+        if (response.data.status === true) {
+          Api_Get_Game_Details(true);
+          toast.show({
+            description: response.data.message,
+          });
+        } else {
+          toast.show({
+            description: response.data.message,
+          });
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.error("Api_delete_question Error ", err);
+      });
+  };
+
+  const Api_update_question = (isLoad) => {
+    setIsLoading(isLoad);
+    const formData = new FormData();
+    formData.append("answer", txtReply);
+
+    ApiManager.put(UPDATE_QUESTION + replyId, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        console.log("Api_update_question : ", JSON.stringify(response));
+        setIsLoading(false);
+
+        if (response.data.status === true) {
+          setIsOpenReply(false);
+          setReplyId(null);
+          setTxtReply("");
+          Api_Get_Game_Details(true);
+        } else {
+          toast.show({
+            description: response.data.message,
+          });
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.error("Api_Join_Game Error ", err);
+      });
   };
 
   return (
@@ -174,50 +246,56 @@ const GameDetails = (props) => {
         onPress={() => goBack()}
         containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20) }}
         rightComponent={
-          gameDetails &&
-          <View style={{ alignItems: "center", flexDirection: "row" }}>
-            <IconButton
-              additionalStyle={{}}
-              onPress={() => {
-                btnShareTap();
-              }}
-            >
-              <Icon name={"share-variant"} size={24} color={white} />
-            </IconButton>
-            <Menu
-              closeOnSelect={false}
-              placement="bottom right"
-              style={{}}
-              onOpen={() => console.log("opened")}
-              onClose={() => console.log("closed")}
-              trigger={(triggerProps) => {
-                return (
-                  <Pressable {...triggerProps} style={{ marginLeft: 15 }}>
-                    <Icon name={"dots-vertical"} size={24} color={white} />
-                  </Pressable>
-                );
-              }}
-            >
-              <Menu.Item
-                _text={{
-                  fontFamily: MEDIUM,
-                  fontSize: FontSize.FS_14,
-                  color: black,
+          gameDetails && (
+            <View style={{ alignItems: "center", flexDirection: "row" }}>
+              <IconButton
+                additionalStyle={{}}
+                onPress={() => {
+                  btnShareTap();
                 }}
               >
-                View Receipt
-              </Menu.Item>
-              <Menu.Item
-                _text={{
-                  fontFamily: MEDIUM,
-                  fontSize: FontSize.FS_14,
-                  color: black,
+                <Icon name={"share-variant"} size={24} color={white} />
+              </IconButton>
+              <Menu
+                closeOnSelect={false}
+                placement="bottom right"
+                style={{}}
+                onOpen={() => console.log("opened")}
+                onClose={() => console.log("closed")}
+                trigger={(triggerProps) => {
+                  return (
+                    <Pressable {...triggerProps} style={{ marginLeft: 15 }}>
+                      <Icon name={"dots-vertical"} size={24} color={white} />
+                    </Pressable>
+                  );
                 }}
               >
-                Cancel Game
-              </Menu.Item>
-            </Menu>
-          </View>
+                <Menu.Item
+                  _text={{
+                    fontFamily: MEDIUM,
+                    fontSize: FontSize.FS_14,
+                    color: black,
+                  }}
+                  onPress={() => {
+                    navigate("BokingDetails", {
+                      transactionId: gameDetails?.transactions?.id,
+                    });
+                  }}
+                >
+                  View Receipt
+                </Menu.Item>
+                <Menu.Item
+                  _text={{
+                    fontFamily: MEDIUM,
+                    fontSize: FontSize.FS_14,
+                    color: black,
+                  }}
+                >
+                  Cancel Game
+                </Menu.Item>
+              </Menu>
+            </View>
+          )
         }
       >
         {gameDetails && (
@@ -385,20 +463,28 @@ const GameDetails = (props) => {
                   marginTop: pixelSizeHorizontal(12),
                 }}
               >
-                <Image
-                  source={{
-                    uri: userData?.asset_url + filterGameHost()?.profile,
+                <TouchableOpacity
+                  onPress={() => {
+                    navigate("UserProfileDetails", {
+                      userId: gameDetails.user_id,
+                    });
                   }}
-                  style={{
-                    width: widthPixel(52),
-                    height: widthPixel(52),
-                    borderRadius: widthPixel(52),
-                    borderWidth: pixelSizeHorizontal(2),
-                    borderColor: white,
-                    resizeMode: "contain",
-                  }}
-                  resizeMode="cover"
-                />
+                >
+                  <Image
+                    source={{
+                      uri: userData?.asset_url + filterGameHost()?.profile,
+                    }}
+                    style={{
+                      width: widthPixel(52),
+                      height: widthPixel(52),
+                      borderRadius: widthPixel(52),
+                      borderWidth: pixelSizeHorizontal(2),
+                      borderColor: white,
+                      resizeMode: "contain",
+                    }}
+                    resizeMode="cover"
+                  />
+                </TouchableOpacity>
 
                 <Text
                   style={[
@@ -532,7 +618,13 @@ const GameDetails = (props) => {
                         borderRadius: widthPixel(50),
                       }}
                       onPress={() => {
-                        navigate("AllQuestions", { game_data: gameDetails });
+                        navigate("AllQuestions", {
+                          game_data: gameDetails,
+                          returnBack: () => {
+                            console.log("return back");
+                            Api_Get_Game_Details(true);
+                          },
+                        });
                       }}
                     >
                       <Icon name={"chevron-right"} size={25} color={white} />
@@ -543,10 +635,47 @@ const GameDetails = (props) => {
 
               {gameDetails?.questions.length > 0 ? (
                 <View style={{ marginVertical: pixelSizeHorizontal(20) }}>
-                  <Text style={[styles.questionText]}>
-                    <Text style={{ fontFamily: SEMIBOLD }}>Q. </Text>
-                    {gameDetails?.questions?.[0]?.question}
-                  </Text>
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <Text style={[styles.questionText]}>
+                      <Text style={{ fontFamily: SEMIBOLD }}>Q. </Text>
+                      {gameDetails?.questions?.[0]?.question}
+                    </Text>
+                    {gameDetails?.questions?.[0]?.can_i_delete_question && (
+                      <IconButton
+                        additionalStyle={{
+                          flex: 1,
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                        onPress={() => {
+                          Api_delete_question(
+                            true,
+                            gameDetails?.questions?.[0]?.id
+                          );
+                        }}
+                      >
+                        <Icon name={"delete"} size={22} color={secondary} />
+                      </IconButton>
+                    )}
+                    {gameDetails?.questions?.[0]?.can_i_update_answer && (
+                      <TouchableOpacity
+                        style={{
+                          flex: 1,
+                          justifyContent: "center",
+                          alignItems: "center",
+                          borderWidth: 1,
+                          borderRadius: 5,
+                          height: widthPixel(25),
+                        }}
+                        onPress={() => {
+                          setReplyId(gameDetails?.questions?.[0]?.id);
+                          setIsOpenReply(true);
+                        }}
+                      >
+                        <Text style={[styles.questionText]}>Reply</Text>
+                      </TouchableOpacity>
+                    )}
+                  </View>
                   {gameDetails?.questions?.[0]?.answer ? (
                     <Text
                       style={[
@@ -655,6 +784,47 @@ const GameDetails = (props) => {
         </View>
       </BottomModal>
 
+      <BottomModal
+        isVisible={isOpenReply}
+        title={"Reply Answer"}
+        onClose={() => setIsOpenReply(false)}
+      >
+        <View
+          style={{ padding: pixelSizeHorizontal(15), backgroundColor: white }}
+        >
+          <View style={{ marginVertical: pixelSizeHorizontal(12) }}>
+            <TextInputView
+              style={{
+                minHeight: 100,
+                width: "100%",
+                backgroundColor: white,
+                borderColor: border,
+              }}
+              placeholder="Write a Reply (Optional)"
+              multiline
+              textAlignVertical="top"
+              value={txtReply}
+              onChangeText={(text) => {
+                setTxtReply(text);
+              }}
+              onSubmitEditing={() => {
+                Keyboard.dismiss();
+              }}
+              blurOnSubmit={true}
+            />
+          </View>
+
+          <TouchableOpacity
+            style={[CommonStyle.mainBtnStyle]}
+            onPress={() => {
+              Api_update_question(true);
+            }}
+          >
+            <Text style={CommonStyle.mainBtnText}>Send</Text>
+          </TouchableOpacity>
+        </View>
+      </BottomModal>
+
       {isLoading && <LoadingView />}
     </>
   );
@@ -677,6 +847,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   questionText: {
+    flex: 3,
     fontSize: FontSize.FS_12,
     fontFamily: REGULAR,
     color: black,
