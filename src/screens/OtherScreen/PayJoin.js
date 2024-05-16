@@ -66,6 +66,15 @@ const PayJoin = (props) => {
           });
           setIsGameSuccessModal(true);
 
+          setTimeout(() => {
+            setIsGameSuccessModal(false);
+            setTimeout(() => {
+              Promise.all([resetScreen("Dashboard")]).then(() =>
+                navigate("BokingDetails", { transactionId: response?.data?.data?.transactions.id })
+              );
+            }, 1000);
+          }, 3000);
+
         } else {
           toast.show({
             description: response.data.message,
@@ -274,7 +283,7 @@ const PayJoin = (props) => {
                 resetScreen("Dashboard")
                 ]).then(() => navigate('BokingDetails',{transactionId:transactionId}))
 
-            }, 1000);
+            }, 2000);
           }}
         >
           <View style={{ alignItems: "center" }}>

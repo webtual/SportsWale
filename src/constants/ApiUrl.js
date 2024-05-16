@@ -31,6 +31,8 @@ export const ADD_QUESTION = "event-questions/";
 export const DELETE_QUESTION = "event-questions/";
 export const UPDATE_QUESTION = "event-questions/";
 export const WRITE_TO_US = "inquiries/write-to-us";
+export const CANCEL_GAME = "transactions/cancelled"
+
 
 export const GET_HOME_BANNER = "get-homebanner";
 export const GET_FAQS = "get-faqs";
@@ -42,3 +44,4 @@ export const GET_REWARD = "get-reward-item";
 export const REDEEM_REWARD = "redeem-rewards";
 export const GET_NOTIFICATIONS = "get-notification";
 export const READ_NOTIFICATIONS = "notification-read";
+

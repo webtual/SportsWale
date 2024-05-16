@@ -37,16 +37,13 @@ const BokingDetails = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [transactionData, setTransactionData] = useState(null);
 
-  let info =
-    transactionData?.purpose == "JOINING"
-      ? transactionData?.joining_information
-      : transactionData?.venue_booked_information;
 
   useEffect(() => {
     Api_Transactions_details(true);
   }, []);
 
   const Api_Transactions_details = (isLoad) => {
+
     setIsLoading(isLoad);
     const formData = new FormData();
     formData.append("id", transactionId);
@@ -57,11 +54,15 @@ const BokingDetails = (props) => {
       },
     })
       .then((response) => {
-        console.log("Api_Join_Game : ", JSON.stringify(response));
+        console.log("Api_Transactions_details : ", JSON.stringify(response));
         setIsLoading(false);
-
+        
         if (response.data.status === true) {
-          setTransactionData(response.data.data);
+          var finalData = response.data.data
+          finalData["info"] = finalData?.purpose == "JOINING"
+          ? finalData?.joining_information
+          : finalData?.venue_booked_information;
+          setTransactionData(finalData);
         } else {
           toast.show({
             description: response.data.message,
@@ -70,7 +71,7 @@ const BokingDetails = (props) => {
       })
       .catch((err) => {
         setIsLoading(false);
-        console.error("Api_Join_Game Error ", err);
+        console.error("Api_Transactions_details Error ", err);
       });
   };
 
@@ -137,10 +138,11 @@ const BokingDetails = (props) => {
                   color: primary,
                 },
               ]}
+              
             >
               {transactionData?.reference_number}
-              {"   "}
-              <Icon name={"content-copy"} size={20} color={primary} />
+              {/* {"   "}
+              <Icon name={"content-copy"} size={20} color={primary} /> */}
             </Text>
 
             <Text
@@ -153,7 +155,7 @@ const BokingDetails = (props) => {
                 },
               ]}
             >
-              Universal Football Game
+              {transactionData?.info?.venue_title}
             </Text>
             <Text
               style={[
@@ -165,9 +167,7 @@ const BokingDetails = (props) => {
                 },
               ]}
             >
-              {info?.venue_title}
-              {" , "}
-              {info?.venue_location}
+              {transactionData?.info?.venue_location}
             </Text>
             <Text
               style={[
@@ -179,8 +179,8 @@ const BokingDetails = (props) => {
                 },
               ]}
             >
-              {info?.display_event_start_time} to {info?.display_event_end_time}{" "}
-              | {moment(info?.event_date).format("ddd, DD MMM, YYYY")}
+              {transactionData?.info?.display_event_start_time} to {transactionData?.info?.display_event_end_time}{" "}
+              | {moment(transactionData?.info?.event_date).format("ddd, DD MMM, YYYY")}
             </Text>
           </BasicCard>
 
@@ -188,7 +188,7 @@ const BokingDetails = (props) => {
             {transactionData?.purpose == "VENUE_BOOKED" && (
               <CustomPrice
                 label="Venue Price"
-                amount={1000}
+                amount={transactionData?.info?.ground_amount}
                 labelStyle={{ fontSize: FontSize.FS_16, fontFamily: MEDIUM }}
                 amountStyle={{ fontSize: FontSize.FS_16, fontFamily: SEMIBOLD }}
               />
@@ -197,7 +197,7 @@ const BokingDetails = (props) => {
             {transactionData?.purpose == "JOINING" && (
               <CustomPrice
                 label="Game Amount"
-                amount={10}
+                amount={transactionData?.info?.cost_per_player_amount}
                 labelStyle={{ fontSize: FontSize.FS_16, fontFamily: MEDIUM }}
                 amountStyle={{ fontSize: FontSize.FS_16, fontFamily: SEMIBOLD }}
               />
@@ -205,32 +205,32 @@ const BokingDetails = (props) => {
 
             <CustomPrice
               label="Convenience Fee"
-              amount={10}
+              amount={transactionData?.info?.service_fees}
               labelStyle={{ fontSize: FontSize.FS_16, fontFamily: MEDIUM }}
               amountStyle={{ fontSize: FontSize.FS_16, fontFamily: SEMIBOLD }}
             />
 
-            <CustomPrice
+            {/* <CustomPrice
               label="Discount/Coupon"
               amount={10}
               labelStyle={{ fontSize: FontSize.FS_16, fontFamily: MEDIUM }}
               amountStyle={{ fontSize: FontSize.FS_16, fontFamily: SEMIBOLD }}
-            />
+            /> */}
 
-            {transactionData?.purpose == "VENUE_BOOKED" && (
+            {/* {transactionData?.purpose == "VENUE_BOOKED" && (
               <CustomPrice
                 label="Advance Paid"
                 amount={10}
                 labelStyle={{ fontSize: FontSize.FS_16, fontFamily: MEDIUM }}
                 amountStyle={{ fontSize: FontSize.FS_16, fontFamily: SEMIBOLD }}
               />
-            )}
+            )} */}
 
             <Divider style={{ marginVertical: pixelSizeHorizontal(15) }} />
 
             <CustomPrice
               label="Total Amount"
-              amount={1100}
+              amount={transactionData?.info?.total_payable_amount}
               amountStyle={{
                 fontFamily: BOLD,
                 color: primary,

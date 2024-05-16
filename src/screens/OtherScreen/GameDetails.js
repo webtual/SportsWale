@@ -20,9 +20,11 @@ import IconButton from "../../commonComponents/IconButton";
 import {
   black,
   border,
+  error,
   offWhite,
   primary,
   primary_light,
+  red,
   secondary,
   transparent,
   white,
@@ -45,6 +47,7 @@ import {
   DELETE_QUESTION,
   GAME_DETAILS,
   UPDATE_QUESTION,
+  CANCEL_GAME
 } from "../../constants/ApiUrl";
 import moment from "moment";
 import BasicCard from "../../commonComponents/BasicCard";
@@ -65,12 +68,20 @@ const GameDetails = (props) => {
   const userData = useSelector(user_data);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isRefresh, setIsRefresh] = useState(false);
+
   const [gameDetails, setGameDetails] = useState(null);
   const [isOpenQuestion, setOpenQuestion] = useState(false);
   const [txtQuestion, setTxtQuestion] = useState("");
   const [txtReply, setTxtReply] = useState("");
   const [isOpenReply, setIsOpenReply] = useState(false);
   const [replyId, setReplyId] = useState(null);
+  
+  const [leaveType, setLeaveType] = useState("");
+  const [showLeavePopup, setShowLeavePopup] = useState(false);
+  const [txtLeaveReason, setTxtLeaveReason] = useState("");
+
+
 
   useEffect(() => {
     Api_Get_Game_Details(true);
@@ -89,6 +100,7 @@ const GameDetails = (props) => {
       .then((response) => {
         console.log("Api_Get_Game_Details : ", JSON.stringify(response));
         setIsLoading(false);
+        setIsRefresh(false)
 
         if (response.data.status === true) {
           setGameDetails(response.data.data);
@@ -100,6 +112,8 @@ const GameDetails = (props) => {
       })
       .catch((err) => {
         setIsLoading(false);
+        setIsRefresh(false)
+
         console.error("Api_Get_Game_Details Error ", err);
       });
   };
@@ -136,6 +150,45 @@ const GameDetails = (props) => {
       .catch((err) => {
         setIsLoading(false);
         console.error("Api_Add_Question Error ", err);
+      });
+  };
+
+
+  const Api_Leave_Game = (isLoad) => {
+    setIsLoading(isLoad);
+    const formData = new FormData();
+    formData.append("transaction_id", game_data?.transactions?.id);
+    formData.append("reason", txtLeaveReason);
+
+    ApiManager.post(CANCEL_GAME, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        console.log("Api_Leave_Game : ", JSON.stringify(response));
+        setIsLoading(false);
+
+        if (response.data.status === true) {
+          toast.show({
+            description: response.data.message,
+            placement : 'top'
+          });
+          setTxtLeaveReason("");
+          setShowLeavePopup(false);
+          // Api_Get_Game_Details(true);
+          setTimeout(() => {
+            goBack()
+          }, 1000);
+        } else {
+          toast.show({
+            description: response.data.message,
+          });
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.error("Api_Leave_Game Error ", err);
       });
   };
 
@@ -244,6 +297,10 @@ const GameDetails = (props) => {
         title={""}
         isBack={true}
         onPress={() => goBack()}
+        isRefreshing={isRefresh}
+        onRefresh={() => {
+          setIsRefresh(true)
+          Api_Get_Game_Details(true)}}
         containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20) }}
         rightComponent={
           gameDetails && (
@@ -270,6 +327,7 @@ const GameDetails = (props) => {
                   );
                 }}
               >
+                
                 <Menu.Item
                   _text={{
                     fontFamily: MEDIUM,
@@ -277,22 +335,35 @@ const GameDetails = (props) => {
                     color: black,
                   }}
                   onPress={() => {
-                    navigate("BokingDetails", {
-                      transactionId: gameDetails?.transactions?.id,
-                    });
+                    if(gameDetails?.transactions != null && gameDetails?.transactions != undefined){
+                      navigate("BokingDetails", {
+                        transactionId: gameDetails?.transactions?.id,
+                      });
+                    }else{
+                      toast.show({
+                        description: "No Transaction found",
+                      });
+                    }
+                    
                   }}
                 >
                   View Receipt
                 </Menu.Item>
+                {filterGameHost()?.user_id == userData?.id ?
                 <Menu.Item
                   _text={{
                     fontFamily: MEDIUM,
                     fontSize: FontSize.FS_14,
                     color: black,
                   }}
+                  onPress={() => {
+                    setLeaveType("Cancel Game")
+                    setShowLeavePopup(true)
+                  }}
                 >
                   Cancel Game
-                </Menu.Item>
+                </Menu.Item> : null}
+                
               </Menu>
             </View>
           )
@@ -724,8 +795,12 @@ const GameDetails = (props) => {
           </View>
         )}
       </HeaderView>
-      {/* {userData?.id == gameDetails?.user_id ? <></>: */}
-      {gameDetails?.spot_left != 0 ? (
+      
+
+
+      {filterGameHost()?.user_id != userData?.id ?
+        <>
+      {gameDetails?.spot_left != 0 && gameDetails?.allow_to_join == true && gameDetails?.cancelled_on == null && gameDetails?.is_finished == 0 ? (
         <TouchableOpacity
           style={[
             CommonStyle.mainBtnStyle,
@@ -739,6 +814,35 @@ const GameDetails = (props) => {
           <Text style={CommonStyle.mainBtnText}>Join Game</Text>
         </TouchableOpacity>
       ) : null}
+      {gameDetails?.allow_to_join == false && gameDetails?.cancelled_on == null && gameDetails?.is_finished == 0  ? (
+        <TouchableOpacity
+          style={[
+            CommonStyle.mainBtnStyle,
+            {
+              backgroundColor: transparent,
+              borderWidth: 1,
+              borderColor: black,
+              marginHorizontal: pixelSizeHorizontal(20),
+              marginVertical: pixelSizeHorizontal(20),
+              flexDirection: "row",
+            },
+          ]}
+          onPress={() => {
+            setLeaveType("Leave Game")
+            setShowLeavePopup(true)}}
+        >
+          <Icon name={"close"} size={25} color={"black"} />
+          <Text
+            style={[
+              CommonStyle.mainBtnText,
+              { color: black, marginLeft: pixelSizeHorizontal(10) },
+            ]}
+          >
+            Leave Game
+          </Text>
+        </TouchableOpacity>
+      ) : null}
+      </> : null}
 
       <BottomModal
         isVisible={isOpenQuestion}
@@ -784,6 +888,46 @@ const GameDetails = (props) => {
         </View>
       </BottomModal>
 
+
+      <BottomModal
+        isVisible={showLeavePopup}
+        title={leaveType}
+        onClose={() => setShowLeavePopup(false)}
+      >
+        <View
+          style={{ padding: pixelSizeHorizontal(15), backgroundColor: white }}
+        >
+          <View style={{ marginVertical: pixelSizeHorizontal(12) }}>
+            <TextInputView
+              style={{
+                minHeight: 100,
+                width: "100%",
+                backgroundColor: white,
+                borderColor: border,
+              }}
+              placeholder="Write a leave reason (Optional)"
+              multiline
+              textAlignVertical="top"
+              value={txtLeaveReason}
+              onChangeText={(text) => {
+                setTxtLeaveReason(text);
+              }}
+              onSubmitEditing={() => {
+                Keyboard.dismiss();
+              }}
+              blurOnSubmit={true}
+            />
+          </View>
+
+          <TouchableOpacity
+            style={[CommonStyle.mainBtnStyle,{backgroundColor: red}]}
+            onPress={() => Api_Leave_Game(true)}
+          >
+            <Text style={CommonStyle.mainBtnText}>Leave Game</Text>
+          </TouchableOpacity>
+        </View>
+      </BottomModal>
+
       <BottomModal
         isVisible={isOpenReply}
         title={"Reply Answer"}
@@ -813,7 +957,7 @@ const GameDetails = (props) => {
               blurOnSubmit={true}
             />
           </View>
-
+ 
           <TouchableOpacity
             style={[CommonStyle.mainBtnStyle]}
             onPress={() => {

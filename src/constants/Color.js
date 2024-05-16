@@ -16,6 +16,7 @@ export const error = "#CE0E0E"
 export const green = "#008F20"
 export const yellow = "#F8B111"
 export const orange = "#FE6D3E"
+export const red = "#EA0000"
 
 
 export const seprator = "rgb(230,230,230)"

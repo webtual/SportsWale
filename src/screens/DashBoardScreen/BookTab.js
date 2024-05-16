@@ -43,6 +43,7 @@ const BookTab = (props) => {
   const userReduxData = useSelector((state) => state.userRedux);
 
   const userData = useSelector(user_data);
+  const [isRefresh, setIsRefresh] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
   const [txtCity, setTxtCity] = useState("");
@@ -110,7 +111,7 @@ const BookTab = (props) => {
       .then((response) => {
         console.log("Api_GetAllVenue : ", JSON.stringify(response));
         setIsLoading(false);
-
+        setIsRefresh(false)
         if (response.data.status === true) {
           var finalData = response.data.data;
 
@@ -140,6 +141,8 @@ const BookTab = (props) => {
       })
       .catch((err) => {
         setIsLoading(false);
+        setIsRefresh(false)
+
         console.error("Api_GetAllVenue Error ", err);
       });
   };
@@ -180,9 +183,9 @@ const BookTab = (props) => {
             description: response.data.message,
           });
         } else {
-          toast.show({
-            description: response.data.message,
-          });
+          // toast.show({
+          //   description: response.data.message,
+          // });
         }
       })
       .catch((err) => {
@@ -198,6 +201,14 @@ const BookTab = (props) => {
         StackScreen={true}
         title=""
         isBack={false}
+        isRefreshing={isRefresh}
+        onRefresh={() => {
+          setIsRefresh(true)
+          Api_GetAllVenue(true, {
+            lat: CurrentLatitude,
+            long: CurrentLongitude,
+          });
+         }}
         titleColor={white}
         leftComponent={
           <TouchableOpacity

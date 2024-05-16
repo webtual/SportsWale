@@ -21,6 +21,7 @@ import { getUniqueListBy } from "../../commonComponents/Utils";
 import { FontSize, SEMIBOLD } from "../../constants/Fonts";
 import GamesCard from "../../commonComponents/GamesCard";
 import { SCREEN_WIDTH } from "../../constants/ConstantKey";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const RecommendedList = ({ setIsLoading }) => {
   const toast = useToast();

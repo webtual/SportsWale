@@ -87,6 +87,7 @@ export default function Payment(props) {
   const [txtInstruction, setTxtInstuction] = useState("");
 
   const [gameType, setGameType] = useState(0);
+  const[transactionId , setTransactionId]=useState("");
 
   useEffect(() => {
     console.log("selectedSlots : ", selectedSlots);
@@ -124,8 +125,8 @@ export default function Payment(props) {
     formData.append("instructions", txtInstruction);
     formData.append("ground_amount", venueDetail?.advance_amount);
     formData.append("total_payable_amount", calTotalPayableAmount());
-    formData.append("payment_ref_id", "pay_001");
-    formData.append("transaction_order_number", "pay_001");
+    formData.append("payment_ref_id", Date.now());
+    formData.append("transaction_order_number", Date.now());
     formData.append("is_public", gameType);
 
     formData.append("total_amount", venueDetail?.advance_amount);
@@ -147,6 +148,17 @@ export default function Payment(props) {
             description: response.data.message,
           });
           setIsGameSuccessModal(true);
+
+          setTimeout(() => {
+            setIsGameSuccessModal(false);
+            setTimeout(() => {
+              Promise.all([resetScreen("Dashboard")]).then(() =>
+                navigate("BokingDetails", { transactionId: response?.data?.data?.transactions.id })
+              );
+            }, 1000);
+          }, 3000);
+            
+          
         } else {
           toast.show({
             description: response.data.message,
@@ -510,7 +522,7 @@ export default function Payment(props) {
           </View>
         </View>
 
-        <View
+        {/* <View
           style={{
             flexDirection: "row",
             marginVertical: pixelSizeHorizontal(20),
@@ -562,7 +574,7 @@ export default function Payment(props) {
               invite only
             </Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
 
         <Text
           style={[
@@ -677,7 +689,7 @@ export default function Payment(props) {
               Promise.all([resetScreen("Dashboard")]).then(() =>
                 navigate("BokingDetails", { transactionId: transactionId })
               );
-            }, 1000);
+            }, 2000);
           }}
         >
           <View style={{ alignItems: "center" }}>

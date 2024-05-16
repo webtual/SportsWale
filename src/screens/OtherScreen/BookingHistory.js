@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import HeaderView from "../../commonComponents/HeaderView";
-import { goBack } from "../../navigations/RootNavigation";
+import { goBack, navigate } from "../../navigations/RootNavigation";
 import {
   pixelSizeHorizontal,
   widthPixel,
@@ -252,7 +252,8 @@ const BookingHistory = () => {
                   ? item?.joining_information
                   : item?.venue_booked_information;
               return (
-                <View style={[styles.cardView, CommonStyle.shadow]}>
+                <TouchableOpacity style={[styles.cardView, CommonStyle.shadow]}
+                onPress={() => navigate("GameDetails", { game_data: {...item,id : info.venue_user_game_id,}} )}>
                   <View
                     style={{
                       flexDirection: "row",
@@ -390,7 +391,7 @@ const BookingHistory = () => {
                     </View>
                   </View>
 
-                  {info?.is_cancelled ? (
+                  {info?.is_cancelled && type == "CANCELLED" ? (
                     <Text
                       style={[
                         {
@@ -408,7 +409,7 @@ const BookingHistory = () => {
                       )}
                     </Text>
                   ) : null}
-                </View>
+                </TouchableOpacity>
               );
             }}
           />
