@@ -9,7 +9,7 @@ import {
   FlatList,
   Linking
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import {
   black,
   black05,
@@ -89,10 +89,14 @@ const Home = ({ navigation }) => {
 
   const [txtCity, setTxtCity] = useState("");
 
-  useEffect(() => {
-    //
+  useLayoutEffect(() => {
     requestLocationPermission();
-  }, []);
+  },[])
+
+  // useEffect(() => {
+  //   //
+  //   requestLocationPermission();
+  // }, []);
 
   const getaddressFromLatLong = async (lat, long) => {
     Geocoder.from(lat, long)

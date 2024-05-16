@@ -157,7 +157,7 @@ const GameDetails = (props) => {
   const Api_Leave_Game = (isLoad) => {
     setIsLoading(isLoad);
     const formData = new FormData();
-    formData.append("transaction_id", game_data?.transactions?.id);
+    formData.append("transaction_id", gameDetails?.transactions?.id);
     formData.append("reason", txtLeaveReason);
 
     ApiManager.post(CANCEL_GAME, formData, {
@@ -172,7 +172,7 @@ const GameDetails = (props) => {
         if (response.data.status === true) {
           toast.show({
             description: response.data.message,
-            placement : 'top'
+           
           });
           setTxtLeaveReason("");
           setShowLeavePopup(false);
@@ -183,6 +183,7 @@ const GameDetails = (props) => {
         } else {
           toast.show({
             description: response.data.message,
+            placement : 'top'
           });
         }
       })
@@ -335,13 +336,13 @@ const GameDetails = (props) => {
                     color: black,
                   }}
                   onPress={() => {
-                    if(gameDetails?.transactions != null && gameDetails?.transactions != undefined){
+                    if(gameDetails?.transactions != null && gameDetails?.transactions != undefined || gameDetails?.cancelled_on == null){
                       navigate("BokingDetails", {
                         transactionId: gameDetails?.transactions?.id,
                       });
                     }else{
                       toast.show({
-                        description: "No Transaction found",
+                        description: "You need to join game first to view transaction receipt.",
                       });
                     }
                     

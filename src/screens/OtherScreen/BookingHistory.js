@@ -248,7 +248,7 @@ const BookingHistory = () => {
             )}
             renderItem={({ item }) => {
               var info =
-                item?.purpose == "JOINING"
+                item?.purpose == "JOINING" || item?.purpose == "JOINING_REFUND"
                   ? item?.joining_information
                   : item?.venue_booked_information;
               return (

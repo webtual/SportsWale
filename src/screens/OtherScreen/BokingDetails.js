@@ -109,6 +109,8 @@ const BokingDetails = (props) => {
           }}
         >
           <BasicCard style={{ marginTop: pixelSizeHorizontal(20) }}>
+
+            {transactionData?.qr_image != null ?
             <Image
               source={{
                 uri: userData?.asset_url + transactionData?.qr_image,
@@ -119,7 +121,7 @@ const BokingDetails = (props) => {
                 alignSelf: "center",
                 resizeMode: "contain",
               }}
-            />
+            /> : null}
 
             <Text
               style={[
@@ -197,7 +199,7 @@ const BokingDetails = (props) => {
             {transactionData?.purpose == "JOINING" && (
               <CustomPrice
                 label="Game Amount"
-                amount={transactionData?.info?.cost_per_player_amount}
+                amount={transactionData?.info?.total_amount_per_player}
                 labelStyle={{ fontSize: FontSize.FS_16, fontFamily: MEDIUM }}
                 amountStyle={{ fontSize: FontSize.FS_16, fontFamily: SEMIBOLD }}
               />
