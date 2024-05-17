@@ -1,4 +1,11 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  FlatList,
+  StyleSheet,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import HeaderView from "../../commonComponents/HeaderView";
 import { black, offWhite, primary, white } from "../../constants/Color";
@@ -27,23 +34,23 @@ import LoadingView from "../../commonComponents/LoadingView";
 import { user_data } from "../../redux/reducers/userReducer";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import { RUPEE } from "../../constants/ConstantKey";
 
 const BokingDetails = (props) => {
   const toast = useToast();
   const userData = useSelector(user_data);
+  console.log("🚀 ~ BokingDetails ~ userData:", userData)
 
   const { transactionId } = props?.route?.params;
 
   const [isLoading, setIsLoading] = useState(false);
   const [transactionData, setTransactionData] = useState(null);
 
-
   useEffect(() => {
     Api_Transactions_details(true);
   }, []);
 
   const Api_Transactions_details = (isLoad) => {
-
     setIsLoading(isLoad);
     const formData = new FormData();
     formData.append("id", transactionId);
@@ -56,12 +63,13 @@ const BokingDetails = (props) => {
       .then((response) => {
         console.log("Api_Transactions_details : ", JSON.stringify(response));
         setIsLoading(false);
-        
+
         if (response.data.status === true) {
-          var finalData = response.data.data
-          finalData["info"] = finalData?.purpose == "JOINING"
-          ? finalData?.joining_information
-          : finalData?.venue_booked_information;
+          var finalData = response.data.data;
+          finalData["info"] =
+            finalData?.purpose == "JOINING"
+              ? finalData?.joining_information
+              : finalData?.venue_booked_information;
           setTransactionData(finalData);
         } else {
           toast.show({
@@ -109,19 +117,19 @@ const BokingDetails = (props) => {
           }}
         >
           <BasicCard style={{ marginTop: pixelSizeHorizontal(20) }}>
-
-            {transactionData?.qr_image != null ?
-            <Image
-              source={{
-                uri: userData?.asset_url + transactionData?.qr_image,
-              }}
-              style={{
-                height: widthPixel(150),
-                width: widthPixel(150),
-                alignSelf: "center",
-                resizeMode: "contain",
-              }}
-            /> : null}
+            {transactionData?.qr_image != null ? (
+              <Image
+                source={{
+                  uri: userData?.asset_url + transactionData?.qr_image,
+                }}
+                style={{
+                  height: widthPixel(150),
+                  width: widthPixel(150),
+                  alignSelf: "center",
+                  resizeMode: "contain",
+                }}
+              />
+            ) : null}
 
             <Text
               style={[
@@ -140,7 +148,6 @@ const BokingDetails = (props) => {
                   color: primary,
                 },
               ]}
-              
             >
               {transactionData?.reference_number}
               {/* {"   "}
@@ -181,8 +188,11 @@ const BokingDetails = (props) => {
                 },
               ]}
             >
-              {transactionData?.info?.display_event_start_time} to {transactionData?.info?.display_event_end_time}{" "}
-              | {moment(transactionData?.info?.event_date).format("ddd, DD MMM, YYYY")}
+              {transactionData?.info?.display_event_start_time} to{" "}
+              {transactionData?.info?.display_event_end_time} |{" "}
+              {moment(transactionData?.info?.event_date).format(
+                "ddd, DD MMM, YYYY"
+              )}
             </Text>
           </BasicCard>
 
@@ -239,6 +249,91 @@ const BokingDetails = (props) => {
               }}
             />
           </BasicCard>
+
+          {transactionData?.info?.venue_user_game_id == userData?.id && (
+            <BasicCard style={{ marginTop: pixelSizeHorizontal(20) }}>
+              <FlatList
+                data={transactionData?.info?.game_participants || []}
+                renderItem={({ item, index }) => {
+                  return (
+                    <>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                        }}
+                      >
+                        <TouchableOpacity
+                          style={[
+                            {
+                              width: widthPixel(48),
+                              height: widthPixel(48),
+                              borderRadius: widthPixel(48 / 2),
+                              overflow: "hidden",
+                            },
+                          ]}
+                          onPress={() => {
+                            if (item.user_id == userData?.id) {
+                              navigate("Profile");
+                            } else {
+                              navigate("UserProfileDetails", {
+                                userId: item.user_id,
+                              });
+                            }
+                          }}
+                        >
+                          <Image
+                            style={{ flex: 1, resizeMode: "cover" }}
+                            source={{
+                              uri: userData?.asset_url + item?.profile,
+                            }}
+                          />
+                        </TouchableOpacity>
+                        <View
+                          style={{
+                            flex: 1,
+                            marginHorizontal: pixelSizeHorizontal(10),
+                          }}
+                        >
+                          <Text style={[styles.titleText]}>{item?.name}</Text>
+                          {item?.total_join_player && (
+                            <Text
+                              style={[
+                                styles.descriprionText,
+                                { marginTop: pixelSizeHorizontal(2) },
+                              ]}
+                            >
+                              {item?.total_join_player} players join
+                            </Text>
+                          )}
+                        </View>
+
+                        <View>
+                          <Text
+                            style={{
+                              fontFamily: MEDIUM,
+                              fontSize: FontSize.FS_16,
+                              color: black,
+                            }}
+                          >
+                            {RUPEE}{" "}
+                            {(item?.total_join_player ?? 0) *
+                              (item?.total_amount_per_player ?? 0)}
+                          </Text>
+                        </View>
+                      </View>
+                      {index !==
+                        transactionData?.info?.game_participants.length - 1 && (
+                        <Divider
+                          style={{ marginVertical: pixelSizeHorizontal(10) }}
+                        />
+                      )}
+                    </>
+                  );
+                }}
+              />
+            </BasicCard>
+          )}
 
           <BasicCard style={{ marginVertical: pixelSizeHorizontal(20) }}>
             {transactionData?.purpose == "VENUE_BOOKED" && (
@@ -307,8 +402,8 @@ const BokingDetails = (props) => {
                 alignItems: "center",
                 marginTop: pixelSizeHorizontal(20),
               }}
-              onPress={()=>{
-                navigate('WriteUs');
+              onPress={() => {
+                navigate("WriteUs");
               }}
             >
               <View
@@ -344,3 +439,11 @@ const BokingDetails = (props) => {
 };
 
 export default BokingDetails;
+
+const styles = StyleSheet.create({
+  titleText: {
+    fontSize: FontSize.FS_14,
+    fontFamily: BOLD,
+    color: black,
+  },
+});
