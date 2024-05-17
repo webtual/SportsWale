@@ -522,7 +522,7 @@ export default function Payment(props) {
           </View>
         </View>
 
-        {/* <View
+        <View
           style={{
             flexDirection: "row",
             marginVertical: pixelSizeHorizontal(20),
@@ -574,7 +574,7 @@ export default function Payment(props) {
               invite only
             </Text>
           </TouchableOpacity>
-        </View> */}
+        </View>
 
         <Text
           style={[

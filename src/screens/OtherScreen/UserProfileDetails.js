@@ -289,7 +289,7 @@ export default function UserProfileDetails(props) {
             </View>
 
             <FlatList
-              style={{ flex: 1, paddingHorizontal: pixelSizeHorizontal(5) }}
+              style={{ flex: 1, paddingHorizontal: pixelSizeHorizontal(5), marginTop : pixelSizeHorizontal(10) }}
               data={showAll ? recent : recent.slice(0, 1)}
               scrollEnabled
               nestedScrollEnabled={true}

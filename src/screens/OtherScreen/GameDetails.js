@@ -537,9 +537,15 @@ const GameDetails = (props) => {
               >
                 <TouchableOpacity
                   onPress={() => {
-                    navigate("UserProfileDetails", {
-                      userId: gameDetails.user_id,
-                    });
+                    if(gameDetails.user_id == userData?.id){
+                      navigate("Profile")
+                    }
+                    else{
+                      navigate("UserProfileDetails", {
+                        userId: gameDetails.user_id,
+                      });
+                    }
+                    
                   }}
                 >
                   <Image

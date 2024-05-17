@@ -78,7 +78,12 @@ const AllPlayers = (props) => {
                       },
                     ]}
                     onPress={()=>{
-                      navigate('UserProfileDetails',{userId : item.user_id})
+                      if(item.user_id == userData?.id){
+                        navigate("Profile")
+                      }
+                      else{
+                        navigate('UserProfileDetails',{userId : item.user_id})
+                      }
                     }}
                   >
                     <Image
