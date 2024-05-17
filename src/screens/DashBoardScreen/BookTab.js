@@ -54,7 +54,6 @@ const BookTab = (props) => {
   const [favourites, setFavourites] = useState(0);
 
   const [recentPlay, setRecentPlay] = useState(null);
-  console.log("🚀 ~ BookTab ~ recentPlay:", recentPlay)
 
   const [CurrentLatitude, setCurrentLatitude] = useState(userReduxData.lat || 0.0);
   const [CurrentLongitude, setCurrentLongitude] = useState(userReduxData.long || 0.0);

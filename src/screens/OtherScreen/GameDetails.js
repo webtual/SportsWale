@@ -315,7 +315,7 @@ const GameDetails = (props) => {
                 <Icon name={"share-variant"} size={24} color={white} />
               </IconButton>
               <Menu
-                closeOnSelect={false}
+                closeOnSelect={true}
                 placement="bottom right"
                 style={{}}
                 onOpen={() => console.log("opened")}

@@ -7,7 +7,7 @@ import {
   Platform,
   PermissionsAndroid,
   FlatList,
-  Linking
+  Linking,
 } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import {
@@ -67,8 +67,10 @@ import { GET_ALL_VENUES, GET_HOME } from "../../constants/ApiUrl";
 import LoadingView from "../../commonComponents/LoadingView";
 import Geolocation from "@react-native-community/geolocation";
 import Geocoder from "react-native-geocoding";
+import { useIsFocused } from "@react-navigation/native";
 
 const Home = ({ navigation }) => {
+  const isFocused = useIsFocused();
   const dispatch = useDispatch();
   const toast = useToast();
 
@@ -81,7 +83,6 @@ const Home = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRefresh, setIsRefresh] = useState(false);
 
-
   const [CurrentLatitude, setCurrentLatitude] = useState(null);
   const [CurrentLongitude, setCurrentLongitude] = useState(null);
 
@@ -89,14 +90,9 @@ const Home = ({ navigation }) => {
 
   const [txtCity, setTxtCity] = useState("");
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     requestLocationPermission();
-  },[])
-
-  // useEffect(() => {
-  //   //
-  //   requestLocationPermission();
-  // }, []);
+  }, [isFocused]);
 
   const getaddressFromLatLong = async (lat, long) => {
     Geocoder.from(lat, long)
@@ -114,7 +110,6 @@ const Home = ({ navigation }) => {
         }
       })
       .catch((error) => console.warn("Geocoder error", error));
-
   };
 
   const requestLocationPermission = async () => {
@@ -136,13 +131,13 @@ const Home = ({ navigation }) => {
           console.log("Permission Granted");
           console.log("====================================");
         } else {
-          setIsRefresh(false)
+          setIsRefresh(false);
           console.log("====================================");
           console.log("Permission Denied");
           console.log("====================================");
         }
       } catch (err) {
-        setIsRefresh(false)
+        setIsRefresh(false);
         // Api_GetContacts(true);
         console.warn(err);
       }
@@ -177,7 +172,7 @@ const Home = ({ navigation }) => {
         console.log("userReduxData : ", userReduxData);
       },
       (error) => {
-        setIsRefresh(false)
+        setIsRefresh(false);
         console.log("Geolocation error : ", error.message);
       },
       {
@@ -203,7 +198,7 @@ const Home = ({ navigation }) => {
       .then((response) => {
         console.log("Api_Home : ", JSON.stringify(response));
         setIsLoading(false);
-        setIsRefresh(false)
+        setIsRefresh(false);
 
         if (response.data.status === true) {
           setHomeData(response.data.data);
@@ -215,7 +210,7 @@ const Home = ({ navigation }) => {
       })
       .catch((err) => {
         setIsLoading(false);
-        setIsRefresh(false)
+        setIsRefresh(false);
         console.error("Api_Home Error ", err);
       });
   };
@@ -230,8 +225,9 @@ const Home = ({ navigation }) => {
         titleColor={white}
         isRefreshing={isRefresh}
         onRefresh={() => {
-          setIsRefresh(true)
-          requestLocationPermission()}}
+          setIsRefresh(true);
+          requestLocationPermission();
+        }}
         leftComponent={
           <TouchableOpacity
             style={{ flexDirection: "row", alignItems: "center" }}
@@ -337,13 +333,17 @@ const Home = ({ navigation }) => {
                       borderRadius: widthPixel(10),
                     }}
                     onPress={() => {
-                      if(item?.url != null){
-                        Linking.openURL(item.url)
+                      if (item?.url != null) {
+                        Linking.openURL(item.url);
                       }
                     }}
                   >
                     <Image
-                      style={{ flex: 1, borderRadius: widthPixel(10), resizeMode : 'cover' }}
+                      style={{
+                        flex: 1,
+                        borderRadius: widthPixel(10),
+                        resizeMode: "cover",
+                      }}
                       source={{
                         uri: userData.asset_url + item.file,
                       }}
@@ -529,7 +529,10 @@ const Home = ({ navigation }) => {
           </View> */}
 
           <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
-            <BasicCard style={styles.cardContainer} onPress={()=> navigate("InvitePeople")}>
+            <BasicCard
+              style={styles.cardContainer}
+              onPress={() => navigate("InvitePeople")}
+            >
               <View
                 style={{
                   flexDirection: "row",
