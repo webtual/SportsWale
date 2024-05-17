@@ -41,6 +41,7 @@ import {
   REGULAR,
   SEMIBOLD,
 } from "../../constants/Fonts";
+import ImageView from "react-native-image-viewing";
 
 export default function UserProfileDetails(props) {
   const refMarker = useRef();
@@ -54,6 +55,7 @@ export default function UserProfileDetails(props) {
   const [CurrentLatitude, setCurrentLatitude] = useState(0.0);
   const [CurrentLongitude, setCurrentLongitude] = useState(0.0);
   const [showAll, setShowAll] = useState(false);
+  const [openImagePreview, setOpenImagePreview] = useState(false);
 
   useEffect(() => {
     Api_Get_Profile(true);
@@ -118,8 +120,13 @@ export default function UserProfileDetails(props) {
         }}
         containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20) }}
       >
-        <View
+        <TouchableOpacity
           style={{ alignSelf: "center", marginTop: pixelSizeHorizontal(10) }}
+          onPress={() => {
+            if (profileData?.profile) {
+              setOpenImagePreview(true);
+            }
+          }}
         >
           {profileData?.profile ? (
             <Image
@@ -132,7 +139,7 @@ export default function UserProfileDetails(props) {
               style={[styles.image, { resizeMode: "cover" }]}
             />
           )}
-        </View>
+        </TouchableOpacity>
 
         <Text
           style={[
@@ -289,7 +296,11 @@ export default function UserProfileDetails(props) {
             </View>
 
             <FlatList
-              style={{ flex: 1, paddingHorizontal: pixelSizeHorizontal(5), marginTop : pixelSizeHorizontal(10) }}
+              style={{
+                flex: 1,
+                paddingHorizontal: pixelSizeHorizontal(5),
+                marginTop: pixelSizeHorizontal(10),
+              }}
               data={showAll ? recent : recent.slice(0, 1)}
               scrollEnabled
               nestedScrollEnabled={true}
@@ -461,6 +472,17 @@ export default function UserProfileDetails(props) {
             )}
           </>
         )}
+
+        <ImageView
+          images={[
+            {
+              uri: userData?.asset_url + profileData?.profile,
+            },
+          ]}
+          imageIndex={0}
+          visible={openImagePreview}
+          onRequestClose={() => setOpenImagePreview(false)}
+        />
       </HeaderView>
       {isLoading && <LoadingView />}
     </>

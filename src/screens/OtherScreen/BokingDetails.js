@@ -1,8 +1,8 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import HeaderView from "../../commonComponents/HeaderView";
 import { black, offWhite, primary, white } from "../../constants/Color";
-import { goBack } from "../../navigations/RootNavigation";
+import { goBack, navigate } from "../../navigations/RootNavigation";
 import {
   pixelSizeHorizontal,
   widthPixel,
@@ -301,11 +301,14 @@ const BokingDetails = (props) => {
               </Text>
             </View>
 
-            <View
+            <TouchableOpacity
               style={{
                 flexDirection: "row",
                 alignItems: "center",
                 marginTop: pixelSizeHorizontal(20),
+              }}
+              onPress={()=>{
+                navigate('WriteUs');
               }}
             >
               <View
@@ -331,7 +334,7 @@ const BokingDetails = (props) => {
               >
                 Write to us
               </Text>
-            </View>
+            </TouchableOpacity>
           </BasicCard>
         </View>
       </HeaderView>

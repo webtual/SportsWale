@@ -363,8 +363,9 @@ const Register = (props) => {
                 FinalValue["isFrom"] = "Register";
                 FinalValue["lat"] = CurrentLatitude;
                 FinalValue["long"] = CurrentLongitude;
-       navigate("RegisterSelectSport", {registerData : FinalValue})
-                
+                console.log("FinalValue : ", FinalValue);
+                navigate("RegisterSelectSport", { registerData: FinalValue });
+
                 // navigate("OtpView", { data: FinalValue });
               } else {
                 toast.show({
@@ -398,7 +399,7 @@ const Register = (props) => {
                         borderRadius: widthPixel(SCREEN_WIDTH / 3),
                         borderColor: white,
                         borderWidth: 5,
-                        resizeMode : 'cover'
+                        resizeMode: "cover",
                       }}
                     />
                   </TouchableOpacity>
@@ -728,7 +729,10 @@ const Register = (props) => {
                   onPress={handleSubmit}
                   style={[
                     CommonStyle.mainBtnStyle,
-                    { marginTop: pixelSizeHorizontal(50), marginBottom : pixelSizeHorizontal(20) },
+                    {
+                      marginTop: pixelSizeHorizontal(50),
+                      marginBottom: pixelSizeHorizontal(20),
+                    },
                   ]}
                 >
                   <Text style={CommonStyle.mainBtnText}>
@@ -744,12 +748,8 @@ const Register = (props) => {
                   }}
                   title={selectedSheet}
                 >
-                  {selectedSheet === 'terms' && (
-                    <TermandCondition  />
-                  )}
-                  {selectedSheet === 'privacy' && (
-                    <TermandCondition  />
-                  )}
+                  {selectedSheet === "terms" && <TermandCondition />}
+                  {selectedSheet === "privacy" && <TermandCondition />}
                 </BottomModal>
 
                 {/* <View
