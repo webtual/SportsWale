@@ -20,7 +20,9 @@ NSDictionary *config = [RNCConfig env];
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
 [FIRApp configure];
-  [GMSServices provideAPIKey:@"AIzaSyBOoDtUIYQCLwexvSt3lB0_9VPdGBMgoUk"];
+  // [GMSServices provideAPIKey:@"AIzaSyBOoDtUIYQCLwexvSt3lB0_9VPdGBMgoUk"];
+  [GMSServices provideAPIKey:@"AIzaSyC3kESn1Cc0X7idSUU0i3nw7Gjd2o9zMpE"];
+
   
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
