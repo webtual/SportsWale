@@ -85,7 +85,7 @@ const MySportList = ({ setIsLoading }) => {
     const formData = new FormData();
     formData.append("page", page);
     formData.append("limit", "10");
-    formData.append("game_id", selectedSport?.id);
+    formData.append("game_id", selectedSport?.game_id);
 
     ApiManager.post(GET_MY_SPORT_EVENTS, formData, {
       headers: {
@@ -144,6 +144,7 @@ const MySportList = ({ setIsLoading }) => {
               item={item}
               isSelected={selectedSport?.id == item?.id}
               onPressItem={() => {
+                console.log("item : ",item)
                 if(selectedSport.id != item?.id){
                   setSelectedSport(item);
                   setPage(1);

@@ -86,7 +86,7 @@ export default function Payment(props) {
 
   const [txtInstruction, setTxtInstuction] = useState("");
 
-  const [gameType, setGameType] = useState(0);
+  const [gameType, setGameType] = useState(1);
   const[transactionId , setTransactionId]=useState("");
 
   useEffect(() => {
@@ -531,19 +531,19 @@ export default function Payment(props) {
           <TouchableOpacity
             style={[
               styles.iconBtnContainer,
-              { backgroundColor: gameType == 0 ? secondary : primary_light },
+              { backgroundColor: gameType == 1 ? secondary : primary_light },
             ]}
-            onPress={() => setGameType(0)}
+            onPress={() => setGameType(1)}
           >
             <Icon
               name={"web"}
               size={20}
-              color={gameType == 0 ? white : black}
+              color={gameType == 1 ? white : black}
             />
             <Text
               style={[
                 styles.iconBtnText,
-                { color: gameType == 0 ? white : black },
+                { color: gameType == 1 ? white : black },
               ]}
             >
               Public
@@ -555,20 +555,20 @@ export default function Payment(props) {
               styles.iconBtnContainer,
               {
                 marginLeft: pixelSizeHorizontal(20),
-                backgroundColor: gameType == 1 ? secondary : primary_light,
+                backgroundColor: gameType == 0 ? secondary : primary_light,
               },
             ]}
-            onPress={() => setGameType(1)}
+            onPress={() => setGameType(0)}
           >
             <Icon
               name={"lock-outline"}
               size={20}
-              color={gameType == 1 ? white : black}
+              color={gameType == 0 ? white : black}
             />
             <Text
               style={[
                 styles.iconBtnText,
-                { color: gameType == 1 ? white : black },
+                { color: gameType == 0 ? white : black },
               ]}
             >
               invite only

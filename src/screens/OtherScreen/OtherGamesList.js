@@ -180,6 +180,7 @@ const OtherGamesList = ({ setIsLoading }) => {
               item={item}
               isSelected={selectedSport?.id == item?.id}
               onPressItem={() => {
+                console.log("item : ",item)
                 if(selectedSport?.id != item?.id){
                   setSelectedSport(item);
                   setPage(1);

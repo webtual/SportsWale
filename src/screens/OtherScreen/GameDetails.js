@@ -333,8 +333,8 @@ const GameDetails = (props) => {
                   }}
                   onPress={() => {
                     if (
-                      gameDetails?.transactions != null &&
-                      gameDetails?.transactions != undefined &&
+                      (gameDetails?.transactions != null &&
+                      gameDetails?.transactions != undefined) ||
                       gameDetails?.cancelled_on == null
                     ) {
                       navigate("BokingDetails", {
@@ -350,7 +350,7 @@ const GameDetails = (props) => {
                 >
                   View Receipt
                 </Menu.Item>
-                {filterGameHost()?.user_id == userData?.id ? (
+                {filterGameHost()?.user_id == userData?.id && gameDetails?.cancelled_on == null ? (
                   <Menu.Item
                     _text={{
                       fontFamily: MEDIUM,
