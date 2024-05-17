@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "438037814498",
+    "project_id": "sports-vale",
+    "storage_bucket": "sports-vale.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:438037814498:android:f22cb1e7a545b0c89552bb",
+        "android_client_info": {
+          "package_name": "com.webtual.sportswale"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEMj5pqGbVqlo0moHR_PFmj05N78pxfdc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

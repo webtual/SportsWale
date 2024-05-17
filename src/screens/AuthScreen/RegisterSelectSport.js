@@ -53,8 +53,8 @@ import { BottomModal } from "../../commonComponents/Popup";
 import ApiManager from "../../commonComponents/ApiManager";
 import { GET_GAMES, REGISTER } from "../../constants/ApiUrl";
 import { useToast } from "native-base";
-import { storeData } from "../../commonComponents/AsyncManager";
-import { BEARER_TOKEN, USER_DATA } from "../../constants/ConstantKey";
+import { getData, storeData } from "../../commonComponents/AsyncManager";
+import { BEARER_TOKEN, FCM_TOKEN, USER_DATA } from "../../constants/ConstantKey";
 import { storeUserData } from "../../redux/reducers/userReducer";
 import { useDispatch } from "react-redux";
 import { getFileNameFromPath } from "../../commonComponents/Utils";
@@ -71,11 +71,22 @@ const RegisterSelectSport = (props) => {
   const [selectedList, setSelectedList] = useState([]);
 
   const [txtSearch, setTxtSearch] = useState("");
+  const [fcm_token, setFcmToken] = useState('');
 
   const [openChooseLevelModal, setOpenChooseLevelModal] = useState(false);
 
   useFocusEffect(useCallback(() => {}, []));
 
+
+  useEffect(() => {
+    GetFCM_TOKEN();
+  },[])
+
+  const GetFCM_TOKEN = () => {
+    getData(FCM_TOKEN, data => {
+      setFcmToken(data);
+    });
+  };
   const ArrLevels = [
     {
       id: 1,
@@ -153,7 +164,7 @@ const RegisterSelectSport = (props) => {
     formData.append("latitude", registerData?.lat);
     formData.append("longitude", registerData?.long);
     formData.append("device_type", Platform.OS == 'android' ? 1 : 2);
-    formData.append("token", "1234567890");
+    formData.append("token", fcm_token);
     if(registerData?.profile_image){
       // formData.append("profile_image", registerData?.name);
       formData.append('profile_image', {

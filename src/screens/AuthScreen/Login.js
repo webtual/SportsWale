@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, Alert, Keyboard } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Alert, Keyboard, Platform } from "react-native";
 import { useCallback, useState } from "react";
 import { black, secondary } from "../../constants/Color";
 import Translate from "../../translation/Translate";
@@ -18,6 +18,9 @@ import ApiManager from "../../commonComponents/ApiManager";
 import { CHECK_MOBILE, LOGIN } from "../../constants/ApiUrl";
 import CallSVG from "../../assets/images/CallSVG";
 import { useToast } from "native-base";
+import messaging from '@react-native-firebase/messaging';
+import { storeData } from "../../commonComponents/AsyncManager";
+import { FCM_TOKEN } from "../../constants/ConstantKey";
 
 const Login = ({}) => {
 
@@ -28,14 +31,39 @@ const Login = ({}) => {
 
   useFocusEffect(
     useCallback(() => {
-      // if (Platform.OS === "android") {
-      //     getFCMToken()
-      // }
-      // else {
-      //     requestUserPermission()
-      // }
+      if (Platform.OS === "android") {
+          getFCMToken()
+      }
+      else {
+          requestUserPermission()
+      }
     }, [])
   );
+
+  const requestUserPermission = async () => {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    if (enabled) {
+      getFCMToken();
+    } else {
+      await messaging().requestPermission({
+        sound: true,
+        alert: true,
+        badge: true,
+        announcement: true,
+      });
+    }
+  };
+  const getFCMToken = async () => {
+    const fcmToken = await messaging().getToken();
+    if (fcmToken) {
+      console.log('FCM TOKEN : ', fcmToken);
+      storeData(FCM_TOKEN, fcmToken);
+    }
+  };
 
   const MobileSchema = Yup.object().shape({
     mobile_number: Yup.string()

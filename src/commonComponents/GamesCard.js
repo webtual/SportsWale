@@ -247,6 +247,10 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
         </View>
       </View>
 
+      <Text style={[styles.descriptionText, { flex: undefined }]}>
+                  • {item?.is_public ? "Public Event" : "Private Event"}
+                </Text>
+
       <View
         style={{
           flexDirection: "row",
@@ -277,9 +281,10 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
           </Text>
         </View>
 
+{item?.button_title ?
         <View style={styles.bookContainer}>
-          <Text style={[styles.text, { color: white }]}>Booked</Text>
-        </View>
+          <Text style={[styles.text, { color: white }]}>{item?.button_title}</Text>
+        </View>:null}
       </View>
     </TouchableOpacity>
   );
@@ -317,5 +322,11 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: SEMIBOLD,
     fontSize: FontSize.FS_11,
+  },
+  descriptionText: {
+    fontFamily: SEMIBOLD,
+    fontSize: FontSize.FS_12,
+    color: black,
+    flex: 1,
   },
 });
