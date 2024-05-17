@@ -45,7 +45,7 @@ const HeaderView = ({
   isScroll = true,
   leftComponent,
   rightComponent,
-  isRefreshing=false,
+  isRefreshing = false,
   onRefresh,
   ...props
 }) => {
@@ -57,139 +57,146 @@ const HeaderView = ({
       <SafeAreaView style={{ flex: 1 }}>
         <StatusBar barStyle={"dark-content"} backgroundColor={primary} />
         <View
-            style={[
-              styles.headerImgContainer,
-              {
-                height: props.HeaderSmall
-                  ? SCREEN_WIDTH / 4
-                  : SCREEN_WIDTH / 1.8,
-              },
-            ]}
-          >
-            <Image
-              source={headerBackground}
-              resizeMode='cover'
-              style={{
-                flex: 1,
-                borderBottomLeftRadius: 25,
-                borderBottomRightRadius: 25,
-              }}
-            />
-
-            <View style={styles.headerRowContainer}>
-              {isBack && (
-                <IconButton additionalStyle={styles.btnBack} onPress={onPress}>
-                  <Icon name={"chevron-left"} size={32} color={titleColor} />
-                </IconButton>
-              )}
-
-              {leftComponent && leftComponent}
-
-              <View style={{ flex: 1 }}>
-                {title && (
-                  <Text
-                    numberOfLines={1}
-                    style={[
-                      styles.textTitle,
-                      {
-                        color: titleColor,
-                        marginHorizontal: !isBack
-                          ? pixelSizeHorizontal(20)
-                          : pixelSizeHorizontal(0),
-                        fontSize: FontSize.FS_20,
-                      },
-                    ]}
-                  >
-                    {title}
-                  </Text>
-                )}
-              </View>
-
-              {rightComponent && rightComponent}
-            </View>
-          </View>
-       {isScroll ?
-        <ScrollView
-          style={styles.container}
-          contentContainerStyle={[{...scrollContainerStyle}]}
-          // bounces={false}
-          nestedScrollEnabled={true}
-          keyboardShouldPersistTaps="always"
-          refreshControl={
-            <RefreshControl
-              refreshing={isRefreshing}
-              onRefresh={() => {
-                console.log("onRefresh : ",onRefresh)
-                onRefresh == undefined ? {} : onRefresh?.() }}
-            />
-          }
+          style={[
+            styles.headerImgContainer,
+            {
+              height: props.HeaderSmall ? SCREEN_WIDTH / 4 : SCREEN_WIDTH / 1.8,
+            },
+          ]}
         >
-        
+          <Image
+            source={headerBackground}
+            style={{
+              // flex: 1,
+              width:'100%',
+              borderBottomLeftRadius: 25,
+              borderBottomRightRadius: 25,
+              resizeMode: "cover",
+            }}
+          />
 
-          <View style={[styles.mainView, { ...containerStyle }]} onStartShouldSetResponder={() => true}>
-            {children}
-          </View>
-        </ScrollView>
-        : 
-        <View style={{flex:1}}>
-           <View
-            style={[
-              styles.headerImgContainer,
-              {
-                height: props.HeaderSmall
-                  ? SCREEN_WIDTH / 4
-                  : SCREEN_WIDTH / 1.8,
-              },
-            ]}
-          >
-            <Image
-              source={headerBackground}
-              // resizeMode='cover'
-              style={{
-                flex: 1,
-                borderBottomLeftRadius: 25,
-                borderBottomRightRadius: 25,
-              }}
-            />
+          <View style={styles.headerRowContainer}>
+            {isBack && (
+              <IconButton additionalStyle={styles.btnBack} onPress={onPress}>
+                <Icon name={"chevron-left"} size={32} color={titleColor} />
+              </IconButton>
+            )}
 
-            <View style={styles.headerRowContainer}>
-              {isBack && (
-                <IconButton additionalStyle={styles.btnBack} onPress={onPress}>
-                  <Icon name={"chevron-left"} size={32} color={titleColor} />
-                </IconButton>
+            {leftComponent && leftComponent}
+
+            <View style={{ flex: 1 }}>
+              {title && (
+                <Text
+                  numberOfLines={1}
+                  style={[
+                    styles.textTitle,
+                    {
+                      color: titleColor,
+                      marginHorizontal: !isBack
+                        ? pixelSizeHorizontal(20)
+                        : pixelSizeHorizontal(0),
+                      fontSize: FontSize.FS_20,
+                    },
+                  ]}
+                >
+                  {title}
+                </Text>
               )}
-
-              {leftComponent && leftComponent}
-
-              <View style={{ flex: 1 }}>
-                {title && (
-                  <Text
-                    numberOfLines={1}
-                    style={[
-                      styles.textTitle,
-                      {
-                        color: titleColor,
-                        marginHorizontal: !isBack
-                          ? pixelSizeHorizontal(20)
-                          : pixelSizeHorizontal(0),
-                        fontSize: FontSize.FS_20,
-                      },
-                    ]}
-                  >
-                    {title}
-                  </Text>
-                )}
-              </View>
-
-              {rightComponent && rightComponent}
             </View>
-          </View>
 
-          <View style={[styles.mainView, { ...containerStyle }]} onStartShouldSetResponder={() => true}>
-            {children}
+            {rightComponent && rightComponent}
           </View>
         </View>
-        }
+        {isScroll ? (
+          <ScrollView
+            style={styles.container}
+            contentContainerStyle={[{ ...scrollContainerStyle }]}
+            // bounces={false}
+            nestedScrollEnabled={true}
+            keyboardShouldPersistTaps="always"
+            refreshControl={
+              <RefreshControl
+                refreshing={isRefreshing}
+                onRefresh={() => {
+                  console.log("onRefresh : ", onRefresh);
+                  onRefresh == undefined ? {} : onRefresh?.();
+                }}
+              />
+            }
+          >
+            <View
+              style={[styles.mainView, { ...containerStyle }]}
+              onStartShouldSetResponder={() => true}
+            >
+              {children}
+            </View>
+          </ScrollView>
+        ) : (
+          <View style={{ flex: 1 }}>
+            <View
+              style={[
+                styles.headerImgContainer,
+                {
+                  height: props.HeaderSmall
+                    ? SCREEN_WIDTH / 4
+                    : SCREEN_WIDTH / 1.8,
+                },
+              ]}
+            >
+              <Image
+                source={headerBackground}
+                // resizeMode='cover'
+                style={{
+                  flex: 1,
+                  borderBottomLeftRadius: 25,
+                  borderBottomRightRadius: 25,
+                }}
+              />
+
+              <View style={styles.headerRowContainer}>
+                {isBack && (
+                  <IconButton
+                    additionalStyle={styles.btnBack}
+                    onPress={onPress}
+                  >
+                    <Icon name={"chevron-left"} size={32} color={titleColor} />
+                  </IconButton>
+                )}
+
+                {leftComponent && leftComponent}
+
+                <View style={{ flex: 1 }}>
+                  {title && (
+                    <Text
+                      numberOfLines={1}
+                      style={[
+                        styles.textTitle,
+                        {
+                          color: titleColor,
+                          marginHorizontal: !isBack
+                            ? pixelSizeHorizontal(20)
+                            : pixelSizeHorizontal(0),
+                          fontSize: FontSize.FS_20,
+                        },
+                      ]}
+                    >
+                      {title}
+                    </Text>
+                  )}
+                </View>
+
+                {rightComponent && rightComponent}
+              </View>
+            </View>
+
+            <View
+              style={[styles.mainView, { ...containerStyle }]}
+              onStartShouldSetResponder={() => true}
+            >
+              {children}
+            </View>
+          </View>
+        )}
       </SafeAreaView>
     </>
   );

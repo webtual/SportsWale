@@ -250,7 +250,7 @@ const BokingDetails = (props) => {
             />
           </BasicCard>
 
-          {transactionData?.info?.venue_user_game_id == userData?.id && (
+          {transactionData?.purpose !== "JOINING" && (
             <BasicCard style={{ marginTop: pixelSizeHorizontal(20) }}>
               <FlatList
                 data={transactionData?.info?.game_participants || []}

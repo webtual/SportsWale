@@ -237,7 +237,7 @@ const AddSports = (props) => {
                 style={{
                   alignItems: "center",
                   marginVertical: 15,
-                  justifyContent: "center",
+                  // justifyContent: "center",
                   flex: 1 / 4,
                 }}
               >
@@ -264,7 +264,7 @@ const AddSports = (props) => {
                     alignItems: "center",
                     padding: 15,
                     borderRadius: 50,
-                    flex: 1,
+                    // flex: 1,
                   }}
                 >
                   <Image

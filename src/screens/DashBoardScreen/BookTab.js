@@ -35,9 +35,10 @@ import { getUniqueListBy } from "../../commonComponents/Utils";
 import { navigate } from "../../navigations/RootNavigation";
 import Geocoder from "react-native-geocoding";
 import moment from "moment";
-
+import { useIsFocused } from "@react-navigation/native";
 
 const BookTab = (props) => {
+  const isFocused = useIsFocused();
   const toast = useToast();
   const dispatch = useDispatch()
   const userReduxData = useSelector((state) => state.userRedux);
@@ -70,7 +71,7 @@ const BookTab = (props) => {
       long: CurrentLongitude,
     });
    
-  }, [page, favourites]);
+  }, [page, favourites , isFocused]);
 
   const getaddressFromLatLong = async (lat, long) => {
     Geocoder.from(lat, long)
