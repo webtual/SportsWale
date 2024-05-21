@@ -94,7 +94,8 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
             marginRight: pixelSizeHorizontal(10),
           }}
         >
-          {moment(item?.event_date).format("DD MMM, YYYY")} | {item?.display_event_start_time} 
+          {moment(item?.event_date).format("DD MMM, YYYY")} |{" "}
+          {item?.display_event_start_time}
           {/* Fri,25 Aug,7:00PM */}
         </Text>
       </View>
@@ -125,63 +126,86 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
           >
             {/* First Image */}
             {item?.game_participants.length >= 1 && (
-              <View style={[{
-                width: 48,
-                height: 48,
-                borderRadius: 48 / 2,
-                borderWidth: 3,
-                borderColor: white,
-                backgroundColor : white,
-                overflow:'hidden'
-              },CommonStyle.shadow]}>
-              <Image
-                style={{flex:1, resizeMode : 'cover'}}
-                source={{
-                  uri: userData?.asset_url + item?.game_participants[0].profile,
-                }}
-              />
+              <View
+                style={[
+                  {
+                    width: 48,
+                    height: 48,
+                    borderRadius: 48 / 2,
+                    borderWidth: 3,
+                    borderColor: white,
+                    backgroundColor: white,
+                    overflow: "hidden",
+                  },
+                  CommonStyle.shadow,
+                ]}
+              >
+                <Image
+                  style={{ flex: 1, resizeMode: "cover" }}
+                  source={{
+                    uri:
+                      userData?.asset_url + item?.game_participants[0].profile,
+                  }}
+                />
               </View>
             )}
 
             {/* Second Image */}
             {item?.game_participants.length >= 2 && (
-             <View style={[{
-              width: 32,
-              height: 32,
-              borderRadius: 16,
-              marginLeft: -15,
-              borderWidth: 3,
-              borderColor: white,
-              backgroundColor : white,
-              overflow:'hidden'
-            },CommonStyle.shadow]}>
-             <Image
-                style={{flex:1, resizeMode : 'cover'}}
-                source={{
-                  uri: userData?.asset_url + item?.game_participants[1].profile,
-                }}
-              />
+              <View
+                style={[
+                  {
+                    width: 32,
+                    height: 32,
+                    borderRadius: 16,
+                    marginLeft: -15,
+                    borderWidth: 3,
+                    borderColor: white,
+                    backgroundColor: white,
+                    overflow: "hidden",
+                  },
+                  CommonStyle.shadow,
+                ]}
+              >
+                <Image
+                  style={{ flex: 1, resizeMode: "cover" }}
+                  source={{
+                    uri:
+                      userData?.asset_url + item?.game_participants[1].profile,
+                  }}
+                />
               </View>
             )}
 
             {/* Third Image */}
             {item?.game_participants.length >= 3 && (
-              <View style={[{backgroundColor:white, width: 32,
-                height: 32,
-                borderRadius: 16,
-                marginLeft: -10,
-                borderWidth: 3,
-                borderColor: white,
-                overflow:'hidden'
-                },CommonStyle.shadow]}>
-              <Image
-                style={[{
-                 flex:1, resizeMode : 'cover'
-                }]}
-                source={{
-                  uri: userData?.asset_url + item?.game_participants[2].profile,
-                }}
-              />
+              <View
+                style={[
+                  {
+                    backgroundColor: white,
+                    width: 32,
+                    height: 32,
+                    borderRadius: 16,
+                    marginLeft: -10,
+                    borderWidth: 3,
+                    borderColor: white,
+                    overflow: "hidden",
+                  },
+                  CommonStyle.shadow,
+                ]}
+              >
+                <Image
+                  style={[
+                    {
+                      flex: 1,
+                      resizeMode: "cover",
+                    },
+                  ]}
+                  source={{
+                    uri:
+                      userData?.asset_url + item?.game_participants[2].profile,
+                  }}
+                />
               </View>
             )}
           </View>
@@ -216,7 +240,12 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
           {/* <Icon name={"soccer"} size={20} color={white} /> */}
           <Image
             source={{ uri: userData?.asset_url + item?.game_image }}
-            style={{ width: widthPixel(20), height: widthPixel(20), resizeMode : 'contain', tintColor : white }}
+            style={{
+              width: widthPixel(20),
+              height: widthPixel(20),
+              resizeMode: "contain",
+              tintColor: white,
+            }}
           />
           <Text
             style={[
@@ -235,7 +264,7 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
         <View
           style={[styles.itemContainer, { backgroundColor: primary_light }]}
         >
-          <SirenIcon width={19} height={19}/>
+          <SirenIcon width={19} height={19} />
           <Text
             style={[
               styles.text,
@@ -248,8 +277,8 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
       </View>
 
       <Text style={[styles.descriptionText, { flex: undefined }]}>
-                  • {item?.is_public ? "Public Event" : "Private Event"}
-                </Text>
+        • {item?.is_public ? "Public Event" : "Private Event"}
+      </Text>
 
       <View
         style={{
@@ -281,10 +310,13 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
           </Text>
         </View>
 
-{item?.button_title ?
-        <View style={styles.bookContainer}>
-          <Text style={[styles.text, { color: white }]}>{item?.button_title}</Text>
-        </View>:null}
+        {item?.button_title ? (
+          <View style={styles.bookContainer}>
+            <Text style={[styles.text, { color: white }]}>
+              {item?.button_title}
+            </Text>
+          </View>
+        ) : null}
       </View>
     </TouchableOpacity>
   );

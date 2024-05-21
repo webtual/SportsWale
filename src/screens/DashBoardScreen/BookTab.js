@@ -123,7 +123,7 @@ const BookTab = (props) => {
               ...response.data.data.recent_booked_venues,
             ];
 
-            setRecentPlay(response.data.data.last_played_record);
+            setRecentPlay(response?.data?.data?.last_played_record);
             setAllVenues(getUniqueListBy(finalData, "id"));
           } else {
             setShowMore(true);
