@@ -136,7 +136,8 @@ export default {
 	send:'Send',
 	accept:'Accept',
 	reject:'Reject',
-
+	show_result:'Show result',
+	reset:'Reset',
 	// updated UI
 
 	join_nearby_games:"Join Nearby Games",
