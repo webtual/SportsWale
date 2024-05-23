@@ -89,10 +89,13 @@ const BookTab = (props) => {
   const [selectedSport, setSelectedSport] = useState(null);
   const [availibilityIsOn, setAvailibilityIsOn] = useState(false);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(
+    moment(new Date()).format("DD-MM-YYYY")
+  );
+  console.log("🚀 ~ BookTab ~ selectedDate:", selectedDate);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
   const [selectedTime, setSelectedTime] = useState("12:00 PM");
-  
+
   useEffect(() => {
     getaddressFromLatLong(CurrentLatitude, CurrentLongitude);
     Api_Get_Games(true);
@@ -156,8 +159,6 @@ const BookTab = (props) => {
               ...allVenues,
               ...response.data.data.near_by_venues,
             ];
-
-            setRecentPlay(response?.data?.data?.last_played_record);
             setAllVenues(getUniqueListBy(finalData, "id"));
           } else {
             setShowMore(true);
@@ -616,6 +617,13 @@ const BookTab = (props) => {
               // offColor={placeholderGrey}
               size="medium"
               onToggle={(isOn) => {
+                // if (selectedSport) {
+                //   setAvailibilityIsOn(isOn);
+                // } else {
+                //   toast.show({
+                //     description: "please select game.",
+                //   });
+                // }
                 setAvailibilityIsOn(isOn);
               }}
             />
@@ -654,7 +662,7 @@ const BookTab = (props) => {
                       },
                     ]}
                   >
-                    {selectedDate && selectedDate.toLocaleDateString()}
+                    {selectedDate ? selectedDate : null}
                   </Text>
                 </View>
                 <Icon name={"calendar-month"} size={24} color={black} />
@@ -751,8 +759,8 @@ const BookTab = (props) => {
         <DateTimePickerModal
           isVisible={isDatePickerVisible}
           mode="date"
-          maximumDate={new Date()}
           onConfirm={(date) => {
+            console.log("🚀 ~ BookTab ~ date:", date);
             setSelectedDate(moment(date).format("DD-MM-YYYY"));
             hideDatePicker();
           }}
