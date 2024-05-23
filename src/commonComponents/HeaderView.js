@@ -212,7 +212,6 @@ const styles = StyleSheet.create({
   },
   headerImgContainer: {
     width: SCREEN_WIDTH,
-
     backgroundColor: primary,
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,

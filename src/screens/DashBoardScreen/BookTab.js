@@ -71,6 +71,7 @@ const BookTab = (props) => {
 
   const [page, setPage] = useState(1);
   const [allVenues, setAllVenues] = useState([]);
+
   const [showMore, setShowMore] = useState(false);
   const [favourites, setFavourites] = useState(0);
 
@@ -87,19 +88,29 @@ const BookTab = (props) => {
   const [filterModal, setfilterModal] = useState(false);
   const [allGames, setGames] = useState([]);
   const [selectedSport, setSelectedSport] = useState(null);
+
   const [availibilityIsOn, setAvailibilityIsOn] = useState(false);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(
-    moment(new Date()).format("DD-MM-YYYY")
-  );
-  console.log("🚀 ~ BookTab ~ selectedDate:", selectedDate);
+  const [selectedDate, setSelectedDate] = useState("");
+
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
-  const [selectedTime, setSelectedTime] = useState("12:00 PM");
+  const [selectedTime, setSelectedTime] = useState("");
+  const[filterObj , setFilterObj]=useState(null);
+
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     getaddressFromLatLong(CurrentLatitude, CurrentLongitude);
     Api_Get_Games(true);
+    Api_Get_Recent(true);
   }, []);
+
+  useEffect(() => {
+    
+      setAllVenues([]);
+      Api_GetAllVenue(true);
+    
+  }, [filterObj]);
 
   useEffect(() => {
     console.log("effecr call");
@@ -140,6 +151,10 @@ const BookTab = (props) => {
     formData.append("favourites", 0);
     formData.append("keyword", txtSearch);
 
+    formData.append("game_ids", filterObj?.game_id?? "");
+    formData.append("start_date", filterObj?.date);
+    formData.append("start_time", filterObj?.time);
+
     ApiManager.post(GET_ALL_VENUES, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -179,6 +194,40 @@ const BookTab = (props) => {
         setIsRefresh(false);
 
         console.error("Api_GetAllVenue Error ", err);
+      });
+  };
+
+  const Api_Get_Recent = (isLoad) => {
+    setIsLoading(isLoad);
+
+    const formData = new FormData();
+    formData.append("page", page);
+    formData.append("limit", "10");
+
+    ApiManager.post(RECENT_BOOK, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        console.log("Api_Get_Recent : ", JSON.stringify(response));
+        setIsLoading(false);
+        setIsRefresh(false);
+        if (response.data.status === true) {
+          var finalData = response.data.data;
+
+          setRecentPlay(response?.data?.data?.last_played_record);
+        } else {
+          toast.show({
+            description: response.data.message,
+          });
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setIsRefresh(false);
+
+        console.error("Api_Get_Recent Error ", err);
       });
   };
 
@@ -232,9 +281,6 @@ const BookTab = (props) => {
   const Api_Get_Games = (isLoad) => {
     setIsLoading(isLoad);
 
-    // const formData = new FormData();
-    // formData.append("mobile_number", mobile_number);
-
     ApiManager.get(GET_GAMES, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -253,7 +299,11 @@ const BookTab = (props) => {
             game_title: el.title,
           }));
 
-          // .reverse();
+          finalGames.unshift({
+            game_image: "",
+            game_title: "All Games",
+          });
+          setSelectedSport(finalGames[0]);
           setGames(finalGames);
         } else {
           toast.show({
@@ -439,10 +489,10 @@ const BookTab = (props) => {
             containerStyle={{ marginVertical: pixelSizeHorizontal(15) }}
             icon={<Icon name={"magnify"} size={20} color={secondary} />}
             onChangeText={(text) => {
-              setAllVenues([])
-              setPage(0)
-              setTxtSearch(text) 
-              }}
+              setAllVenues([]);
+              setPage(0);
+              setTxtSearch(text);
+            }}
             value={txtSearch}
             placeholder={"Search venue"}
             clearButtonMode="while-editing"
@@ -564,6 +614,8 @@ const BookTab = (props) => {
           isVisible={filterModal}
           onClose={() => {
             setfilterModal(false);
+            setAvailibilityIsOn(false);
+            setError(false);
           }}
         >
           <FlatList
@@ -586,8 +638,11 @@ const BookTab = (props) => {
                   item={item}
                   isSelected={selectedSport?.id == item?.id}
                   onPressItem={() => {
-                    console.log("item : ", item);
                     if (selectedSport.id != item?.id) {
+                      if (item.game_title == "All Games") {
+                        setAvailibilityIsOn(false);
+                        setError(false);
+                      }
                       setSelectedSport(item);
                     }
                   }}
@@ -621,17 +676,29 @@ const BookTab = (props) => {
               // offColor={placeholderGrey}
               size="medium"
               onToggle={(isOn) => {
-                // if (selectedSport) {
-                //   setAvailibilityIsOn(isOn);
-                // } else {
-                //   toast.show({
-                //     description: "please select game.",
-                //   });
-                // }
-                setAvailibilityIsOn(isOn);
+                if (selectedSport.game_title != "All Games") {
+                  setAvailibilityIsOn(isOn);
+                  setError(false);
+                } else {
+                  setError(true);
+                }
+                // setAvailibilityIsOn(isOn);
               }}
             />
           </View>
+          {error && (
+            <Text
+              style={[
+                CommonStyle.errorText,
+                {
+                  paddingHorizontal: pixelSizeHorizontal(20),
+                  textAlign: "center",
+                },
+              ]}
+            >
+              You can check availablity only by selecting one sport
+            </Text>
+          )}
 
           {availibilityIsOn ? (
             <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
@@ -666,7 +733,7 @@ const BookTab = (props) => {
                       },
                     ]}
                   >
-                    {selectedDate ? selectedDate : null}
+                    {selectedDate.length <= 0 ? "Select a Date" : selectedDate}
                   </Text>
                 </View>
                 <Icon name={"calendar-month"} size={24} color={black} />
@@ -710,7 +777,8 @@ const BookTab = (props) => {
                       },
                     ]}
                   >
-                    {selectedTime && selectedTime}
+                    {selectedTime.length <= 0 ? "Select a time" : selectedTime}
+                    {/* {selectedTime && selectedTime} */}
                   </Text>
                 </View>
                 <Icon name={"clock-outline"} size={24} color={black} />
@@ -727,8 +795,15 @@ const BookTab = (props) => {
             <TouchableOpacity
               activeOpacity={1}
               onPress={() => {
+                // setAllVenues([]);
                 setfilterModal(false);
-                setSelectedSport(null);
+                setAvailibilityIsOn(false);
+                setError(false);
+                setSelectedSport(allGames[0]);
+                setSelectedDate("");
+                setSelectedTime("");
+                setPage(1);
+                setFilterObj(null);
               }}
               style={[
                 CommonStyle.mainBtnStyle,
@@ -746,7 +821,18 @@ const BookTab = (props) => {
             </TouchableOpacity>
             <TouchableOpacity
               activeOpacity={1}
-              onPress={() => {}}
+              onPress={() => {
+                setAllVenues([]);
+                setError(false);
+                setfilterModal(false);
+                setPage(1);
+                var dict ={
+                  game_id:selectedSport.id,
+                  date:selectedDate,
+                  time:selectedTime
+                }
+                setFilterObj(dict);
+              }}
               style={[
                 CommonStyle.mainBtnStyle,
                 {
@@ -764,7 +850,6 @@ const BookTab = (props) => {
           isVisible={isDatePickerVisible}
           mode="date"
           onConfirm={(date) => {
-            console.log("🚀 ~ BookTab ~ date:", date);
             setSelectedDate(moment(date).format("DD-MM-YYYY"));
             hideDatePicker();
           }}
@@ -775,7 +860,7 @@ const BookTab = (props) => {
           isVisible={isTimePickerVisible}
           mode="time"
           onConfirm={(time) => {
-            setSelectedTime(moment(time).format("HH:mm A"));
+            setSelectedTime(moment(time).format("HH:MM"));
             hideTimePicker();
           }}
           onCancel={hideTimePicker}

@@ -94,7 +94,7 @@ const BokingDetails = (props) => {
         onPress={() => goBack()}
         rightComponent={
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <IconButton onPress={() => {}}>
+            {/* <IconButton onPress={() => {}}>
               <Feather name={"mail"} size={20} color={white} />
             </IconButton>
             <IconButton
@@ -106,7 +106,7 @@ const BokingDetails = (props) => {
 
             <IconButton onPress={() => {}}>
               <Feather name={"download"} size={20} color={white} />
-            </IconButton>
+            </IconButton> */}
           </View>
         }
       >
@@ -365,11 +365,17 @@ const BokingDetails = (props) => {
               </TouchableOpacity>
             )}
 
-            <View
+            <TouchableOpacity
               style={{
                 flexDirection: "row",
                 alignItems: "center",
                 marginTop: pixelSizeHorizontal(20),
+              }}
+              onPress={()=>{
+                navigate('GameDetails',{game_data:{
+                  id:transactionData?.user_id,
+                  venue_id:transactionData?.info?.venue_id
+                }});
               }}
             >
               <View
@@ -395,7 +401,7 @@ const BokingDetails = (props) => {
               >
                 View Game Details
               </Text>
-            </View>
+            </TouchableOpacity>
 
             <TouchableOpacity
               style={{

@@ -69,9 +69,8 @@ import { useSelector } from "react-redux";
 import { getUniqueListBy } from "../../commonComponents/Utils";
 
 const SelectVenue = ({}) => {
-  const toast = useToast()
+  const toast = useToast();
   const userReduxData = useSelector((state) => state.userRedux);
-
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -81,9 +80,7 @@ const SelectVenue = ({}) => {
   const [showMore, setShowMore] = useState(false);
   const [allVenues, setAllVenues] = useState([]);
 
-
   useFocusEffect(useCallback(() => {}, []));
-
 
   useEffect(() => {
     console.log("effecr call");
@@ -101,6 +98,9 @@ const SelectVenue = ({}) => {
 
     formData.append("favourites", 0);
     formData.append("keyword", txtSearch);
+    formData.append("game_ids", "");
+    formData.append("start_date", "");
+    formData.append("start_time", "");
 
     ApiManager.post(GET_ALL_VENUES, formData, {
       headers: {
@@ -142,7 +142,6 @@ const SelectVenue = ({}) => {
       });
   };
 
-  
   return (
     <>
       <HeaderView
@@ -152,15 +151,17 @@ const SelectVenue = ({}) => {
         onPress={() => goBack()}
         containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20) }}
       >
-        <View style={{ marginTop: 10, flex: 1 }} onStartShouldSetResponder={() => true}>
-
-        <TextInputView
+        <View
+          style={{ marginTop: 10, flex: 1 }}
+          onStartShouldSetResponder={() => true}
+        >
+          <TextInputView
             icon={<Icon name={"search"} size={20} color={secondary} />}
             onChangeText={(text) => {
-              setAllVenues([])
-              setTxtSearch(text)
-              setPage(0)
-             }}
+              setAllVenues([]);
+              setTxtSearch(text);
+              setPage(0);
+            }}
             value={txtSearch}
             placeholder={"Search venue"}
             clearButtonMode="while-editing"
@@ -213,16 +214,19 @@ const SelectVenue = ({}) => {
               </View>
             )}
             renderItem={({ item }) => (
-              <View style={{marginHorizontal : pixelSizeHorizontal(5)}} onStartShouldSetResponder={() => true}>
-              <VenuesCard
-                item={item}
-                styles={{ flex: 1 }}
-                isShowFavourite={false}
-                btnFavouriteTap={() => {
-                  console.log("favorite");
-                  Api_Favorite_Venue(true, item);
-                }}
-              />
+              <View
+                style={{ marginHorizontal: pixelSizeHorizontal(5) }}
+                onStartShouldSetResponder={() => true}
+              >
+                <VenuesCard
+                  item={item}
+                  styles={{ flex: 1 }}
+                  isShowFavourite={false}
+                  btnFavouriteTap={() => {
+                    console.log("favorite");
+                    Api_Favorite_Venue(true, item);
+                  }}
+                />
               </View>
             )}
           />

@@ -64,6 +64,7 @@ const GameDetails = (props) => {
   const toast = useToast();
 
   const { game_data } = props?.route?.params;
+  console.log("🚀 ~ GameDetails ~ game_data:", game_data)
 
   const userData = useSelector(user_data);
 
@@ -320,7 +321,11 @@ const GameDetails = (props) => {
                 trigger={(triggerProps) => {
                   return (
                     <Pressable {...triggerProps} style={{ marginLeft: 15 }}>
-                      <Icon name={"dots-vertical"} size={24} color={white} />
+                      {gameDetails?.allow_to_join == false &&
+                      gameDetails?.cancelled_on == null &&
+                      gameDetails?.is_finished == 0 ? (
+                        <Icon name={"dots-vertical"} size={24} color={white} />
+                      ) : null}
                     </Pressable>
                   );
                 }}
@@ -334,7 +339,7 @@ const GameDetails = (props) => {
                   onPress={() => {
                     if (
                       (gameDetails?.transactions != null &&
-                      gameDetails?.transactions != undefined) ||
+                        gameDetails?.transactions != undefined) ||
                       gameDetails?.cancelled_on == null
                     ) {
                       navigate("BokingDetails", {
@@ -350,7 +355,8 @@ const GameDetails = (props) => {
                 >
                   View Receipt
                 </Menu.Item>
-                {filterGameHost()?.user_id == userData?.id && gameDetails?.cancelled_on == null ? (
+                {filterGameHost()?.user_id == userData?.id &&
+                gameDetails?.cancelled_on == null ? (
                   <Menu.Item
                     _text={{
                       fontFamily: MEDIUM,
@@ -462,7 +468,15 @@ const GameDetails = (props) => {
 
               <InfoItem
                 iconSource={
-                  <Icon name={gameDetails?.is_public ?"lock-open-outline" : "lock-outline"} color={secondary} size={28}/>
+                  <Icon
+                    name={
+                      gameDetails?.is_public
+                        ? "lock-open-outline"
+                        : "lock-outline"
+                    }
+                    color={secondary}
+                    size={28}
+                  />
                 }
                 text={gameDetails?.is_public ? "Public Event" : "Private Event"}
               />
