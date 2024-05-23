@@ -88,7 +88,7 @@ const SelectVenue = ({}) => {
   useEffect(() => {
     console.log("effecr call");
     Api_GetAllVenue(true);
-  }, [page]);
+  }, [page, txtSearch]);
 
   const Api_GetAllVenue = (isLoad) => {
     setIsLoading(isLoad);
@@ -156,7 +156,11 @@ const SelectVenue = ({}) => {
 
         <TextInputView
             icon={<Icon name={"search"} size={20} color={secondary} />}
-            onChangeText={(text) => setTxtSearch(text)}
+            onChangeText={(text) => {
+              setAllVenues([])
+              setTxtSearch(text)
+              setPage(0)
+             }}
             value={txtSearch}
             placeholder={"Search venue"}
             clearButtonMode="while-editing"

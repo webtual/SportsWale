@@ -337,7 +337,8 @@ const BokingDetails = (props) => {
 
           <BasicCard style={{ marginVertical: pixelSizeHorizontal(20) }}>
             {transactionData?.purpose == "VENUE_BOOKED" && (
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <TouchableOpacity style={{ flexDirection: "row", alignItems: "center" }}
+                onPress={() => navigate("Policy",{data : {title : "Booking Policy", content : transactionData?.info?.booking_policy}})}>
                 <View
                   style={{
                     width: widthPixel(48),
@@ -361,7 +362,7 @@ const BokingDetails = (props) => {
                 >
                   Booking Policies
                 </Text>
-              </View>
+              </TouchableOpacity>
             )}
 
             <View

@@ -67,8 +67,8 @@ const HeaderView = ({
           <Image
             source={headerBackground}
             style={{
-              // flex: 1,
-              width:'100%',
+              flex: 1,
+              // width:'100%',
               borderBottomLeftRadius: 25,
               borderBottomRightRadius: 25,
               resizeMode: "cover",
@@ -132,7 +132,7 @@ const HeaderView = ({
             </View>
           </ScrollView>
         ) : (
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 1, }}>
             <View
               style={[
                 styles.headerImgContainer,
@@ -145,11 +145,11 @@ const HeaderView = ({
             >
               <Image
                 source={headerBackground}
-                // resizeMode='cover'
                 style={{
                   flex: 1,
                   borderBottomLeftRadius: 25,
                   borderBottomRightRadius: 25,
+                  resizeMode: "cover",
                 }}
               />
 

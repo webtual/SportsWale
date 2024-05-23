@@ -108,7 +108,7 @@ const BookTab = (props) => {
       lat: CurrentLatitude,
       long: CurrentLongitude,
     });
-  }, [page, favourites, isFocused]);
+  }, [page, favourites, isFocused, txtSearch]);
 
   const getaddressFromLatLong = async (lat, long) => {
     Geocoder.from(lat, long)
@@ -438,7 +438,11 @@ const BookTab = (props) => {
           <TextInputView
             containerStyle={{ marginVertical: pixelSizeHorizontal(15) }}
             icon={<Icon name={"magnify"} size={20} color={secondary} />}
-            onChangeText={(text) => setTxtSearch(text)}
+            onChangeText={(text) => {
+              setAllVenues([])
+              setPage(0)
+              setTxtSearch(text) 
+              }}
             value={txtSearch}
             placeholder={"Search venue"}
             clearButtonMode="while-editing"

@@ -40,6 +40,10 @@ import { pixelSizeHorizontal, widthPixel } from "./ResponsiveScreen"
         color: secondary,
         // marginLeft: pixelSizeHorizontal(30)
     },
+    smallText:{
+        fontFamily: REGULAR, fontSize: FontSize.FS_12, color: black,
+
+    },
     modalHeaderText:{
         fontFamily: BOLD, fontSize: FontSize.FS_18, color: black,
     },
