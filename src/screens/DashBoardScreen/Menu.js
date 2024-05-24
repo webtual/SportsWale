@@ -241,7 +241,7 @@ const MenuTab = () => {
       >
         {userData ? (
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <View
+            <TouchableOpacity
               style={{
                 width: 80,
                 height: 80,
@@ -259,6 +259,9 @@ const MenuTab = () => {
                 elevation: 3,
                 marginRight: 10,
               }}
+              onPress={()=>{
+                navigate('Profile')
+              }}
             >
               <Image
                 style={{ width: 75, height: 75, borderRadius: 40 , resizeMode : 'cover'}}
@@ -266,7 +269,7 @@ const MenuTab = () => {
                   uri: userData?.asset_url + userData?.profile,
                 }}
               />
-            </View>
+            </TouchableOpacity>
 
             <View style={{ flex: 1 }}>
               <Text

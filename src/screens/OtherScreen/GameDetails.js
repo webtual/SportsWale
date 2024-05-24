@@ -213,7 +213,7 @@ const GameDetails = (props) => {
       },\n\n you are invided for game play. please join game by clicking on below link.\n\n${link}`;
 
       const result = Share.share({
-        title: "Sports Vale",
+        title: "Sports Wale",
         message: message,
         // url: Platform.OS == 'ios' ? IOS_APP_LINK : ANDROID_APP_LINK
       });

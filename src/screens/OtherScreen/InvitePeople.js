@@ -72,10 +72,10 @@ const InvitePeople = ({}) => {
 
   // Action Methods
   const btnReferTap = () => {
-    var message = `Check this out amazing app Sports Vale, Download & join to this app.\n\n Download app now:\nPlay Store Link : ${ANDROID_APP_LINK}\niPhone App Link : ${IOS_APP_LINK}`;
+    var message = `Check this out amazing app Sports Wale, Download & join to this app.\n\n Download app now:\nPlay Store Link : ${ANDROID_APP_LINK}\niPhone App Link : ${IOS_APP_LINK}`;
 
     const result = Share.share({
-      title: "Sports Vale",
+      title: "Sports Wale",
       message: message,
       // url: Platform.OS == 'ios' ? IOS_APP_LINK : ANDROID_APP_LINK
     });
@@ -116,7 +116,7 @@ const InvitePeople = ({}) => {
             Invite Your Friends To Shop On
             <Text style={{ color: secondary, fontFamily: BOLD }}>
               {" "}
-              Sports Vale
+              Sports Wale
             </Text>
           </Text>
 

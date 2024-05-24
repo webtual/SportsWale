@@ -261,19 +261,21 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
           </Text>
         </View>
 
-        <View
-          style={[styles.itemContainer, { backgroundColor: primary_light }]}
-        >
-          <SirenIcon width={19} height={19} />
-          <Text
-            style={[
-              styles.text,
-              { color: black, marginLeft: pixelSizeHorizontal(5) },
-            ]}
+        {item?.spot_left <= 5 && (
+          <View
+            style={[styles.itemContainer, { backgroundColor: primary_light }]}
           >
-            Only {item?.spot_left} Slot left
-          </Text>
-        </View>
+            <SirenIcon width={19} height={19} />
+            <Text
+              style={[
+                styles.text,
+                { color: black, marginLeft: pixelSizeHorizontal(5) },
+              ]}
+            >
+              Only {item?.spot_left} Slot left
+            </Text>
+          </View>
+        )}
       </View>
 
       <Text style={[styles.descriptionText, { flex: undefined }]}>
