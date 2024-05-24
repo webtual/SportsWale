@@ -19,32 +19,37 @@ import CommonStyle from "../../commonComponents/CommonStyle";
 import Translate from "../../translation/Translate";
 import AttachIcon from "../../assets/images/AttachIcon";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import ImagePicker from 'react-native-image-crop-picker';
+import ImagePicker from "react-native-image-crop-picker";
 import { useToast } from "native-base";
 import ApiManager from "../../commonComponents/ApiManager";
 import { WRITE_TO_US } from "../../constants/ApiUrl";
 import { getFileNameFromPath } from "../../commonComponents/Utils";
+import LoadingView from "../../commonComponents/LoadingView";
 
 export default function WriteUs() {
-  const toast = useToast()
+  const toast = useToast();
 
   const [description, setDescription] = useState("");
 
   const [screenshot, SetScreenshot] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-
   const Api_Write_to_Us = (isLoad) => {
     setIsLoading(isLoad);
     const formData = new FormData();
     formData.append("description", description);
-    
+
     if (screenshot.length) {
-      formData.append("file", screenshot?.map((item) => {return {
-        uri: item?.path,
-        name: getFileNameFromPath(item?.path),
-        type: item?.mime,
-      }}))
+      formData.append(
+        "file",
+        screenshot?.map((item) => {
+          return {
+            uri: item?.path,
+            name: getFileNameFromPath(item?.path),
+            type: item?.mime,
+          };
+        })
+      );
     }
 
     ApiManager.post(WRITE_TO_US, formData, {
@@ -60,7 +65,7 @@ export default function WriteUs() {
           toast.show({
             description: response.data.message,
           });
-          goBack()
+          goBack();
         } else {
           toast.show({
             description: response.data.message,
@@ -72,7 +77,6 @@ export default function WriteUs() {
         console.error("Api_Write_to_Us Error ", err);
       });
   };
-
 
   const UploadImage = () => {
     Alert.alert("Upload Picture", "Upload your profile picture", [
@@ -131,12 +135,12 @@ export default function WriteUs() {
     ]);
   };
 
-  const handleRemoveImage=(indexToRemove)=>{
-    console.log('remove image');
-    SetScreenshot(prevLandImg =>
-        prevLandImg.filter((_, index) => index !== indexToRemove),
-      );
-  }
+  const handleRemoveImage = (indexToRemove) => {
+    console.log("remove image");
+    SetScreenshot((prevLandImg) =>
+      prevLandImg.filter((_, index) => index !== indexToRemove)
+    );
+  };
 
   return (
     <>
@@ -170,8 +174,8 @@ export default function WriteUs() {
             value={description}
             blurOnSubmit={true}
             onSubmitEditing={() => {
-             Keyboard.dismiss();
-           }}
+              Keyboard.dismiss();
+            }}
           />
           <Text
             style={{
@@ -249,13 +253,12 @@ export default function WriteUs() {
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => {
-              if(description == ""){
+              if (description == "") {
                 toast.show({
-                  description :"Please write description"
-                })
-              }
-              else{
-                Api_Write_to_Us(true)
+                  description: "Please write description",
+                });
+              } else {
+                Api_Write_to_Us(true);
               }
             }}
             style={[
@@ -270,6 +273,7 @@ export default function WriteUs() {
           </TouchableOpacity>
         </View>
       </HeaderView>
+      {isLoading && <LoadingView />}
     </>
   );
 }

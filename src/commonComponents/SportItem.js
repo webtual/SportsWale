@@ -43,10 +43,10 @@ export default function SportItem({
       size={16}
       color={isSelected ? Colors.white : Colors.black}
     /> */}
-      <Image
+      {item?.game_image && <Image
         source={{ uri: userData?.asset_url + item?.game_image }}
         style={{ width: widthPixel(16), height: widthPixel(16), resizeMode : 'contain', tintColor : isSelected ? white : textColor }}
-      />
+      />}
       <Text
         style={[styles.menuItemText,{color : textColor}, isSelected && styles.selectedItemText]}
       >

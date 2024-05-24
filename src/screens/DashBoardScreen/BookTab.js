@@ -95,7 +95,7 @@ const BookTab = (props) => {
 
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
   const [selectedTime, setSelectedTime] = useState("");
-  const[filterObj , setFilterObj]=useState(null);
+  const [filterObj, setFilterObj] = useState(null);
 
   const [error, setError] = useState(false);
 
@@ -106,10 +106,8 @@ const BookTab = (props) => {
   }, []);
 
   useEffect(() => {
-    
-      setAllVenues([]);
-      Api_GetAllVenue(true);
-    
+    setAllVenues([]);
+    Api_GetAllVenue(true);
   }, [filterObj]);
 
   useEffect(() => {
@@ -151,9 +149,9 @@ const BookTab = (props) => {
     formData.append("favourites", 0);
     formData.append("keyword", txtSearch);
 
-    formData.append("game_ids", filterObj?.game_id?? "");
-    formData.append("start_date", filterObj?.date);
-    formData.append("start_time", filterObj?.time);
+    formData.append("game_ids", filterObj?.game_id ?? "");
+    formData.append("start_date", filterObj?.date ?? "");
+    formData.append("start_time", filterObj?.time ?? "");
 
     ApiManager.post(GET_ALL_VENUES, formData, {
       headers: {
@@ -514,6 +512,8 @@ const BookTab = (props) => {
               }}
               onPress={() => {
                 setfilterModal(true);
+                const formattedTime = moment().seconds(0).format("HH:mm:ss");
+                setSelectedTime(formattedTime);
               }}
             >
               <Text
@@ -682,7 +682,6 @@ const BookTab = (props) => {
                 } else {
                   setError(true);
                 }
-                // setAvailibilityIsOn(isOn);
               }}
             />
           </View>
@@ -826,11 +825,11 @@ const BookTab = (props) => {
                 setError(false);
                 setfilterModal(false);
                 setPage(1);
-                var dict ={
-                  game_id:selectedSport.id,
-                  date:selectedDate,
-                  time:selectedTime
-                }
+                var dict = {
+                  game_id: selectedSport.id,
+                  date: selectedDate,
+                  time: selectedTime,
+                };
                 setFilterObj(dict);
               }}
               style={[
@@ -860,7 +859,8 @@ const BookTab = (props) => {
           isVisible={isTimePickerVisible}
           mode="time"
           onConfirm={(time) => {
-            setSelectedTime(moment(time).format("HH:MM"));
+            const formattedTime = moment(time).seconds(0).format("HH:mm:ss");
+            setSelectedTime(formattedTime);
             hideTimePicker();
           }}
           onCancel={hideTimePicker}
