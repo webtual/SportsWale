@@ -83,8 +83,8 @@ const Home = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRefresh, setIsRefresh] = useState(false);
 
-  const [CurrentLatitude, setCurrentLatitude] = useState(null);
-  const [CurrentLongitude, setCurrentLongitude] = useState(null);
+  const [CurrentLatitude, setCurrentLatitude] = useState(userReduxData.lat || 0.0);
+  const [CurrentLongitude, setCurrentLongitude] = useState(userReduxData.long || 0.0);
 
   const [homeData, setHomeData] = useState(null);
 
@@ -92,6 +92,13 @@ const Home = ({ navigation }) => {
 
   useEffect(() => {
     requestLocationPermission();
+  },[])
+ 
+  useEffect(() => {
+    Api_Home(true, {
+      lat: CurrentLatitude,
+      long: CurrentLongitude,
+    });
   }, [isFocused]);
 
   const getaddressFromLatLong = async (lat, long) => {

@@ -100,14 +100,30 @@ const BookTab = (props) => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    getaddressFromLatLong(CurrentLatitude, CurrentLongitude);
     Api_Get_Games(true);
     Api_Get_Recent(true);
   }, []);
 
   useEffect(() => {
+    setCurrentLatitude(userReduxData.lat || 0.0);
+    setCurrentLongitude(userReduxData.long || 0.0);
+  }, [isFocused, userReduxData]);
+
+  useEffect(() => {
+    getaddressFromLatLong(CurrentLatitude, CurrentLongitude);
     setAllVenues([]);
-    Api_GetAllVenue(true);
+    Api_GetAllVenue(true, {
+      lat: CurrentLatitude,
+      long: CurrentLongitude,
+    });
+  }, [CurrentLatitude, CurrentLongitude]);
+
+  useEffect(() => {
+    setAllVenues([]);
+    Api_GetAllVenue(true, {
+      lat: CurrentLatitude,
+      long: CurrentLongitude,
+    });
   }, [filterObj]);
 
   useEffect(() => {
@@ -143,8 +159,8 @@ const BookTab = (props) => {
     const formData = new FormData();
     formData.append("page", page);
     formData.append("limit", "10");
-    formData.append("latitude", userReduxData.lat);
-    formData.append("longitude", userReduxData.long);
+    formData.append("latitude", locationCords?.lat);
+    formData.append("longitude", locationCords?.long);
 
     formData.append("favourites", 0);
     formData.append("keyword", txtSearch);

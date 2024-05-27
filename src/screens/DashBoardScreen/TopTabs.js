@@ -26,7 +26,7 @@ const TopTabs = ({ setIsLoading, ActiveTab }) => {
       name: "Other Sports",
     },
   ];
-  const [currentSelectedTab, setCurrentSelectedTab] = useState(0);
+  const [currentSelectedTab, setCurrentSelectedTab] = useState(1);
 
   
   return (

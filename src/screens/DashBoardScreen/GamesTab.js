@@ -20,9 +20,10 @@ import Geocoder from "react-native-geocoding";
 import { FontSize, MEDIUM } from "../../constants/Fonts";
 import TopTabs from "./TopTabs";
 import LoadingView from "../../commonComponents/LoadingView";
+import { useIsFocused } from "@react-navigation/native";
 
 const GamesTab = (props) => {
-  
+  const isFocused = useIsFocused();
   const dispatch = useDispatch();
   const toast = useToast();
 
@@ -43,12 +44,17 @@ const GamesTab = (props) => {
   );
 
   useEffect(() => {
+    setCurrentLatitude(userReduxData.lat || 0.0);
+    setCurrentLongitude(userReduxData.long || 0.0);
+  }, [isFocused, userReduxData]);
+
+  useEffect(() => {
     getaddressFromLatLong(CurrentLatitude, CurrentLongitude);
 
     return () => {
       
     }
-  }, []);
+  }, [CurrentLatitude, CurrentLongitude]);
 
 
   const getaddressFromLatLong = async (lat, long) => {
