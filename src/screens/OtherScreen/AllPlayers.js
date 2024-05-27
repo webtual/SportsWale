@@ -60,7 +60,6 @@ const AllPlayers = (props) => {
               <View style={{ height: pixelSizeHorizontal(5) }} />
             }
             renderItem={({ item, index }) => {
-              console.log("🚀 ~ AllPlayers ~ item:", item)
               return (
                 <View
                   style={[

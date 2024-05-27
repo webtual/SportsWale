@@ -98,7 +98,6 @@ const MySportList = ({ setIsLoading }) => {
 
         if (response.data.status === true) {
           var finalData = response.data.data;
-          console.log("🚀 ~ .then ~ finalData:", finalData)
 
           if (finalData?.current_page >= finalData?.total_pages) {
             setShowMore(false);

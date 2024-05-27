@@ -21,6 +21,8 @@ import { FontSize, MEDIUM } from "../../constants/Fonts";
 import TopTabs from "./TopTabs";
 import LoadingView from "../../commonComponents/LoadingView";
 import { useIsFocused } from "@react-navigation/native";
+import { storeData } from "../../commonComponents/AsyncManager";
+import { LOCATION_CORDS } from "../../constants/ConstantKey";
 
 const GamesTab = (props) => {
   const isFocused = useIsFocused();
@@ -100,6 +102,16 @@ const GamesTab = (props) => {
                 onSelectPlace: (place_detail) => {
                   console.log("place_detail : ", place_detail);
                   setTxtCity(place_detail?.name);
+
+                  getaddressFromLatLong(
+                    place_detail?.geometry?.location?.lat,
+                    place_detail?.geometry?.location?.lng
+                  );
+
+                  storeData(LOCATION_CORDS,{
+                    lat: place_detail?.geometry?.location?.lat,
+                    long: place_detail?.geometry?.location?.lng,
+                  })
 
                   dispatch(
                     storeCurrentLocation({

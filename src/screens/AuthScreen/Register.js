@@ -44,7 +44,7 @@ import CommonStyle from "../../commonComponents/CommonStyle";
 import moment from "moment";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { GOOGLE_API_KEY, SCREEN_WIDTH } from "../../constants/ConstantKey";
+import { GOOGLE_API_KEY, LOCATION_CORDS, SCREEN_WIDTH } from "../../constants/ConstantKey";
 import IconButton from "../../commonComponents/IconButton";
 import ImagePicker from "react-native-image-crop-picker";
 import Geolocation from "@react-native-community/geolocation";
@@ -56,6 +56,7 @@ import Geocoder from "react-native-geocoding";
 import { ALERT_TYPE, Dialog } from "react-native-alert-notification";
 import { BottomModal } from "../../commonComponents/Popup";
 import TermandCondition from "../../commonComponents/TermandCondition";
+import { storeData } from "../../commonComponents/AsyncManager";
 
 const Register = (props) => {
   const dispatch = useDispatch();
@@ -181,6 +182,11 @@ const Register = (props) => {
           },
           1000
         );
+
+        storeData(LOCATION_CORDS,{
+          lat: position.coords.latitude,
+          long: position.coords.longitude,
+        })
 
         dispatch(
           storeCurrentLocation({

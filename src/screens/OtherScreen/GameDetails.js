@@ -64,7 +64,6 @@ const GameDetails = (props) => {
   const toast = useToast();
 
   const { game_data } = props?.route?.params;
-  console.log("🚀 ~ GameDetails ~ game_data:", game_data)
 
   const userData = useSelector(user_data);
 

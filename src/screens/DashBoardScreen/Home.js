@@ -39,7 +39,7 @@ import {
 import { navigate, push } from "../../navigations/RootNavigation";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Input, useToast } from "native-base";
-import { GOOGLE_API_KEY, SCREEN_WIDTH } from "../../constants/ConstantKey";
+import { GOOGLE_API_KEY, LOCATION_CORDS, SCREEN_WIDTH } from "../../constants/ConstantKey";
 import CarouselCard from "../../commonComponents/Carousel/index";
 import HeaderView from "../../commonComponents/HeaderView";
 import { ic_gift, ic_group, ic_team } from "../../constants/Images";
@@ -68,6 +68,7 @@ import LoadingView from "../../commonComponents/LoadingView";
 import Geolocation from "@react-native-community/geolocation";
 import Geocoder from "react-native-geocoding";
 import { useIsFocused } from "@react-navigation/native";
+import { getData, storeData } from "../../commonComponents/AsyncManager";
 
 const Home = ({ navigation }) => {
   const isFocused = useIsFocused();
@@ -91,9 +92,40 @@ const Home = ({ navigation }) => {
   const [txtCity, setTxtCity] = useState("");
 
   useEffect(() => {
-    requestLocationPermission();
+
+   getData(LOCATION_CORDS, (data) =>{
+    if(data){
+      console.log("location data : ",data)
+      setCurrentLatitude(data?.lat)
+      setCurrentLongitude(data?.long)
+
+      dispatch(
+        storeCurrentLocation({
+          lat: data?.lat,
+          long: data?.long,
+        })
+      );
+
+      getaddressFromLatLong(
+        data?.lat,
+        data?.long
+      );
+      Api_Home(true, {
+        lat: data?.lat,
+        long: data?.long
+      });
+
+    }else{
+      requestLocationPermission();
+
+    }
+   })
+
   },[])
  
+
+
+
   useEffect(() => {
     Api_Home(true, {
       lat: CurrentLatitude,
@@ -158,6 +190,11 @@ const Home = ({ navigation }) => {
         // console.log('====================================');
         // console.log('Current Location is : ' + JSON.stringify(position));
         // console.log('====================================');
+
+        storeData(LOCATION_CORDS,{
+          lat: position.coords.latitude,
+          long: position.coords.longitude,
+        })
 
         dispatch(
           storeCurrentLocation({
@@ -250,6 +287,16 @@ const Home = ({ navigation }) => {
                 onSelectPlace: (place_detail) => {
                   console.log("place_detail : ", place_detail);
                   setTxtCity(place_detail?.name);
+
+                  getaddressFromLatLong(
+                    place_detail?.geometry?.location?.lat,
+                    place_detail?.geometry?.location?.lng
+                  );
+
+                  storeData(LOCATION_CORDS,{
+                    lat: place_detail?.geometry?.location?.lat,
+                    long: place_detail?.geometry?.location?.lng,
+                  })
 
                   dispatch(
                     storeCurrentLocation({
@@ -535,7 +582,7 @@ const Home = ({ navigation }) => {
             </BasicCard>
           </View> */}
 
-          <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
+          <View style={{ paddingHorizontal: pixelSizeHorizontal(20), marginVertical : pixelSizeHorizontal(10) }}>
             <BasicCard
               style={styles.cardContainer}
               onPress={() => navigate("InvitePeople")}

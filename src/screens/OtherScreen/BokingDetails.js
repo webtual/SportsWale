@@ -39,7 +39,6 @@ import { RUPEE } from "../../constants/ConstantKey";
 const BokingDetails = (props) => {
   const toast = useToast();
   const userData = useSelector(user_data);
-  console.log("🚀 ~ BokingDetails ~ userData:", userData)
 
   const { transactionId } = props?.route?.params;
 

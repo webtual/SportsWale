@@ -65,7 +65,6 @@ const RegisterSelectSport = (props) => {
   const toast = useToast()
 
   const { registerData } = props?.route?.params;
-  console.log("🚀 ~ RegisterSelectSport ~ registerData:", registerData)
 
   const [isLoading, setIsLoading] = useState(false);
   const [selectedList, setSelectedList] = useState([]);

@@ -67,8 +67,8 @@ const HeaderView = ({
           <Image
             source={headerBackground}
             style={{
-              // flex: 1,
-              width:'100%',
+              flex: 1,
+              // width:'100%',
               borderBottomLeftRadius: 25,
               borderBottomRightRadius: 25,
               resizeMode: "cover",

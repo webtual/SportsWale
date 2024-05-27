@@ -84,10 +84,8 @@ const OtherGamesList = ({ setIsLoading }) => {
             game_image: el.image,
             game_title: el.title,
           }));
-          console.log("🚀 ~ finalGames ~ finalGames:", finalGames)
 
           let my_sport = userReduxData.user_data.game_selection;
-          console.log("🚀 ~ .then ~ my_sport:", my_sport)
 
           const filtered_games = finalGames.filter(
             (game) => !my_sport.some((sport) => sport.game_title === game.title)

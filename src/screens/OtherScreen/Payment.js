@@ -70,7 +70,7 @@ export default function Payment(props) {
   const toast = useToast();
 
   const userData = useSelector(user_data);
-  const { venueDetail, selectedSlots } = props?.route?.params;
+  const { venueDetail, selectedSlots , type} = props?.route?.params;
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -91,6 +91,14 @@ export default function Payment(props) {
 
   useEffect(() => {
     console.log("selectedSlots : ", selectedSlots);
+    console.log("type : ", type);
+
+
+    if(type == "book_now"){
+      setTxtTotalPlayer("1")
+      setTxtCostPerPlayer("0")
+      setGameType(0)
+    }
   }, []);
 
   const Api_Book_Venue = (isLoad) => {
@@ -384,6 +392,7 @@ export default function Payment(props) {
                 placeholder=""
                 onChangeText={setTxtTotalPlayer}
                 maxLength={7}
+                editable={type == "book_now" ? false : true}
                 keyboardType={"number-pad"}
               />
             </View>
@@ -412,6 +421,7 @@ export default function Payment(props) {
                 placeholder="00"
                 onChangeText={setTxtCostPerPlayer}
                 maxLength={7}
+                editable={type == "book_now" ? false : true}
                 keyboardType={"number-pad"}
               />
             </View>
@@ -533,6 +543,7 @@ export default function Payment(props) {
               styles.iconBtnContainer,
               { backgroundColor: gameType == 1 ? secondary : primary_light },
             ]}
+            disabled={type == "book_now"}
             onPress={() => setGameType(1)}
           >
             <Icon
@@ -558,6 +569,7 @@ export default function Payment(props) {
                 backgroundColor: gameType == 0 ? secondary : primary_light,
               },
             ]}
+            disabled={type == "book_now"}
             onPress={() => setGameType(0)}
           >
             <Icon
@@ -571,7 +583,7 @@ export default function Payment(props) {
                 { color: gameType == 0 ? white : black },
               ]}
             >
-              invite only
+              {type == "book_now" ? "Private" : "invite only"}
             </Text>
           </TouchableOpacity>
         </View>

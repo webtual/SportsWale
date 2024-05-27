@@ -34,7 +34,7 @@ import IconButton from "../../commonComponents/IconButton";
 import VenuesCard from "../../commonComponents/VenuesCard";
 import { VenuesData } from "../../DummyData/Data";
 import Carousel from "react-native-banner-carousel";
-import { SCREEN_WIDTH } from "../../constants/ConstantKey";
+import { LOCATION_CORDS, SCREEN_WIDTH } from "../../constants/ConstantKey";
 import BasicCard from "../../commonComponents/BasicCard";
 import { BOLD, FontSize, MEDIUM, SEMIBOLD } from "../../constants/Fonts";
 import ApiManager from "../../commonComponents/ApiManager";
@@ -56,6 +56,7 @@ import SportItem from "../../commonComponents/SportItem";
 import ToggleSwitch from "toggle-switch-react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Translate from "../../translation/Translate";
+import { storeData } from "../../commonComponents/AsyncManager";
 
 const BookTab = (props) => {
   const isFocused = useIsFocused();
@@ -378,6 +379,16 @@ const BookTab = (props) => {
                 onSelectPlace: (place_detail) => {
                   console.log("place_detail : ", place_detail);
                   setTxtCity(place_detail?.name);
+
+                  getaddressFromLatLong(
+                    place_detail?.geometry?.location?.lat,
+                    place_detail?.geometry?.location?.lng
+                  );
+
+                  storeData(LOCATION_CORDS,{
+                    lat: place_detail?.geometry?.location?.lat,
+                    long: place_detail?.geometry?.location?.lng,
+                  })
 
                   dispatch(
                     storeCurrentLocation({

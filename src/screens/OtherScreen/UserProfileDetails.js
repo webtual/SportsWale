@@ -51,7 +51,6 @@ export default function UserProfileDetails(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [profileData, setProfileData] = useState(null);
   const [recent, setRecent] = useState();
-  console.log("🚀 ~ UserProfileDetails ~ recent:", recent);
   const [CurrentLatitude, setCurrentLatitude] = useState(0.0);
   const [CurrentLongitude, setCurrentLongitude] = useState(0.0);
   const [showAll, setShowAll] = useState(false);

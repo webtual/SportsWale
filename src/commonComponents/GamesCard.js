@@ -230,7 +230,7 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
               { color: black, marginLeft: pixelSizeHorizontal(5) },
             ]}
           >
-            {RUPEE + parseInt(item?.cost_per_player_amount)}
+            {item?.total_player == 1 ? RUPEE+ parseInt(item?.ground_amount) : RUPEE + parseInt(item?.cost_per_player_amount)}
           </Text>
         </View>
       </View>
@@ -261,7 +261,7 @@ export default function GamesCard({ cardStyles, bookMark, item }) {
           </Text>
         </View>
 
-        {item?.spot_left <= 5 && (
+        {item?.spot_left <= 5 && item?.spot_left != 0 && (
           <View
             style={[styles.itemContainer, { backgroundColor: primary_light }]}
           >

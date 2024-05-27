@@ -67,6 +67,7 @@ import AllQuestions from '../screens/OtherScreen/AllQuestions';
 import FavouriteVenue from '../screens/OtherScreen/FavouriteVenue';
 import UserProfileDetails from '../screens/OtherScreen/UserProfileDetails';
 import Policy from '../screens/OtherScreen/Policy';
+import GameByVenue from '../screens/OtherScreen/GameByVenue';
 
 // import { cart_data } from '../redux/reducers/cartReducer';
 // import { useSelector } from 'react-redux';
@@ -208,6 +209,8 @@ function AppStacks() {
 			<Stack.Screen name="FavouriteVenue" component={FavouriteVenue} />
 			<Stack.Screen name="SelectVenue" component={SelectVenue} />
 			<Stack.Screen name="Games" component={GamesTab} />
+			<Stack.Screen name="GameByVenue" component={GameByVenue} />
+
 
 
 			<Stack.Screen name="InvitePeople" component={InvitePeople} />

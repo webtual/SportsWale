@@ -46,6 +46,7 @@ import { useToast } from "native-base";
 import LoadingView from "../../commonComponents/LoadingView";
 import {
   black,
+  border,
   dim_grey,
   grey,
   primary,
@@ -63,6 +64,7 @@ import LocationIcon from "../../assets/images/LocationIcon";
 import NavigationIcon from "../../assets/images/NavigationIcon";
 import GoogleMapPinIcon from "../../assets/images/GoogleMapPinIcon";
 import { BottomModal } from "../../commonComponents/Popup";
+import CommonStyle from "../../commonComponents/CommonStyle";
 
 const VenueDetail = (props) => {
   const toast = useToast();
@@ -134,6 +136,7 @@ const VenueDetail = (props) => {
         } else {
           toast.show({
             description: response.data.message,
+            placement:'top'
           });
         }
       })
@@ -162,7 +165,7 @@ const VenueDetail = (props) => {
 
   const btnCreateGameTap = () => {
     if (venueDetail?.venue_grounds.length) {
-      navigate("VenueSlotBooking", { venueDetail: venueDetail });
+      navigate("VenueSlotBooking", { venueDetail: venueDetail, type:"create_game" });
     }else{
       toast.show({
         description : `${venueDetail?.title} doesn't have any ground linked, please try another venue`,
@@ -172,6 +175,19 @@ const VenueDetail = (props) => {
       })
     }
   };
+
+  const btnBookNowTap = () => {
+    if (venueDetail?.venue_grounds.length) {
+      navigate("VenueSlotBooking", { venueDetail: venueDetail, type:"book_now" });
+    }else{
+      toast.show({
+        description : `${venueDetail?.title} doesn't have any ground linked, please try another venue`,
+        style:{
+          marginHorizontal:pixelSizeHorizontal(20)
+        }
+      })
+    }
+  }
 
   return (
     <>
@@ -380,7 +396,8 @@ const VenueDetail = (props) => {
                   {venueDetail?.total_game_count} Total games
                 </Text>
               </View>
-              <View style={{ flex: 1 / 1.2, flexWrap: "wrap" }}>
+              <TouchableOpacity style={{ flex: 1 / 1.2, flexWrap: "wrap" }}
+              onPress={() => navigate("GameByVenue",{venueDetail : venueDetail})}>
                 <View
                   style={[
                     styles.btn,
@@ -401,7 +418,7 @@ const VenueDetail = (props) => {
                     {venueDetail?.upcoming_game_count} Upcoming
                   </Text>
                 </View>
-              </View>
+              </TouchableOpacity>
             </View>
 
             <View style={{ paddingHorizontal: pixelSizeHorizontal(20) }}>
@@ -440,6 +457,28 @@ const VenueDetail = (props) => {
                     <SportItem item={item} isDisabled={true} />
                   )}
                 />
+
+<TouchableOpacity
+                      activeOpacity={1}
+                      onPress={() => btnCreateGameTap()}
+                      style={[
+                        CommonStyle.mainBtnStyle,
+                        {
+                          flex: 1,
+                          flexDirection : 'row',
+                          marginTop : pixelSizeHorizontal(10),
+                          marginHorizontal: pixelSizeHorizontal(20),
+                          // borderWidth: 1,
+                          // borderColor: border,
+                          // backgroundColor: white,
+                        },
+                      ]}
+                    >
+                      <Icon name={"plus"} size={25} color={Colors.white}/>
+                      <Text style={[CommonStyle.mainBtnText, {marginLeft : pixelSizeHorizontal(10) }]}>
+                        Create Game
+                      </Text>
+                    </TouchableOpacity>
               </>
             ) : null}
 
@@ -546,7 +585,7 @@ const VenueDetail = (props) => {
               marginVertical: 10,
               padding: pixelSizeHorizontal(15),
             }}
-            onPress={() => btnCreateGameTap()}
+            onPress={() => btnBookNowTap()}
           >
             <Text
               style={{
@@ -555,7 +594,7 @@ const VenueDetail = (props) => {
                 color: Colors.white,
               }}
             >
-              Create Game
+              Book Now
             </Text>
           </TouchableOpacity>
         </View>

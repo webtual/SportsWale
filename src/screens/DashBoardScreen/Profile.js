@@ -73,7 +73,7 @@ import ImagePicker from "react-native-image-crop-picker";
 
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { SCREEN_WIDTH, USER_DATA } from "../../constants/ConstantKey";
+import { LOCATION_CORDS, SCREEN_WIDTH, USER_DATA } from "../../constants/ConstantKey";
 import TextInputView from "../../commonComponents/TextInputView";
 import CommonStyle from "../../commonComponents/CommonStyle";
 import ApiManager from "../../commonComponents/ApiManager";
@@ -225,7 +225,6 @@ const Profile = () => {
 
         if (response.data.status === true) {
           var profile_data = response.data.data;
-          console.log("🚀 ~ .then ~ profile_data:", profile_data);
 
           storeData(USER_DATA, profile_data, () => {
             dispatch(storeUserData(profile_data));
@@ -300,6 +299,18 @@ const Profile = () => {
           toast.show({
             description: response.data.message,
           });
+
+          storeData(LOCATION_CORDS,{
+            lat: profile_data?.lat,
+            long: profile_data?.long,
+          })
+
+          dispatch(
+            storeCurrentLocation({
+              lat: profile_data?.lat,
+              long: profile_data?.long,
+            })
+          );
 
           Api_Get_Profile(true);
           setIsEditProfile(false);

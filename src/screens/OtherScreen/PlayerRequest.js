@@ -11,7 +11,6 @@ import { FlatList } from "native-base";
 
 export default function PlayerRequest() {
   const userData = useSelector(user_data);
-  console.log("🚀 ~ PlayerRequest ~ userData:", userData);
 
   const item = [
     {

@@ -10,6 +10,8 @@ export const FCM_TOKEN = "FCM_TOKEN"
 export const BEARER_TOKEN = "BEARER_TOKEN"
 export const BANNER_DATA = "BANNER_DATA"
 
+export const LOCATION_CORDS = "LOCATION_CORDS"
+
 export const GOOGLE_API_KEY = "AIzaSyC3kESn1Cc0X7idSUU0i3nw7Gjd2o9zMpE"//'AIzaSyBOoDtUIYQCLwexvSt3lB0_9VPdGBMgoUk'
 
 export const ANDROID_APP_LINK = 'https://play.google.com/store/apps/details?id=com.sportsvale.app'

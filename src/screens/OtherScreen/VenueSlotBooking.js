@@ -47,7 +47,7 @@ import { VENUE_TIMESLOT } from "../../constants/ApiUrl";
 
 const VenueSlotBooking = (props) => {
   const toast = useToast();
-  const { venueDetail } = props?.route?.params;
+  const { venueDetail, type } = props?.route?.params;
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -206,7 +206,7 @@ const VenueSlotBooking = (props) => {
         description: "Please select time slots",
       });
     } else {
-      navigate("Payment", {venueDetail : venueDetail, selectedSlots : {
+      navigate("Payment", {venueDetail : venueDetail,type : type, selectedSlots : {
         sport : selectedSport,
         ground : selectedGround,
         date : selectedDate,
