@@ -124,13 +124,34 @@ const Home = ({ navigation }) => {
   },[])
  
 
-
-
   useEffect(() => {
-    Api_Home(true, {
-      lat: CurrentLatitude,
-      long: CurrentLongitude,
-    });
+
+    getData(LOCATION_CORDS, (data) =>{
+      if(data){
+        console.log("location data : ",data)
+        setCurrentLatitude(data?.lat)
+        setCurrentLongitude(data?.long)
+  
+        dispatch(
+          storeCurrentLocation({
+            lat: data?.lat,
+            long: data?.long,
+          })
+        );
+  
+        getaddressFromLatLong(
+          data?.lat,
+          data?.long
+        );
+
+        Api_Home(true, {
+          lat: data?.lat,
+          long: data?.long,
+        });
+      }else{
+        requestLocationPermission()
+      }})
+
   }, [isFocused]);
 
   const getaddressFromLatLong = async (lat, long) => {
@@ -270,7 +291,12 @@ const Home = ({ navigation }) => {
         isRefreshing={isRefresh}
         onRefresh={() => {
           setIsRefresh(true);
-          requestLocationPermission();
+          // requestLocationPermission();
+
+          Api_Home(true, {
+            lat: CurrentLatitude,
+            long: CurrentLongitude,
+          });
         }}
         leftComponent={
           <TouchableOpacity
