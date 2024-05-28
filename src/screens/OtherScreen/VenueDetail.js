@@ -133,6 +133,7 @@ const VenueDetail = (props) => {
             description: response.data.message,
           });
           setIsOpenRating(false);
+          Api_Get_Venue_Details(true);
         } else {
           toast.show({
             description: response.data.message,

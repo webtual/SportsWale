@@ -372,7 +372,7 @@ const BokingDetails = (props) => {
               }}
               onPress={()=>{
                 navigate('GameDetails',{game_data:{
-                  id:transactionData?.user_id,
+                  id:transactionData?.info?.venue_user_game_id,
                   venue_id:transactionData?.info?.venue_id
                 }});
               }}
