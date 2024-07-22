@@ -1,14 +1,6 @@
 export default {
 
 
-
-	next : 'Next',
-	done : "Done",
-
-	new_to_krifix : "New to Krifix? ",
-	
-	sign_up : "Sign up",
-	
 	full_name : 'Full name',
 	first_name:"First name",
 	last_name:"Last name",
@@ -45,7 +37,7 @@ export default {
 	cancel : "Cancel",
 	alert : "Alert",
 	are_you_sure_logout : "Are you sure you want to logout?",
-	we_are_here_to_help : "We’re here to help!",
+	we_are_here_to_help : "We're here to help!",
 	refer_your_friends_and_earn : "Refer your friends and Earn",
 	refer_desc : "Your friend gets 50 Loyalty Points on sign up and, you get 100 Loyalty Points too everytime!",
 	share : "Share",
@@ -72,26 +64,36 @@ export default {
 	date:"Date : ",
 	referralcode:"Referral Code",
 
-
+	update_profile : "Update Profile",
 
 
 
 	app_name : "SportsWale",
-	enter_name:"Enter Your Name",
-	dont_have_account:"Don’t have account? ",
+
+
+	next : 'Next',
+	done : "Done",
+	enter_full_name : "Enter full name",
+	enter_name:"Enter your name",
+	dont_have_account:"Don't have account? ",
 	register:"Register Now",
 	registerTxt:"Register",
 	enter_otp : "Enter OTP",
 	name : "Name",
 	phone_number : "Phone number",
+	enter_phone_number : "Enter phone number",
+
 	submit : 'Submit',
 	login : 'Login',
+	mobile_number : 'Mobile number',
+	enter_mobile_number : 'Enter mobile number',
 	mobile : 'Mobile',
 	resend_otp : "Resend OTP",
 	otp_desc : "OTP send on your register mobile no",
 	location:"Location",
-	enter_location:"Enter Location",
+	enter_location:"Enter location",
 	date_of_birth:"Date of Birth",
+	select_date_of_birth:"Select date of birth",
 	gender:"Gender",
 	select:"Select",
 	participate:"Participate in ",
@@ -128,9 +130,18 @@ export default {
 	email:"Email",
 	password:"Password",
 	already_Registered : "Already Registered? ",
+	search_game : "Search game",
+	lets_play : "Let's Play!",
+	choose_level : "Choose Level",
+	send:'Send',
+	accept:'Accept',
+	reject:'Reject',
+	show_result:'Show result',
+	reset:'Reset',
+	// updated UI
 
-
-
+	join_nearby_games:"Join Nearby Games",
+	book_nearby_venue:"Book Nearby Venues",
 
 
 }

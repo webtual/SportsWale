@@ -7,7 +7,7 @@ import { black, dodgerBlue, greenPrimary, offWhite, primary, white } from '../..
 import { navigate, resetScreen } from '../../navigations/RootNavigation'
 import { BOLD, FontSize, MEDIUM, SEMIBOLD } from '../../constants/Fonts';
 import { getData, storeData } from '../../commonComponents/AsyncManager';
-import { SCREEN_HEIGHT, SCREEN_WIDTH, USER_DATA } from '../../constants/ConstantKey';
+import { BEARER_TOKEN, SCREEN_HEIGHT, SCREEN_WIDTH, USER_DATA } from '../../constants/ConstantKey';
 import translate from '../../translation/Translate';
 import ApiManager from '../../commonComponents/ApiManager';
 import { name, version } from '../../../package.json'
@@ -17,7 +17,6 @@ import { appLogoWhiteTrans, ImgLogo, SplashImg } from '../../constants/Images';
 /** Redux Files */
 import { useSelector, useDispatch } from 'react-redux'
 import { storeUserData, user_data } from '../../redux/reducers/userReducer'
-import FastImage from 'react-native-fast-image';
 import { heightPixel, pixelSizeHorizontal, pixelSizeVertical } from '../../commonComponents/ResponsiveScreen';
 import Translate from '../../translation/Translate';
 
@@ -44,15 +43,12 @@ const Splash = (props) => {
 		getData(USER_DATA, (data) => {
 			// console.log("USER_DATA Splash: " + JSON.stringify(data))
 			if (data == null) {
-				console.log("go to login")
 				resetScreen('Intro')
 			} else {
+				storeData(BEARER_TOKEN,data?.auth_token)
 				storeData(USER_DATA, data, () => {
-
 					dispatch(storeUserData(data))
-
 					resetScreen("Dashboard")
-
 				})
 			}
 		})
@@ -61,13 +57,12 @@ const Splash = (props) => {
 
 	return (
 		<View style={styles.container}>
-			<StatusBar barStyle={'dark-content'} backgroundColor={primary} />
-			<View style={{ flex: 1, backgroundColor: primary, alignItems: 'center', justifyContent: 'center' }}>
+			<StatusBar barStyle={'dark-content'} backgroundColor={white} />
+			<View style={{ flex: 1, backgroundColor: white, alignItems: 'center', justifyContent: 'center' }}>
 
-				<FastImage
+				<Image
 					source={appLogoWhiteTrans}
-					style={{ width: SCREEN_WIDTH - 60 , height: heightPixel(400), alignSelf: 'center' }}
-					resizeMode="cover"
+					style={{ width: SCREEN_WIDTH , height:SCREEN_HEIGHT, alignSelf: 'center', resizeMode : 'contain' }}
 				/>
 			</View>
 		</View>
@@ -78,7 +73,7 @@ const Splash = (props) => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: offWhite
+		backgroundColor: white
 	},
 	textView: {
 		position: 'absolute', bottom: pixelSizeVertical(53), alignContent: 'flex-end',

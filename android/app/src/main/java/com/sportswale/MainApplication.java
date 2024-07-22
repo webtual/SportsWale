@@ -1,4 +1,4 @@
-package com.sportswale;
+package com.webtual.sportswale;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

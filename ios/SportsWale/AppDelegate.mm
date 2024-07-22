@@ -2,6 +2,8 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import "RNCConfig.h"
+#import <GoogleMaps/GoogleMaps.h>
+#import <Firebase.h>
 
 @implementation AppDelegate
 
@@ -17,7 +19,11 @@ NSDictionary *config = [RNCConfig env];
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
+[FIRApp configure];
+  // [GMSServices provideAPIKey:@"AIzaSyBOoDtUIYQCLwexvSt3lB0_9VPdGBMgoUk"];
+  [GMSServices provideAPIKey:@"AIzaSyC3kESn1Cc0X7idSUU0i3nw7Gjd2o9zMpE"];
 
+  
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 

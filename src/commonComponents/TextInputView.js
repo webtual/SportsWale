@@ -1,13 +1,11 @@
-import { View, Text, TextInput } from 'react-native'
+import { View, Text, TextInput, Image } from 'react-native'
 import React, { useState } from 'react'
-import FastImage from 'react-native-fast-image'
-import { PhoneImg } from '../constants/Images'
 import { pixelSizeHorizontal, widthPixel } from './ResponsiveScreen'
 import { FontSize, MEDIUM } from '../constants/Fonts'
 import { black, dim_grey, greenPrimary, light_grey, offWhite, primary, seprator, warmGrey, white } from '../constants/Color'
 import CommonStyle from './CommonStyle'
 
-const TextInputView = ({ value = "", imageSource, onChangeText, placeholder = "", editable = true, containerStyle = {}, ...props }) => {
+const TextInputView = ({ value = "", icon, imageSource, onChangeText, placeholder = "", editable = true,textFieldStyle, containerStyle = {}, ...props }) => {
 
     const [isFocused, setIsFocused] = useState(false)
 
@@ -30,36 +28,37 @@ const TextInputView = ({ value = "", imageSource, onChangeText, placeholder = ""
                 alignItems: 'center',
                 backgroundColor: white,
                 borderRadius: 8,
-                paddingHorizontal: 14,
+                paddingHorizontal: pixelSizeHorizontal(12),
                 borderWidth: 1.5,
-                borderColor: isFocused ? primary : offWhite
+                borderColor: isFocused  ? primary : offWhite
             }, { ...containerStyle }]}>
 
                 {imageSource &&
-                    <FastImage
+                    <Image
                         source={imageSource}
-                        style={{ width: widthPixel(20), height: widthPixel(20) }}
-                        resizeMode={'contain'}
+                        style={{ width: widthPixel(20), height: widthPixel(20), resizeMode : 'contain' }}
                     />}
+                    {icon && icon}
 
                 <TextInput
                     returnKeyType='done'
                     value={value}
                     onChangeText={onChangeText}
                     placeholder={placeholder}
-                    placeholderTextColor={black}
+                    // placeholderTextColor={black}
                     editable={editable}
                     onFocus={onFocus}
                     onBlur={onBlur}
-                    style={{
-                        flex: 1, marginLeft: pixelSizeHorizontal(15), fontFamily: MEDIUM, fontSize: FontSize.FS_16, color: black,
+                    style={[CommonStyle.textInputStyle,{
+                        flex: 1,
                         paddingVertical: pixelSizeHorizontal(10),
-                    }}
+                    }, imageSource ||icon && {marginHorizontal: pixelSizeHorizontal(12),},{...textFieldStyle}]}
                     {...props}
                 />
 
             </View>
-            <Text style={CommonStyle.errorText}>{props.error}</Text>
+            {props.error ? 
+            <Text style={[CommonStyle.errorText,{marginTop:pixelSizeHorizontal(3)}]}>{props.error}</Text>:null}
         </>
 
     )

@@ -1,9 +1,10 @@
-package com.sportswale;
+package com.webtual.sportswale;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactActivityDelegate;
+import android.content.Intent;
 
 public class MainActivity extends ReactActivity {
 
@@ -14,6 +15,16 @@ public class MainActivity extends ReactActivity {
   @Override
   protected String getMainComponentName() {
     return "SportsWale";
+  }
+
+  @Override
+  public void onNewIntent(Intent intent) {
+    super.onNewIntent(intent);
+  }
+
+  @Override
+  public void onBackPressed() {
+    super.onBackPressed();
   }
 
   /**

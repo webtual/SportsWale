@@ -1,390 +1,693 @@
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Platform,
+  PermissionsAndroid,
+  FlatList,
+  Linking,
+} from "react-native";
+import React, { useEffect, useLayoutEffect, useState } from "react";
+import {
+  black,
+  black05,
+  dim_grey,
+  light_grey,
+  primary,
+  primary_light,
+  secondary,
+  secondary_dark_grey,
+  white,
+} from "../../constants/Color";
 
-import { View, Text, SafeAreaView, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image } from 'react-native'
-import React, { useState } from 'react'
-import { black, black05, disableColor, grey, light_grey, primary, primary_light, secondary, secondary_dark_grey, warmGrey, warning, white } from '../../constants/Color'
+import Translate from "../../translation/Translate";
+import {
+  BOLD,
+  FontSize,
+  MEDIUM,
+  REGULAR,
+  SEMIBOLD,
+} from "../../constants/Fonts";
+import {
+  heightPixel,
+  pixelSizeHorizontal,
+  widthPixel,
+  pixelSizeVertical,
+} from "../../commonComponents/ResponsiveScreen";
+import { navigate, push } from "../../navigations/RootNavigation";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { Input, useToast } from "native-base";
+import { GOOGLE_API_KEY, LOCATION_CORDS, SCREEN_WIDTH } from "../../constants/ConstantKey";
+import CarouselCard from "../../commonComponents/Carousel/index";
+import HeaderView from "../../commonComponents/HeaderView";
+import { ic_gift, ic_group, ic_team } from "../../constants/Images";
+import BasicCard from "../../commonComponents/BasicCard";
+import { VenuesData, HomeBanner } from "../../DummyData/Data";
+import Divider from "../../commonComponents/Divider";
+import GamesCard from "../../commonComponents/GamesCard";
+import VenuesCard from "../../commonComponents/VenuesCard";
+import Carousel from "react-native-banner-carousel";
+import IconButton from "../../commonComponents/IconButton";
+import ChatIcon from "../../assets/images/ChatIcon";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  storeCurrentLocation,
+  user_data,
+} from "../../redux/reducers/userReducer";
+import BellIcon from "../../assets/images/BellIcon";
+import GroupIcon from "../../assets/images/GroupIcon";
+import PlayersIcon from "../../assets/images/PlayersIcon";
+import GiftBoxIcon from "../../assets/images/GiftBoxIcon";
+import MapPinIcon from "../../assets/images/MapPinIcon";
+import CommonStyle from "../../commonComponents/CommonStyle";
+import ApiManager from "../../commonComponents/ApiManager";
+import { GET_ALL_VENUES, GET_HOME } from "../../constants/ApiUrl";
+import LoadingView from "../../commonComponents/LoadingView";
+import Geolocation from "@react-native-community/geolocation";
+import Geocoder from "react-native-geocoding";
+import { useIsFocused } from "@react-navigation/native";
+import { getData, storeData } from "../../commonComponents/AsyncManager";
 
-import Translate from '../../translation/Translate'
-import { BOLD, FontSize, MEDIUM, REGULAR, SEMIBOLD } from '../../constants/Fonts'
-import { heightPixel, pixelSizeHorizontal, widthPixel } from '../../commonComponents/ResponsiveScreen'
-import { goBack, navigate, resetScreen } from '../../navigations/RootNavigation'
-import IconButton from '../../commonComponents/IconButton'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { FlatList, Input } from 'native-base'
-// import { HomeBanner1, HomeBanner2, HomeBanner3 } from '../constants/Images'
-import FastImage from 'react-native-fast-image'
-import { SCREEN_WIDTH } from '../../constants/ConstantKey'
-import CarouselCard from '../../commonComponents/Carousel/index'
-import HeaderView from '../../commonComponents/HeaderView'
-import moment, { updateLocale } from 'moment'
-import { append } from 'domutils'
-import { ic_calender, ic_clock } from '../../constants/Images'
+const Home = ({ navigation }) => {
+  const isFocused = useIsFocused();
+  const dispatch = useDispatch();
+  const toast = useToast();
 
+  //  const userData = (state) => state.userRedux.user_data
+  const userData = useSelector((state) => state.userRedux.user_data);
 
-const Home = () => {
+  const userReduxData = useSelector((state) => state.userRedux);
 
-    const [Sport, setSport] = useState("")
+  // const userData = useSelector(user_data);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isRefresh, setIsRefresh] = useState(false);
 
+  const [CurrentLatitude, setCurrentLatitude] = useState(userReduxData.lat || 0.0);
+  const [CurrentLongitude, setCurrentLongitude] = useState(userReduxData.long || 0.0);
 
-    const HomeBanner = [
-        {
-            image: "https://img.freepik.com/free-photo/sports-tools_53876-138077.jpg"
-        },
-        {
-            image: "https://img.freepik.com/free-photo/sports-tools_53876-138077.jpg"
-        },
-        {
-            image: "https://img.freepik.com/free-photo/sports-tools_53876-138077.jpg"
-        },
-    ]
-    const PickSport = [
-        {
-            id: 1,
-            SportName: 'Cricket',
-            SportImage: 'cricket'
-        },
-        {
-            id: 2,
-            SportName: 'Football',
-            SportImage: 'soccer'
-        },
-        {
-            id: 3,
-            SportName: 'Cycling',
-            SportImage: 'bike'
-        },
-        {
-            id: 4,
-            SportName: 'Baseball',
-            SportImage: 'baseball'
-        },
-        {
-            id: 5,
-            SportName: 'Swimming',
-            SportImage: 'swim'
-        },
-        {
-            id: 6,
-            SportName: 'Tennis',
-            SportImage: 'tennis'
-        },
-        {
-            id: 7,
-            SportName: 'Volley ball',
-            SportImage: 'volleyball'
-        },
+  const [homeData, setHomeData] = useState(null);
 
-        {
-            id: 8,
-            SportName: 'Basketball',
-            SportImage: 'basketball'
-        },
-        {
-            id: 9,
-            SportName: 'Water polo',
-            SportImage: 'water-polo'
-        },
+  const [txtCity, setTxtCity] = useState("");
 
-    ]
+  useEffect(() => {
 
-    const VenuesData = [
-        {
-            image: "https://content.jdmagicbox.com/comp/delhi/s4/011pxx11.xx11.151026131555.u2s4/catalogue/t-n-memorial-cricket-academy-nyay-khand-1-indirapuram-delhi-cricket-coaching-classes-g3hscbmrj5.jpg",
-            venueName: "Ahemedabad cricket ground",
-            venueAddress: "Ahemedabad",
-            rating: "5.0"
-        },
-        {
-            image: "https://media.hudle.in/venues/e5438e14-eef5-4ef7-8d40-2893200604b0/photo/91577a635c28585de0603a74f2bd7cf2014f27c4",
-            venueName: "Vikramnagar Football Ground",
-            venueAddress: "Ranip",
-            rating: "5.0"
-        },
-        {
-            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROJF5wMaNyC_atpMCOVJhDT-BuOFLkQ_4qpA&usqp=CAU",
-            venueName: "ACC cricket ground",
-            venueAddress: "Thaltej",
-            rating: "5.0"
-        },
-        {
-            image: "https://media.istockphoto.com/id/1130905980/photo/universal-grass-stadium-illuminated-by-spotlights-and-empty-green-grass-playground.jpg?b=1&s=170667a&w=0&k=20&c=7t-jHN-NyuCMH2S9BwUGmQBjbMZaRCykeG86n1PYaD0=",
-            venueName: "Colosseum Ahmedabad",
-            venueAddress: "Prahald nagar",
-            rating: "5.0"
-        },
-        {
-            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR355I7R0GFo-MLsVRZ0NPICjpTVSRG1T8gyQ&usqp=CAU",
-            venueName: "Ahemedabad cricket ground",
-            venueAddress: "Ghatlodia",
-            rating: "5.0"
-        },
-        {
-            image: "https://i1.wp.com/cricketgraph.com/wp-content/uploads/2017/06/LOGO-2.jpg?fit=613%2C341&ssl=1",
-            venueName: "Kankaria Football Ground (Maninagar)",
-            venueAddress: "Nikol",
-            rating: "5.0"
-        },
-        {
-            image: "https://content.jdmagicbox.com/comp/delhi/s4/011pxx11.xx11.151026131555.u2s4/catalogue/t-n-memorial-cricket-academy-nyay-khand-1-indirapuram-delhi-cricket-coaching-classes-g3hscbmrj5.jpg",
-            venueName: "Ahemedabad cricket ground",
-            venueAddress: "Naroda",
-            rating: "5.0"
-        },
-        {
-            image: "https://cdn3.mycity4kids.com/images/article-images/mobile-web/details/img-20160912-57d683c46cf11.jpg",
-            venueName: "Table Tennis Association of Ahmedabad",
-            venueAddress: "Bodakdev",
-            rating: "5.0"
-        },
-    ]
+   getData(LOCATION_CORDS, (data) =>{
+    if(data){
+      console.log("location data : ",data)
+      setCurrentLatitude(data?.lat)
+      setCurrentLongitude(data?.long)
 
-    const SelectIntrest = (item) => {
-        setSport(item)
+      dispatch(
+        storeCurrentLocation({
+          lat: data?.lat,
+          long: data?.long,
+        })
+      );
+
+      getaddressFromLatLong(
+        data?.lat,
+        data?.long
+      );
+      Api_Home(true, {
+        lat: data?.lat,
+        long: data?.long
+      });
+
+    }else{
+      requestLocationPermission();
+
     }
+   })
 
-    const checkExists = (item) => {
-        if (Sport.id === item.id) {
-            return true
+  },[])
+ 
+
+  useEffect(() => {
+
+    getData(LOCATION_CORDS, (data) =>{
+      if(data){
+        console.log("location data : ",data)
+        setCurrentLatitude(data?.lat)
+        setCurrentLongitude(data?.long)
+  
+        dispatch(
+          storeCurrentLocation({
+            lat: data?.lat,
+            long: data?.long,
+          })
+        );
+  
+        getaddressFromLatLong(
+          data?.lat,
+          data?.long
+        );
+
+        Api_Home(true, {
+          lat: data?.lat,
+          long: data?.long,
+        });
+      }else{
+        requestLocationPermission()
+      }})
+
+  }, [isFocused]);
+
+  const getaddressFromLatLong = async (lat, long) => {
+    Geocoder.from(lat, long)
+      .then((json) => {
+        var addressComponent = json.results?.[0];
+        console.log("address comp : ", JSON.stringify(addressComponent));
+        if (addressComponent) {
+          var filtered_data = addressComponent?.address_components?.filter(
+            (address) =>
+              address?.types.includes("locality") ||
+              address?.types.includes("administrative_area_level_3")
+          );
+          console.log("filtered address data : ", filtered_data);
+          setTxtCity(filtered_data?.[0]?.long_name);
         }
-        else {
-            return false
+      })
+      .catch((error) => console.warn("Geocoder error", error));
+  };
+
+  const requestLocationPermission = async () => {
+    if (Platform.OS === "ios") {
+      getOneTimeLocation();
+    } else {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            title: "Location Access Required",
+            message: "This App needs to Access your location",
+          }
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          //To Check, If Permission is granted
+          getOneTimeLocation();
+          console.log("====================================");
+          console.log("Permission Granted");
+          console.log("====================================");
+        } else {
+          setIsRefresh(false);
+          console.log("====================================");
+          console.log("Permission Denied");
+          console.log("====================================");
         }
+      } catch (err) {
+        setIsRefresh(false);
+        // Api_GetContacts(true);
+        console.warn(err);
+      }
     }
+  };
 
+  const getOneTimeLocation = () => {
+    Geolocation.getCurrentPosition(
+      //Will give you the current location
+      (position) => {
+        // console.log('====================================');
+        // console.log('Current Location is : ' + JSON.stringify(position));
+        // console.log('====================================');
 
-    return (
+        storeData(LOCATION_CORDS,{
+          lat: position.coords.latitude,
+          long: position.coords.longitude,
+        })
 
-        <HeaderView HeaderSmall={true} StackScreen={true}
-            title="Welcome to Sport Wale" isBack={false} containerStyle={{ paddingHorizontal: pixelSizeHorizontal(0) }}
-            titleColor={white}
-            rightComponent={(<View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Icon name={"map-marker-radius-outline"} size={26} color={white} />
-                <View style={{ justifyContent: "center", alignSelf: "center", alignItems: "center" }}>
-                    <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_12, color: light_grey, alignSelf: "center" }}>Gujarat</Text>
+        dispatch(
+          storeCurrentLocation({
+            lat: position.coords.latitude,
+            long: position.coords.longitude,
+          })
+        );
+        setCurrentLatitude(position.coords.latitude);
+        setCurrentLongitude(position.coords.longitude);
 
-                    <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_12, color: white, alignSelf: "center" }}>Ahemedabad</Text>
-                </View>
+        getaddressFromLatLong(
+          position.coords.latitude,
+          position.coords.longitude
+        );
+        Api_Home(true, {
+          lat: position.coords.latitude,
+          long: position.coords.longitude,
+        });
+        console.log("userReduxData : ", userReduxData);
+      },
+      (error) => {
+        setIsRefresh(false);
+        console.log("Geolocation error : ", error.message);
+      },
+      {
+        // enableHighAccuracy: false,
+        timeout: 200000,
+        // maximumAge: 3600000,
+      }
+    );
+  };
 
-            </View>)}
-        >
-            {/* <View style={{ marginVertical: pixelSizeHorizontal(20) }}>
-                <CarouselCard
-                    height={180}
-                    interval={4000}
-                    data={HomeBanner}
-                    onPress={item => { }}
-                    contentRender={item => <View style={{ borderRadius: widthPixel(10), }}>
-                        <Image
-                            style={{ borderRadius: widthPixel(8), width: "100%", height: "100%", borderRadius: widthPixel(10), }}
-                            source={{uri :"https://img.freepik.com/free-photo/sports-tools_53876-138077.jpg"}}
-                        />
-                    </View>}
-                />
-            </View> */}
+  const Api_Home = (isLoad, locationCords) => {
+    setIsLoading(isLoad);
 
-            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginVertical: 15, paddingHorizontal: pixelSizeHorizontal(20) }}>
-                <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: black }}>{Translate.t("select_sport")}</Text>
-                {/* <TouchableOpacity>
-                    <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: black }}>See more</Text>
-                </TouchableOpacity> */}
-            </View>
+    const formData = new FormData();
+    formData.append("latitude", locationCords.lat);
+    formData.append("longitude", locationCords.long);
 
-            <FlatList
-                contentContainerStyle={{
-                    paddingHorizontal: 20
+    ApiManager.post(GET_HOME, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        console.log("Api_Home : ", JSON.stringify(response));
+        setIsLoading(false);
+        setIsRefresh(false);
+
+        if (response.data.status === true) {
+          setHomeData(response.data.data);
+        } else {
+          toast.show({
+            description: response.data.message,
+          });
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setIsRefresh(false);
+        console.error("Api_Home Error ", err);
+      });
+  };
+
+  return (
+    <>
+      <HeaderView
+        HeaderSmall={true}
+        StackScreen={true}
+        title=""
+        isBack={false}
+        titleColor={white}
+        isRefreshing={isRefresh}
+        onRefresh={() => {
+          setIsRefresh(true);
+          // requestLocationPermission();
+
+          Api_Home(true, {
+            lat: CurrentLatitude,
+            long: CurrentLongitude,
+          });
+        }}
+        leftComponent={
+          <TouchableOpacity
+            style={{ flexDirection: "row", alignItems: "center" }}
+            onPress={() =>
+              navigate("LocationGoggle", {
+                title: "Search City",
+                googlePlaceProps: {
+                  filterReverseGeocodingByTypes: [
+                    "locality",
+                    "administrative_area_level_3",
+                  ],
+                },
+                onSelectPlace: (place_detail) => {
+                  console.log("place_detail : ", place_detail);
+                  setTxtCity(place_detail?.name);
+
+                  getaddressFromLatLong(
+                    place_detail?.geometry?.location?.lat,
+                    place_detail?.geometry?.location?.lng
+                  );
+
+                  storeData(LOCATION_CORDS,{
+                    lat: place_detail?.geometry?.location?.lat,
+                    long: place_detail?.geometry?.location?.lng,
+                  })
+
+                  dispatch(
+                    storeCurrentLocation({
+                      lat: place_detail?.geometry?.location?.lat,
+                      long: place_detail?.geometry?.location?.lng,
+                    })
+                  );
+                  setCurrentLatitude(place_detail?.geometry?.location?.lat);
+                  setCurrentLongitude(place_detail?.geometry?.location?.lng);
+
+                  Api_Home(true, {
+                    lat: place_detail?.geometry?.location?.lat,
+                    long: place_detail?.geometry?.location?.lng,
+                  });
+                },
+              })
+            }
+          >
+            <MapPinIcon />
+            <Text
+              style={[
+                CommonStyle.regularText,
+                { color: white, marginLeft: pixelSizeHorizontal(5) },
+              ]}
+            >
+              {txtCity}
+            </Text>
+            <Icon name={"chevron-down"} size={24} color={white} />
+          </TouchableOpacity>
+        }
+        rightComponent={
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            {/* <IconButton
+              additionalStyle={{ marginRight: pixelSizeHorizontal(18) }}
+              onPress={() => {}}
+            >
+              <ChatIcon />
+            </IconButton> */}
+            <IconButton onPress={() => {}}>
+              <BellIcon />
+            </IconButton>
+            {userData && (
+              <IconButton
+                additionalStyle={{ marginLeft: pixelSizeHorizontal(18) }}
+                onPress={() => {
+                  navigate("Profile");
                 }}
-                data={PickSport}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                ItemSeparatorComponent={() => (<View style={{ width: widthPixel(15) }}></View>)}
-                renderItem={({ item }) => (
-                    <View style={{
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}>
-                        <TouchableOpacity onPress={() => SelectIntrest(item)}
-                            style={{
-                                backgroundColor: checkExists(item) == true ? primary : primary_light,
-                                width: 60,
-                                height: 60,
-                                flexDirection: "row",
-                                alignItems: "center",
-                                alignSelf: "center",
-                                justifyContent: "center",
-                                borderRadius: 50,
-                            }}>
-                            <Icon name={item.SportImage} size={42} color={checkExists(item) == true ? white : primary} />
-                        </TouchableOpacity>
-                        <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_14, color: black, marginVertical: 5 }}>{item.SportName}</Text>
-                    </View>
-                )}
-            />
+              >
+                <Image
+                  source={{ uri: userData?.asset_url + userData?.profile }}
+                  style={{
+                    width: widthPixel(40),
+                    height: widthPixel(40),
+                    borderRadius: widthPixel(20),
+                    borderWidth: 1,
+                    borderColor: white,
+                  }}
+                />
+              </IconButton>
+            )}
+          </View>
+        }
+      >
+        <View style={{ flex: 1, marginBottom: pixelSizeHorizontal(80) }}>
 
-            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: 20, marginBottom: 10, paddingHorizontal: pixelSizeHorizontal(20) }}>
-                <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: black }}>{Translate.t("upcoming_events")}</Text>
-                <TouchableOpacity onPress={() => { navigate("Venue") }}>
-                    <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: black }}>{Translate.t("see_all")}</Text>
+          <View style={{ marginTop: pixelSizeHorizontal(20) }}>
+            <Carousel
+              autoplay={__DEV__ ? false : true}
+              // ref={scrollRef}
+              // autoplayTimeout={5000}
+              loop={__DEV__ ? false : true}
+              index={0}
+              pageSize={SCREEN_WIDTH}
+              pageIndicatorOffset={16}
+              pageIndicatorStyle={{ backgroundColor: white }}
+              activePageIndicatorStyle={{ backgroundColor: black }}
+              // showsPageIndicator={venueImage.length ==1 ? false : true}
+              onPageChanged={(index) => {
+                // setPageIndex(index)
+              }}
+            >
+              {homeData?.sliders.map((item, index) => {
+                return (
+                  <TouchableOpacity
+                    style={{
+                      width: widthPixel(SCREEN_WIDTH - 30),
+                      height: widthPixel(180),
+                      alignSelf: "center",
+                      borderRadius: widthPixel(10),
+                    }}
+                    onPress={() => {
+                      if (item?.url != null) {
+                        Linking.openURL(item.url);
+                      }
+                    }}
+                  >
+                    <Image
+                      style={{
+                        flex: 1,
+                        borderRadius: widthPixel(10),
+                        resizeMode: "cover",
+                      }}
+                      source={{
+                        uri: userData.asset_url + item.file,
+                      }}
+                    />
+                  </TouchableOpacity>
+                );
+              })}
+            </Carousel>
+            {/* <CarouselCard
+              height={180}
+              interval={4000}
+              data={HomeBanner}
+              onPress={(item) => {}}
+              contentRender={(item) => (
+                <View style={{ borderRadius: widthPixel(10) }}>
+                  <Image
+                    style={{
+                      borderRadius: widthPixel(8),
+                      width: "100%",
+                      height: "100%",
+                      borderRadius: widthPixel(10),
+                    }}
+                    source={{
+                      uri: "https://img.freepik.com/free-photo/sports-tools_53876-138077.jpg",
+                    }}
+                  />
+                </View>
+              )}
+            /> */}
+          </View>
+
+          {homeData?.near_by_games.length ? (
+            <>
+              <View style={styles.nearByContainer}>
+                <Text style={styles.nearByText}>
+                  {Translate.t("join_nearby_games")}
+                </Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigate("Games");
+                  }}
+                >
+                  <Icon name={"chevron-right"} size={28} color={black} />
                 </TouchableOpacity>
-            </View>
-            <FlatList contentContainerStyle={{ paddingBottom: 20, paddingHorizontal: pixelSizeHorizontal(20) }}
+              </View>
+              <FlatList
+                contentContainerStyle={{
+                  paddingBottom: pixelSizeHorizontal(20),
+                  paddingHorizontal: pixelSizeHorizontal(20),
+                }}
                 horizontal
-                data={VenuesData}
+                data={homeData?.near_by_games}
                 showsHorizontalScrollIndicator={false}
-                ItemSeparatorComponent={() => (<View style={{ width: widthPixel(20), height: heightPixel(20) }}></View>)}
-                renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => navigate("VenueDetail", { item: item })}
-                        activeOpacity={0.7}
-                        style={{
-                            backgroundColor: "white",
-                            width: SCREEN_WIDTH / 1.9,
-                            minHeight:180,
-                            // height: 160,
-                            borderRadius: 10,
-                            shadowColor: black05,
-                            shadowOffset: {
-                                width: 0,
-                                height: 3,
-                            },
-                            shadowOpacity: 0.17,
-                            shadowRadius: 8,
-                            elevation: 3,
-                            alignSelf: "center"
-                        }}>
-
-                        <FastImage
-                            style={{ width: "100%", height: 100, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}
-                            source={{ uri: item.image }}
-                            resizeMode="cover"
-                        />
-                        <View style={{
-                            marginVertical: pixelSizeHorizontal(5),
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-
-                        }}>
-                            <View style={{ marginHorizontal: 8, flex: 1 }}>
-                                <Text numberOfLines={2} style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_12, color: black, }}>{item.venueName}</Text>
-                                {/* <View style={{ flexDirection: "row", alignItems: "center", marginHorizontal: -5, marginTop: 3 }}> */}
-                                {/* <Icon name={"map-marker-radius-outline"} size={20} color={primary} /> */}
-                                {/* <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_14, color: secondary_dark_grey, }}>{item.venueAddress}</Text> */}
-                                {/* </View> */}
-                            </View>
-                            <View style={{ flexDirection: "row", alignItems: "center", marginRight: 10 }}>
-                                <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_10, color: secondary_dark_grey, }}>{item.venueAddress}</Text>
-
-                                {/*  <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_14, color: secondary_dark_grey, marginHorizontal: 5 }}>{item.rating}</Text>
-                                <Icon name={"star"} size={20} color={warning} /> */}
-                            </View>
-
-                        </View>
-                        <View style={{
-                            marginVertical: pixelSizeHorizontal(5),
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-
-                        }}>
-                            <View style={{ marginHorizontal: 8, flex: 1, flexDirection: "row", alignItems: "center" }}>
-                                <FastImage
-                                    style={{ width: 15, height: 15 }}
-                                    source={ic_calender}
-                                />
-                                <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_11, color: secondary_dark_grey, marginLeft: 5 }}>{moment(new Date()).format("ddd, DD MMM YYYY ")}</Text>
-                            </View>
-                            <View style={{ flexDirection: "row", alignItems: "center", marginRight: 10 }}>
-                            <FastImage
-                                    style={{ width: 15, height: 15 }}
-                                    source={ic_clock}
-                                />
-                                <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_10, color: secondary_dark_grey,marginLeft: 5 }}>{moment(new Date()).format("hh:mm A")}</Text>
-                            </View>
-                        </View>
-
-
-                    </TouchableOpacity>
+                ItemSeparatorComponent={() => (
+                  <View
+                    style={{ width: widthPixel(20), height: heightPixel(20) }}
+                  />
                 )}
-            />
+                renderItem={({ item }) => (
+                  <GamesCard
+                    cardStyles={{ width: SCREEN_WIDTH / 1.3 }}
+                    item={item}
+                    bookMark={false}
+                  />
+                )}
+              />
+            </>
+          ) : null}
 
-            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 10, paddingHorizontal: pixelSizeHorizontal(20) }}>
-                <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: black }}>{Translate.t("recommended_venue")}</Text>
-                <TouchableOpacity onPress={() => { navigate("Venue") }}>
-                    <Text style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_15, color: black }}>{Translate.t("see_all")}</Text>
+          {homeData?.near_by_venues.length ? (
+            <>
+              <View style={[styles.nearByContainer, { marginTop: 10 }]}>
+                <Text style={styles.nearByText}>
+                  {Translate.t("book_nearby_venue")}
+                </Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigate("Book");
+                  }}
+                >
+                  <Icon name={"chevron-right"} size={28} color={black} />
                 </TouchableOpacity>
-            </View>
-            <FlatList contentContainerStyle={{ paddingBottom: 20, paddingHorizontal: pixelSizeHorizontal(20) }}
+              </View>
+              <FlatList
+                contentContainerStyle={{
+                  paddingBottom: pixelSizeHorizontal(20),
+                  paddingHorizontal: pixelSizeHorizontal(20),
+                }}
                 horizontal
-                data={VenuesData}
+                data={homeData?.near_by_venues}
                 showsHorizontalScrollIndicator={false}
-                ItemSeparatorComponent={() => (<View style={{ width: widthPixel(20), height: heightPixel(20) }}></View>)}
-                renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => navigate("VenueDetail", { item: item })}
-                        activeOpacity={0.7}
-                        style={{
-                            backgroundColor: "white",
-                            width: SCREEN_WIDTH / 1.9,
-                            borderRadius: 10,
-                            minHeight:150,
-                            shadowColor: black05,
-                            shadowOffset: {
-                                width: 0,
-                                height: 3,
-                            },
-                            shadowOpacity: 0.17,
-                            shadowRadius: 8,
-                            elevation: 3,
-                            alignSelf: "center",
-                        }}>
-
-                        <FastImage
-                            style={{ width: "100%", height: 100, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}
-                            source={{ uri: item.image }}
-                            resizeMode="cover"
-                        />
-                        <View style={{
-                            marginVertical: pixelSizeHorizontal(10),
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-
-                        }}>
-                            <View style={{ marginHorizontal: 8, flex: 1 }}>
-                                <Text numberOfLines={2} style={{ fontFamily: SEMIBOLD, fontSize: FontSize.FS_12, color: black, }}>{item.venueName}</Text>
-                            </View>
-                            <View style={{ flexDirection: "row", alignItems: "center", marginRight: 10 }}>
-                                <Text style={{ fontFamily: REGULAR, fontSize: FontSize.FS_10, color: secondary_dark_grey, }}>{item.venueAddress}</Text>
-                            </View>
-                        </View>
-
-
-                    </TouchableOpacity>
+                ItemSeparatorComponent={() => (
+                  <View
+                    style={{ width: widthPixel(20), height: widthPixel(20) }}
+                  />
                 )}
-            />
+                renderItem={({ item }) => (
+                  <VenuesCard
+                    item={item}
+                    styles={{ width: SCREEN_WIDTH / 1.4 }}
+                    isShowFavourite={false}
+                    showGamesList={false}
+                  />
+                )}
+              />
+            </>
+          ) : null}
 
-        </HeaderView>
+          {/* <View
+            style={{
+              paddingHorizontal: pixelSizeHorizontal(20),
+              marginTop: pixelSizeHorizontal(10),
+            }}
+          >
+            <BasicCard style={styles.cardContainer}>
+              <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+                onPress={()=>{
+                  navigate('BookingPolicy')
+                }}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    paddingVertical: pixelSizeHorizontal(10),
+                  }}
+                >
+                  <GroupIcon />
+                  <View style={{ marginLeft: pixelSizeHorizontal(15) }}>
+                    <Text style={styles.semiText}>Groups</Text>
+                    <Text
+                      style={[
+                        styles.semiSubText,
+                        { marginTop: pixelSizeHorizontal(4) },
+                      ]}
+                    >
+                      Let's connect and Play
+                    </Text>
+                  </View>
+                </View>
+                <Icon name={"chevron-right"} size={28} color={dim_grey} />
+              </TouchableOpacity>
+              <Divider style={{ marginVertical: pixelSizeVertical(10) }} />
+              <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
 
-    )
-}
+                onPress={()=>{
+                  navigate('WriteUs')
+                }}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    paddingVertical: pixelSizeHorizontal(10),
+                  }}
+                >
+                  <PlayersIcon />
+                  <View style={{ marginLeft: pixelSizeHorizontal(15) }}>
+                    <Text style={styles.semiText}>Manage Player</Text>
+                    <Text
+                      style={[
+                        styles.semiSubText,
+                        { marginTop: pixelSizeHorizontal(4) },
+                      ]}
+                    >
+                      Manage your Players
+                    </Text>
+                  </View>
+                </View>
+                <Icon name={"chevron-right"} size={28} color={dim_grey} />
+              </TouchableOpacity>
+            </BasicCard>
+          </View> */}
 
+          <View style={{ paddingHorizontal: pixelSizeHorizontal(20), marginVertical : pixelSizeHorizontal(10) }}>
+            <BasicCard
+              style={styles.cardContainer}
+              onPress={() => navigate("InvitePeople")}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingVertical: pixelSizeHorizontal(10),
+                }}
+              >
+                <GiftBoxIcon />
+                <View style={{ marginHorizontal: 15 }}>
+                  <Text style={styles.semiText}>Refer a Sport Lover</Text>
+                  <Text
+                    style={[
+                      styles.semiSubText,
+                      { marginTop: pixelSizeHorizontal(4) },
+                    ]}
+                  >
+                    Refer & Earn a Coupon
+                  </Text>
+                </View>
+              </View>
+            </BasicCard>
+          </View>
+        </View>
+      </HeaderView>
+      {isLoading && <LoadingView />}
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
-
-    container: {
-        flex: 1, backgroundColor: white,
-        justifyContent: "center"
+  container: {
+    flex: 1,
+    backgroundColor: white,
+    justifyContent: "center",
+  },
+  nearByContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginTop: pixelSizeHorizontal(20),
+    marginBottom: 10,
+    paddingHorizontal: pixelSizeHorizontal(20),
+  },
+  nearByText: {
+    fontFamily: BOLD,
+    fontSize: FontSize.FS_16,
+    color: black,
+  },
+  subIcon: {
+    width: widthPixel(28),
+    height: widthPixel(28),
+  },
+  semiText: {
+    fontFamily: BOLD,
+    fontSize: FontSize.FS_14,
+    color: black,
+  },
+  semiSubText: {
+    fontFamily: SEMIBOLD,
+    fontSize: FontSize.FS_12,
+    color: dim_grey,
+  },
+  cardContainer: {
+    borderWidth: 0,
+    marginBottom: 10,
+    shadowColor: black05,
+    shadowOffset: {
+      width: 0,
+      height: 3,
     },
+    shadowOpacity: 0.17,
+    shadowRadius: 3,
+    elevation: 3,
+  },
+});
 
-})
-
-export default Home
-
-
-
-
-
-//  Task Update(05 - 04 - 2023) :
-
-// (SPORTSWALE) :
-// 1.  Add venue screen design 
-// 2.  Activity screen design
-// 3.  Create activity screen design
-// 4.  Add location model
+export default Home;

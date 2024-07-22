@@ -9,7 +9,7 @@ export function navigate(name, params) {
 }
 
 export function push(name, params) {
-  navigationRef.current && navigationRef.current.dispatch(StackActions.push(name, params));
+   navigationRef.current.dispatch(StackActions.push(name, params));
 }
 
 export function goBack() {
@@ -23,6 +23,10 @@ export function resetScreen(screenName) {
       routes: [{ name: screenName }],
     }),
   );
+}
+
+export function popToTop(){
+  navigationRef.current?.popToTop()
 }
 
 /** Use for Jump to diff tabs after screen reset
