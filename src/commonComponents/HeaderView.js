@@ -67,15 +67,16 @@ const HeaderView = ({
           <Image
             source={headerBackground}
             style={{
-              flex: 1,
-              // width:'100%',
+              // flex: 1,
+              width:'100%',
+              height : '100%',
               borderBottomLeftRadius: 25,
               borderBottomRightRadius: 25,
               resizeMode: "cover",
             }}
           />
 
-          <View style={styles.headerRowContainer}>
+          <View style={[styles.headerRowContainer,]}>
             {isBack && (
               <IconButton additionalStyle={styles.btnBack} onPress={onPress}>
                 <Icon name={"chevron-left"} size={32} color={titleColor} />

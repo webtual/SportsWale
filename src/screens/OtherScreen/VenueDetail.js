@@ -137,7 +137,7 @@ const VenueDetail = (props) => {
         } else {
           toast.show({
             description: response.data.message,
-            placement:'top'
+            placement: "top",
           });
         }
       })
@@ -166,29 +166,35 @@ const VenueDetail = (props) => {
 
   const btnCreateGameTap = () => {
     if (venueDetail?.venue_grounds.length) {
-      navigate("VenueSlotBooking", { venueDetail: venueDetail, type:"create_game" });
-    }else{
+      navigate("VenueSlotBooking", {
+        venueDetail: venueDetail,
+        type: "create_game",
+      });
+    } else {
       toast.show({
-        description : `${venueDetail?.title} doesn't have any ground linked, please try another venue`,
-        style:{
-          marginHorizontal:pixelSizeHorizontal(20)
-        }
-      })
+        description: `${venueDetail?.title} doesn't have any game linked, please try another venue`,
+        style: {
+          marginHorizontal: pixelSizeHorizontal(20),
+        },
+      });
     }
   };
 
   const btnBookNowTap = () => {
     if (venueDetail?.venue_grounds.length) {
-      navigate("VenueSlotBooking", { venueDetail: venueDetail, type:"book_now" });
-    }else{
+      navigate("VenueSlotBooking", {
+        venueDetail: venueDetail,
+        type: "book_now",
+      });
+    } else {
       toast.show({
-        description : `${venueDetail?.title} doesn't have any ground linked, please try another venue`,
-        style:{
-          marginHorizontal:pixelSizeHorizontal(20)
-        }
-      })
+        description: `${venueDetail?.title} doesn't have any game linked, please try another venue`,
+        style: {
+          marginHorizontal: pixelSizeHorizontal(20),
+        },
+      });
     }
-  }
+  };
 
   return (
     <>
@@ -206,10 +212,7 @@ const VenueDetail = (props) => {
                   <View
                     style={{ width: SCREEN_WIDTH, height: widthPixel(180) }}
                   >
-                    <Image
-                      style={{ flex: 1 }}
-                      source={{ uri: item.image }}
-                    />
+                    <Image style={{ flex: 1 }} source={{ uri: item.image }} />
                   </View>
                 )}
               />
@@ -251,7 +254,8 @@ const VenueDetail = (props) => {
                     color: black,
                   }}
                 >
-                  {venueDetail?.display_start_time} to {venueDetail?.display_end_time}
+                  {venueDetail?.display_start_time} to{" "}
+                  {venueDetail?.display_end_time}
                   {/* {moment(venueDetail?.start_time).format("HH:MM A")} to {moment(venueDetail?.end_time).format("HH:MM A")} */}
                 </Text>
               </View>
@@ -297,7 +301,14 @@ const VenueDetail = (props) => {
                 Show in Map
               </Text>
             </TouchableOpacity>
-            <Text style={{marginHorizontal : pixelSizeHorizontal(20), fontFamily : REGULAR, fontSize:FontSize.FS_12, color: dim_grey}}>
+            <Text
+              style={{
+                marginHorizontal: pixelSizeHorizontal(20),
+                fontFamily: REGULAR,
+                fontSize: FontSize.FS_12,
+                color: dim_grey,
+              }}
+            >
               {venueDetail?.distance} KM away from you
             </Text>
 
@@ -354,14 +365,16 @@ const VenueDetail = (props) => {
                   style={[
                     styles.btn,
                     {
-                      backgroundColor: venueDetail?.allow_for_rating ? secondary: grey,
+                      backgroundColor: venueDetail?.allow_for_rating
+                        ? secondary
+                        : grey,
                     },
                   ]}
                   onPress={() => {
-                    if(venueDetail?.allow_for_rating){
-                      openRatingSheet()
+                    if (venueDetail?.allow_for_rating) {
+                      openRatingSheet();
                     }
-                    }}
+                  }}
                 >
                   <Text
                     style={{
@@ -397,8 +410,12 @@ const VenueDetail = (props) => {
                   {venueDetail?.total_game_count} Total games
                 </Text>
               </View>
-              <TouchableOpacity style={{ flex: 1 / 1.2, flexWrap: "wrap" }}
-              onPress={() => navigate("GameByVenue",{venueDetail : venueDetail})}>
+              <TouchableOpacity
+                style={{ flex: 1 / 1.2, flexWrap: "wrap" }}
+                onPress={() =>
+                  navigate("GameByVenue", { venueDetail: venueDetail })
+                }
+              >
                 <View
                   style={[
                     styles.btn,
@@ -443,7 +460,7 @@ const VenueDetail = (props) => {
                       color: black,
                     }}
                   >
-                    Avialable Sports
+                    Available Sports
                   </Text>
                 </View>
                 <FlatList
@@ -459,27 +476,32 @@ const VenueDetail = (props) => {
                   )}
                 />
 
-<TouchableOpacity
-                      activeOpacity={1}
-                      onPress={() => btnCreateGameTap()}
-                      style={[
-                        CommonStyle.mainBtnStyle,
-                        {
-                          flex: 1,
-                          flexDirection : 'row',
-                          marginTop : pixelSizeHorizontal(10),
-                          marginHorizontal: pixelSizeHorizontal(20),
-                          // borderWidth: 1,
-                          // borderColor: border,
-                          // backgroundColor: white,
-                        },
-                      ]}
-                    >
-                      <Icon name={"plus"} size={25} color={Colors.white}/>
-                      <Text style={[CommonStyle.mainBtnText, {marginLeft : pixelSizeHorizontal(10) }]}>
-                        Create Game
-                      </Text>
-                    </TouchableOpacity>
+                <TouchableOpacity
+                  activeOpacity={1}
+                  onPress={() => btnCreateGameTap()}
+                  style={[
+                    CommonStyle.mainBtnStyle,
+                    {
+                      flex: 1,
+                      flexDirection: "row",
+                      marginTop: pixelSizeHorizontal(10),
+                      marginHorizontal: pixelSizeHorizontal(20),
+                      // borderWidth: 1,
+                      // borderColor: border,
+                      // backgroundColor: white,
+                    },
+                  ]}
+                >
+                  <Icon name={"plus"} size={25} color={Colors.white} />
+                  <Text
+                    style={[
+                      CommonStyle.mainBtnText,
+                      { marginLeft: pixelSizeHorizontal(10) },
+                    ]}
+                  >
+                    Create Game
+                  </Text>
+                </TouchableOpacity>
               </>
             ) : null}
 

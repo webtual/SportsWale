@@ -519,7 +519,8 @@ PODS:
     - React-Core
     - React-RCTImage
     - TOCropViewController
-  - RNScreens (3.20.0):
+  - RNScreens (3.32.0):
+    - RCT-Folly (= 2021.07.22.00)
     - React-Core
     - React-RCTImage
   - RNSVG (13.9.0):
@@ -785,7 +786,7 @@ SPEC CHECKSUMS:
   RNFBCrashlytics: c3219ef7a0c779f2428236215781c38e7892f6f9
   RNFBMessaging: e86747e8bba79cb464f3f1f22aaae19f38ee7397
   RNImageCropPicker: 14fe1c29298fb4018f3186f455c475ab107da332
-  RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
+  RNScreens: 0bd9eec783bed1032e02a4db9976dae1664a5c7b
   RNSVG: 53c661b76829783cdaf9b7a57258f3d3b4c28315
   TOCropViewController: 80b8985ad794298fb69d3341de183f33d1853654
   Yoga: 79dd7410de6f8ad73a77c868d3d368843f0c93e0

@@ -69,13 +69,16 @@ const Register = (props) => {
   const [conditionModal, setConditionModal] = useState(false);
 
   const handleTermsPress = () => {
-    setConditionModal(true);
-    setSelectedSheet("terms");
+    Linking.openURL("https://project.thewebtual.com/sportwale/internal/terms")
+    // setConditionModal(true);
+    // setSelectedSheet("terms");
   };
 
   const handlePrivacyPolicyPress = () => {
-    setConditionModal(true);
-    setSelectedSheet("privacy");
+    Linking.openURL("https://project.thewebtual.com/sportwale/internal/privacy")
+
+    // setConditionModal(true);
+    // setSelectedSheet("privacy");
   };
 
   const ArrGender = [

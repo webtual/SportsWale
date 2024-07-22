@@ -228,7 +228,7 @@ const PayJoin = (props) => {
               </Text>
             </View>
 
-            <View
+            {/* <View
               style={[
                 styles.card,
                 {
@@ -251,7 +251,7 @@ const PayJoin = (props) => {
                 of type and scrambled it to make a type specimen book. It has
                 survived not only five centuries,
               </Text>
-            </View>
+            </View> */}
           </View>
         )}
       </HeaderView>
@@ -274,15 +274,14 @@ const PayJoin = (props) => {
       <CenterModal
           isVisible={isGameSuccessModal}
           isCloseBtn={true}
+          // hasBackdrop={false}
           onClose={() => {
             setIsGameSuccessModal(false);
             
             setTimeout(() => {
-
               Promise.all([
                 resetScreen("Dashboard")
-                ]).then(() => navigate('BokingDetails',{transactionId:transactionId}))
-
+              ]).then(() => navigate('BokingDetails',{transactionId:transactionId}))
             }, 2000);
           }}
         >

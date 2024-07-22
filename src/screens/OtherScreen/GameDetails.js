@@ -779,7 +779,7 @@ const GameDetails = (props) => {
                         { marginTop: pixelSizeHorizontal(5) },
                       ]}
                     >
-                      <Text style={{ fontFamily: SEMIBOLD }}>A.</Text>
+                      <Text style={{ fontFamily: SEMIBOLD }}>A. </Text>
                       {gameDetails?.questions?.[0]?.answer}
                     </Text>
                   ) : null}
@@ -883,8 +883,7 @@ const GameDetails = (props) => {
           style={{ padding: pixelSizeHorizontal(15), backgroundColor: white }}
         >
           <Text style={[styles.questionText]}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy.
+           Add your questions about game or any other query
           </Text>
 
           <View style={{ marginVertical: pixelSizeHorizontal(12) }}>

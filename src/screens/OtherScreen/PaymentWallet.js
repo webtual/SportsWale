@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import HeaderView from "../../commonComponents/HeaderView";
-import { goBack } from "../../navigations/RootNavigation";
+import { goBack, navigate } from "../../navigations/RootNavigation";
 import {
   pixelSizeHorizontal,
   widthPixel,
@@ -26,7 +26,7 @@ const PaymentWallet = () => {
         containerStyle={{ paddingHorizontal: pixelSizeHorizontal(20) }}
       >
         <View style={{ flex: 1 }}>
-          <View
+          {/* <View
             style={{
               flexDirection: "row",
               alignItems: "center",
@@ -75,7 +75,7 @@ const PaymentWallet = () => {
             onPress={() => {}}
           >
             <Text style={CommonStyle.mainBtnText}>Add money to Wallet</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <TouchableOpacity
             style={[
@@ -83,6 +83,7 @@ const PaymentWallet = () => {
               CommonStyle.shadow,
               { flexDirection: "row" },
             ]}
+            onPress={() => navigate("TransactionHistory")}
           >
             <Text
               style={[

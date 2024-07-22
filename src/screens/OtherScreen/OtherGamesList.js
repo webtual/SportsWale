@@ -164,10 +164,10 @@ const OtherGamesList = ({ setIsLoading }) => {
         showsHorizontalScrollIndicator={false}
         data={allGames}
         ListFooterComponent={
-          <View style={{ width: pixelSizeHorizontal(20) }}></View>
+          <View style={{ width: pixelSizeHorizontal(20) }} />
         }
         ListHeaderComponent={
-          <View style={{ width: pixelSizeHorizontal(20) }}></View>
+          <View style={{ width: pixelSizeHorizontal(20) }}/>
         }
         contentContainerStyle={{
           flexDirection: "row",

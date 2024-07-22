@@ -45,12 +45,10 @@ const Splash = (props) => {
 			if (data == null) {
 				resetScreen('Intro')
 			} else {
-
 				storeData(BEARER_TOKEN,data?.auth_token)
 				storeData(USER_DATA, data, () => {
 					dispatch(storeUserData(data))
 					resetScreen("Dashboard")
-
 				})
 			}
 		})
@@ -59,12 +57,12 @@ const Splash = (props) => {
 
 	return (
 		<View style={styles.container}>
-			<StatusBar barStyle={'dark-content'} backgroundColor={primary} />
-			<View style={{ flex: 1, backgroundColor: primary, alignItems: 'center', justifyContent: 'center' }}>
+			<StatusBar barStyle={'dark-content'} backgroundColor={white} />
+			<View style={{ flex: 1, backgroundColor: white, alignItems: 'center', justifyContent: 'center' }}>
 
 				<Image
 					source={appLogoWhiteTrans}
-					style={{ width: SCREEN_WIDTH - 60 , height: heightPixel(400), alignSelf: 'center', resizeMode : 'cover' }}
+					style={{ width: SCREEN_WIDTH , height:SCREEN_HEIGHT, alignSelf: 'center', resizeMode : 'contain' }}
 				/>
 			</View>
 		</View>
@@ -75,7 +73,7 @@ const Splash = (props) => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: offWhite
+		backgroundColor: white
 	},
 	textView: {
 		position: 'absolute', bottom: pixelSizeVertical(53), alignContent: 'flex-end',

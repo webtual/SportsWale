@@ -33,7 +33,7 @@ export const UPDATE_QUESTION = "event-questions/";
 export const WRITE_TO_US = "inquiries/write-to-us";
 export const CANCEL_GAME = "transactions/cancelled"
 export const VENUE_UPCOMING_GAME = "events/by-venues"
-
+export const TRANSACTION_HISTORY = "transactions/histories"
 
 
 export const GET_HOME_BANNER = "get-homebanner";

@@ -14,8 +14,8 @@ export const LOCATION_CORDS = "LOCATION_CORDS"
 
 export const GOOGLE_API_KEY = "AIzaSyC3kESn1Cc0X7idSUU0i3nw7Gjd2o9zMpE"//'AIzaSyBOoDtUIYQCLwexvSt3lB0_9VPdGBMgoUk'
 
-export const ANDROID_APP_LINK = 'https://play.google.com/store/apps/details?id=com.sportsvale.app'
-export const IOS_APP_LINK = 'https://apps.apple.com/us/app/'
+export const ANDROID_APP_LINK = 'https://play.google.com/store/apps/details?id=com.webtual.sportswale'
+export const IOS_APP_LINK = 'https://apps.apple.com/app/sports-wale/id6566179721'
 
 export const DEEPLINK_LIVE_URL =  "sportswale.app.link"
 export const DEEPLINK_TEST_URL =  "sportswale-alternate.app.link"

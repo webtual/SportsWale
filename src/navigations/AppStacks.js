@@ -68,6 +68,7 @@ import FavouriteVenue from '../screens/OtherScreen/FavouriteVenue';
 import UserProfileDetails from '../screens/OtherScreen/UserProfileDetails';
 import Policy from '../screens/OtherScreen/Policy';
 import GameByVenue from '../screens/OtherScreen/GameByVenue';
+import TransactionHistory from '../screens/OtherScreen/TransactionHistory';
 
 // import { cart_data } from '../redux/reducers/cartReducer';
 // import { useSelector } from 'react-redux';
@@ -219,6 +220,8 @@ function AppStacks() {
 
 			<Stack.Screen name="VenueDetail" component={VenueDetail} />
 			<Stack.Screen name="UserProfileDetails" component={UserProfileDetails} />
+			<Stack.Screen name="TransactionHistory" component={TransactionHistory} />
+
 			
 		</Stack.Navigator>
 	)

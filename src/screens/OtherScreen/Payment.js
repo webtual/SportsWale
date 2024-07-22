@@ -93,7 +93,6 @@ export default function Payment(props) {
     console.log("selectedSlots : ", selectedSlots);
     console.log("type : ", type);
 
-
     if(type == "book_now"){
       setTxtTotalPlayer("1")
       setTxtCostPerPlayer("0")
@@ -392,7 +391,7 @@ export default function Payment(props) {
                 placeholder=""
                 onChangeText={setTxtTotalPlayer}
                 maxLength={7}
-                editable={type == "book_now" ? false : true}
+                // editable={type == "book_now" ? false : true}
                 keyboardType={"number-pad"}
               />
             </View>
@@ -421,7 +420,7 @@ export default function Payment(props) {
                 placeholder="00"
                 onChangeText={setTxtCostPerPlayer}
                 maxLength={7}
-                editable={type == "book_now" ? false : true}
+                // editable={type == "book_now" ? false : true}
                 keyboardType={"number-pad"}
               />
             </View>

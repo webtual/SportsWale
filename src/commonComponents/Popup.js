@@ -89,6 +89,7 @@ export const CenterModal = ({
   onClose,
   isCloseBtn,
   children,
+  hasBackdrop = true
 }) => {
   return (
     <Modal
@@ -103,7 +104,7 @@ export const CenterModal = ({
       ]}
       // deviceHeight={SCREEN_HEIGHT * 0.09}
       deviceWidth={SCREEN_WIDTH}
-      hasBackdrop={true}
+      hasBackdrop={hasBackdrop}
       backdropColor="rgba(0,0,0,0.7)"
       backdropOpacity={0.7}
       useNativeDriver={true}

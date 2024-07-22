@@ -387,6 +387,7 @@ const Home = ({ navigation }) => {
         }
       >
         <View style={{ flex: 1, marginBottom: pixelSizeHorizontal(80) }}>
+
           <View style={{ marginTop: pixelSizeHorizontal(20) }}>
             <Carousel
               autoplay={__DEV__ ? false : true}

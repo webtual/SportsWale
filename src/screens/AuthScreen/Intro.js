@@ -40,7 +40,7 @@ const Intro = () => {
       hash: "#1 ",
       appName: "Sport App",
       subTitle:
-        "Lorem Ipsum is simply dummy the printing and typesetting industry",
+        "Find your sports passion in our app",
       image: <IntroSVG height={300} />,
     },
   ];
