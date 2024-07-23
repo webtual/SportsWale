@@ -880,7 +880,7 @@
 				CODE_SIGN_ENTITLEMENTS = SportsWale/SportsWale.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = MSD97L88TJ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SportsWale/Info.plist;
@@ -915,7 +915,7 @@
 				CODE_SIGN_ENTITLEMENTS = SportsWale/SportsWale.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = MSD97L88TJ;
 				INFOPLIST_FILE = SportsWale/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Sports Wale";
