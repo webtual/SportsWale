@@ -37,10 +37,8 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>Allow access to Media Library to upload photos from your library.</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Allow access to camera to upload captured photos.</string>
+	<string>Allow access to camera to capture photos for your profile picture.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Turning on location service allows us to show you nearby Venues &amp; Events.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -48,9 +46,9 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Turning on location service allows us to show you nearby Venues &amp; Events.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Allow access to photos to upload photos from your library.</string>
+	<string>Allow access to photos library to set and update your profile picture.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow access to photos to upload photos from your library.</string>
+	<string>Allow access to photos library to set and update your profile picture.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
