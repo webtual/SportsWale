@@ -69,13 +69,16 @@ const Register = (props) => {
   const [conditionModal, setConditionModal] = useState(false);
 
   const handleTermsPress = () => {
-    Linking.openURL("https://project.thewebtual.com/sportwale/internal/terms")
+    // Linking.openURL("https://project.thewebtual.com/sportwale/internal/terms")
+    Linking.openURL("https://www.soccersocial.site/terms-conditions")
+    
     // setConditionModal(true);
     // setSelectedSheet("terms");
   };
 
   const handlePrivacyPolicyPress = () => {
-    Linking.openURL("https://project.thewebtual.com/sportwale/internal/privacy")
+    // Linking.openURL("https://project.thewebtual.com/sportwale/internal/privacy")
+    Linking.openURL("https://www.soccersocial.site/privacy-policy")
 
     // setConditionModal(true);
     // setSelectedSheet("privacy");

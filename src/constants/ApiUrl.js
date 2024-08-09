@@ -1,5 +1,10 @@
-export const BASE_URL = "https://project.thewebtual.com:4000/api/v1/";
-export const IMAGE_URL = "https://project.thewebtual.com:4001/";
+
+// export const BASE_URL = 'https://project.thewebtual.com:4000/api/v1/' 
+// export const IMAGE_URL = 'https://project.thewebtual.com:4001/' 
+
+export const BASE_URL = 'https://api.soccersocial.site:4000/api/v1/'
+export const IMAGE_URL = 'https://api.soccersocial.site:4001/'
+
 
 export const CHECK_MOBILE = "auth/check-mobile-number";
 export const SEND_OTP = "auth/sent-otp-on-mobile";

@@ -6,7 +6,6 @@ import axios from "axios";
 import { BEARER_TOKEN, USER_DATA } from '../constants/ConstantKey';
 import { BASE_URL } from "../constants/ApiUrl";
 
-
 const ApiManager = axios.create({
 	baseURL: BASE_URL,
 	headers: {
@@ -15,7 +14,7 @@ const ApiManager = axios.create({
 		// 'Content-Type': 'multipart/form-data',
 		// "Authorization": '',
 	},
-	timeout: 60000
+	timeout: 60000,
 });
 
 /**  Set the AUTH token for any request  */
